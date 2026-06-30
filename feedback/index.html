@@ -185,6 +185,7 @@ select.fb-i{appearance:none;-webkit-appearance:none;background-image:url("data:i
           <button id="fb-submit" type="submit" style="background:#FFB006;color:#08070A;font:600 15.5px/1 'IBM Plex Sans',sans-serif;padding:15px 26px;border:0;border-radius:2px;cursor:pointer">Send feedback</button>
           <span style="color:#6A6A64;font:400 13px/1.5 'IBM Plex Mono',monospace">Goes to Jason as a tracked item. No public posting.</span>
         </div>
+        <p style="color:#6A6A64;font:400 12.5px/1.6 'IBM Plex Sans',sans-serif;margin:16px 0 0">To keep out spam, this form is rate-limited (about 10 submissions a minute).</p>
       </form>
 
       <div id="fb-done" style="display:none;border:1px solid rgba(255,176,6,.4);background:rgba(255,176,6,.05);border-radius:6px;padding:32px clamp(24px,4vw,40px);text-align:center">
@@ -296,6 +297,7 @@ select.fb-i{appearance:none;-webkit-appearance:none;background-image:url("data:i
       message: msg,
       praise: form.praise ? form.praise.value.trim() : "",
       company: form.company ? form.company.value : "",
+      cf_turnstile_token: (form.querySelector('[name="cf-turnstile-response"]')||{}).value || "",
       url: location.href,
       ua: navigator.userAgent
     };
