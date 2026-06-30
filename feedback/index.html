@@ -127,10 +127,6 @@ select.fb-i{appearance:none;-webkit-appearance:none;background-image:url("data:i
             <span class="fb-l">Your name</span>
             <input name="name" type="text" autocomplete="name" placeholder="So Jason knows who to follow up with" class="fb-i">
           </label>
-          <label style="display:block">
-            <span class="fb-l">Team or role <span class="fb-opt">(optional)</span></span>
-            <input name="team" type="text" placeholder="e.g. Sales, Product, Engineering" class="fb-i">
-          </label>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:20px">
           <label style="display:block">
@@ -179,6 +175,10 @@ select.fb-i{appearance:none;-webkit-appearance:none;background-image:url("data:i
         <label style="display:block;margin-top:20px">
           <span class="fb-l">Your feedback</span>
           <textarea name="message" rows="6" required placeholder="What did you notice? Be as specific as you can: the exact text, where on the page, and what you would expect instead." class="fb-i" style="resize:vertical;min-height:130px"></textarea>
+        </label>
+        <label style="display:block;margin-top:20px">
+          <span class="fb-l">Hier ist Platz für Lob :)</span>
+          <textarea name="praise" rows="3" placeholder="Optional. Was hat dir gefallen?" class="fb-i" style="resize:vertical;min-height:80px"></textarea>
         </label>
         <p id="fb-err" role="alert" style="display:none;color:#FF8A8A;font-size:14px;margin:14px 0 0"></p>
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px">
@@ -262,11 +262,11 @@ select.fb-i{appearance:none;-webkit-appearance:none;background-image:url("data:i
     if(msg.length < 3){ fail("Please add a little more detail before sending."); form.message.focus(); return; }
     var payload = {
       name: form.name.value.trim(),
-      team: form.team.value.trim(),
       page: form.page.value,
       type: form.type.value,
       priority: (form.querySelector('input[name=priority]:checked')||{}).value || "Medium",
       message: msg,
+      praise: form.praise ? form.praise.value.trim() : "",
       company: form.company ? form.company.value : "",
       url: location.href,
       ua: navigator.userAgent
