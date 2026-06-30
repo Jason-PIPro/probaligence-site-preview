@@ -240,11 +240,23 @@ select.fb-i{appearance:none;-webkit-appearance:none;background-image:url("data:i
     </div>
   </div>
 </footer>
+<div id="fb-wip-confirm" role="dialog" aria-modal="true" aria-labelledby="fb-wip-h" style="display:none;position:fixed;inset:0;z-index:100000;align-items:center;justify-content:center;padding:24px;background:rgba(4,4,5,.80);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)">
+  <div style="max-width:440px;width:100%;background:#0A0908;border:1px solid rgba(255,176,6,.45);border-top:3px solid #FFB006;border-radius:12px;padding:32px;text-align:center">
+    <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#FFB006;margin-bottom:12px">Heads up</div>
+    <h2 id="fb-wip-h" style="font:700 23px/1.2 'Space Grotesk',sans-serif;color:#F4F3EF;margin:0">This page is still a draft</h2>
+    <p style="margin:14px 0 0;font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:#C9C9C3">You are about to add feedback for <strong id="fb-wip-name" style="color:#F4F3EF">this page</strong>, which is not finished or signed off yet, so the content is still changing. Are you sure you want to continue?</p>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap">
+      <button type="button" data-fb-yes style="background:#FFB006;color:#08070A;font:600 14.5px/1 'IBM Plex Sans',sans-serif;padding:14px 24px;border:0;border-radius:3px;cursor:pointer">Yes, continue</button>
+      <button type="button" data-fb-no style="background:transparent;color:#C9C9C3;border:1px solid rgba(255,255,255,.2);font:600 14.5px/1 'IBM Plex Sans',sans-serif;padding:14px 24px;border-radius:3px;cursor:pointer">Cancel</button>
+    </div>
+  </div>
+</div>
 <script src="../scrollfx.js" defer></script>
 <script src="../site.js" defer></script>
 <script>
 (function(){
   var ENDPOINT = "https://pi-feedback.jason-easaw.workers.dev"; // set during demo build
+  var WIP_PAGES = ["AI for Engineering", "About", "Bayesian Optimization", "Chemical R&D", "Contact", "Home", "How STOCHOS works", "Multi-Fidelity Modeling", "Paint and Coatings", "Resources / News", "STOCHOS", "STOCHOS Flow", "Science overview", "Sensitivity Analysis", "Surrogate Modeling", "Uncertainty Quantification"]; // pages not yet signed off (from signoff.json), set during demo build
   var form = document.getElementById("fb-form");
   var done = document.getElementById("fb-done");
   var err  = document.getElementById("fb-err");
@@ -254,6 +266,22 @@ select.fb-i{appearance:none;-webkit-appearance:none;background-image:url("data:i
     var qp = new URLSearchParams(location.search).get("page");
     if(qp){var sel=form.page; for(var i=0;i<sel.options.length;i++){if(sel.options[i].value.toLowerCase()===qp.toLowerCase()){sel.selectedIndex=i;break;}}}
   }catch(e){}
+  // Warn before adding feedback on a page that is not signed off yet.
+  (function(){
+    var sel = form.page, modal = document.getElementById("fb-wip-confirm");
+    if(!sel || !modal || !WIP_PAGES || !WIP_PAGES.length) return;
+    var lastGood = sel.value;
+    function isWip(v){ for(var i=0;i<WIP_PAGES.length;i++){ if(WIP_PAGES[i]===v) return true; } return false; }
+    if(!isWip(lastGood)) lastGood = lastGood; // keep prefill; only manual changes trigger the warning
+    sel.addEventListener("change", function(){
+      if(isWip(sel.value)){
+        document.getElementById("fb-wip-name").textContent = sel.value;
+        modal.style.display="flex";
+      } else { lastGood = sel.value; }
+    });
+    modal.querySelector("[data-fb-yes]").addEventListener("click", function(){ lastGood = sel.value; modal.style.display="none"; });
+    modal.querySelector("[data-fb-no]").addEventListener("click", function(){ sel.value = lastGood; modal.style.display="none"; });
+  })();
   function fail(msg){ err.textContent = msg; err.style.display="block"; }
   form.addEventListener("submit", function(ev){
     ev.preventDefault();
