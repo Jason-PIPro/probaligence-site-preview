@@ -7,6 +7,7 @@
   --bg:#060607; --bg-warm:#0A0908; --surface:#101012;
   --hairline:rgba(255,255,255,.09); --text:#F4F3EF; --muted:#9C9C96;
   --faint:#6A6A64; --amber:#FFB006; --amber-lt:#FFCA4D;
+  --ease-out:cubic-bezier(.16,.84,.32,1);
 }
 
 /* ---------- header ---------- */
@@ -163,6 +164,26 @@
 html.anim [data-hero-in]{opacity:0!important}
 html.anim [data-hero-in].in,
 html.anim.anim-done [data-hero-in]{opacity:1!important;transition:opacity .5s cubic-bezier(.2,.7,.2,1)}
+/* hero content entrance: smooth CSS keyframe (transform/opacity only), staggered by JS via animation-delay */
+@keyframes pi-hero-in{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+html.anim [data-hero-in].in .pi-hero-item{animation:pi-hero-in .85s var(--ease-out) both;will-change:transform,opacity}
+
+/* ---------- scroll reveals: CSS scroll-driven animation ----------
+   Where supported (Chromium 115+), sections reveal by scrubbing this animation to their
+   scroll position on the compositor thread, which is what makes it buttery. Only transform
+   and opacity animate (no blur, no layout). The JS in site.js covers other browsers. Gated
+   by html.anim, so reduced-motion (no .anim class) leaves content static and visible. */
+@keyframes pi-reveal{from{opacity:0;transform:translateY(54px)}to{opacity:1;transform:none}}
+@supports (animation-timeline:view()){
+  /* applied by site.js to content BLOCKS inside sections (small elements reveal as each
+     scrolls in; a whole tall section would finish revealing before it is in view). */
+  html.anim .pi-rv{
+    animation:pi-reveal both linear;
+    animation-timeline:view();
+    animation-range:entry 4% cover 40%;
+    will-change:transform,opacity;
+  }
+}
 
 /* shared focus visibility */
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,

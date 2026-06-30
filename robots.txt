@@ -1,4 +1,3 @@
+# Internal demo build - do not index.
 User-agent: *
-Allow: /
-
-Sitemap: https://probaligence.com/sitemap.xml
+Disallow: /

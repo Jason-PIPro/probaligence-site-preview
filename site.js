@@ -268,9 +268,12 @@
     if (forced) window.__PIFX_FORCE = true; // scrollfx reads this to animate its figures
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches && !forced;
     if (reduce) return; // leave everything shipped-visible, numbers at final value
-    var EASE = "cubic-bezier(.2,.7,.2,1)";
+    var EASE = "cubic-bezier(.16,.84,.32,1)";            // smooth ease-out
     var vh = window.innerHeight || 800;
     var FOLD = vh * 0.92;
+    // Smoothest path: CSS scroll-driven reveals (compositor, scrubbed to scroll) handle
+    // sections where supported (see site.css). JS only falls back where it is not.
+    var scrollDriven = !!(window.CSS && CSS.supports && CSS.supports("animation-timeline", "view()"));
 
     /* ---- count-up: works for [data-count] AND detected stat numbers; keeps exact final text ---- */
     function countUp(el) {
@@ -304,22 +307,9 @@
       var col = h1 ? h1.parentElement : hero;
       var hk = ec(col);
       if (hk.length < 2 && hk[0]) hk = ec(hk[0]);   // descend if content is wrapped in one child
-      // a pronounced, on-brand entrance: rise + de-blur ("coming into focus") + fade, staggered
-      hk.forEach(function (k) {
-        k.style.opacity = "0";
-        k.style.transform = "translateY(34px)";
-        k.style.filter = "blur(12px)";
-        k.style.transition = "opacity .8s " + EASE + ", transform .95s " + EASE + ", filter .9s " + EASE;
-        k.style.willChange = "opacity, transform, filter";
-      });
-      requestAnimationFrame(function () { requestAnimationFrame(function () {
-        hero.classList.add("in");
-        hk.forEach(function (k, i) {
-          k.style.transitionDelay = (i * 105) + "ms";
-          k.style.opacity = "1"; k.style.transform = "none"; k.style.filter = "none";
-        });
-        setTimeout(function () { hk.forEach(function (k) { k.style.willChange = ""; }); }, 1800);
-      }); });
+      // smooth CSS-keyframe entrance (transform/opacity, defined in site.css), staggered by delay.
+      hk.forEach(function (k, i) { k.classList.add("pi-hero-item"); k.style.animationDelay = (i * 90) + "ms"; });
+      requestAnimationFrame(function () { requestAnimationFrame(function () { hero.classList.add("in"); }); });
     }
 
     var hasIO = "IntersectionObserver" in window;
@@ -346,35 +336,45 @@
       o.observe(el);
     });
 
-    /* ---- scroll reveals (below-fold sections), with a staggered child cascade ---- */
-    if (!hasIO) return; // no observer: leave sections visible
-    function hide(el, y) {
-      el.style.opacity = "0"; el.style.transform = "translateY(" + y + "px)";
-      if (!/opacity/.test(el.style.transition || "")) el.style.transition = "opacity .8s " + EASE + ", transform .8s " + EASE;
+    /* ---- scroll reveals ----
+       Preferred path: CSS scroll-driven animation (site.css), which scrubs smoothly with
+       scroll on the compositor. We apply it to content BLOCKS inside each section rather
+       than the tall section itself (a section taller than the viewport finishes revealing
+       before it is in comfortable view; small blocks reveal as each one scrolls in, like a
+       per-element reveal). JS only falls back to IntersectionObserver where view() is
+       unsupported (Safari/Firefox today). transform + opacity only. */
+    function ec2(n) { return Array.prototype.filter.call(n.children, function (c) { return c.nodeType === 1; }); }
+    function markBlocks(fn) {
+      Array.prototype.forEach.call(document.querySelectorAll("main [data-reveal]:not([data-hero-in])"), function (sec) {
+        var c = sec;
+        for (var i = 0; i < 4; i++) { var k = ec2(c); if (k.length === 1) c = k[0]; else break; } // drill single-child wrappers
+        ec2(c).forEach(function (block) {
+          var bk = ec2(block);
+          if (bk.length >= 2 && bk.length <= 8) bk.forEach(fn);   // a row/grid: reveal each card
+          else fn(block);                                          // a single block: reveal it
+        });
+      });
     }
-    function show(el, delay) { el.style.transitionDelay = (delay || 0) + "ms"; el.style.opacity = "1"; el.style.transform = "none"; }
 
-    var reveals = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]"));
-    reveals.forEach(function (sec) {
-      if (sec.hasAttribute("data-hero-in")) return;   // hero handled above
-      var r = sec.getBoundingClientRect();
-      if (r.top < FOLD) return;                        // at/above fold: leave visible (no flash)
-      hide(sec, 22);
-      var kids = Array.prototype.filter.call(sec.children, function (c) { return c.nodeType === 1; });
-      if (kids.length >= 3 && kids.length <= 10) { sec.__kids = kids; kids.forEach(function (k) { hide(k, 16); }); }
-    });
+    if (scrollDriven) {
+      markBlocks(function (el) { el.classList.add("pi-rv"); });    // CSS view() animation handles the rest
+      return;
+    }
+    if (!hasIO) return;
+    // JS fallback (no view() support): hide blocks below the fold, reveal on intersect
+    function hide(el) {
+      el.style.opacity = "0"; el.style.transform = "translateY(40px)";
+      el.style.transition = "opacity .7s " + EASE + ", transform .8s " + EASE;
+      el.style.willChange = "transform, opacity";
+    }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        var sec = en.target;
-        show(sec, 0);
-        if (sec.__kids) sec.__kids.forEach(function (k, i) { show(k, 80 + i * 70); });
-        io.unobserve(sec);
+        if (en.isIntersecting) { en.target.style.opacity = "1"; en.target.style.transform = "none"; io.unobserve(en.target); }
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    reveals.forEach(function (sec) {
-      if (sec.hasAttribute("data-hero-in")) return;
-      if (sec.getBoundingClientRect().top >= FOLD) io.observe(sec);
+    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+    markBlocks(function (el) {
+      if (el.getBoundingClientRect().top < FOLD) return; // above fold: leave visible
+      hide(el); io.observe(el);
     });
   })();
 
