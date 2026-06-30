@@ -181,11 +181,15 @@ select.fb-i{appearance:none;-webkit-appearance:none;background-image:url("data:i
           <textarea name="praise" rows="3" placeholder="Optional. Was hat dir gefallen?" class="fb-i" style="resize:vertical;min-height:80px"></textarea>
         </label>
         <p id="fb-err" role="alert" style="display:none;color:#FF8A8A;font-size:14px;margin:14px 0 0"></p>
+        <!--TURNSTILE_START-->
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADtcEF4jum4kLyi7" data-theme="dark" style="margin-top:20px"></div>
+        <!--TURNSTILE_END-->
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px">
           <button id="fb-submit" type="submit" style="background:#FFB006;color:#08070A;font:600 15.5px/1 'IBM Plex Sans',sans-serif;padding:15px 26px;border:0;border-radius:2px;cursor:pointer">Send feedback</button>
           <span style="color:#6A6A64;font:400 13px/1.5 'IBM Plex Mono',monospace">Goes to Jason as a tracked item. No public posting.</span>
         </div>
-        <p style="color:#6A6A64;font:400 12.5px/1.6 'IBM Plex Sans',sans-serif;margin:16px 0 0">To keep out spam, this form is rate-limited (about 10 submissions a minute).</p>
+        <p style="color:#6A6A64;font:400 12.5px/1.6 'IBM Plex Sans',sans-serif;margin:16px 0 0">To keep out spam, this form is rate-limited (about 10 submissions a minute) and protected by a Cloudflare Turnstile check.</p>
       </form>
 
       <div id="fb-done" style="display:none;border:1px solid rgba(255,176,6,.4);background:rgba(255,176,6,.05);border-radius:6px;padding:32px clamp(24px,4vw,40px);text-align:center">
