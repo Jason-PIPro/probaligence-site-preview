@@ -70,6 +70,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a role="menuitem" href="../multi-fidelity-modeling/index.html">Multi-Fidelity Modeling</a>
           <a role="menuitem" href="../uncertainty-quantification/index.html">Uncertainty Quantification</a>
           <a role="menuitem" href="../sensitivity-analysis/index.html">Sensitivity Analysis</a>
+          <a role="menuitem" href="../generative-design/index.html">Generative Design</a>
         </div>
       </div>
       <a class="nav-link" href="../news/index.html">Resources</a>
@@ -93,6 +94,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="../multi-fidelity-modeling/index.html">Multi-Fidelity Modeling</a>
       <a class="m-sub" href="../uncertainty-quantification/index.html">Uncertainty Quantification</a>
       <a class="m-sub" href="../sensitivity-analysis/index.html">Sensitivity Analysis</a>
+      <a class="m-sub" href="../generative-design/index.html">Generative Design</a>
       <div class="m-sep"></div>
       <a class="m-item" href="../news/index.html">Resources</a>
       <a class="m-item" href="../about/index.html">About</a>
@@ -126,7 +128,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         </div>
         <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 14px; background: rgb(0, 0, 0); will-change: transform; opacity: 1; transform: translate3d(0px, 0px, 0px); transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.35s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
           <img loading="eager" decoding="async" src="../assets/media/dimgp-uncertainty-chart.png" width="1149" height="1149" alt="A DIM-GP prediction: an amber mean line with one, two, and three sigma confidence bands that stay tight where training data exists and widen where data is sparse." style="display: block; width: 100%; height: auto; border-radius: 2px;">
-          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); margin-top: 12px; padding: 0px 4px;">Confidence narrows where data exists and widens where the model extrapolates.</figcaption>
+          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); margin-top: 12px; padding: 0px 4px;">Confidence narrows with more data and widens with less.</figcaption>
         </figure>
       </div>
     </div>
@@ -145,55 +147,112 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1100px; margin: 0px auto;">
+  <style>
+    .hiw-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:stretch;margin-top:54px}
+    .hiw-box{border:1px solid rgba(255,255,255,.1);border-radius:6px;background:rgb(11,10,9);padding:26px 22px}
+    .hiw-box.on{border-color:rgba(255,176,6,.55);background:linear-gradient(180deg,rgba(255,176,6,.07),rgba(255,176,6,0))}
+    .hiw-eyebrow{font:500 11px/1 &quot;IBM Plex Mono&quot;,monospace;letter-spacing:.18em;text-transform:uppercase;color:rgb(255,176,6);margin-bottom:14px}
+    .hiw-title{font:600 19px/1.2 &quot;Space Grotesk&quot;,sans-serif;color:rgb(244,243,239)}
+    .hiw-desc{color:rgb(156,156,150);font-size:13.5px;line-height:1.55;margin-top:10px}
+    .hiw-arrow{display:flex;align-items:center;justify-content:center;color:rgb(255,176,6);font-size:20px;padding:0 12px}
+    .hiw-down{display:flex;justify-content:center}
+    .hiw-down span{display:block;width:1px;height:40px;background:linear-gradient(rgba(255,176,6,.6),rgba(255,176,6,.25));position:relative}
+    .hiw-down span::after{content:&quot;&quot;;position:absolute;left:-4px;bottom:0;width:9px;height:9px;border-right:1.5px solid rgba(255,176,6,.85);border-bottom:1.5px solid rgba(255,176,6,.85);transform:rotate(45deg)}
+    .dg-under{width:470px;margin:22px 0 0;margin-left:calc(37% - 235px)}
+    .dz4-fig{transform-origin:center top;will-change:transform;border:1px solid rgba(255,255,255,.1);border-radius:6px;background:rgb(0,0,0);padding:16px;margin-top:4px}
+    .dz4-tag{font:500 11.5px/1 &quot;IBM Plex Mono&quot;,monospace;letter-spacing:.14em;text-transform:uppercase;color:rgb(106,106,100);margin-bottom:12px}
+    .dz4-fig img{display:block;width:100%;height:auto;border-radius:2px}
+    @media (max-width:820px){ .hiw-flow{grid-template-columns:1fr} .hiw-arrow{padding:12px 0;transform:rotate(90deg)} .dg-under{width:auto;max-width:470px;margin-left:auto;margin-right:auto} }
+    @media (prefers-reduced-motion:reduce){ .dz4-fig{transform:none!important} }
+  </style>
+  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: linear-gradient(180deg, rgb(6, 6, 7), rgb(10, 9, 8)); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">How it works</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">From your data to the next decision</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">STOCHOS follows one loop. It learns which inputs drive the output, how they interact, and where data is sparse, predicts new cases in seconds, then quantifies where the prediction is reliable and where the next run should go.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; margin-top: 54px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.5);">01</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Your data</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Simulation results, measurements, lab and process data, test records.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.5);">02</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Model learns relationships</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Which inputs drive the output, how they interact, and where data is sparse.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.5);">03</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Predictions in seconds</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Outcomes for variants and operating points you have not evaluated yet.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">04</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Confidence on every output</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">See where the model is reliable and where another run should come next.</p></div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">From your data to the DIM-GP engine</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">STOCHOS runs one loop: your data goes in, the model learns the relationships, and you get fast predictions with a confidence on every output. The model underneath is DIM-GP.</p>
+      <div class="hiw-flow">
+        <div class="hiw-box"><div class="hiw-eyebrow">Start</div><div class="hiw-title">Your data</div><div class="hiw-desc">Simulation results, measurements, lab and process data, test records.</div></div>
+        <div class="hiw-arrow" aria-hidden="true">&rarr;</div>
+        <div class="hiw-box on"><div class="hiw-eyebrow">STOCHOS</div><div class="hiw-title">Learns the relationships</div><div class="hiw-desc">Which inputs drive the output, how they interact, and where data is sparse.</div></div>
+        <div class="hiw-arrow" aria-hidden="true">&rarr;</div>
+        <div class="hiw-box"><div class="hiw-eyebrow">What you get</div><div class="hiw-title">Predictions in seconds</div><div class="hiw-desc">Outcomes for variants and operating points you have not evaluated yet.</div></div>
+        <div class="hiw-arrow" aria-hidden="true">&rarr;</div>
+        <div class="hiw-box"><div class="hiw-eyebrow">Why it matters</div><div class="hiw-title">Confidence on every output</div><div class="hiw-desc">See where the model is reliable and where another run should come next.</div></div>
       </div>
-    </div>
-  </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(40px, 6vw, 72px); align-items: center;">
-      <div style="opacity: 1; transform: none;">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Core algorithm</div>
-        <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">DIM-GP: deep learning with Bayesian uncertainty</h2>
-        <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.65; max-width: 52ch;">A Deep Infinite Mixture of Gaussian Processes. It combines the pattern recognition of deep learning with the uncertainty estimation of Gaussian processes, in one non-stationary probabilistic model, designed for small, noisy datasets with little manual tuning.</p>
-        <ul style="list-style: none; margin: 28px 0px 0px; padding: 0px; display: flex; flex-direction: column; gap: 14px;">
+      <div class="dg-under">
+        <div class="hiw-down" aria-hidden="true"><span></span></div>
+        <div class="dz4-fig">
+          <div class="dz4-tag">The DIM-GP model</div>
+          <img loading="lazy" decoding="async" src="../assets/media/dimgp-diagram.png" width="1536" height="1024" alt="The DIM-GP architecture: a deep neural network and a second network feed learned basis functions into Gaussian process blocks that combine into one probabilistic field prediction." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+        </div>
+      </div>
+
+      <div style="max-width: 820px; margin: 56px auto 0px;">
+        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Core algorithm</div>
+        <h2 style="font: 700 clamp(26px, 3.4vw, 40px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">DIM-GP: deep learning with Bayesian uncertainty</h2>
+        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 68ch;">A Deep Infinite Mixture of Gaussian Processes. It combines the pattern recognition of deep learning with the uncertainty estimation of Gaussian processes, in one non-stationary probabilistic model, designed for small, noisy datasets with little manual tuning.</p>
+        <ul style="list-style: none; margin: 26px 0px 0px; padding: 0px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 13px 32px;">
           <li style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 15px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span>Handles small datasets, noisy measurements, and nonlinear relationships.</li>
           <li style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 15px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span>Shows where a prediction can be trusted and where more data would help.</li>
           <li style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 15px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span>Supports changing geometries, meshes, multi-fidelity data, and field outputs.</li>
           <li style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 15px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span>Reduces manual model tuning and runs on local infrastructure.</li>
         </ul>
-        <a href="../how-stochos-works/index.html" class="scp0" style="display: inline-block; margin-top: 28px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How STOCHOS works: the DIM-GP algorithm →</a>
+        <a href="../how-stochos-works/index.html" class="scp0" style="display: inline-block; margin-top: 28px; color: rgb(255, 176, 6); text-decoration: none; font: 600 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Read the full DIM-GP explanation &rarr;</a>
       </div>
-      <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 16px; background: rgb(0, 0, 0); opacity: 1; transform: none;">
-        <img loading="lazy" decoding="async" src="../assets/media/dimgp-diagram.png" width="1536" height="1024" alt="The DIM-GP architecture: a deep neural network and a second network feed learned basis functions into Gaussian process blocks that combine into one probabilistic field prediction." style="display: block; width: 100%; height: auto; border-radius: 2px;">
-      </figure>
     </div>
+    <script>
+    (function(){
+      var fig=document.querySelector('.dz4-fig'); if(!fig) return;
+      var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+      if(!(window.__PIFX_FORCE||!reduce)) return;
+      function clamp(v,a,b){return v<a?a:v>b?b:v;}
+      function ease(t){return t*t*(3-2*t);}
+      var ticking=false;
+      function upd(){
+        ticking=false;
+        var vh=window.innerHeight||800;
+        var r=fig.getBoundingClientRect();
+        var top=r.top;
+        var p=clamp((vh*0.86-top)/(vh*0.86-vh*0.28),0,1);
+        fig.style.transform='scale('+(0.72+0.28*ease(p)).toFixed(3)+')';
+      }
+      function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(upd);} }
+      window.addEventListener('scroll',onScroll,{passive:true});
+      window.addEventListener('resize',onScroll,{passive:true});
+      upd();
+    })();
+    </script>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Supported data</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Built for real engineering and R&amp;D data</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">Not limited to one table format or one kind of output. One approach covers engineering, chemistry, and formulation problems.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1px; margin-top: 50px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
-        <div style="background: rgb(10, 9, 8); padding: 26px 24px; opacity: 1; transform: none;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Scalar and tabular</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">Material properties, process parameters, recipes, test results.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 26px 24px; opacity: 1; transform: none;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Signals and time series</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">Vibration curves, force-displacement, spectra, process histories.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 26px 24px; opacity: 1; transform: none;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">2D and 3D fields</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">CFD pressure fields, FEM stress maps, temperature distributions.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 26px 24px; opacity: 1; transform: none;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Geometries and point clouds</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">STL inputs, aerodynamic forms, structural components.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 26px 24px; opacity: 1; transform: none;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Images</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">Surface defects, microscopy, coating quality, visual inspection.</p></div>
-      <div style="background: rgb(10, 9, 8); padding: 26px 24px; opacity: 1; transform: none;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Graph and mesh data</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">Nodal stress, FEM mesh predictions, connectivity-aware outputs.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 26px 24px; opacity: 1; transform: none;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Formulations</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">Compositions, raw materials, concentrations, process conditions.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 26px 24px; opacity: 1; transform: none;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Multi-fidelity</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">Cheap simulations, precise tests, and measurements used together.</p></div>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">STOCHOS is not limited to one table format or one kind of output. The same probabilistic approach spans engineering, chemistry, and formulation data, so one method covers problems that usually need several tools.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 48px;">
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0); opacity: 1; transform: none;">
+          <img loading="lazy" decoding="async" src="../assets/media/data/tabular.jpg" alt="A formulation data table: samples with pigment, binder, solvent, viscosity, gloss, and hardness columns." style="display: block; width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+          <div style="padding: 16px 18px 20px;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Scalar and tabular</div><p style="color: rgb(156, 156, 150); font-size: 13px; line-height: 1.5; margin-top: 6px;">Material properties, process parameters, recipes, test results.</p></div>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0); opacity: 1; transform: none;">
+          <img loading="lazy" decoding="async" src="../assets/media/data/signals.jpg" alt="A damped response curve over time with a shaded uncertainty band around it." style="display: block; width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+          <div style="padding: 16px 18px 20px;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Signals and time series</div><p style="color: rgb(156, 156, 150); font-size: 13px; line-height: 1.5; margin-top: 6px;">Vibration curves, force-displacement, spectra, process histories.</p></div>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0); opacity: 1; transform: none;">
+          <img loading="lazy" decoding="async" src="../assets/media/data/fields.jpg" alt="Airflow streamlines over a car body, a CFD flow-field result." style="display: block; width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+          <div style="padding: 16px 18px 20px;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">2D and 3D fields</div><p style="color: rgb(156, 156, 150); font-size: 13px; line-height: 1.5; margin-top: 6px;">CFD pressure fields, FEM stress maps, temperature distributions.</p></div>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0); opacity: 1; transform: none;">
+          <img loading="lazy" decoding="async" src="../assets/media/data/volumes.jpg" alt="A three-dimensional volumetric field rendered inside a bounding grid box." style="display: block; width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+          <div style="padding: 16px 18px 20px;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Geometries and volumes</div><p style="color: rgb(156, 156, 150); font-size: 13px; line-height: 1.5; margin-top: 6px;">STL geometries, point clouds, and 3D volumetric fields.</p></div>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0); opacity: 1; transform: none;">
+          <img loading="lazy" decoding="async" src="../assets/media/data/molecules.jpg" alt="A molecular ball-and-stick structure model." style="display: block; width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+          <div style="padding: 16px 18px 20px;"><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Formulations and chemistry</div><p style="color: rgb(156, 156, 150); font-size: 13px; line-height: 1.5; margin-top: 6px;">Compositions, raw materials, concentrations, molecular structure.</p></div>
+        </div>
       </div>
+      <p style="margin-top: 26px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; max-width: 74ch;">STOCHOS also handles images (surface defects, microscopy, inspection), graph and mesh data, and multi-fidelity data that combines cheap simulations with sparse, precise tests.</p>
     </div>
   </section>
 
@@ -207,20 +266,40 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="../bayesian-optimization/index.html" class="scp3" style="display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: start; padding: 28px 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-decoration: none;"><span style="font: 500 13px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">03</span><span><span style="display: block; font: 600 19px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Bayesian optimization</span><span style="display: block; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.55; margin-top: 8px; max-width: 70ch;">Search for the best design, recipe, or operating point without evaluating every combination. Balances exploration and exploitation, with constraints and multi-objective trade-offs.</span></span><span style="color: rgb(255, 176, 6); font-size: 16px;">→</span></a>
         <a href="../multi-fidelity-modeling/index.html" class="scp3" style="display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: start; padding: 28px 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-decoration: none;"><span style="font: 500 13px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">04</span><span><span style="display: block; font: 600 19px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Multi-fidelity modeling</span><span style="display: block; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.55; margin-top: 8px; max-width: 70ch;">Combine broad, inexpensive simulations with sparse, high-quality tests. Cheap data fills gaps and expensive data anchors accuracy.</span></span><span style="color: rgb(255, 176, 6); font-size: 16px;">→</span></a>
         <a href="../sensitivity-analysis/index.html" class="scp3" style="display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: start; padding: 28px 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-decoration: none;"><span style="font: 500 13px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">05</span><span><span style="display: block; font: 600 19px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Sensitivity analysis</span><span style="display: block; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.55; margin-top: 8px; max-width: 70ch;">Rank the variables that drive the outcome and explain why a design behaved as it did, using Sobol indices, SHAP, distance correlation, and mutual information.</span></span><span style="color: rgb(255, 176, 6); font-size: 16px;">→</span></a>
-        <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; padding: 28px 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);"><span style="font: 500 13px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">06</span><span><span style="display: block; font: 600 19px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Generative design</span><span style="display: block; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.55; margin-top: 8px; max-width: 70ch;">Learn the structure and constraints of existing geometries, create valid variations, predict their performance, and search efficiently with Bayesian optimization through GEN-BO.</span></span></div>
+        <a href="../generative-design/index.html" class="scp3" style="display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: start; padding: 28px 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-decoration: none;"><span style="font: 500 13px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">06</span><span><span style="display: block; font: 600 19px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Generative design</span><span style="display: block; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.55; margin-top: 8px; max-width: 70ch;">Learn the structure and constraints of existing geometries, create valid variations, predict their performance, and search efficiently with Bayesian optimization through GEN-BO.</span></span><span style="color: rgb(255, 176, 6); font-size: 16px;">→</span></a>
       </div>
     </div>
   </section>
 
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Proof</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">Reference cases, not promises</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 68ch;">Results depend on the physics, the data, and the output. In an LS-DYNA crash reference, STOCHOS reproduced 32 crash models across more than 50 time steps and predicted a new case with error below 5 percent, after 21 seconds of training on a CPU. A pin-fin cooling reference predicted temperature and heat flux for a new design in under 5 seconds.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; margin-top: 50px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
-        <div style="background: rgb(10, 9, 8); padding: 34px 28px; opacity: 1; transform: none;"><div style="font: 700 clamp(40px, 5vw, 56px) / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);"><span data-count="32">32</span></div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 14px;">LS-DYNA crash models reproduced across 50+ time steps.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 34px 28px; opacity: 1; transform: none;"><div style="font: 700 clamp(40px, 5vw, 56px) / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">&lt;5<span style="font-size: 0.5em; color: rgb(156, 156, 150);">%</span></div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 14px;">Prediction error on a new case, 21s CPU training.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 34px 28px; opacity: 1; transform: none;"><div style="font: 700 clamp(40px, 5vw, 56px) / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">&lt;5<span style="font-size: 0.5em; color: rgb(156, 156, 150);">s</span></div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 14px;">Pin-fin cooling: temperature and heat flux for a new design.</p></div>
+    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(40px, 6vw, 76px); align-items: center;">
+      <div>
+        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Built as a library</div>
+        <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">A Python library, not a black box</h2>
+        <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.65; max-width: 54ch;">STOCHOS ships as a Python library built on PyTorch. It runs on Windows and Linux, on CPU or GPU, and drops into the tools your team already uses, so modeling, optimization, and analysis become code you can automate, version, and reuse, instead of steps locked inside a closed interface.</p>
+        <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px 30px;">
+          <div><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Fits your stack</div><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 6px;">Sits alongside NumPy, pandas, PyTorch, Jupyter, and your existing PyAnsys and solver scripts.</p></div>
+          <div><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Automatable and reproducible</div><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 6px;">Script parameter sweeps, batch jobs, and validation so results are repeatable and reviewable, not clicked by hand.</p></div>
+          <div><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Full programmatic access</div><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 6px;">Call the whole API, extend it, and wrap it in your own tools. No capability is stuck behind a menu.</p></div>
+          <div><div style="font: 600 15px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Yours to run, and to pair</div><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 6px;">Runs on your own infrastructure, installs offline, and pairs with STOCHOS Flow for a visual, AI-assisted canvas on top.</p></div>
+        </div>
+      </div>
+      <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; background: rgb(0, 0, 0); overflow: hidden;">
+        <div style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255, 255, 255, 0.02);">
+          <span style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.18);"></span>
+          <span style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.12);"></span>
+          <span style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 176, 6, 0.5);"></span>
+          <span style="margin-left: 8px; font: 400 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100);">surrogate.py</span>
+        </div>
+        <pre style="margin: 0px; padding: 22px 20px; overflow-x: auto; font: 400 13.5px / 1.7 &quot;IBM Plex Mono&quot;, monospace; color: rgb(200, 200, 194);"><span style="color: rgb(106, 106, 100);"># train an uncertainty-aware surrogate</span>
+<span style="color: rgb(255, 176, 6);">from</span> stochos.dimgp <span style="color: rgb(255, 176, 6);">import</span> dimgp_regr
+
+model = dimgp_regr()
+model.fit(X_train, Y_train)          <span style="color: rgb(106, 106, 100);"># small, noisy data is fine</span>
+
+<span style="color: rgb(106, 106, 100);"># prediction with a confidence interval</span>
+Y_pred, Y_lower, Y_upper = model.predict(X_new, CI=0.95)</pre>
+        <div style="padding: 0px 20px 16px; font: 400 11.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100);">Real STOCHOS API (dimgp_regr).</div>
       </div>
     </div>
   </section>
@@ -281,6 +360,15 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <span>Official Ansys Technology Partner</span>
           <span>Part of the CADFEM Group</span>
         </div>
+        <div class="footer-social">
+          <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+          </a>
+          <!-- YouTube channel URL pending: replace this span with <a href="CHANNEL_URL" class="social-btn" target="_blank" rel="noopener" aria-label="PI Probaligence on YouTube"> once the channel is live -->
+          <span class="social-btn social-btn--pending" role="link" aria-disabled="true" aria-label="YouTube channel coming soon" title="YouTube (coming soon)">
+            <svg viewBox="0 0 576 512" aria-hidden="true"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+          </span>
+        </div>
       </div>
       <div>
         <h4>Products</h4>
@@ -292,7 +380,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       </div>
       <div>
         <h4>Science</h4>
-        <ul><li><a href="../science/index.html">Science overview</a></li><li><a href="../how-stochos-works/index.html">How STOCHOS works</a></li><li><a href="../surrogate-modeling/index.html">Surrogate Modeling</a></li><li><a href="../bayesian-optimization/index.html">Bayesian Optimization</a></li><li><a href="../uncertainty-quantification/index.html">Uncertainty Quantification</a></li></ul>
+        <ul><li><a href="../science/index.html">Science overview</a></li><li><a href="../how-stochos-works/index.html">How STOCHOS works</a></li><li><a href="../surrogate-modeling/index.html">Surrogate Modeling</a></li><li><a href="../bayesian-optimization/index.html">Bayesian Optimization</a></li><li><a href="../uncertainty-quantification/index.html">Uncertainty Quantification</a></li><li><a href="../generative-design/index.html">Generative Design</a></li></ul>
       </div>
       <div>
         <h4>Company</h4>
@@ -313,15 +401,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <script src="../scrollfx.js" defer></script>
 <script src="../site.js" defer></script>
 <a href="../feedback/?page=STOCHOS" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
-<div id="pi-wip" role="dialog" aria-modal="true" aria-labelledby="pi-wip-h" style="position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(4,4,5,.80);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)">
-  <div style="max-width:460px;width:100%;background:#0A0908;border:1px solid rgba(255,176,6,.45);border-top:3px solid #FFB006;border-radius:12px;padding:34px 32px;box-shadow:0 30px 90px rgba(0,0,0,.65);text-align:center">
-    <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#FFB006;margin-bottom:14px">Work in progress</div>
-    <h2 id="pi-wip-h" style="font:700 26px/1.15 'Space Grotesk',sans-serif;color:#F4F3EF;margin:0">This page is not finished yet</h2>
-    <p style="margin:14px 0 0;font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:#C9C9C3">You are looking at an internal preview. It has not been finished or signed off, so the content here is temporary and may still change. Thanks for taking a look.</p>
-    <button type="button" data-x style="margin-top:26px;background:#FFB006;color:#08070A;font:600 15px/1 'IBM Plex Sans',sans-serif;padding:15px 30px;border:0;border-radius:3px;cursor:pointer">Got it, continue</button>
-  </div>
+<div id="pi-fbready" role="status" aria-live="polite" style="position:fixed;left:22px;bottom:22px;z-index:9997;max-width:min(320px,calc(100vw - 150px));background:#0A0908;border:1px solid rgba(34,197,94,.45);border-left:3px solid #22C55E;border-radius:10px;padding:15px 17px;box-shadow:0 12px 40px rgba(0,0,0,.5)">
+  <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#22C55E;margin-bottom:8px">Preview, feedback welcome</div>
+  <p style="margin:0;font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:#E8E7E2">This page is not final yet, but you can already give feedback using the button on the right.</p>
+  <button type="button" data-x aria-label="Dismiss this notice" style="margin-top:11px;background:transparent;color:#9BE7BC;font:600 13px/1 'IBM Plex Sans',sans-serif;padding:0;border:0;cursor:pointer">Dismiss</button>
 </div>
-<script>(function(){var ov=document.getElementById("pi-wip");if(!ov)return;var h=document.documentElement,prev=h.style.overflow;h.style.overflow="hidden";function close(){ov.style.display="none";h.style.overflow=prev;document.removeEventListener("keydown",onKey);}function onKey(e){if(e.key==="Escape")close();}ov.querySelector("[data-x]").addEventListener("click",close);document.addEventListener("keydown",onKey);var b=ov.querySelector("[data-x]");if(b)b.focus();})();</script>
-<noscript><style>#pi-wip{display:none!important}</style></noscript>
+<script>(function(){var b=document.getElementById("pi-fbready");if(!b)return;try{if(sessionStorage.getItem("pi-fbready-x")){b.style.display="none";return;}}catch(e){}var x=b.querySelector("[data-x]");if(x)x.addEventListener("click",function(){b.style.display="none";try{sessionStorage.setItem("pi-fbready-x","1");}catch(e){}});})();</script>
 </body>
 </html>
