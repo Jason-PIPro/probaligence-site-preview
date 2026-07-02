@@ -1,0 +1,57 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a4a4a"/>
+      <stop offset="100%" style="stop-color:#2a2a2a"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.25"/>
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" rx="6" ry="6" fill="url(#bgGrad)"/>
+  <path d="M0 6 Q0 0 6 0 L58 0 Q64 0 64 6 L64 28 Q32 36 0 28 Z" fill="url(#shine)"/>
+  
+  <!-- K-fold cross-validation iterations -->
+  <!-- Iteration 1 - First fold as test -->
+  <rect x="10" y="11" width="6" height="6" fill="#ff3366" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="16" y="11" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="22" y="11" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="28" y="11" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="34" y="11" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  
+  <!-- Iteration 2 - Second fold as test -->
+  <rect x="10" y="18" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="16" y="18" width="6" height="6" fill="#ff3366" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="22" y="18" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="28" y="18" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="34" y="18" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  
+  <!-- Iteration 3 - Third fold as test -->
+  <rect x="10" y="25" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="16" y="25" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="22" y="25" width="6" height="6" fill="#ff3366" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="28" y="25" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="34" y="25" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  
+  <!-- Iteration 4 - Fourth fold as test -->
+  <rect x="10" y="32" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="16" y="32" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="22" y="32" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="28" y="32" width="6" height="6" fill="#ff3366" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="34" y="32" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  
+  <!-- Iteration 5 - Fifth fold as test -->
+  <rect x="10" y="39" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="16" y="39" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="22" y="39" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="28" y="39" width="6" height="6" fill="#c9890a" opacity="0.4" stroke="#2a2a2a" stroke-width="0.5"/>
+  <rect x="34" y="39" width="6" height="6" fill="#ff3366" stroke="#2a2a2a" stroke-width="0.5"/>
+  
+  <!-- Labels -->
+  <text x="44" y="20" fill="#ff3366" font-size="6" font-family="Arial">Test</text>
+  <text x="44" y="27" fill="#c9890a" font-size="6" font-family="Arial">Train</text>
+  
+  <!-- PAM label -->
+  <text x="32" y="58" fill="#fff" font-size="8" font-family="Arial" font-weight="bold" text-anchor="middle">PAM-REGR</text>
+</svg>

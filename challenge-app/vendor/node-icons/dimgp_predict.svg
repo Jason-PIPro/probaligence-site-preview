@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a4a4a"/>
+      <stop offset="100%" style="stop-color:#2a2a2a"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.25"/>
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+    <clipPath id="ballClip">
+      <circle cx="32" cy="26" r="15.0"/>
+    </clipPath>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" rx="6" ry="6" fill="url(#bgGrad)"/>
+  <path d="M0 6 Q0 0 6 0 L58 0 Q64 0 64 6 L64 28 Q32 36 0 28 Z" fill="url(#shine)"/>
+  <circle cx="32" cy="26" r="18" fill="none" stroke="#ffb006" stroke-width="3.0"/>
+  <g clip-path="url(#ballClip)">
+    <path d="M 21.8 20.1 A 11.8 11.8 0 0 1 36.8 15.2" fill="none" stroke="#ffb006" stroke-width="3.0" stroke-linecap="round"/>
+    <circle cx="21.0" cy="25.0" r="1.7" fill="#ffb006"/>
+    <path d="M 42.0 20.5 L 42.8 22.7 L 45.0 23.5 L 42.8 24.3 L 42.0 26.5 L 41.2 24.3 L 39.0 23.5 L 41.2 22.7 Z" fill="#ffb006"/>
+    <path d="M 44.0 28.6 L 44.7 30.3 L 46.4 31.0 L 44.7 31.7 L 44.0 33.4 L 43.3 31.7 L 41.6 31.0 L 43.3 30.3 Z" fill="#ffb006"/>
+    <path d="M 39.0 33.2 L 39.6 34.4 L 40.8 35.0 L 39.6 35.6 L 39.0 36.8 L 38.4 35.6 L 37.2 35.0 L 38.4 34.4 Z" fill="#ffb006"/>
+  </g>
+  <rect x="15" y="44" width="34" height="7" fill="none" stroke="#ffb006" stroke-width="3.0"/>
+  <rect x="18" y="46.2" width="28" height="3" fill="none" stroke="#ffb006" stroke-width="1.6"/>
+  <path d="M 12 51 L 52 51 L 56 58 L 8 58 Z" fill="none" stroke="#ffb006" stroke-width="3.0" stroke-linejoin="round"/>
+  <line x1="16" y1="55" x2="48" y2="55" stroke="#ffb006" stroke-width="2" stroke-linecap="round"/>
+</svg>

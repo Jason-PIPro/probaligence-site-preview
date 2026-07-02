@@ -1,0 +1,27 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a4a4a"/>
+      <stop offset="100%" style="stop-color:#2a2a2a"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.25"/>
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" rx="6" ry="6" fill="url(#bgGrad)"/>
+  <path d="M0 6 Q0 0 6 0 L58 0 Q64 0 64 6 L64 28 Q32 36 0 28 Z" fill="url(#shine)"/>
+  <text x="32" y="14" fill="#ffb006" font-size="8" font-family="Arial" font-weight="bold" text-anchor="middle">OPT</text>
+  <!-- Convergence curve -->
+  <path d="M10 50 Q20 46 28 38 Q36 30 44 26 Q52 22 56 20" stroke="#b8e986" stroke-width="2.5" fill="none"/>
+  <!-- Iteration points -->
+  <circle cx="14" cy="48" r="2" fill="#ff6b4a"/>
+  <circle cx="24" cy="42" r="2" fill="#ff6b4a"/>
+  <circle cx="34" cy="32" r="2" fill="#ff6b4a"/>
+  <circle cx="44" cy="26" r="2" fill="#ff6b4a"/>
+  <!-- Optimal star -->
+  <polygon points="54,20 56,16 58,20 62,20 59,23 60,27 56,24 52,27 53,23 50,20" fill="#ffeb3b"/>
+  <!-- Arrow showing optimization -->
+  <line x1="10" y1="56" x2="50" y2="56" stroke="#ff9c2a" stroke-width="1.5"/>
+  <polygon points="52,56 48,52 48,60" fill="#ff9c2a"/>
+</svg>

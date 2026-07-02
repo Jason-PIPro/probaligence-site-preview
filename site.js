@@ -15,6 +15,30 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
+  /* ---------- marquee: hover pause + an explicit pause control (WCAG 2.2.2) ----------
+     Covers both variants: the shared .marquee-track and the inline-styled [data-marquee]. */
+  document.querySelectorAll(".marquee-track, [data-marquee]").forEach(function (track) {
+    var host = track.closest("section") || track.parentElement;
+    if (!host || host.querySelector(".marquee-pause")) return;
+    if (getComputedStyle(host).position === "static") host.style.position = "relative";
+    track.addEventListener("mouseenter", function () { if (!track.__pinned) track.style.animationPlayState = "paused"; });
+    track.addEventListener("mouseleave", function () { if (!track.__pinned) track.style.animationPlayState = ""; });
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "marquee-pause";
+    btn.setAttribute("aria-pressed", "false");
+    btn.setAttribute("aria-label", "Pause the logo animation");
+    btn.textContent = "❚❚";
+    btn.addEventListener("click", function () {
+      track.__pinned = !track.__pinned;
+      track.style.animationPlayState = track.__pinned ? "paused" : "";
+      btn.setAttribute("aria-pressed", track.__pinned ? "true" : "false");
+      btn.textContent = track.__pinned ? "▶" : "❚❚";
+      btn.setAttribute("aria-label", track.__pinned ? "Resume the logo animation" : "Pause the logo animation");
+    });
+    host.appendChild(btn);
+  });
+
   /* ---------- active link highlight ---------- */
   (function () {
     var path = location.pathname.replace(/index\.html$/, "");

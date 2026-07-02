@@ -6,7 +6,7 @@
 :root{
   --bg:#060607; --bg-warm:#0A0908; --surface:#101012;
   --hairline:rgba(255,255,255,.09); --text:#F4F3EF; --muted:#9C9C96;
-  --faint:#6A6A64; --amber:#FFB006; --amber-lt:#FFCA4D;
+  --faint:#82827C; --amber:#FFB006; --amber-lt:#FFCA4D;
   --ease-out:cubic-bezier(.16,.84,.32,1);
 }
 
@@ -197,3 +197,12 @@ html.anim [data-hero-in].in .pi-hero-item{animation:pi-hero-in .85s var(--ease-o
 /* shared focus visibility */
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,
 [tabindex]:focus-visible{outline:2px solid var(--amber-lt);outline-offset:2px;border-radius:2px}
+
+/* reduced motion: smooth scrolling off too (animations are handled per page) */
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* marquee pause control (WCAG 2.2.2: moving content must be pausable, hover alone is not enough) */
+.marquee-pause{position:absolute;right:14px;bottom:10px;z-index:2;width:34px;height:34px;border:1px solid var(--hairline);
+  border-radius:50%;background:rgba(16,16,18,.8);color:var(--muted);font-size:11px;line-height:1;cursor:pointer}
+.marquee-pause:hover{color:var(--text);border-color:rgba(255,255,255,.3)}
+@media (prefers-reduced-motion:reduce){.marquee-pause{display:none}}

@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},1600);}}catch(e){}</script>
+<script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
 <title>AI for Chemical Process and Formulation R&amp;D | PI Probaligence</title><meta name="description" content="Optimize chemical experiments, formulation, process, and scale-up with machine learning. Fewer runs, quantified uncertainty, local execution."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/ai-for-chemical-process-optimization/"><meta property="og:type" content="website"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="AI for Chemical Process and Formulation R&amp;D | PI Probaligence"><meta property="og:description" content="Optimize chemical experiments, formulation, process, and scale-up with machine learning. Fewer runs, quantified uncertainty, local execution."><meta property="og:url" content="https://probaligence.com/ai-for-chemical-process-optimization/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"Chemical R&D","item":"https://probaligence.com/ai-for-chemical-process-optimization/"}]}
 </script><style>
-@font-face{font-family:'Space Grotesk';src:url('../assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
-@font-face{font-family:'Space Grotesk';src:url('../assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('../assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('../assets/fonts/ibm-plex-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('../assets/fonts/ibm-plex-sans-600.woff2') format('woff2');font-weight:600;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('../assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('../assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('/assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-600.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -25,10 +27,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="../site.css">
-<link rel="icon" href="../assets/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
-<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/site.css">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta name="theme-color" content="#060607">
 <noscript><style>@media(max-width:960px){.nav-toggle{display:none}.mobile-panel{max-height:none!important;opacity:1!important;overflow:visible!important;border-bottom:1px solid rgba(255,255,255,.08)}}[data-uc-body]{max-height:none!important;opacity:1!important;display:block!important}</style></noscript>
 </head>
@@ -36,64 +38,64 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <header class="site-header" role="banner">
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
-    <a href="../index.html" class="brand" aria-label="PI Probaligence home">
-      <img src="../assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+    <a href="/" class="brand" aria-label="PI Probaligence home">
+      <img src="/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
       <span>Probaligence</span>
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
     <nav class="nav" aria-label="Primary">
-      <a class="nav-link" href="../stochos/index.html">STOCHOS</a>
-      <a class="nav-link" href="../stochos-flow/index.html">STOCHOS&nbsp;Flow</a>
+      <a class="nav-link" href="/stochos/">STOCHOS</a>
+      <a class="nav-link" href="/stochos-flow/">STOCHOS&nbsp;Flow</a>
       <div class="has-menu">
-        <button type="button" class="nav-link nav-trigger" aria-haspopup="true" aria-expanded="false">Solutions <span class="caret" aria-hidden="true">&#9662;</span></button>
-        <div class="submenu" role="menu">
-          <a role="menuitem" href="../ai-for-engineering/index.html"><b>AI for Engineering</b><span>Accelerate CFD, FEM, and CAE</span></a>
-          <a role="menuitem" href="../paint-coating/index.html"><b>Paint and Coatings</b><span>Target formulation, fewer trials</span></a>
-          <a role="menuitem" href="index.html"><b>Chemical R&amp;D</b><span>Smarter experiments and scale-up</span></a>
+        <button type="button" class="nav-link nav-trigger" aria-expanded="false">Solutions <span class="caret" aria-hidden="true">&#9662;</span></button>
+        <div class="submenu">
+          <a href="/ai-for-engineering/"><b>AI for Engineering</b><span>Accelerate CFD, FEM, and CAE</span></a>
+          <a href="/paint-coating/"><b>Paint and Coatings</b><span>Target formulation, fewer trials</span></a>
+          <a href="/ai-for-chemical-process-optimization/"><b>Chemical R&amp;D</b><span>Smarter experiments and scale-up</span></a>
         </div>
       </div>
       <div class="has-menu">
-        <button type="button" class="nav-link nav-trigger" aria-haspopup="true" aria-expanded="false">Science <span class="caret" aria-hidden="true">&#9662;</span></button>
-        <div class="submenu" role="menu">
-          <a role="menuitem" href="../science/index.html"><b>Science overview</b></a>
-          <a role="menuitem" href="../how-stochos-works/index.html"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
+        <button type="button" class="nav-link nav-trigger" aria-expanded="false">Science <span class="caret" aria-hidden="true">&#9662;</span></button>
+        <div class="submenu">
+          <a href="/science/"><b>Science overview</b></a>
+          <a href="/how-stochos-works/"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
           <div class="sep"></div>
-          <a role="menuitem" href="../surrogate-modeling/index.html">Surrogate Modeling</a>
-          <a role="menuitem" href="../bayesian-optimization/index.html">Bayesian Optimization</a>
-          <a role="menuitem" href="../multi-fidelity-modeling/index.html">Multi-Fidelity Modeling</a>
-          <a role="menuitem" href="../uncertainty-quantification/index.html">Uncertainty Quantification</a>
-          <a role="menuitem" href="../sensitivity-analysis/index.html">Sensitivity Analysis</a>
-          <a role="menuitem" href="../generative-design/index.html">Generative Design</a>
+          <a href="/surrogate-modeling/">Surrogate Modeling</a>
+          <a href="/bayesian-optimization/">Bayesian Optimization</a>
+          <a href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+          <a href="/uncertainty-quantification/">Uncertainty Quantification</a>
+          <a href="/sensitivity-analysis/">Sensitivity Analysis</a>
+          <a href="/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="../news/index.html">Resources</a>
-      <a class="nav-link" href="../about/index.html">About</a>
-      <a class="nav-cta" href="../contact/index.html">Request a Demo</a>
+      <a class="nav-link" href="/news/">Resources</a>
+      <a class="nav-link" href="/about/">About</a>
+      <a class="nav-cta" href="/contact/">Request a Demo</a>
     </nav>
   </div>
   <div class="mobile-panel" id="mobile-nav">
     <nav aria-label="Mobile">
-      <a class="m-item" href="../stochos/index.html">STOCHOS</a>
-      <a class="m-item" href="../stochos-flow/index.html">STOCHOS Flow</a>
+      <a class="m-item" href="/stochos/">STOCHOS</a>
+      <a class="m-item" href="/stochos-flow/">STOCHOS Flow</a>
       <div class="m-label">Solutions</div>
-      <a class="m-sub" href="../ai-for-engineering/index.html">AI for Engineering</a>
-      <a class="m-sub" href="../paint-coating/index.html">Paint and Coatings</a>
-      <a class="m-sub" href="index.html">Chemical R&amp;D</a>
+      <a class="m-sub" href="/ai-for-engineering/">AI for Engineering</a>
+      <a class="m-sub" href="/paint-coating/">Paint and Coatings</a>
+      <a class="m-sub" href="/ai-for-chemical-process-optimization/">Chemical R&amp;D</a>
       <div class="m-label">Science</div>
-      <a class="m-sub" href="../science/index.html">Science overview</a>
-      <a class="m-sub" href="../how-stochos-works/index.html">How STOCHOS works</a>
-      <a class="m-sub" href="../surrogate-modeling/index.html">Surrogate Modeling</a>
-      <a class="m-sub" href="../bayesian-optimization/index.html">Bayesian Optimization</a>
-      <a class="m-sub" href="../multi-fidelity-modeling/index.html">Multi-Fidelity Modeling</a>
-      <a class="m-sub" href="../uncertainty-quantification/index.html">Uncertainty Quantification</a>
-      <a class="m-sub" href="../sensitivity-analysis/index.html">Sensitivity Analysis</a>
-      <a class="m-sub" href="../generative-design/index.html">Generative Design</a>
+      <a class="m-sub" href="/science/">Science overview</a>
+      <a class="m-sub" href="/how-stochos-works/">How STOCHOS works</a>
+      <a class="m-sub" href="/surrogate-modeling/">Surrogate Modeling</a>
+      <a class="m-sub" href="/bayesian-optimization/">Bayesian Optimization</a>
+      <a class="m-sub" href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+      <a class="m-sub" href="/uncertainty-quantification/">Uncertainty Quantification</a>
+      <a class="m-sub" href="/sensitivity-analysis/">Sensitivity Analysis</a>
+      <a class="m-sub" href="/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="../news/index.html">Resources</a>
-      <a class="m-item" href="../about/index.html">About</a>
-      <a class="nav-cta" href="../contact/index.html">Request a Demo</a>
+      <a class="m-item" href="/news/">Resources</a>
+      <a class="m-item" href="/about/">About</a>
+      <a class="nav-cta" href="/contact/">Request a Demo</a>
     </nav>
   </div>
 </header>
@@ -102,19 +104,19 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-hero-in style="position: relative; padding: 124px 24px 80px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
     <div aria-hidden="true" style="position: absolute; top: -15%; left: -8%; width: 720px; height: 560px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.1), transparent 64%); pointer-events: none;"></div>
     <div style="max-width: 1280px; margin: 0px auto; position: relative;">
-      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); margin-bottom: 40px;"><a href="../index.html" class="scp0" style="color: rgb(106, 106, 100); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">Chemical R&amp;D</span></nav>
+      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-bottom: 40px;"><a href="/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">Chemical R&amp;D</span></nav>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: clamp(40px, 6vw, 72px); align-items: center;">
         <div>
           <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Solution / Chemical R&amp;D</div>
           <h1 style="font: 700 clamp(36px, 5.2vw, 62px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 15ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Plan</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">smarter</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">experiments.</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Reduce</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">scale-up</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">risk.</span></span></h1>
           <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS learns from the results you already have, predicts outcomes for untested conditions with quantified uncertainty, and proposes the next experiment to run. Multi-fidelity modeling links small-scale and full-scale data to cut the number of expensive runs.</p>
           <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-            <a href="../contact/index.html" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
+            <a href="/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
             <a href="#loop" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">See the experiment loop</a>
           </div>
         </div>
         <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 24px; background: rgb(10, 9, 8); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-          <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 16px;">Multi-fidelity scale-up</div>
+          <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Multi-fidelity scale-up</div>
           <svg viewBox="0 0 520 320" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;">
             <text x="20" y="48" fill="#9C9C96" font-family="'IBM Plex Mono',monospace" font-size="12">LAB</text>
             <line x1="20" y1="60" x2="500" y2="60" stroke="rgba(255,255,255,.08)"></line>
@@ -129,7 +131,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <rect x="150" y="262" width="220" height="40" rx="3" fill="rgba(255,176,6,.08)" stroke="rgba(255,176,6,.4)" style="transform-origin: left center; transform: none;"></rect>
             <text x="260" y="287" text-anchor="middle" fill="#F4F3EF" font-family="'Space Grotesk',sans-serif" font-size="14" font-weight="600">One DIM-GP model</text>
           </svg>
-          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); margin-top: 8px;">Cheap lab data fills the space; sparse production data anchors accuracy.</figcaption>
+          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 8px;">Cheap lab data fills the space; sparse production data anchors accuracy.</figcaption>
         </figure>
       </div>
     </div>
@@ -159,7 +161,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.5);">03</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Next-best experiment</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Bayesian optimization proposes the run that learns the most toward the target.</p></div>
         <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">04</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Adapt</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Each result updates the model and refines the next recommendation.</p></div>
       </div>
-      <div style="display: flex; align-items: center; gap: 10px; margin-top: 18px; color: rgb(106, 106, 100); font: 400 12.5px / 1 &quot;IBM Plex Mono&quot;, monospace;"><span style="flex: 0 0 auto; color: rgb(255, 176, 6);">↶</span> Each result feeds back. The search adapts toward the target.</div>
+      <div style="display: flex; align-items: center; gap: 10px; margin-top: 18px; color: rgb(130, 130, 124); font: 400 12.5px / 1 &quot;IBM Plex Mono&quot;, monospace;"><span style="flex: 0 0 auto; color: rgb(255, 176, 6);">↶</span> Each result feeds back. The search adapts toward the target.</div>
     </div>
   </section>
 
@@ -169,13 +171,13 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Process optimization</div>
         <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Yield, quality, and cost together</h2>
         <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Process targets compete: higher yield can raise cost or affect quality. STOCHOS uses multi-objective Bayesian optimization to balance them and shows the trade-off rather than fixing one target at a time. Sensitivity analysis ranks which parameters drive each outcome.</p>
-        <a href="../sensitivity-analysis/index.html" class="scp0" style="display: inline-block; margin-top: 20px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How sensitivity analysis works →</a>
+        <a href="/sensitivity-analysis/" class="scp0" style="display: inline-block; margin-top: 20px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How sensitivity analysis works →</a>
       </div>
       <div style="opacity: 1; transform: none;">
         <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Scale-up</div>
         <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Connect lab, pilot, and production data</h2>
         <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Lab, pilot, and plant data differ in cost and accuracy. Multi-fidelity modeling combines them in one model: cheap, broad lab data fills the space, and sparse, expensive production data anchors accuracy, reducing the number of large-scale runs.</p>
-        <a href="../multi-fidelity-modeling/index.html" class="scp0" style="display: inline-block; margin-top: 20px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How multi-fidelity modeling works →</a>
+        <a href="/multi-fidelity-modeling/" class="scp0" style="display: inline-block; margin-top: 20px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How multi-fidelity modeling works →</a>
       </div>
     </div>
   </section>
@@ -206,11 +208,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <div style="padding: 2px 24px 30px;">
               <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
                 <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">+6.2<span style="font-size: 0.4em; color: rgb(156, 156, 150);"> pts</span></div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); max-width: 30ch; padding-bottom: 4px;">yield over the incumbent, reached in about 23 runs not ~150</div>
+                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">yield over the incumbent, reached in about 23 runs not ~150</div>
               </div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
                 <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 12px;">Best-so-far yield against runs</div>
+                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Best-so-far yield against runs</div>
                   <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="44" x2="442" y2="44" stroke="#FFB006" stroke-dasharray="6 5" opacity=".5"></line><text x="438" y="38" text-anchor="end" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">target</text><path d="M44 178 C160 120 320 90 436 82" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.4" stroke-dasharray="5 4"></path><path d="M44 178 C100 100 150 60 250 52 C320 48 380 48 436 48" fill="none" stroke="#FFB006" stroke-width="2.2" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><circle cx="232" cy="52" r="4.5" fill="#000" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="196" y="44" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">adaptive</text><text x="320" y="106" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">grid</text><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">yield</text><text x="440" y="214" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">runs</text></svg>
                 </figure>
                 <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
@@ -218,10 +220,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
                   <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS predicts yield, selectivity, and cost with confidence, chooses the next run adaptively, and ranks the drivers, so the campaign produces understanding, not just a recipe.</p></div>
                 </div>
               </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">a real gain</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">in yield, in far fewer runs</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">selectivity</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">held in spec along the way</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">drivers ranked</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">for transfer to production</div></div></div></div>
+              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">a real gain</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">in yield, in far fewer runs</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">selectivity</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">held in spec along the way</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">drivers ranked</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">for transfer to production</div></div></div></div>
               <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
                 <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If you have a handful of runs and a process worth improving, bring them.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="../contact/index.html" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="../contact/index.html" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
               </div>
             </div>
           </div>
@@ -238,11 +240,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <div style="padding: 2px 24px 30px;">
               <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
                 <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">1.8%</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); max-width: 30ch; padding-bottom: 4px;">of the first qualified plant batch, predicted before it ran</div>
+                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">of the first qualified plant batch, predicted before it ran</div>
               </div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
                 <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 12px;">Lab, pilot, plant, fused</div>
+                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Lab, pilot, plant, fused</div>
                   <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><path d="M44 150 C150 112 280 82 436 60 L436 86 C280 108 150 138 44 176 Z" fill="rgba(255,176,6,.12)" style="transform-origin: center center; transform: none;"></path><path d="M44 164 C150 124 280 84 436 73" fill="none" stroke="#FFB006" stroke-width="2" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><circle cx="78" cy="158" r="2" fill="#6A6A64"></circle><circle cx="110" cy="150" r="2" fill="#6A6A64"></circle><circle cx="140" cy="146" r="2" fill="#6A6A64"></circle><circle cx="172" cy="138" r="2" fill="#6A6A64"></circle><circle cx="206" cy="130" r="2" fill="#6A6A64"></circle><circle cx="120" cy="138" r="4" fill="rgba(255,176,6,.55)"></circle><circle cx="240" cy="116" r="4" fill="rgba(255,176,6,.55)"></circle><circle cx="320" cy="100" r="4" fill="rgba(255,176,6,.55)"></circle><circle cx="300" cy="92" r="4.6" fill="#000" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="412" cy="74" r="4.6" fill="#FFB006" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="78" y="190" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="10.5">lab</text><text x="232" y="138" fill="#9C9C96" font-family="'IBM Plex Mono',monospace" font-size="10.5">pilot</text><text x="372" y="70" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="10.5">plant</text></svg>
                 </figure>
                 <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
@@ -250,10 +252,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
                   <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Multi-fidelity combines lab, pilot, and plant data in one model, predicts plant-scale yield with uncertainty, picks the few pilot runs worth doing, and flags windows too risky to commit a batch.</p></div>
                 </div>
               </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">within a couple %</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">of the first qualified batch</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">half or fewer</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">pilot runs to get there</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">failures caught</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">before the batch runs</div></div></div></div>
+              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">within a couple %</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">of the first qualified batch</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">half or fewer</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">pilot runs to get there</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">failures caught</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">before the batch runs</div></div></div></div>
               <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
                 <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If scale-up keeps surprising you at the plant, bring your lab, pilot, and plant data.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="../contact/index.html" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="../contact/index.html" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
               </div>
             </div>
           </div>
@@ -270,11 +272,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <div style="padding: 2px 24px 30px;">
               <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
                 <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">120<span style="font-size: 0.4em; color: rgb(156, 156, 150);"> /day</span></div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); max-width: 30ch; padding-bottom: 4px;">informative samples a day, up from about forty</div>
+                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">informative samples a day, up from about forty</div>
               </div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
                 <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 12px;">Informative samples per day</div>
+                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Informative samples per day</div>
                   <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="160" x2="442" y2="160" stroke="rgba(255,255,255,.08)"></line><text x="48" y="156" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="10.5">40</text><path d="M44 160 H124 V134 H204 V104 H284 V68 H364 V40 H442 V196 H44 Z" fill="rgba(255,176,6,.13)" style="transform-origin: center center; transform: none;"></path><polyline points="44,160 124,160 124,134 204,134 204,104 284,104 284,68 364,68 364,40 442,40" fill="none" stroke="#FFB006" stroke-width="2.2"></polyline><text x="438" y="34" text-anchor="end" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">120</text><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">samples/day</text><text x="440" y="214" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">weeks</text></svg>
                 </figure>
                 <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
@@ -282,10 +284,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
                   <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">A surrogate predicts the property across the space and proposes each plate, the line doses, and results feed back, looping at hardware speed with expert-level accuracy, run as a small local web app.</p></div>
                 </div>
               </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">throughput up</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">sharply, without new hardware</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">planning hours</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">cut by about half</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">expert-level</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">accuracy held</div></div></div></div>
+              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">throughput up</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">sharply, without new hardware</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">planning hours</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">cut by about half</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">expert-level</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">accuracy held</div></div></div></div>
               <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
                 <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If your screening line waits on manual planning, bring your assay and a slice of past plates.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="../contact/index.html" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="../contact/index.html" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
               </div>
             </div>
           </div>
@@ -302,11 +304,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <div style="padding: 2px 24px 30px;">
               <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
                 <div style="font: 500 clamp(34px, 4vw, 48px) / 0.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">mapped</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); max-width: 30ch; padding-bottom: 4px;">the cost and quality frontier mapped, not a single fixed recipe</div>
+                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">the cost and quality frontier mapped, not a single fixed recipe</div>
               </div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
                 <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 12px;">Trade-off frontier</div>
+                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Trade-off frontier</div>
                   <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><path d="M70 60 Q 150 96 230 132 T 430 196" fill="none" stroke="#FFB006" stroke-width="2.2" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><g fill="#5C5C56"><circle cx="160" cy="80" r="3"></circle><circle cx="240" cy="96" r="3"></circle><circle cx="320" cy="120" r="3"></circle><circle cx="300" cy="86" r="3"></circle><circle cx="380" cy="150" r="3"></circle><circle cx="360" cy="110" r="3"></circle></g><circle cx="230" cy="132" r="5" fill="rgba(255,176,6,.2)" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="238" y="128" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">chosen</text><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">quality</text><text x="440" y="210" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">cost</text></svg>
                 </figure>
                 <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
@@ -314,10 +316,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
                   <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS predicts every property of a composition at once and uses multi-objective optimization to map the trade-off frontier, so the team picks a point knowing exactly what each option costs the others.</p></div>
                 </div>
               </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">frontier mapped</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">not one take-it-or-leave-it recipe</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">all properties</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">predicted together</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">fewer trials</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">to a compliant mixture</div></div></div></div>
+              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">frontier mapped</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">not one take-it-or-leave-it recipe</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">all properties</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">predicted together</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">fewer trials</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">to a compliant mixture</div></div></div></div>
               <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
                 <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If a mixture has to satisfy competing targets, bring the components, the targets, and your data.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="../contact/index.html" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="../contact/index.html" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
               </div>
             </div>
           </div>
@@ -334,11 +336,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <div style="padding: 2px 24px 30px;">
               <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
                 <div style="font: 500 clamp(34px, 4vw, 48px) / 0.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">early</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); max-width: 30ch; padding-bottom: 4px;">a warning ahead of failure, with the confidence to act on it</div>
+                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">a warning ahead of failure, with the confidence to act on it</div>
               </div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
                 <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 12px;">Health signal toward threshold</div>
+                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Health signal toward threshold</div>
                   <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="50" x2="442" y2="50" stroke="#FFB006" stroke-dasharray="6 5" opacity=".6"></line><text x="438" y="44" text-anchor="end" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">failure threshold</text><polyline points="44,170 110,166 176,156 242,140 300,118" fill="none" stroke="#FFB006" stroke-width="2.2"></polyline><path d="M300 118 C340 96 380 70 430 54 L430 78 C384 92 344 116 300 134 Z" fill="rgba(255,176,6,.13)" style="transform-origin: center center; transform: none;"></path><path d="M300 118 C340 96 380 70 430 60" fill="none" stroke="#FFB006" stroke-width="1.6" stroke-dasharray="4 3" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><circle cx="424" cy="56" r="4.2" fill="#000" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="356" y="150" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">predicted</text><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">health</text></svg>
                 </figure>
                 <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
@@ -346,10 +348,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
                   <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS models the equipment health signal and predicts how far it is from the failure threshold, with a confidence band, so maintenance is scheduled on condition rather than on the calendar.</p></div>
                 </div>
               </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">condition-based</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">maintenance, not calendar-based</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">confidence band</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">on time to threshold</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">downtime</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">and over-servicing both cut</div></div></div></div>
+              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">condition-based</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">maintenance, not calendar-based</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">confidence band</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">on time to threshold</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">downtime</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">and over-servicing both cut</div></div></div></div>
               <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
                 <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If unplanned downtime hurts, bring sensor histories and the failures you have on record.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="../contact/index.html" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="../contact/index.html" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
               </div>
             </div>
           </div>
@@ -366,11 +368,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <div style="padding: 2px 24px 30px;">
               <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
                 <div style="font: 500 clamp(34px, 4vw, 48px) / 0.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">flagged</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); max-width: 30ch; padding-bottom: 4px;">off-spec product caught early, with fewer false rejects</div>
+                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">off-spec product caught early, with fewer false rejects</div>
               </div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
                 <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 12px;">Normal range and flagged outliers</div>
+                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Normal range and flagged outliers</div>
                   <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><ellipse cx="220" cy="112" rx="120" ry="74" fill="rgba(255,176,6,.05)" stroke="#FFB006" stroke-dasharray="6 5" stroke-opacity=".5"></ellipse><g fill="#5C5C56"><circle cx="180" cy="90" r="2.6"></circle><circle cx="220" cy="80" r="2.6"></circle><circle cx="250" cy="110" r="2.6"></circle><circle cx="200" cy="130" r="2.6"></circle><circle cx="240" cy="140" r="2.6"></circle><circle cx="170" cy="120" r="2.6"></circle><circle cx="270" cy="92" r="2.6"></circle><circle cx="210" cy="104" r="2.6"></circle><circle cx="235" cy="120" r="2.6"></circle></g><circle cx="372" cy="60" r="4.6" fill="rgba(255,176,6,.2)" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="396" cy="168" r="4.6" fill="rgba(255,176,6,.2)" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="150" y="200" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">normal range</text><text x="392" y="48" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">flagged</text></svg>
                 </figure>
                 <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
@@ -378,10 +380,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
                   <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS learns what normal looks like from process and measurement data and flags points that fall outside it, with a confidence on each call, so review focuses on the batches that actually need a look.</p></div>
                 </div>
               </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">anomalies</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">flagged from process data</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">fewer false rejects</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">than fixed limits</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">review</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">focused where it counts</div></div></div></div>
+              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">anomalies</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">flagged from process data</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">fewer false rejects</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">than fixed limits</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">review</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">focused where it counts</div></div></div></div>
               <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
                 <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If batch release is a manual bottleneck, bring a slice of process measurements with known outcomes.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="../contact/index.html" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="../contact/index.html" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
               </div>
             </div>
           </div>
@@ -409,22 +411,22 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Bring one process or experiment plan</h2>
       <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 56ch;">Share the targets, the variables you can change, the constraints, and the data you already have. We can outline where STOCHOS fits and what a first proof of concept could look like.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
-        <a href="../contact/index.html" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-        <a href="../contact/index.html" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Discuss a use case</a>
+        <a href="/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
+        <a href="/contact/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Discuss a use case</a>
       </div>
     </div>
   </section></main>
 <section class="logo-marquee" aria-label="Partners, customers and research collaborators">
   <div class="label">Partners, customers, and research collaborators</div>
   <div class="marquee-mask">
-    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="../assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/bmwk.png" alt="BMWK" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="../assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/bmwk.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span></div></div>
+    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="/assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bmwk.png" alt="BMWK" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="/assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bmwk.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span></div></div>
   </div>
 </section>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="../index.html" class="brand"><img src="../assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
+        <a href="/" class="brand"><img src="/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
           <span>Official Ansys Technology Partner</span>
@@ -442,34 +444,34 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       </div>
       <div>
         <h4>Products</h4>
-        <ul><li><a href="../stochos/index.html">STOCHOS</a></li><li><a href="../stochos-flow/index.html">STOCHOS Flow</a></li></ul>
+        <ul><li><a href="/stochos/">STOCHOS</a></li><li><a href="/stochos-flow/">STOCHOS Flow</a></li></ul>
       </div>
       <div>
         <h4>Solutions</h4>
-        <ul><li><a href="../ai-for-engineering/index.html">AI for Engineering</a></li><li><a href="../paint-coating/index.html">Paint and Coatings</a></li><li><a href="index.html">Chemical R&amp;D</a></li></ul>
+        <ul><li><a href="/ai-for-engineering/">AI for Engineering</a></li><li><a href="/paint-coating/">Paint and Coatings</a></li><li><a href="/ai-for-chemical-process-optimization/">Chemical R&amp;D</a></li></ul>
       </div>
       <div>
         <h4>Science</h4>
-        <ul><li><a href="../science/index.html">Science overview</a></li><li><a href="../how-stochos-works/index.html">How STOCHOS works</a></li><li><a href="../surrogate-modeling/index.html">Surrogate Modeling</a></li><li><a href="../bayesian-optimization/index.html">Bayesian Optimization</a></li><li><a href="../uncertainty-quantification/index.html">Uncertainty Quantification</a></li><li><a href="../generative-design/index.html">Generative Design</a></li></ul>
+        <ul><li><a href="/science/">Science overview</a></li><li><a href="/how-stochos-works/">How STOCHOS works</a></li><li><a href="/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/generative-design/">Generative Design</a></li></ul>
       </div>
       <div>
         <h4>Company</h4>
-        <ul><li><a href="../about/index.html">About</a></li><li><a href="../news/index.html">News and Guides</a></li><li><a href="../contact/index.html">Contact</a></li><li><a class="amber" href="../contact/index.html">Request a Demo</a></li></ul>
+        <ul><li><a href="/about/">About</a></li><li><a href="/news/">News and Guides</a></li><li><a href="/contact/">Contact</a></li><li><a class="amber" href="/contact/">Request a Demo</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span class="copy">&copy; <span data-year>2026</span> PI Probaligence GmbH</span>
       <span class="legal">
-        <a href="../impressum/index.html">Impressum</a>
-        <a href="../datenschutz/index.html">Datenschutz</a>
-        <a href="../cookies/index.html">Cookies</a>
+        <a href="/impressum/">Impressum</a>
+        <a href="/datenschutz/">Datenschutz</a>
+        <a href="/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>
   </div>
 </footer>
-<script src="../scrollfx.js" defer></script>
-<script src="../site.js" defer></script>
+<script src="/scrollfx.js" defer></script>
+<script src="/site.js" defer></script>
 <a href="../feedback/?page=Chemical%20R%26D" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 <div id="pi-wip" role="dialog" aria-modal="true" aria-labelledby="pi-wip-h" style="position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(4,4,5,.80);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)">
   <div style="max-width:460px;width:100%;background:#0A0908;border:1px solid rgba(255,176,6,.45);border-top:3px solid #FFB006;border-radius:12px;padding:34px 32px;box-shadow:0 30px 90px rgba(0,0,0,.65);text-align:center">

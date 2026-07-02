@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a4a4a"/>
+      <stop offset="100%" style="stop-color:#2a2a2a"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.25"/>
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" rx="6" ry="6" fill="url(#bgGrad)"/>
+  <path d="M0 6 Q0 0 6 0 L58 0 Q64 0 64 6 L64 28 Q32 36 0 28 Z" fill="url(#shine)"/>
+  <!-- File shape with warm amber fill and folded corner -->
+  <path d="M10 8 L38 8 L46 16 L46 56 L10 56 Z" fill="#c9890a" stroke="#a06800" stroke-width="2"/>
+  <path d="M38 8 L38 16 L46 16" fill="#ffb006" stroke="#a06800" stroke-width="2"/>
+  <!-- Data lines on file -->
+  <line x1="16" y1="22" x2="40" y2="22" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="16" y1="28" x2="36" y2="28" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="16" y1="34" x2="38" y2="34" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="16" y1="40" x2="34" y2="40" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <!-- AI sparkle / star -->
+  <g transform="translate(50,14)">
+    <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill="#ffd54f" stroke="#ffb300" stroke-width="0.5"/>
+  </g>
+  <g transform="translate(54,36) scale(0.5)">
+    <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill="#ffd54f" stroke="#ffb300" stroke-width="0.5"/>
+  </g>
+  <g transform="translate(42,46) scale(0.4)">
+    <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill="#ffd54f" stroke="#ffb300" stroke-width="0.5"/>
+  </g>
+  <!-- AI label -->
+  <rect x="10" y="46" width="30" height="10" rx="2" fill="#7a4e00" stroke="#5a3800" stroke-width="1"/>
+  <text x="25" y="54" fill="#ffffff" font-size="7.5" font-weight="bold" text-anchor="middle" font-family="sans-serif">AI Load</text>
+</svg>

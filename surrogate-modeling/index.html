@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},1600);}}catch(e){}</script>
+<script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
 <title>What Are AI Surrogate Models? | PI Probaligence</title><meta name="description" content="A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/surrogate-modeling/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="What Are AI Surrogate Models? | PI Probaligence"><meta property="og:description" content="A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them."><meta property="og:url" content="https://probaligence.com/surrogate-modeling/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"What are AI surrogate models?","description":"A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://probaligence.com/surrogate-modeling/"}
 </script><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"Surrogate Modeling","item":"https://probaligence.com/surrogate-modeling/"}]}
 </script><style>
-@font-face{font-family:'Space Grotesk';src:url('../assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
-@font-face{font-family:'Space Grotesk';src:url('../assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('../assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('../assets/fonts/ibm-plex-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('../assets/fonts/ibm-plex-sans-600.woff2') format('woff2');font-weight:600;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('../assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('../assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('/assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-600.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -27,10 +29,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="../site.css">
-<link rel="icon" href="../assets/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
-<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/site.css">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta name="theme-color" content="#060607">
 <noscript><style>@media(max-width:960px){.nav-toggle{display:none}.mobile-panel{max-height:none!important;opacity:1!important;overflow:visible!important;border-bottom:1px solid rgba(255,255,255,.08)}}[data-uc-body]{max-height:none!important;opacity:1!important;display:block!important}</style></noscript>
 </head>
@@ -38,64 +40,64 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <header class="site-header" role="banner">
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
-    <a href="../index.html" class="brand" aria-label="PI Probaligence home">
-      <img src="../assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+    <a href="/" class="brand" aria-label="PI Probaligence home">
+      <img src="/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
       <span>Probaligence</span>
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
     <nav class="nav" aria-label="Primary">
-      <a class="nav-link" href="../stochos/index.html">STOCHOS</a>
-      <a class="nav-link" href="../stochos-flow/index.html">STOCHOS&nbsp;Flow</a>
+      <a class="nav-link" href="/stochos/">STOCHOS</a>
+      <a class="nav-link" href="/stochos-flow/">STOCHOS&nbsp;Flow</a>
       <div class="has-menu">
-        <button type="button" class="nav-link nav-trigger" aria-haspopup="true" aria-expanded="false">Solutions <span class="caret" aria-hidden="true">&#9662;</span></button>
-        <div class="submenu" role="menu">
-          <a role="menuitem" href="../ai-for-engineering/index.html"><b>AI for Engineering</b><span>Accelerate CFD, FEM, and CAE</span></a>
-          <a role="menuitem" href="../paint-coating/index.html"><b>Paint and Coatings</b><span>Target formulation, fewer trials</span></a>
-          <a role="menuitem" href="../ai-for-chemical-process-optimization/index.html"><b>Chemical R&amp;D</b><span>Smarter experiments and scale-up</span></a>
+        <button type="button" class="nav-link nav-trigger" aria-expanded="false">Solutions <span class="caret" aria-hidden="true">&#9662;</span></button>
+        <div class="submenu">
+          <a href="/ai-for-engineering/"><b>AI for Engineering</b><span>Accelerate CFD, FEM, and CAE</span></a>
+          <a href="/paint-coating/"><b>Paint and Coatings</b><span>Target formulation, fewer trials</span></a>
+          <a href="/ai-for-chemical-process-optimization/"><b>Chemical R&amp;D</b><span>Smarter experiments and scale-up</span></a>
         </div>
       </div>
       <div class="has-menu">
-        <button type="button" class="nav-link nav-trigger" aria-haspopup="true" aria-expanded="false">Science <span class="caret" aria-hidden="true">&#9662;</span></button>
-        <div class="submenu" role="menu">
-          <a role="menuitem" href="../science/index.html"><b>Science overview</b></a>
-          <a role="menuitem" href="../how-stochos-works/index.html"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
+        <button type="button" class="nav-link nav-trigger" aria-expanded="false">Science <span class="caret" aria-hidden="true">&#9662;</span></button>
+        <div class="submenu">
+          <a href="/science/"><b>Science overview</b></a>
+          <a href="/how-stochos-works/"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
           <div class="sep"></div>
-          <a role="menuitem" href="index.html">Surrogate Modeling</a>
-          <a role="menuitem" href="../bayesian-optimization/index.html">Bayesian Optimization</a>
-          <a role="menuitem" href="../multi-fidelity-modeling/index.html">Multi-Fidelity Modeling</a>
-          <a role="menuitem" href="../uncertainty-quantification/index.html">Uncertainty Quantification</a>
-          <a role="menuitem" href="../sensitivity-analysis/index.html">Sensitivity Analysis</a>
-          <a role="menuitem" href="../generative-design/index.html">Generative Design</a>
+          <a href="/surrogate-modeling/">Surrogate Modeling</a>
+          <a href="/bayesian-optimization/">Bayesian Optimization</a>
+          <a href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+          <a href="/uncertainty-quantification/">Uncertainty Quantification</a>
+          <a href="/sensitivity-analysis/">Sensitivity Analysis</a>
+          <a href="/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="../news/index.html">Resources</a>
-      <a class="nav-link" href="../about/index.html">About</a>
-      <a class="nav-cta" href="../contact/index.html">Request a Demo</a>
+      <a class="nav-link" href="/news/">Resources</a>
+      <a class="nav-link" href="/about/">About</a>
+      <a class="nav-cta" href="/contact/">Request a Demo</a>
     </nav>
   </div>
   <div class="mobile-panel" id="mobile-nav">
     <nav aria-label="Mobile">
-      <a class="m-item" href="../stochos/index.html">STOCHOS</a>
-      <a class="m-item" href="../stochos-flow/index.html">STOCHOS Flow</a>
+      <a class="m-item" href="/stochos/">STOCHOS</a>
+      <a class="m-item" href="/stochos-flow/">STOCHOS Flow</a>
       <div class="m-label">Solutions</div>
-      <a class="m-sub" href="../ai-for-engineering/index.html">AI for Engineering</a>
-      <a class="m-sub" href="../paint-coating/index.html">Paint and Coatings</a>
-      <a class="m-sub" href="../ai-for-chemical-process-optimization/index.html">Chemical R&amp;D</a>
+      <a class="m-sub" href="/ai-for-engineering/">AI for Engineering</a>
+      <a class="m-sub" href="/paint-coating/">Paint and Coatings</a>
+      <a class="m-sub" href="/ai-for-chemical-process-optimization/">Chemical R&amp;D</a>
       <div class="m-label">Science</div>
-      <a class="m-sub" href="../science/index.html">Science overview</a>
-      <a class="m-sub" href="../how-stochos-works/index.html">How STOCHOS works</a>
-      <a class="m-sub" href="index.html">Surrogate Modeling</a>
-      <a class="m-sub" href="../bayesian-optimization/index.html">Bayesian Optimization</a>
-      <a class="m-sub" href="../multi-fidelity-modeling/index.html">Multi-Fidelity Modeling</a>
-      <a class="m-sub" href="../uncertainty-quantification/index.html">Uncertainty Quantification</a>
-      <a class="m-sub" href="../sensitivity-analysis/index.html">Sensitivity Analysis</a>
-      <a class="m-sub" href="../generative-design/index.html">Generative Design</a>
+      <a class="m-sub" href="/science/">Science overview</a>
+      <a class="m-sub" href="/how-stochos-works/">How STOCHOS works</a>
+      <a class="m-sub" href="/surrogate-modeling/">Surrogate Modeling</a>
+      <a class="m-sub" href="/bayesian-optimization/">Bayesian Optimization</a>
+      <a class="m-sub" href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+      <a class="m-sub" href="/uncertainty-quantification/">Uncertainty Quantification</a>
+      <a class="m-sub" href="/sensitivity-analysis/">Sensitivity Analysis</a>
+      <a class="m-sub" href="/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="../news/index.html">Resources</a>
-      <a class="m-item" href="../about/index.html">About</a>
-      <a class="nav-cta" href="../contact/index.html">Request a Demo</a>
+      <a class="m-item" href="/news/">Resources</a>
+      <a class="m-item" href="/about/">About</a>
+      <a class="nav-cta" href="/contact/">Request a Demo</a>
     </nav>
   </div>
 </header>
@@ -104,19 +106,19 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-hero-in style="position: relative; padding: 124px 24px 80px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
     <div aria-hidden="true" style="position: absolute; top: -14%; right: -6%; width: 740px; height: 540px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.1), transparent 64%); pointer-events: none;"></div>
     <div style="max-width: 1280px; margin: 0px auto; position: relative;">
-      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); margin-bottom: 40px;"><a href="../index.html" class="scp0" style="color: rgb(106, 106, 100); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <a href="../science/index.html" class="scp0" style="color: rgb(106, 106, 100); text-decoration: none;">Science</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">Surrogate Modeling</span></nav>
+      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-bottom: 40px;"><a href="/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <a href="/science/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Science</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">Surrogate Modeling</span></nav>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: clamp(40px, 6vw, 72px); align-items: center;">
         <div>
           <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Method</div>
           <h1 style="font: 700 clamp(36px, 5.2vw, 62px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 14ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">What</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">are</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">AI</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">surrogate</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">models?</span></span></h1>
           <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">A surrogate model is a fast, data-driven approximation of an expensive simulation or experiment. It learns the relationship between inputs and outputs from data you already have, then predicts results for new variants in seconds. STOCHOS builds surrogate models that also report how far to trust each prediction.</p>
           <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-            <a href="../contact/index.html" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-            <a href="../stochos/index.html" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
+            <a href="/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
+            <a href="/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
           </div>
         </div>
         <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 24px; background: rgb(10, 9, 8); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-          <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(106, 106, 100); margin-bottom: 14px;">A learned shortcut</div>
+          <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 14px;">A learned shortcut</div>
           <svg viewBox="0 0 520 320" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;">
             <line x1="46" y1="36" x2="46" y2="276" stroke="rgba(255,255,255,.16)"></line>
             <line x1="46" y1="276" x2="496" y2="276" stroke="rgba(255,255,255,.16)"></line>
@@ -132,7 +134,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <text x="492" y="298" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="12">input</text>
             <text x="300" y="58" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="12">surrogate</text>
           </svg>
-          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); margin-top: 8px;">Points are expensive evaluations; the curve answers new inputs in seconds.</figcaption>
+          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 8px;">Points are expensive evaluations; the curve answers new inputs in seconds.</figcaption>
         </figure>
       </div>
     </div>
@@ -146,7 +148,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       </div>
       <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding: 48px 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
         <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">02</span>
-        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">How STOCHOS builds surrogate models</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">STOCHOS uses DIM-GP, a Deep Infinite Mixture of Gaussian Processes built for small, noisy datasets, changing geometries, and multi-fidelity data. It learns the input-output relationship and returns a prediction with quantified uncertainty, so reliable interpolation is separated from risky extrapolation. It handles scalars, fields, geometries, and meshes, not just flat tables.</p><a href="../how-stochos-works/index.html" class="scp0" style="display: inline-block; margin-top: 16px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How the DIM-GP algorithm works →</a></div>
+        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">How STOCHOS builds surrogate models</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">STOCHOS uses DIM-GP, a Deep Infinite Mixture of Gaussian Processes built for small, noisy datasets, changing geometries, and multi-fidelity data. It learns the input-output relationship and returns a prediction with quantified uncertainty, so reliable interpolation is separated from risky extrapolation. It handles scalars, fields, geometries, and meshes, not just flat tables.</p><a href="/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 16px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How the DIM-GP algorithm works →</a></div>
       </div>
       <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding-top: 48px;">
         <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">03</span>
@@ -166,8 +168,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">A new crash case in about 20 seconds</h2>
       <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 68ch;">In an LS-DYNA crash reference example, STOCHOS reproduced 32 crash models across more than 50 time steps and predicted a new case with error below 5 percent, after 21 seconds of training on a CPU. The full solver still validates the promising candidates; the surrogate makes exploring the rest affordable.</p>
       <figure style="margin: 40px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0);">
-        <img loading="lazy" decoding="async" src="../assets/media/field-prediction-clean.png" width="1467" height="648" alt="A surrogate-model prediction: from an input surface geometry the model predicts the full volumetric field in seconds, shown as a coloured volume grid next to the input surface." style="display: block; width: 100%; height: auto;">
-        <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); padding: 14px 18px; border-top: 1px solid rgba(255, 255, 255, 0.07);">A surrogate model predicts the full field for a new design in seconds, no re-solve required.</figcaption>
+        <img loading="lazy" decoding="async" src="/assets/media/field-prediction-clean.webp" width="1467" height="648" alt="A surrogate-model prediction: from an input surface geometry the model predicts the full volumetric field in seconds, shown as a coloured volume grid next to the input surface." style="display: block; width: 100%; height: auto;">
+        <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); padding: 14px 18px; border-top: 1px solid rgba(255, 255, 255, 0.07);">A surrogate model predicts the full field for a new design in seconds, no re-solve required.</figcaption>
       </figure>
     </div>
   </section>
@@ -181,10 +183,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <details style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);"><summary style="cursor: pointer; list-style: none; padding: 24px 0px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); display: flex; justify-content: space-between; gap: 16px;">How much data does a surrogate model need?<span style="color: rgb(255, 176, 6); font-weight: 400;">+</span></summary><p style="color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.65; padding: 0px 0px 24px; max-width: 72ch;">It depends on the problem, but STOCHOS is built for small, expensive datasets rather than large ones. The DIM-GP approach is designed for tens of samples, noisy measurements, and multi-fidelity data, and it reports where confidence is low so you can add data where it helps most.</p></details>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px;">
-        <a href="../uncertainty-quantification/index.html" class="scp3" style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 15px; font-size: 13.5px; color: rgb(200, 200, 194); text-decoration: none;">Uncertainty Quantification</a>
-        <a href="../bayesian-optimization/index.html" class="scp3" style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 15px; font-size: 13.5px; color: rgb(200, 200, 194); text-decoration: none;">Bayesian Optimization</a>
-        <a href="../ai-for-engineering/index.html" class="scp3" style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 15px; font-size: 13.5px; color: rgb(200, 200, 194); text-decoration: none;">AI for Engineering</a>
-        <a href="../stochos/index.html" class="scp3" style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 15px; font-size: 13.5px; color: rgb(200, 200, 194); text-decoration: none;">STOCHOS</a>
+        <a href="/uncertainty-quantification/" class="scp3" style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 15px; font-size: 13.5px; color: rgb(200, 200, 194); text-decoration: none;">Uncertainty Quantification</a>
+        <a href="/bayesian-optimization/" class="scp3" style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 15px; font-size: 13.5px; color: rgb(200, 200, 194); text-decoration: none;">Bayesian Optimization</a>
+        <a href="/ai-for-engineering/" class="scp3" style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 15px; font-size: 13.5px; color: rgb(200, 200, 194); text-decoration: none;">AI for Engineering</a>
+        <a href="/stochos/" class="scp3" style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 15px; font-size: 13.5px; color: rgb(200, 200, 194); text-decoration: none;">STOCHOS</a>
       </div>
     </div>
   </section>
@@ -195,22 +197,22 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See the method on your data</h2>
       <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 50ch;">Request a demo and we will show STOCHOS and STOCHOS Flow on a problem close to yours.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
-        <a href="../contact/index.html" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-        <a href="../stochos/index.html" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
+        <a href="/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
+        <a href="/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
       </div>
     </div>
   </section></main>
 <section class="logo-marquee" aria-label="Partners, customers and research collaborators">
   <div class="label">Partners, customers, and research collaborators</div>
   <div class="marquee-mask">
-    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="../assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/bmwk.png" alt="BMWK" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="../assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/bmwk.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="../assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span></div></div>
+    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="/assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bmwk.png" alt="BMWK" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="/assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bmwk.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span></div></div>
   </div>
 </section>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="../index.html" class="brand"><img src="../assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
+        <a href="/" class="brand"><img src="/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
           <span>Official Ansys Technology Partner</span>
@@ -228,34 +230,34 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       </div>
       <div>
         <h4>Products</h4>
-        <ul><li><a href="../stochos/index.html">STOCHOS</a></li><li><a href="../stochos-flow/index.html">STOCHOS Flow</a></li></ul>
+        <ul><li><a href="/stochos/">STOCHOS</a></li><li><a href="/stochos-flow/">STOCHOS Flow</a></li></ul>
       </div>
       <div>
         <h4>Solutions</h4>
-        <ul><li><a href="../ai-for-engineering/index.html">AI for Engineering</a></li><li><a href="../paint-coating/index.html">Paint and Coatings</a></li><li><a href="../ai-for-chemical-process-optimization/index.html">Chemical R&amp;D</a></li></ul>
+        <ul><li><a href="/ai-for-engineering/">AI for Engineering</a></li><li><a href="/paint-coating/">Paint and Coatings</a></li><li><a href="/ai-for-chemical-process-optimization/">Chemical R&amp;D</a></li></ul>
       </div>
       <div>
         <h4>Science</h4>
-        <ul><li><a href="../science/index.html">Science overview</a></li><li><a href="../how-stochos-works/index.html">How STOCHOS works</a></li><li><a href="index.html">Surrogate Modeling</a></li><li><a href="../bayesian-optimization/index.html">Bayesian Optimization</a></li><li><a href="../uncertainty-quantification/index.html">Uncertainty Quantification</a></li><li><a href="../generative-design/index.html">Generative Design</a></li></ul>
+        <ul><li><a href="/science/">Science overview</a></li><li><a href="/how-stochos-works/">How STOCHOS works</a></li><li><a href="/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/generative-design/">Generative Design</a></li></ul>
       </div>
       <div>
         <h4>Company</h4>
-        <ul><li><a href="../about/index.html">About</a></li><li><a href="../news/index.html">News and Guides</a></li><li><a href="../contact/index.html">Contact</a></li><li><a class="amber" href="../contact/index.html">Request a Demo</a></li></ul>
+        <ul><li><a href="/about/">About</a></li><li><a href="/news/">News and Guides</a></li><li><a href="/contact/">Contact</a></li><li><a class="amber" href="/contact/">Request a Demo</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span class="copy">&copy; <span data-year>2026</span> PI Probaligence GmbH</span>
       <span class="legal">
-        <a href="../impressum/index.html">Impressum</a>
-        <a href="../datenschutz/index.html">Datenschutz</a>
-        <a href="../cookies/index.html">Cookies</a>
+        <a href="/impressum/">Impressum</a>
+        <a href="/datenschutz/">Datenschutz</a>
+        <a href="/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>
   </div>
 </footer>
-<script src="../scrollfx.js" defer></script>
-<script src="../site.js" defer></script>
+<script src="/scrollfx.js" defer></script>
+<script src="/site.js" defer></script>
 <a href="../feedback/?page=Surrogate%20Modeling" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 <div id="pi-wip" role="dialog" aria-modal="true" aria-labelledby="pi-wip-h" style="position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(4,4,5,.80);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)">
   <div style="max-width:460px;width:100%;background:#0A0908;border:1px solid rgba(255,176,6,.45);border-top:3px solid #FFB006;border-radius:12px;padding:34px 32px;box-shadow:0 30px 90px rgba(0,0,0,.65);text-align:center">
