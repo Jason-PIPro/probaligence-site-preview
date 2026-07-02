@@ -4,17 +4,17 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
 <title>Beat STOCHOS: the interactive challenge | PI Probaligence</title><meta name="description" content="Try to beat STOCHOS at a real engineering or R&amp;D use case, then let it solve the same problem. An interactive demo running a real DIM-GP model in your browser."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/challenge/"><meta property="og:type" content="website"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Beat STOCHOS: the interactive challenge"><meta property="og:description" content="Pick a use case, find the best settings by hand, then let STOCHOS take the same problem. A real DIM-GP model, live in your browser."><meta property="og:url" content="https://probaligence.com/challenge/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><style>
-@font-face{font-family:'Space Grotesk';src:url('/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
-@font-face{font-family:'Space Grotesk';src:url('/assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-600.woff2') format('woff2');font-weight:600;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-600.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -24,10 +24,10 @@ h1,h2,h3,p{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="/site.css">
-<link rel="icon" href="/assets/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css">
+<link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/probaligence-site-preview/assets/apple-touch-icon.png">
 <meta name="theme-color" content="#060607">
 <noscript><style>@media(max-width:960px){.nav-toggle{display:none}.mobile-panel{max-height:none!important;opacity:1!important;overflow:visible!important;border-bottom:1px solid rgba(255,255,255,.08)}}[data-uc-body]{max-height:none!important;opacity:1!important;display:block!important}</style></noscript>
 </head>
@@ -35,64 +35,64 @@ h1,h2,h3,p{margin:0}
 <header class="site-header" role="banner">
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
-    <a href="/" class="brand" aria-label="PI Probaligence home">
-      <img src="/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+    <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
+      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
       <span>Probaligence</span>
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
     <nav class="nav" aria-label="Primary">
-      <a class="nav-link" href="/stochos/">STOCHOS</a>
-      <a class="nav-link" href="/stochos-flow/">STOCHOS&nbsp;Flow</a>
+      <a class="nav-link" href="/probaligence-site-preview/stochos/">STOCHOS</a>
+      <a class="nav-link" href="/probaligence-site-preview/stochos-flow/">STOCHOS&nbsp;Flow</a>
       <div class="has-menu">
         <button type="button" class="nav-link nav-trigger" aria-expanded="false">Solutions <span class="caret" aria-hidden="true">&#9662;</span></button>
         <div class="submenu">
-          <a href="/ai-for-engineering/"><b>AI for Engineering</b><span>Accelerate CFD, FEM, and CAE</span></a>
-          <a href="/paint-coating/"><b>Paint and Coatings</b><span>Target formulation, fewer trials</span></a>
-          <a href="/ai-for-chemical-process-optimization/"><b>Chemical R&amp;D</b><span>Smarter experiments and scale-up</span></a>
+          <a href="/probaligence-site-preview/ai-for-engineering/"><b>AI for Engineering</b><span>Accelerate CFD, FEM, and CAE</span></a>
+          <a href="/probaligence-site-preview/paint-coating/"><b>Paint and Coatings</b><span>Target formulation, fewer trials</span></a>
+          <a href="/probaligence-site-preview/ai-for-chemical-process-optimization/"><b>Chemical R&amp;D</b><span>Smarter experiments and scale-up</span></a>
         </div>
       </div>
       <div class="has-menu">
         <button type="button" class="nav-link nav-trigger" aria-expanded="false">Science <span class="caret" aria-hidden="true">&#9662;</span></button>
         <div class="submenu">
-          <a href="/science/"><b>Science overview</b></a>
-          <a href="/how-stochos-works/"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
+          <a href="/probaligence-site-preview/science/"><b>Science overview</b></a>
+          <a href="/probaligence-site-preview/how-stochos-works/"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
           <div class="sep"></div>
-          <a href="/surrogate-modeling/">Surrogate Modeling</a>
-          <a href="/bayesian-optimization/">Bayesian Optimization</a>
-          <a href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
-          <a href="/uncertainty-quantification/">Uncertainty Quantification</a>
-          <a href="/sensitivity-analysis/">Sensitivity Analysis</a>
-          <a href="/generative-design/">Generative Design</a>
+          <a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a>
+          <a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a>
+          <a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+          <a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a>
+          <a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
+          <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/news/">Resources</a>
-      <a class="nav-link" href="/about/">About</a>
-      <a class="nav-cta" href="/contact/">Request a Demo</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">Resources</a>
+      <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
+      <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
     </nav>
   </div>
   <div class="mobile-panel" id="mobile-nav">
     <nav aria-label="Mobile">
-      <a class="m-item" href="/stochos/">STOCHOS</a>
-      <a class="m-item" href="/stochos-flow/">STOCHOS Flow</a>
+      <a class="m-item" href="/probaligence-site-preview/stochos/">STOCHOS</a>
+      <a class="m-item" href="/probaligence-site-preview/stochos-flow/">STOCHOS Flow</a>
       <div class="m-label">Solutions</div>
-      <a class="m-sub" href="/ai-for-engineering/">AI for Engineering</a>
-      <a class="m-sub" href="/paint-coating/">Paint and Coatings</a>
-      <a class="m-sub" href="/ai-for-chemical-process-optimization/">Chemical R&amp;D</a>
+      <a class="m-sub" href="/probaligence-site-preview/ai-for-engineering/">AI for Engineering</a>
+      <a class="m-sub" href="/probaligence-site-preview/paint-coating/">Paint and Coatings</a>
+      <a class="m-sub" href="/probaligence-site-preview/ai-for-chemical-process-optimization/">Chemical R&amp;D</a>
       <div class="m-label">Science</div>
-      <a class="m-sub" href="/science/">Science overview</a>
-      <a class="m-sub" href="/how-stochos-works/">How STOCHOS works</a>
-      <a class="m-sub" href="/surrogate-modeling/">Surrogate Modeling</a>
-      <a class="m-sub" href="/bayesian-optimization/">Bayesian Optimization</a>
-      <a class="m-sub" href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
-      <a class="m-sub" href="/uncertainty-quantification/">Uncertainty Quantification</a>
-      <a class="m-sub" href="/sensitivity-analysis/">Sensitivity Analysis</a>
-      <a class="m-sub" href="/generative-design/">Generative Design</a>
+      <a class="m-sub" href="/probaligence-site-preview/science/">Science overview</a>
+      <a class="m-sub" href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a>
+      <a class="m-sub" href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a>
+      <a class="m-sub" href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a>
+      <a class="m-sub" href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+      <a class="m-sub" href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a>
+      <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
+      <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/news/">Resources</a>
-      <a class="m-item" href="/about/">About</a>
-      <a class="nav-cta" href="/contact/">Request a Demo</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">Resources</a>
+      <a class="m-item" href="/probaligence-site-preview/about/">About</a>
+      <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
     </nav>
   </div>
 </header>
@@ -100,19 +100,19 @@ h1,h2,h3,p{margin:0}
   <section data-hero-in style="position:relative; padding:132px 24px 92px; overflow:hidden; border-bottom:1px solid rgba(255,255,255,0.07);">
     <div aria-hidden="true" style="position:absolute; top:-12%; left:50%; transform:translateX(-50%); width:1100px; height:560px; max-width:120vw; background:radial-gradient(rgba(255,176,6,0.10), transparent 62%); pointer-events:none; filter:blur(6px);"></div>
     <div style="max-width:1120px; margin:0 auto; position:relative;">
-      <nav aria-label="Breadcrumb" style="font:400 13px/1 'IBM Plex Mono',monospace; color:rgb(130,130,124); margin-bottom:34px;"><a href="/" style="color:rgb(130,130,124); text-decoration:none;">Home</a> <span style="color:rgb(58,58,56);">/</span> <span style="color:rgb(156,156,150);">Live demo</span></nav>
+      <nav aria-label="Breadcrumb" style="font:400 13px/1 'IBM Plex Mono',monospace; color:rgb(130,130,124); margin-bottom:34px;"><a href="/probaligence-site-preview/" style="color:rgb(130,130,124); text-decoration:none;">Home</a> <span style="color:rgb(58,58,56);">/</span> <span style="color:rgb(156,156,150);">Live demo</span></nav>
       <div style="font:500 12px/1 'IBM Plex Mono',monospace; letter-spacing:0.18em; text-transform:uppercase; color:rgb(255,176,6); margin-bottom:20px;">Interactive demo</div>
       <h1 style="font:700 clamp(38px,6vw,74px)/1.04 'Space Grotesk',sans-serif; letter-spacing:-0.025em; margin:0; max-width:16ch;">Don't just read about STOCHOS. <span style="color:rgb(255,176,6);">Try to beat it.</span></h1>
       <p style="margin-top:24px; color:rgb(184,184,178); font-size:clamp(16px,1.5vw,18.5px); line-height:1.65; max-width:60ch;">Pick a use case, find the best settings by hand over a few tries, then let STOCHOS take the same problem. Closest to optimal wins, then you build the workflow that did it. Three use cases, about two minutes each, running a real DIM-GP model live in your browser.</p>
       <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:34px;">
-        <a href="/challenge-app/#/challenge" style="background:rgb(255,176,6); color:rgb(8,7,10); font:600 15.5px/1 'IBM Plex Sans',sans-serif; padding:16px 28px; border-radius:2px; text-decoration:none;">Launch the challenge &rarr;</a>
-        <a href="/challenge-app/#/" style="border:1px solid rgba(255,255,255,0.2); color:rgb(244,243,239); font:600 15.5px/1 'IBM Plex Sans',sans-serif; padding:16px 28px; border-radius:2px; text-decoration:none;">Explore all demonstrators</a>
+        <a href="/probaligence-site-preview/challenge-app/#/challenge" style="background:rgb(255,176,6); color:rgb(8,7,10); font:600 15.5px/1 'IBM Plex Sans',sans-serif; padding:16px 28px; border-radius:2px; text-decoration:none;">Launch the challenge &rarr;</a>
+        <a href="/probaligence-site-preview/challenge-app/#/" style="border:1px solid rgba(255,255,255,0.2); color:rgb(244,243,239); font:600 15.5px/1 'IBM Plex Sans',sans-serif; padding:16px 28px; border-radius:2px; text-decoration:none;">Explore all demonstrators</a>
       </div>
       <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
         <span style="font:500 12px/1 'IBM Plex Mono',monospace; letter-spacing:0.1em; text-transform:uppercase; color:rgb(130,130,124); margin-right:4px;">Jump in:</span>
-        <a href="/challenge-app/#/challenge" style="font:500 13.5px/1 'IBM Plex Sans',sans-serif; color:rgb(224,224,218); text-decoration:none; border:1px solid rgba(255,255,255,0.14); border-radius:999px; padding:9px 16px;">Paint &amp; coatings</a>
-        <a href="/challenge-app/#/challenge" style="font:500 13.5px/1 'IBM Plex Sans',sans-serif; color:rgb(224,224,218); text-decoration:none; border:1px solid rgba(255,255,255,0.14); border-radius:999px; padding:9px 16px;">Chemistry</a>
-        <a href="/challenge-app/#/challenge" style="font:500 13.5px/1 'IBM Plex Sans',sans-serif; color:rgb(224,224,218); text-decoration:none; border:1px solid rgba(255,255,255,0.14); border-radius:999px; padding:9px 16px;">Engineering</a>
+        <a href="/probaligence-site-preview/challenge-app/#/challenge" style="font:500 13.5px/1 'IBM Plex Sans',sans-serif; color:rgb(224,224,218); text-decoration:none; border:1px solid rgba(255,255,255,0.14); border-radius:999px; padding:9px 16px;">Paint &amp; coatings</a>
+        <a href="/probaligence-site-preview/challenge-app/#/challenge" style="font:500 13.5px/1 'IBM Plex Sans',sans-serif; color:rgb(224,224,218); text-decoration:none; border:1px solid rgba(255,255,255,0.14); border-radius:999px; padding:9px 16px;">Chemistry</a>
+        <a href="/probaligence-site-preview/challenge-app/#/challenge" style="font:500 13.5px/1 'IBM Plex Sans',sans-serif; color:rgb(224,224,218); text-decoration:none; border:1px solid rgba(255,255,255,0.14); border-radius:999px; padding:9px 16px;">Engineering</a>
       </div>
       <p style="margin-top:28px; font:400 12.5px/1.5 'IBM Plex Mono',monospace; color:rgb(130,130,124);">Illustrative demo. Synthetic data, real DIM-GP models. The interactive opens in this window; use your browser back button to return.</p>
     </div>
@@ -139,7 +139,7 @@ h1,h2,h3,p{margin:0}
         </div>
       </div>
       <div style="margin-top:40px;">
-        <a href="/challenge-app/#/challenge" style="background:rgb(255,176,6); color:rgb(8,7,10); font:600 15.5px/1 'IBM Plex Sans',sans-serif; padding:16px 28px; border-radius:2px; text-decoration:none; display:inline-block;">Take the challenge &rarr;</a>
+        <a href="/probaligence-site-preview/challenge-app/#/challenge" style="background:rgb(255,176,6); color:rgb(8,7,10); font:600 15.5px/1 'IBM Plex Sans',sans-serif; padding:16px 28px; border-radius:2px; text-decoration:none; display:inline-block;">Take the challenge &rarr;</a>
       </div>
     </div>
   </section>
@@ -147,14 +147,14 @@ h1,h2,h3,p{margin:0}
 <section class="logo-marquee" aria-label="Partners, customers and research collaborators">
   <div class="label">Partners, customers, and research collaborators</div>
   <div class="marquee-mask">
-    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="/assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bmwk.png" alt="BMWK" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="/assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bmwk.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span></div></div>
+    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bmwk.png" alt="BMWK" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bmwk.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span></div></div>
   </div>
 </section>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="brand"><img src="/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
+        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
           <span>Official Ansys Technology Partner</span>
@@ -172,34 +172,34 @@ h1,h2,h3,p{margin:0}
       </div>
       <div>
         <h4>Products</h4>
-        <ul><li><a href="/stochos/">STOCHOS</a></li><li><a href="/stochos-flow/">STOCHOS Flow</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/stochos/">STOCHOS</a></li><li><a href="/probaligence-site-preview/stochos-flow/">STOCHOS Flow</a></li></ul>
       </div>
       <div>
         <h4>Solutions</h4>
-        <ul><li><a href="/ai-for-engineering/">AI for Engineering</a></li><li><a href="/paint-coating/">Paint and Coatings</a></li><li><a href="/ai-for-chemical-process-optimization/">Chemical R&amp;D</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/ai-for-engineering/">AI for Engineering</a></li><li><a href="/probaligence-site-preview/paint-coating/">Paint and Coatings</a></li><li><a href="/probaligence-site-preview/ai-for-chemical-process-optimization/">Chemical R&amp;D</a></li></ul>
       </div>
       <div>
         <h4>Science</h4>
-        <ul><li><a href="/science/">Science overview</a></li><li><a href="/how-stochos-works/">How STOCHOS works</a></li><li><a href="/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/generative-design/">Generative Design</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/science/">Science overview</a></li><li><a href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a></li><li><a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/probaligence-site-preview/generative-design/">Generative Design</a></li></ul>
       </div>
       <div>
         <h4>Company</h4>
-        <ul><li><a href="/about/">About</a></li><li><a href="/news/">News and Guides</a></li><li><a href="/contact/">Contact</a></li><li><a class="amber" href="/contact/">Request a Demo</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/about/">About</a></li><li><a href="/probaligence-site-preview/news/">News and Guides</a></li><li><a href="/probaligence-site-preview/contact/">Contact</a></li><li><a class="amber" href="/probaligence-site-preview/contact/">Request a Demo</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span class="copy">&copy; <span data-year>2026</span> PI Probaligence GmbH</span>
       <span class="legal">
-        <a href="/impressum/">Impressum</a>
-        <a href="/datenschutz/">Datenschutz</a>
-        <a href="/cookies/">Cookies</a>
+        <a href="/probaligence-site-preview/impressum/">Impressum</a>
+        <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
+        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>
   </div>
 </footer>
-<script src="/scrollfx.js" defer></script>
-<script src="/site.js" defer></script>
+<script src="/probaligence-site-preview/scrollfx.js" defer></script>
+<script src="/probaligence-site-preview/site.js" defer></script>
 <a href="../feedback/?page=Beat%20STOCHOS%20challenge" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 <div id="pi-fbready" role="status" aria-live="polite" style="position:fixed;left:22px;bottom:22px;z-index:9997;max-width:min(320px,calc(100vw - 150px));background:#0A0908;border:1px solid rgba(34,197,94,.45);border-left:3px solid #22C55E;border-radius:10px;padding:15px 17px;box-shadow:0 12px 40px rgba(0,0,0,.5)">
   <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#22C55E;margin-bottom:8px">Preview, feedback welcome</div>

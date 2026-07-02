@@ -4,19 +4,19 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
 <title>The Science Behind STOCHOS | PI Probaligence</title><meta name="description" content="The science behind STOCHOS: the DIM-GP algorithm and the methods built on it, surrogate modeling, uncertainty quantification, Bayesian optimization, and more."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/science/"><meta property="og:type" content="website"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="The Science Behind STOCHOS | PI Probaligence"><meta property="og:description" content="The DIM-GP algorithm and the methods built on it: surrogate modeling, uncertainty quantification, Bayesian optimization, and more."><meta property="og:url" content="https://probaligence.com/science/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"Science","item":"https://probaligence.com/science/"}]}
 </script><style>
-@font-face{font-family:'Space Grotesk';src:url('/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
-@font-face{font-family:'Space Grotesk';src:url('/assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'IBM Plex Sans';src:url('/assets/fonts/ibm-plex-sans-600.woff2') format('woff2');font-weight:600;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-600.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -30,10 +30,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="/site.css">
-<link rel="icon" href="/assets/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css">
+<link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/probaligence-site-preview/assets/apple-touch-icon.png">
 <meta name="theme-color" content="#060607">
 <noscript><style>@media(max-width:960px){.nav-toggle{display:none}.mobile-panel{max-height:none!important;opacity:1!important;overflow:visible!important;border-bottom:1px solid rgba(255,255,255,.08)}}[data-uc-body]{max-height:none!important;opacity:1!important;display:block!important}</style></noscript>
 </head>
@@ -41,64 +41,64 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <header class="site-header" role="banner">
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
-    <a href="/" class="brand" aria-label="PI Probaligence home">
-      <img src="/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+    <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
+      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
       <span>Probaligence</span>
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
     <nav class="nav" aria-label="Primary">
-      <a class="nav-link" href="/stochos/">STOCHOS</a>
-      <a class="nav-link" href="/stochos-flow/">STOCHOS&nbsp;Flow</a>
+      <a class="nav-link" href="/probaligence-site-preview/stochos/">STOCHOS</a>
+      <a class="nav-link" href="/probaligence-site-preview/stochos-flow/">STOCHOS&nbsp;Flow</a>
       <div class="has-menu">
         <button type="button" class="nav-link nav-trigger" aria-expanded="false">Solutions <span class="caret" aria-hidden="true">&#9662;</span></button>
         <div class="submenu">
-          <a href="/ai-for-engineering/"><b>AI for Engineering</b><span>Accelerate CFD, FEM, and CAE</span></a>
-          <a href="/paint-coating/"><b>Paint and Coatings</b><span>Target formulation, fewer trials</span></a>
-          <a href="/ai-for-chemical-process-optimization/"><b>Chemical R&amp;D</b><span>Smarter experiments and scale-up</span></a>
+          <a href="/probaligence-site-preview/ai-for-engineering/"><b>AI for Engineering</b><span>Accelerate CFD, FEM, and CAE</span></a>
+          <a href="/probaligence-site-preview/paint-coating/"><b>Paint and Coatings</b><span>Target formulation, fewer trials</span></a>
+          <a href="/probaligence-site-preview/ai-for-chemical-process-optimization/"><b>Chemical R&amp;D</b><span>Smarter experiments and scale-up</span></a>
         </div>
       </div>
       <div class="has-menu">
         <button type="button" class="nav-link nav-trigger" aria-expanded="false">Science <span class="caret" aria-hidden="true">&#9662;</span></button>
         <div class="submenu">
-          <a href="/science/"><b>Science overview</b></a>
-          <a href="/how-stochos-works/"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
+          <a href="/probaligence-site-preview/science/"><b>Science overview</b></a>
+          <a href="/probaligence-site-preview/how-stochos-works/"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
           <div class="sep"></div>
-          <a href="/surrogate-modeling/">Surrogate Modeling</a>
-          <a href="/bayesian-optimization/">Bayesian Optimization</a>
-          <a href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
-          <a href="/uncertainty-quantification/">Uncertainty Quantification</a>
-          <a href="/sensitivity-analysis/">Sensitivity Analysis</a>
-          <a href="/generative-design/">Generative Design</a>
+          <a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a>
+          <a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a>
+          <a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+          <a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a>
+          <a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
+          <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/news/">Resources</a>
-      <a class="nav-link" href="/about/">About</a>
-      <a class="nav-cta" href="/contact/">Request a Demo</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">Resources</a>
+      <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
+      <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
     </nav>
   </div>
   <div class="mobile-panel" id="mobile-nav">
     <nav aria-label="Mobile">
-      <a class="m-item" href="/stochos/">STOCHOS</a>
-      <a class="m-item" href="/stochos-flow/">STOCHOS Flow</a>
+      <a class="m-item" href="/probaligence-site-preview/stochos/">STOCHOS</a>
+      <a class="m-item" href="/probaligence-site-preview/stochos-flow/">STOCHOS Flow</a>
       <div class="m-label">Solutions</div>
-      <a class="m-sub" href="/ai-for-engineering/">AI for Engineering</a>
-      <a class="m-sub" href="/paint-coating/">Paint and Coatings</a>
-      <a class="m-sub" href="/ai-for-chemical-process-optimization/">Chemical R&amp;D</a>
+      <a class="m-sub" href="/probaligence-site-preview/ai-for-engineering/">AI for Engineering</a>
+      <a class="m-sub" href="/probaligence-site-preview/paint-coating/">Paint and Coatings</a>
+      <a class="m-sub" href="/probaligence-site-preview/ai-for-chemical-process-optimization/">Chemical R&amp;D</a>
       <div class="m-label">Science</div>
-      <a class="m-sub" href="/science/">Science overview</a>
-      <a class="m-sub" href="/how-stochos-works/">How STOCHOS works</a>
-      <a class="m-sub" href="/surrogate-modeling/">Surrogate Modeling</a>
-      <a class="m-sub" href="/bayesian-optimization/">Bayesian Optimization</a>
-      <a class="m-sub" href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
-      <a class="m-sub" href="/uncertainty-quantification/">Uncertainty Quantification</a>
-      <a class="m-sub" href="/sensitivity-analysis/">Sensitivity Analysis</a>
-      <a class="m-sub" href="/generative-design/">Generative Design</a>
+      <a class="m-sub" href="/probaligence-site-preview/science/">Science overview</a>
+      <a class="m-sub" href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a>
+      <a class="m-sub" href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a>
+      <a class="m-sub" href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a>
+      <a class="m-sub" href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+      <a class="m-sub" href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a>
+      <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
+      <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/news/">Resources</a>
-      <a class="m-item" href="/about/">About</a>
-      <a class="nav-cta" href="/contact/">Request a Demo</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">Resources</a>
+      <a class="m-item" href="/probaligence-site-preview/about/">About</a>
+      <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
     </nav>
   </div>
 </header>
@@ -107,18 +107,18 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-hero-in style="position: relative; padding: 150px 24px 110px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
     <div class="" data-sc-name="NodeBackdrop"><div data-bg-root="" aria-hidden="true" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; z-index: 0; opacity: 1;">
   <div data-bg-parallax="" style="position: absolute; inset: -10% 0px; will-change: transform; transform: translate3d(0px, 0px, 0px);">
-    <div data-bg-img="" style="position: absolute; inset: 0px; background: url(&quot;/assets/media/bg-network-nodes.webp&quot;) center center / cover no-repeat; opacity: 0.5; animation: 28s ease-in-out 0s infinite normal none running nbDrift;"></div>
+    <div data-bg-img="" style="position: absolute; inset: 0px; background: url(&quot;/probaligence-site-preview/assets/media/bg-network-nodes.webp&quot;) center center / cover no-repeat; opacity: 0.5; animation: 28s ease-in-out 0s infinite normal none running nbDrift;"></div>
   </div>
   <div style="position: absolute; inset: 0px; background: radial-gradient(at 50% 8%, rgba(255, 176, 6, 0.1), transparent 55%);"></div>
   <div style="position: absolute; inset: 0px; background: linear-gradient(rgba(6, 6, 7, 0.5), rgba(6, 6, 7, 0.86));"></div></div></div>
     <div style="max-width: 980px; margin: 0px auto; position: relative; z-index: 1; text-align: center;">
-      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 34px;"><a href="/" class="scp0" style="color: rgb(156, 156, 150); text-decoration: none;">Home</a> <span style="color: rgb(130, 130, 124);">/</span> <span style="color: rgb(200, 200, 194);">Science</span></nav>
+      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 34px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(156, 156, 150); text-decoration: none;">Home</a> <span style="color: rgb(130, 130, 124);">/</span> <span style="color: rgb(200, 200, 194);">Science</span></nav>
       <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Science</div>
       <h1 style="font: 700 clamp(40px, 6vw, 76px) / 1.04 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; margin: 0px auto; max-width: 16ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">The</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">science</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">behind</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">STOCHOS.</span></span></h1>
       <p data-hero="" style="margin: 26px auto 0px; color: rgb(200, 200, 194); font-size: clamp(16px, 1.5vw, 18.5px); line-height: 1.65; max-width: 64ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS is built on probabilistic machine learning made for engineering data: small, noisy, and expensive to produce. Start with the core algorithm, DIM-GP, and the methods built on it: surrogate modeling, uncertainty quantification, Bayesian optimization, multi-fidelity modeling, sensitivity analysis, and generative design.</p>
       <div data-hero="" style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-        <a href="/how-stochos-works/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">How STOCHOS works</a>
-        <a href="/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.24); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
+        <a href="/probaligence-site-preview/how-stochos-works/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">How STOCHOS works</a>
+        <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.24); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
       </div>
     </div>
   </section>
@@ -129,10 +129,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The algorithm</div>
         <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 14ch;">Start with the algorithm</h2>
         <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 52ch;">Everything in STOCHOS rests on one algorithm, DIM-GP, a Deep Infinite Mixture of Gaussian Processes. It joins deep learning with calibrated Gaussian-process uncertainty in a single model built for small, noisy, expensive data, and it returns every prediction with a measure of confidence.</p>
-        <a href="/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 24px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Read how STOCHOS works: the DIM-GP algorithm →</a>
+        <a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 24px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Read how STOCHOS works: the DIM-GP algorithm →</a>
       </div>
       <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 16px; background: rgb(0, 0, 0); opacity: 1; transform: none;">
-        <img loading="lazy" decoding="async" src="/assets/media/dimgp-diagram.webp" width="1536" height="1024" alt="DIM-GP combines the capacity of deep learning with the calibrated uncertainty of Gaussian processes in one non-stationary probabilistic model." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/dimgp-diagram.webp" width="1536" height="1024" alt="DIM-GP combines the capacity of deep learning with the calibrated uncertainty of Gaussian processes in one non-stationary probabilistic model." style="display: block; width: 100%; height: auto; border-radius: 2px;">
       </figure>
     </div>
   </section>
@@ -143,32 +143,32 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">The methods STOCHOS uses</h2>
       <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">The methods build on DIM-GP and work together: surrogate modeling for fast prediction, uncertainty quantification to show where to trust it, Bayesian optimization to choose the next run, multi-fidelity modeling to cut cost, and sensitivity analysis to explain what drives the result. Generative design expands the search beyond fixed variants.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 50px;">
-        <a href="/surrogate-modeling/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+        <a href="/probaligence-site-preview/surrogate-modeling/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
           <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 26 C10 12 16 12 22 20 C26 25 29 22 32 10"></path><circle cx="4" cy="26" r="1.7" fill="#FFB006" stroke="none"></circle><circle cx="22" cy="20" r="1.7" fill="#FFB006" stroke="none"></circle><circle cx="32" cy="10" r="1.7" fill="#FFB006" stroke="none"></circle></svg>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Surrogate Modeling</h3>
           <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Predict new variants in seconds from existing data.</p>
         </a>
-        <a href="/uncertainty-quantification/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+        <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
           <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13 C12 7 20 19 32 11" opacity="0.4"></path><path d="M4 25 C12 19 20 31 32 23" opacity="0.4"></path><path d="M4 19 C12 13 20 25 32 17"></path></svg>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Uncertainty Quantification</h3>
           <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">See where the model is reliable and where more data would help.</p>
         </a>
-        <a href="/bayesian-optimization/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+        <a href="/probaligence-site-preview/bayesian-optimization/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
           <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="12"></circle><circle cx="18" cy="18" r="6"></circle><circle cx="18" cy="18" r="1.6" fill="#FFB006" stroke="none"></circle></svg>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Bayesian Optimization</h3>
           <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Choose the next best experiment or simulation.</p>
         </a>
-        <a href="/multi-fidelity-modeling/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+        <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
           <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12 L18 7 L30 12 L18 17 Z"></path><path d="M6 18 L18 13 L30 18 L18 23 Z" opacity="0.65"></path><path d="M6 24 L18 19 L30 24 L18 29 Z" opacity="0.4"></path></svg>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Multi-Fidelity Modeling</h3>
           <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Combine cheap screening data with expensive high-quality results.</p>
         </a>
-        <a href="/sensitivity-analysis/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+        <a href="/probaligence-site-preview/sensitivity-analysis/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
           <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="28" x2="9" y2="16"></line><line x1="18" y1="28" x2="18" y2="9"></line><line x1="27" y1="28" x2="27" y2="20"></line><line x1="4" y1="30" x2="32" y2="30" stroke-width="1.4" opacity="0.45"></line></svg>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Sensitivity Analysis</h3>
           <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Identify which inputs actually drive the outcome.</p>
         </a>
-        <a href="/generative-design/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+        <a href="/probaligence-site-preview/generative-design/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
           <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 5 L29 11 L29 23 L18 29 L7 23 L7 11 Z"></path><path d="M18 14 L18 22 M14 18 L22 18"></path></svg>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Generative Design</h3>
           <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Explore new geometries and optimize beyond fixed variants with GEN-BO.</p>
@@ -183,22 +183,22 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See the science on your own data</h2>
       <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 50ch;">Request a demo and we will show STOCHOS and STOCHOS Flow on a problem close to yours.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
-        <a href="/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-        <a href="/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
+        <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
+        <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
       </div>
     </div>
   </section></main>
 <section class="logo-marquee" aria-label="Partners, customers and research collaborators">
   <div class="label">Partners, customers, and research collaborators</div>
   <div class="marquee-mask">
-    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="/assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bmwk.png" alt="BMWK" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="/assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/bmwk.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span></div></div>
+    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bmwk.png" alt="BMWK" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bmwk.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span></div></div>
   </div>
 </section>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="brand"><img src="/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
+        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
           <span>Official Ansys Technology Partner</span>
@@ -216,34 +216,34 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       </div>
       <div>
         <h4>Products</h4>
-        <ul><li><a href="/stochos/">STOCHOS</a></li><li><a href="/stochos-flow/">STOCHOS Flow</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/stochos/">STOCHOS</a></li><li><a href="/probaligence-site-preview/stochos-flow/">STOCHOS Flow</a></li></ul>
       </div>
       <div>
         <h4>Solutions</h4>
-        <ul><li><a href="/ai-for-engineering/">AI for Engineering</a></li><li><a href="/paint-coating/">Paint and Coatings</a></li><li><a href="/ai-for-chemical-process-optimization/">Chemical R&amp;D</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/ai-for-engineering/">AI for Engineering</a></li><li><a href="/probaligence-site-preview/paint-coating/">Paint and Coatings</a></li><li><a href="/probaligence-site-preview/ai-for-chemical-process-optimization/">Chemical R&amp;D</a></li></ul>
       </div>
       <div>
         <h4>Science</h4>
-        <ul><li><a href="/science/">Science overview</a></li><li><a href="/how-stochos-works/">How STOCHOS works</a></li><li><a href="/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/generative-design/">Generative Design</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/science/">Science overview</a></li><li><a href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a></li><li><a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/probaligence-site-preview/generative-design/">Generative Design</a></li></ul>
       </div>
       <div>
         <h4>Company</h4>
-        <ul><li><a href="/about/">About</a></li><li><a href="/news/">News and Guides</a></li><li><a href="/contact/">Contact</a></li><li><a class="amber" href="/contact/">Request a Demo</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/about/">About</a></li><li><a href="/probaligence-site-preview/news/">News and Guides</a></li><li><a href="/probaligence-site-preview/contact/">Contact</a></li><li><a class="amber" href="/probaligence-site-preview/contact/">Request a Demo</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span class="copy">&copy; <span data-year>2026</span> PI Probaligence GmbH</span>
       <span class="legal">
-        <a href="/impressum/">Impressum</a>
-        <a href="/datenschutz/">Datenschutz</a>
-        <a href="/cookies/">Cookies</a>
+        <a href="/probaligence-site-preview/impressum/">Impressum</a>
+        <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
+        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>
   </div>
 </footer>
-<script src="/scrollfx.js" defer></script>
-<script src="/site.js" defer></script>
+<script src="/probaligence-site-preview/scrollfx.js" defer></script>
+<script src="/probaligence-site-preview/site.js" defer></script>
 <a href="../feedback/?page=Science%20overview" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 <div id="pi-wip" role="dialog" aria-modal="true" aria-labelledby="pi-wip-h" style="position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(4,4,5,.80);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)">
   <div style="max-width:460px;width:100%;background:#0A0908;border:1px solid rgba(255,176,6,.45);border-top:3px solid #FFB006;border-radius:12px;padding:34px 32px;box-shadow:0 30px 90px rgba(0,0,0,.65);text-align:center">
