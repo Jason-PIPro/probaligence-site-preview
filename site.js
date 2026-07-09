@@ -15,14 +15,14 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
-  /* ---------- marquee: hover pause + an explicit pause control (WCAG 2.2.2) ----------
+  /* ---------- marquee: an explicit pause control (WCAG 2.2.2) ----------
+     No hover pause: the banner keeps scrolling under the pointer. The button
+     is the only way to pause, which still satisfies WCAG 2.2.2.
      Covers both variants: the shared .marquee-track and the inline-styled [data-marquee]. */
   document.querySelectorAll(".marquee-track, [data-marquee]").forEach(function (track) {
     var host = track.closest("section") || track.parentElement;
     if (!host || host.querySelector(".marquee-pause")) return;
     if (getComputedStyle(host).position === "static") host.style.position = "relative";
-    track.addEventListener("mouseenter", function () { if (!track.__pinned) track.style.animationPlayState = "paused"; });
-    track.addEventListener("mouseleave", function () { if (!track.__pinned) track.style.animationPlayState = ""; });
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className = "marquee-pause";

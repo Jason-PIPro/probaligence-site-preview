@@ -99,7 +99,6 @@
   mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .marquee-track{display:flex;align-items:center;gap:24px;width:max-content;
   animation:marqueeScroll 30s linear infinite;will-change:transform}
-.marquee-track:hover{animation-play-state:paused}
 .marquee-track .row{display:flex;align-items:center;gap:24px;flex:none}
 .marquee-track .logo-cell{flex:none;display:flex;align-items:center;justify-content:center;
   width:172px;height:74px;background:#F6F5F2;border:1px solid rgba(0,0,0,.06);border-radius:4px;box-sizing:border-box}
