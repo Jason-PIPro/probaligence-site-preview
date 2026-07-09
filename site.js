@@ -101,7 +101,14 @@
     if (!e.target.closest(".has-menu")) closeAll();
   });
 
-  /* ---------- cookie consent, with a reset/update control ---------- */
+  /* ---------- cookie consent, with a reset/update control ----------
+     PI runs cookieless for now (decision 2026-07-09): no analytics, no
+     non-essential storage, so there is nothing to consent to and the banner
+     is not shown. The machinery below is kept intact. To bring analytics
+     back: set ANALYTICS_ENABLED = true (re-shows the banner and the footer
+     "Cookie settings" control), then initialise the tracker where marked
+     "non-essential scripts would initialise here". */
+  var ANALYTICS_ENABLED = false;
   var KEY = "pi-consent";
   function getConsent() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function setConsent(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
@@ -130,18 +137,29 @@
     var first = b.querySelector("button");
     if (first) first.focus();
   }
-  if (!getConsent()) {
-    if (document.body) buildBanner();
-    else document.addEventListener("DOMContentLoaded", buildBanner);
+  if (ANALYTICS_ENABLED) {
+    if (!getConsent()) {
+      if (document.body) buildBanner();
+      else document.addEventListener("DOMContentLoaded", buildBanner);
+    }
+    // any element with [data-consent-reset] reopens the banner so a choice can be changed
+    document.addEventListener("click", function (e) {
+      var r = e.target.closest("[data-consent-reset]");
+      if (!r) return;
+      e.preventDefault();
+      clearConsent();
+      buildBanner();
+    });
+  } else {
+    // cookieless: hide the orphaned "Cookie settings" footer control on every page
+    var hideConsentReset = function () {
+      document.querySelectorAll("[data-consent-reset]").forEach(function (el) {
+        el.style.display = "none";
+      });
+    };
+    if (document.body) hideConsentReset();
+    else document.addEventListener("DOMContentLoaded", hideConsentReset);
   }
-  // any element with [data-consent-reset] reopens the banner so a choice can be changed
-  document.addEventListener("click", function (e) {
-    var r = e.target.closest("[data-consent-reset]");
-    if (!r) return;
-    e.preventDefault();
-    clearConsent();
-    buildBanner();
-  });
 
   /* ---------- demo request form (staged: routing not wired yet) ---------- */
   var form = document.querySelector("form[data-demo], form#demo-form, .contact-form form");
