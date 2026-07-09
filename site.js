@@ -228,6 +228,10 @@
       if (opener) opener.focus();
     }
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && box && !box.hidden) close(); });
+    // focus trap: the close button is the dialog's only focusable control, so keep Tab on it
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Tab" && box && !box.hidden) { e.preventDefault(); closeBtn.focus(); }
+    });
     figImgs.forEach(function (img) {
       img.classList.add("zoomable");
       img.setAttribute("role", "button");

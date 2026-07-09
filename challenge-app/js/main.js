@@ -114,7 +114,7 @@ function renderHub() {
             <a class="card" href="#/${k}">
               <span class="glow" style="background:${d.glow}"></span>
               <span class="tag">${d.tag}</span>
-              <h3>${d.title}</h3>
+              <h2>${d.title}</h2>
               <p>${d.blurb}</p>
               <span class="go">${d.ready ? 'Open demonstrator &rarr;' : 'Preview soon &rarr;'}</span>
             </a>`).join('')}
@@ -162,6 +162,20 @@ function route() {
   if (!h) return renderHub();
   renderDomain(h);
 }
+
+// Nav overflow affordance: on narrow screens the pill nav scrolls horizontally with a
+// hidden scrollbar, which reads as clipped. While more tabs sit off-screen, styles.css
+// fades the right edge (.can-scroll without .at-end); the fade drops at the end.
+const domnav = document.getElementById('domnav');
+function navFade() {
+  const more = domnav.scrollWidth - domnav.clientWidth > 4;
+  const atEnd = domnav.scrollLeft + domnav.clientWidth >= domnav.scrollWidth - 4;
+  domnav.classList.toggle('can-scroll', more);
+  domnav.classList.toggle('at-end', !more || atEnd);
+}
+domnav.addEventListener('scroll', navFade, { passive: true });
+window.addEventListener('resize', navFade);
+navFade();
 
 window.addEventListener('hashchange', route);
 route();

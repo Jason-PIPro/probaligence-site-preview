@@ -119,7 +119,7 @@
 .footer-brand p{color:var(--muted);font-size:14px;line-height:1.6;max-width:300px;margin:0 0 18px}
 .footer-cred{display:flex;flex-direction:column;gap:7px}
 .footer-cred span{font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--faint);letter-spacing:.04em}
-.footer-grid h4{font:500 11.5px/1 'IBM Plex Mono',monospace;color:var(--faint);
+.footer-grid .f-h{font:500 11.5px/1 'IBM Plex Mono',monospace;color:var(--faint);
   letter-spacing:.16em;text-transform:uppercase;margin:0 0 18px}
 .footer-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
 .footer-grid li a{color:var(--muted);text-decoration:none;font-size:14px}
@@ -150,8 +150,8 @@
   display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
   box-shadow:0 24px 60px rgba(0,0,0,.6)}
 .consent-banner p{margin:0;color:var(--muted);font:400 13.5px/1.55 'IBM Plex Sans',sans-serif;flex:1 1 320px}
-.consent-banner a{color:var(--amber);text-decoration:none}
-.consent-banner a:hover{text-decoration:underline}
+.consent-banner a{color:var(--amber);text-decoration:underline}
+.consent-banner a:hover{text-decoration:none}
 .consent-actions{display:flex;gap:10px;flex:none}
 .consent-btn{font:600 13.5px/1 'IBM Plex Sans',sans-serif;padding:11px 18px;border-radius:2px;
   cursor:pointer;border:1px solid transparent}
@@ -206,6 +206,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 /* reduced motion: smooth scrolling off too (animations are handled per page) */
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* belt and braces against sub-pixel horizontal pan on very narrow viewports (WCAG 1.4.10);
+   clip does not create a scroll container, so sticky and scroll-driven timelines are unaffected */
+html{overflow-x:clip}
+
+/* reduced motion: the frozen marquee strip would show only its first logos, so wrap
+   the first row into a centered grid instead and hide the aria-hidden duplicate row.
+   !important beats the inline styles of the homepage [data-marquee] variant. */
+@media (prefers-reduced-motion:reduce){
+  .marquee-track,[data-marquee]{width:auto!important}
+  .marquee-track .row,[data-marquee]>div{flex:1 1 100%!important;flex-wrap:wrap!important;justify-content:center;row-gap:12px}
+  .marquee-track .row[aria-hidden="true"],[data-marquee]>div[aria-hidden="true"]{display:none!important}
+  .marquee-mask,[data-marquee-mask]{-webkit-mask-image:none!important;mask-image:none!important}
+  /* compact cells so the wrapped grid stays a short band, not a wall */
+  .marquee-track .logo-cell,[data-marquee]>div>span{width:128px!important;height:56px!important}
+  .marquee-track .logo-cell img,[data-marquee]>div>span img{height:26px!important;max-width:100px!important}
+}
 
 /* marquee pause control (WCAG 2.2.2: moving content must be pausable, hover alone is not enough) */
 .marquee-pause{position:absolute;right:14px;bottom:10px;z-index:2;width:34px;height:34px;border:1px solid var(--hairline);
