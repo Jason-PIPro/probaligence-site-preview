@@ -35,6 +35,28 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <link rel="apple-touch-icon" href="/probaligence-site-preview/assets/apple-touch-icon.png">
 <meta name="theme-color" content="#060607">
 <noscript><style>@media(max-width:960px){.nav-toggle{display:none}.mobile-panel{max-height:none!important;opacity:1!important;overflow:visible!important;border-bottom:1px solid rgba(255,255,255,.08)}}[data-uc-body]{max-height:none!important;opacity:1!important;display:block!important}</style></noscript>
+<style id="fqq-css">
+.fqq-wrap{max-width:760px;margin:0 auto}
+.fqq-title{font:600 clamp(18px,2vw,20px)/1.2 'Space Grotesk',sans-serif;letter-spacing:-.01em;color:#F4F3EF;margin:0 0 14px}
+.fqq .fq{border-top:1px solid rgba(255,255,255,.09);transition:background .2s}
+.fqq .fq:last-of-type{border-bottom:1px solid rgba(255,255,255,.09)}
+.fqq .fq[open]{background:rgba(255,176,6,.03)}
+.fqq .fq summary{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:baseline;padding:15px 6px;cursor:pointer;list-style:none}
+.fqq .fq summary::-webkit-details-marker{display:none}
+.fqq .fq .ix{font:500 11px/1 'IBM Plex Mono',monospace;color:#FFB006;opacity:.85}
+.fqq .fq .q{font:500 15.5px/1.4 'Space Grotesk',sans-serif;letter-spacing:-.008em;color:#E9E8E3}
+.fqq .fq .plus{font:500 16px/1 'IBM Plex Mono',monospace;color:#FFB006;transition:transform .28s cubic-bezier(.22,1,.3,1);align-self:center}
+.fqq .fq[open] .plus{transform:rotate(45deg)}
+.fqq .fq .aw{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s cubic-bezier(.22,1,.3,1)}
+.fqq .fq[open] .aw{grid-template-rows:1fr}
+.fqq .fq .aw>div{overflow:hidden}
+.fqq .fq .ab{padding:0 6px 18px 46px}
+.fqq .fq .ab p{margin:0 0 10px;color:#9C9C96;font-size:14px;line-height:1.7;max-width:62ch}
+.fqq .fq .ab p:last-child{margin-bottom:0}
+@media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
+@media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is DIM-GP?","acceptedAnswer":{"@type":"Answer","text":"DIM-GP, a Deep Infinite Mixture of Gaussian Processes, is the core STOCHOS algorithm. It combines neural networks and Gaussian processes into a non-stationary, probabilistic model designed for small, noisy datasets, changing geometries and meshes, and multi-fidelity data, without manual hyperparameter tuning."}},{"@type":"Question","name":"Why combine deep learning and Gaussian processes?","acceptedAnswer":{"@type":"Answer","text":"Deep learning brings capacity to model complex, high-dimensional relationships. Gaussian processes bring calibrated uncertainty. Engineering needs both: a flexible model that also reports how far to trust each prediction. DIM-GP is built to deliver capacity and uncertainty in one model, tuned for small, expensive datasets."}},{"@type":"Question","name":"Can STOCHOS run on-premise?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control."}}]}</script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -196,17 +218,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 880px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">FAQ</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; margin-bottom: 34px;">Frequently asked questions</h2>
-      <div style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
-        <details style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);"><summary style="cursor: pointer; list-style: none; padding: 24px 0px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); display: flex; justify-content: space-between; gap: 16px;">What is DIM-GP?<span style="color: rgb(255, 176, 6); font-weight: 400;">+</span></summary><p style="color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.65; padding: 0px 0px 24px; max-width: 72ch;">DIM-GP, a Deep Infinite Mixture of Gaussian Processes, is the core STOCHOS algorithm. It combines neural networks and Gaussian processes into a non-stationary, probabilistic model designed for small, noisy datasets, changing geometries and meshes, and multi-fidelity data, without manual hyperparameter tuning.</p></details>
-        <details style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);"><summary style="cursor: pointer; list-style: none; padding: 24px 0px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); display: flex; justify-content: space-between; gap: 16px;">Why combine deep learning and Gaussian processes?<span style="color: rgb(255, 176, 6); font-weight: 400;">+</span></summary><p style="color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.65; padding: 0px 0px 24px; max-width: 72ch;">Deep learning brings capacity to model complex, high-dimensional relationships. Gaussian processes bring calibrated uncertainty. Engineering needs both: a flexible model that also reports how far to trust each prediction. DIM-GP is built to deliver capacity and uncertainty in one model, tuned for small, expensive datasets.</p></details>
-        <details style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);"><summary style="cursor: pointer; list-style: none; padding: 24px 0px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); display: flex; justify-content: space-between; gap: 16px;">Can STOCHOS run on-premise?<span style="color: rgb(255, 176, 6); font-weight: 400;">+</span></summary><p style="color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.65; padding: 0px 0px 24px; max-width: 72ch;">Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control.</p></details>
-      </div>
-    </div>
-  </section>
+  
 
   <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
@@ -218,7 +230,20 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="/probaligence-site-preview/science/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Back to Science</a>
       </div>
     </div>
-  </section></main>
+  </section>
+
+  <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
+    <div class="fqq-wrap">
+      <h2 class="fqq-title">Common questions</h2>
+      <div class="fqq" id="fqq" data-single-open="">
+        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What is DIM-GP?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>DIM-GP, a Deep Infinite Mixture of Gaussian Processes, is the core STOCHOS algorithm. It combines neural networks and Gaussian processes into a non-stationary, probabilistic model designed for small, noisy datasets, changing geometries and meshes, and multi-fidelity data, without manual hyperparameter tuning.</p></div></div></details>
+        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Why combine deep learning and Gaussian processes?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Deep learning brings capacity to model complex, high-dimensional relationships. Gaussian processes bring calibrated uncertainty. Engineering needs both: a flexible model that also reports how far to trust each prediction. DIM-GP is built to deliver capacity and uncertainty in one model, tuned for small, expensive datasets.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Can STOCHOS run on-premise?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control.</p></div></div></details>
+      </div>
+    </div>
+    <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
+  </section>
+</main>
 <section class="logo-marquee" aria-label="Partners, customers and research collaborators">
   <div class="label">Partners, customers, and research collaborators</div>
   <div class="marquee-mask">
