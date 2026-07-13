@@ -1,18 +1,68 @@
-// Stochos Flow Web: the guided, BUILD-IT-YOURSELF demonstrator (v2).
-// The visitor picks an industry, then ASSEMBLES a Stochos-Flow-style pipeline:
-// drag each node from the palette onto its ghost slot, then wire its ports by
-// dragging output -> input. Every wired node carries a real DECISION (the
-// inspector), drives the live Confidence Field (StudioField) and the Variables
-// dock, and fires an industry-specific beat in the story banner. Step 5 BRANCHES
-// per industry into a real readout chart (tornado / pareto / correlation).
+// Stochos Flow Web: the guided, BUILD-IT-YOURSELF demonstrator.
+// v4 (2026-07-13, "ungate + agent chat" rework -- Jason's direct feedback on the
+// v3 faithful-graph pass, which he liked). Five changes on top of v3, all in this
+// file + studio-stories.js + the studio CSS (see STUDIO-CONTRACT.md's v4 section
+// for the full spec this implements):
+//   1. Port clip bug fixed at the root: ports are positioned with left:0%/100% +
+//      top:N% on the CARD's own box, then transform:translate(-50%,-50%) centers
+//      each dot exactly on the card edge (CSS). The matching JS edge-routing
+//      math (port()) uses CARD_W/CARD_H, the card's real pixel size, instead of
+//      the outer .snode footprint it was wrongly using before.
+//   2. The right panel is now an AGENT CHAT with preset chips (no free-text
+//      input -- scripted answers, not a live LLM): a welcome message, short
+//      reactions to placing/wiring nodes (reusing the story's "beat" lines),
+//      and RESULT cards (the branch chart, the deployed predictor) posted as
+//      agent replies. Copy comes from studio-stories.js's `chat` schema.
+//   3. The build is UNGATED: no more Next-gated linear phases. Any currently
+//      available node (its upstream is placed) can be dragged/wired at the
+//      visitor's own pace. The old per-phase "why" text lives in small
+//      anchored, non-blocking popovers on the node/ghost itself.
+//   v4.2 (2026-07-13, direct feedback): the train/test ratio chips and the BO
+//      explore/exploit kappa slider are REMOVED -- no knobs, no clickable
+//      choices anywhere on the canvas. Both defaults (70% train; kappa 1.4,
+//      STOCHOS's balanced default) apply silently on wiring, exactly as they
+//      already did when a visitor ignored the old popover. The anchored
+//      popovers stay and become pure explainer copy: what the node did, plus
+//      the default it just applied, stated as fact, never offered as a choice.
+//   4. The docked Surface/Web-app viewer is REMOVED. There is no more live
+//      Confidence Field canvas; the analyze-branch chart and the deployed
+//      predictor both render as result cards in the chat stream, still
+//      computed from the real Surrogate. The freed canvas gets a roomier
+//      node layout.
+//   5. The challenge "See the showdown" banner is GATED: it only appears once
+//      the whole 9-node graph is built, not on entry.
 //
-// The visual language (node cards, bezier edges, run packets, vars table) mirrors
-// flow.js; the numbers are real DIM-GP output from the Surrogate. Pointer events
-// only (no HTML5 drag-and-drop) so the build is testable headless via Playwright.
-import { StudioField } from '../studio-field.js';
+// The faithful multi-port graph is grounded in Stochos_Flow_examples/*.prompt.txt.
+// Every domain: two Excel Readers (Inputs X, Targets Y) -> train_test_split (2
+// in-ports) -> dimgp_regr_fit (2 in-ports) -> pam_regr (3 in-ports); the trained
+// model plus BOTH readers (not the split) feed web_app_scalar (3 in-ports).
+// v4.3 (2026-07-13, ground-truth audit fix batch on the node graph itself, on
+// top of the same v4 mechanics): two corrections plus one structural change,
+// verified quote-level against the real examples:
+//   1. `bayesian_opt_next_sample` and `web_app_scalar` read their X/Y straight
+//      from the two Excel Readers, never from train_test_split's held-out
+//      subset (3_2_Manual_optimization_simple_interface.prompt.txt: "data_array
+//      to X and Y"; 5_1_scalar_to_scalar.prompt.txt: fed by the two readers +
+//      fit). Paint's `dist_cor` branch does the same (no split in the real
+//      correlation example either). train_test_split now legitimately serves
+//      only `dimgp_regr_fit` and `pam_regr` (chemistry's `sobol_indices`
+//      branch is the one exception -- it genuinely reads split's X_train per
+//      2_1_var_bases_sens_scalar.prompt.txt).
+//   2. Engineering and bottle (any domain whose `story.branch.kind ===
+//      'pareto'`) use the AUTOMATIC-BO pattern instead of manual Next Sample:
+//      `bayesian_opt_init` -> `bayesian_opt_optimize` ("BO Optimize", ins
+//      bo_obj + true_evaluator, outs X/Y/models) fed by BO Init and a new
+//      `python_solver` source node ("the heat-sink/load-test simulation"),
+//      grounded in 3_4_Automatic_optimization_DoE_simple_interface.prompt.txt.
+//      The old separate analyze phase (the Pareto chart) merges into optimize
+//      (BO Optimize's own payoff IS the front) -- see buildPhases(). Paint and
+//      chemistry (lab-data domains, no simulation to call) keep the manual
+//      pattern unchanged. Both patterns stay a 9-node, real-multi-port graph;
+//      see buildNodeDefs/buildEdgeDefs for the exact per-pattern port lists.
+// Placing/wiring mechanics (pointer-drag, not HTML5 DnD; a single drag wires
+// every real in-port of a node at once) are unchanged from v2/v3.
 import { STORIES } from './studio-stories.js';
 import { loadDomain } from '../surrogate.js';
-import { Tour, showIntro } from '../tour.js';
 import { stochosRun } from '../challenge/score.js';
 // studio-charts.js is written in parallel to the v2-D signatures. Import it and
 // feature-detect each function at call time so a missing module never breaks the
@@ -26,63 +76,140 @@ const CAT = {
   plots: '#ff9f40', misc: '#9a9488',
 };
 
-// The 7 build steps, fixed for every domain (v2-B). Each entry: step id, the REAL
-// Stochos Flow node that drops onto the graph (authentic names/labels/icons from
-// v2-A), its category accent, and a default ghost-slot label. Step 5 (`analyze`)
-// is the per-industry BRANCH: its node/icon/label come from story.branch.
-const STEPS = [
-  { id: 'data',     node: 'excel_reader',   label: 'Excel Reader',   icon: 'excel_reader',     cat: 'input',         slot: 'Data source' },
-  { id: 'target',   node: 'train_test_split', label: 'Train/Test Split', icon: 'train_test_split', cat: 'preprocessing', slot: 'Split + target' },
-  { id: 'fit',      node: 'dimgp_regr_fit', label: 'DIM-GP Fit',     icon: 'dimgp_fit',        cat: 'modelling',     slot: 'Model' },
-  { id: 'validate', node: 'pam_regr',       label: 'PAM Validation', icon: 'pam_regr',         cat: 'validation',    slot: 'Validation' },
-  { id: 'analyze',  node: null,             label: null,             icon: null,               cat: 'sensitivity',   slot: 'Analysis', branch: true },
-  { id: 'optimize', node: 'bayesian_opt',   label: 'Next Sample',    icon: 'bo_next',          cat: 'optimization',  slot: 'Optimizer' },
-  { id: 'deploy',   node: 'web_app_scalar', label: 'Web App Export', icon: 'smart_data_loader', cat: 'misc',         slot: 'Web app' },
-];
+// The build PHASES. A phase may place MORE THAN ONE node (data places both
+// Excel Readers; optimize places BO Init + Next Sample). v4: PHASES no longer
+// drives a gated "current step" state machine -- it is now just grouping
+// metadata (which nodes share one narrative beat / result payoff, and the
+// build order autobuild follows). The visitor may place or wire ANY
+// currently-available node in ANY order at their own pace.
+// v4.3 (ground-truth audit fix): a domain's branch shape now decides the
+// phase list. `story.branch.kind === 'pareto'` (engineering, bottle) is the
+// AUTOMATIC-BO pattern: `bayesian_opt_next_sample` is dropped, a `solver`
+// (python_solver) source node is added, and the old separate `analyze` phase
+// merges into `optimize` (BO Init + Python Solver + BO Optimize together --
+// the Pareto front IS the optimize payoff). Every other domain (paint,
+// chemistry) keeps the original 7-phase manual-BO shape with its own
+// `analyze` phase. Computed per buildStage call (branch is per-domain), not a
+// module-level constant any more.
+function buildPhases(branch) {
+  if (branch.kind === 'pareto') {
+    return [
+      { id: 'data',     nodeIds: ['readerX', 'readerY'] },
+      { id: 'split',    nodeIds: ['split'] },
+      { id: 'fit',      nodeIds: ['fit'] },
+      { id: 'validate', nodeIds: ['pam'] },
+      { id: 'optimize', nodeIds: ['boInit', 'solver', 'branch'] },
+      { id: 'deploy',   nodeIds: ['webapp'] },
+    ];
+  }
+  return [
+    { id: 'data',     nodeIds: ['readerX', 'readerY'] },
+    { id: 'split',    nodeIds: ['split'] },
+    { id: 'fit',      nodeIds: ['fit'] },
+    { id: 'validate', nodeIds: ['pam'] },
+    { id: 'analyze',  nodeIds: ['branch'] },
+    { id: 'optimize', nodeIds: ['boInit', 'boNext'] },
+    { id: 'deploy',   nodeIds: ['webapp'] },
+  ];
+}
 
-// Per-industry branch fallback (used when story.branch is absent so the build
-// still works against the v1 stories.js). kind selects the chart; node/icon/label
-// are authentic v2-A names.
-const BRANCH_FALLBACK = {
-  paint: { node: 'correlation_coefficients', icon: 'sobol_indices', label: 'Correlations', kind: 'correlation',
-    title: 'How the properties trade off',
-    story: 'Hiding power and cost pull against each other; the model shows by how much.',
-    changed: 'Strong pairs flag the trade-offs you cannot dodge.',
-    why: 'Correlations across the surface show which goals fight each other.' },
-  chemistry: { node: 'sobol_indices', icon: 'sobol_indices', label: 'Sobol Indices', kind: 'tornado',
-    title: 'Which factor drives the result',
-    story: 'Temperature moves yield far more than catalyst loading does.',
-    changed: 'The longest bar is the lever worth turning first.',
-    why: 'Sensitivity ranks the inputs by how much they move the target.' },
-  engineering: { node: 'bayesian_opt_optimize', icon: 'bo_optimize', label: 'Pareto Optimize', kind: 'pareto',
-    title: 'Cooling versus pressure drop',
-    story: 'No single design wins both; the front is the set of best compromises.',
-    changed: 'Points on the front are the designs nothing else beats outright.',
-    why: 'A Pareto front shows the honest trade between two competing goals.' },
-};
+// Per-industry Flow project file name shown in the title bar.
+const PROJECT_NAME = { paint: 'coating-doe.sfpj', chemistry: 'reaction-doe.sfpj', engineering: 'heat-sink.sfpj', bottle: 'bottle-doe.sfpj' };
 
-// Wiring: each node wires from the previous pipeline node's output into its input.
-// analyze taps the fit node (sensitivity/correlation/optimize read the model);
-// optimize also taps fit. A simple left-to-right chain otherwise.
-const FLOW_LINKS = {
-  target: ['data'], fit: ['target'], validate: ['fit'],
-  analyze: ['fit'], optimize: ['fit'], deploy: ['optimize'],
-};
-
-// per-industry Flow project file name shown in the title bar.
-const PROJECT_NAME = { paint: 'coating-doe.sfpj', chemistry: 'reaction-doe.sfpj', engineering: 'heat-sink.sfpj' };
-
-// small text badge baked onto a node tile where it reads well.
-const NODE_BADGE = {
-  dimgp_regr_fit: 'FIT', bayesian_opt_init: 'INIT', bayesian_opt: 'NEXT',
-  train_test_split: '70/30', pam_regr: 'PAM', web_app_scalar: 'APP',
-};
+// Real train/test split. 70% train is the standard engineering default, applied
+// silently on every wire (no ratio picker on canvas any more, see v4.2).
+const DEFAULT_RATIO = 0.7;
+// Default Bayesian-optimization acquisition weighting (explore <-> exploit),
+// applied silently on every wire (no kappa slider on canvas any more, v4.2). A
+// mid-range value balances trying promising candidates against probing regions
+// STOCHOS is still unsure about, rather than leaning hard either way.
+const DEFAULT_KAPPA = 1.4;
 
 const IC = 'vendor/node-icons/';
-// graph layout: a left-to-right pipeline on row 0, the branch slot on row 1.
-const COLX = 150, COLY = 132, OX = 26, OY = 30, NW = 78, NH = 72;
-const CI_Z = { 90: 1.645, 95: 1.96, 99: 2.576 };
-const ROW = { data: [0, 0], target: [1, 0], fit: [2, 0], validate: [3, 0], analyze: [2, 1], optimize: [4, 0], deploy: [5, 0] };
+const NW = 78, NH = 72; // .snode wrapper footprint (matches ghost slot sizing + label spacing)
+// PORT FIX (v4): the actual .snode-card visual tile is 66x66 (see .sf-app
+// .snode-card in styles.css), centered via margin:auto inside the NW-wide
+// .snode wrapper (a (NW-CARD_W)/2 = 6px gutter each side). Ports are CSS-
+// positioned at left:0%/100% of the CARD's own box (not the outer .snode), so
+// this edge-routing math must use the CARD's real size, not NW/NH, or the SVG
+// wire endpoint drifts off the visible dot -- that mismatch (ports positioned
+// against the wrong, wider box) was the root cause of the "detached out-port
+// dot" / "half-clipped in-port" bug Jason flagged.
+const CARD_W = 66, CARD_H = 66;
+
+// Graph layout (v4): with the docked Surface/Web-app viewer removed there is
+// nothing left to dodge, so the layout breathes across the freed canvas at the
+// 1440px reference width (readers stacked left; split; fit at the spine's
+// centre; PAM above-right of fit; the analyze branch below fit; BO Init
+// stacked above BO Next further right; Web App Export far right). `.sf-canvas`
+// is `overflow: hidden` at this reference width (only a narrow-viewport media
+// query in styles.css turns on horizontal scroll), so every node must fit
+// inside the canvas's own box here, not rely on scrolling to reach it.
+// v4.3: two layouts now share the same trunk (readers/split/fit/pam/webapp
+// stay put) AND THE SAME FOOTPRINT for their two remaining slots -- the
+// MANUAL-BO domains (paint, chemistry) fill them with the analyze branch
+// (below fit) and BO Init/Next Sample (stacked, then webapp); the
+// AUTOMATIC-BO domains (engineering, bottle, `branch.kind === 'pareto'`)
+// re-use the exact same two slots for `solver` (python_solver, below fit,
+// where the analyze branch used to sit -- both are leaf/source nodes with no
+// downstream FORWARD dependency on the trunk's x-position) and `branch`
+// (bayesian_opt_optimize, the merged optimize+analyze node, where Next
+// Sample used to sit -- fed by BO Init directly above it, same stacked
+// edge shape boInit->boNext already used, and by solver via a plain
+// forward left-to-right edge). Nothing widens the canvas; only which node
+// occupies which already-proven-to-fit slot changes.
+const POS_MANUAL = {
+  readerX: [24, 24],
+  readerY: [24, 180],
+  split:   [190, 100],
+  fit:     [370, 100],
+  pam:     [540, 24],
+  branch:  [370, 270],
+  boInit:  [680, 24],
+  boNext:  [680, 170],
+  webapp:  [800, 100],
+};
+const POS_AUTO = {
+  readerX: POS_MANUAL.readerX,
+  readerY: POS_MANUAL.readerY,
+  split:   POS_MANUAL.split,
+  fit:     POS_MANUAL.fit,
+  pam:     POS_MANUAL.pam,
+  solver:  POS_MANUAL.branch,   // python_solver: a source node, reuses the analyze slot
+  boInit:  POS_MANUAL.boInit,
+  branch:  POS_MANUAL.boNext,   // bayesian_opt_optimize: reuses the Next-Sample slot
+  webapp:  POS_MANUAL.webapp,
+};
+function buildPos(branch) {
+  return branch.kind === 'pareto' ? POS_AUTO : POS_MANUAL;
+}
+
+// small text badge baked onto a node tile where it reads well. Keyed by node
+// INSTANCE id (readerX vs readerY share a node TYPE but need different badges).
+const NODE_BADGE = {
+  readerX: 'X', readerY: 'Y', split: `${Math.round(DEFAULT_RATIO * 100)}/${100 - Math.round(DEFAULT_RATIO * 100)}`,
+  fit: 'FIT', pam: 'PAM', boInit: 'INIT', boNext: 'NEXT', solver: 'SIM', webapp: 'APP',
+};
+
+// Per-industry branch node identity, used only if a story is missing `branch`
+// (defensive fallback; every story defines its own). Real node names only.
+const BRANCH_FALLBACK = {
+  paint: { node: 'dist_cor', icon: 'plot_bar', label: 'Correlations', kind: 'correlation', badge: 'COR',
+    ins: ['X', 'Y'], outs: ['dist_cor'],
+    edges: [{ from: 'readerX', fromPort: 0, to: 'branch', toPort: 0 }, { from: 'readerY', fromPort: 0, to: 'branch', toPort: 1 }],
+    title: 'Read the property trade-offs', why: 'dist_cor reads the lab data directly.',
+    story: 'The correlations make the trade-off quantitative.', changed: 'The bars show which output pairs move together.' },
+  chemistry: { node: 'sobol_indices', icon: 'sobol_indices', label: 'Sobol Indices', kind: 'tornado', badge: 'SOBOL',
+    ins: ['X_train', 'models'], outs: ['sobol_indices'],
+    edges: [{ from: 'split', fromPort: 0, to: 'branch', toPort: 0 }, { from: 'fit', fromPort: 0, to: 'branch', toPort: 1 }],
+    title: 'Rank what drives the result', why: 'Sobol Indices decomposes the variance in the trained surface.',
+    story: 'The longest bar is the lever worth turning first.', changed: 'The tornado bars rank each input.' },
+  engineering: { node: 'bayesian_opt_optimize', icon: 'bo_optimize', label: 'BO Optimize', kind: 'pareto', badge: 'PARETO',
+    ins: ['bo_obj', 'true_evaluator'], outs: ['X', 'Y', 'models'],
+    edges: [{ from: 'boInit', fromPort: 0, to: 'branch', toPort: 0 }, { from: 'solver', fromPort: 0, to: 'branch', toPort: 1 }],
+    title: 'Map the Pareto trade-off', why: 'BO Optimize runs the automatic loop directly against the connected solver.',
+    story: 'The front is the set of best compromises.', changed: 'The front shows every Pareto-optimal design.' },
+};
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 const fmt = (v, d = 2) => (v == null || !isFinite(v)) ? 'n/a' : Number(v).toFixed(d);
@@ -96,20 +223,17 @@ const DASH = '';  // size/value placeholder; no em or en dashes per the studio s
   const s = document.createElement('style');
   s.id = '__studio_injected_css';
   s.textContent = `
-/* M7: Context button - replace prohibited indigo/purple with a warm neutral */
-.sf-abtn.sf-ctx { background: #6b6355; border-color: #524d44; }
-.sf-abtn.sf-ctx:hover { background: #7a7265; }
-.sf-abtn.sf-ctx.attached { background: #2faf5a; border-color: #279249; }
-
-/* B1: "Use cases" back link in the studio picker */
+/* B1: "Use cases" back link in the studio picker: plain mono text link, no
+   pill/border/background, faint until hovered (matches the challenge demo's
+   back link). */
 .studio-pick-back {
   display: inline-flex; align-items: center; gap: 6px;
   background: none; border: none; cursor: pointer;
-  color: var(--muted, #9c9890); font-size: 13px; font-weight: 600;
+  color: var(--faint, #82827C); font: 500 12.5px/1 var(--mono, monospace); letter-spacing: 0.02em;
   padding: 0; margin-bottom: 28px;
   transition: color 0.16s;
 }
-.studio-pick-back:hover { color: var(--warm, #ffb006); }
+.studio-pick-back:hover { color: var(--amber, #FFB006); }
 
 /* ================================================================
    STUDIO POLISH PASS - all overrides below are high-specificity
@@ -134,31 +258,13 @@ const DASH = '';  // size/value placeholder; no em or en dashes per the studio s
 
 /* ---------------------------------------------------------------
    FIX 2: CANVAS CONSTRAINED TO VISIBLE AREA
-   .sf-center must be a positioning context so .studio-deploy
-   (position:absolute) is clipped to the center column, not the
-   full stage width. Without this the deploy panel overflows into
-   the agent panel column.
-   Also ensure .sf-viewers (position:absolute inside .sf-canvas)
-   is clipped by overflow:hidden on .sf-canvas (already set in
-   styles.css). Adding overflow:hidden to .sf-center clips
-   absolute children that would render behind the agent panel.
-   -------------------------------------------------------------- */
+   .sf-center must be a positioning context so nothing absolutely
+   positioned inside it (a node dragged near the edge, a popover)
+   can overflow into the agent chat column. -------------------- */
 .sf-app .sf-center {
   position: relative !important;
   overflow: hidden !important;
   min-width: 0 !important;
-}
-
-/* The deploy panel must stay inside .sf-center, fully within the
-   canvas column (left side of agent panel). */
-.sf-app .studio-deploy {
-  position: absolute !important;
-  right: 14px !important;
-  bottom: 14px !important;
-  left: auto !important;
-  /* Constrain width so it cannot overflow to the right edge      */
-  width: min(380px, calc(100% - 28px)) !important;
-  max-width: calc(100% - 28px) !important;
 }
 
 /* ---------------------------------------------------------------
@@ -219,10 +325,7 @@ const DASH = '';  // size/value placeholder; no em or en dashes per the studio s
   overflow: hidden; text-overflow: ellipsis; max-width: 90px;
 }
 
-.sf-app .sf-canvas { min-height: 260px; }
-
-.sf-app .sf-viewers { padding: 12px; gap: 10px; }
-#viewerField { width: min(400px, 55%); max-width: 55%; }
+.sf-app .sf-canvas { min-height: 300px; }
 
 .sf-app .sf-back-btn {
   display: inline-flex; align-items: center;
@@ -241,7 +344,7 @@ const DASH = '';  // size/value placeholder; no em or en dashes per the studio s
 }
 .sf-app .sf-logo {
   font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
-  color: var(--sf-orange, #f59e0b); padding: 0 8px; flex-shrink: 0;
+  color: var(--sf-orange, #e8632a); padding: 0 8px; flex-shrink: 0;
 }
 .sf-app .sf-title {
   font-size: 12px; color: var(--sf-muted, #888);
@@ -263,81 +366,73 @@ const DASH = '';  // size/value placeholder; no em or en dashes per the studio s
   font-size: 12px; cursor: default;
 }
 
-/* ---------------------------------------------------------------
-   FIX 3 + 4: AGENT PANEL - one message at a time, calm
-   -------------------------------------------------------------- */
-
-/* Guide message: one clear block */
-.sf-app #guideMsg {
-  padding: 12px 13px; margin: 0;
-  border-radius: 10px 10px 0 0;
-  background: var(--sf-chrome-2, #1e1e22);
-  border: 1px solid var(--sf-border, #2e2e32);
-  border-bottom: none; animation: none;
-}
-/* Decision block: joins seamlessly below guide */
-.sf-app #decisionMsg {
-  padding: 10px 13px 12px; margin: 0;
-  border-radius: 0 0 10px 10px;
-  background: var(--sf-chrome-2, #1e1e22);
-  border: 1px solid var(--sf-border, #2e2e32);
-  border-top: 1px solid rgba(255,255,255,0.05); animation: none;
-}
-/* Single story beat bubble: compact, clearly secondary */
-.sf-app .sf-beat-single {
-  padding: 9px 13px; margin: 0; border-radius: 8px;
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-  color: #b8b8bc; font-size: 12px; line-height: 1.5;
-  animation: sfMsgIn 0.28s ease both;
-}
-@keyframes sfMsgIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-
-/* Auto-build end guide: a distinct calm card with a green accent */
-.sf-app .sf-autobuild-guide {
-  padding: 12px 13px; margin: 0; border-radius: 8px;
-  background: rgba(57,211,83,0.06);
-  border: 1px solid rgba(57,211,83,0.22);
-  color: var(--sf-ink, #e6e6e6); font-size: 12.5px; line-height: 1.6;
-  animation: sfMsgIn 0.35s ease both;
-}
-.sf-app .sf-autobuild-guide strong { color: #8ee79c; font-weight: 600; }
-
-/* Suppress any old-style .sf-beat accumulations */
-.sf-app .sf-beat { display: none !important; }
-
-/* Chat: tight gap so guide+decision read as one unit */
-.sf-app .sf-chat { gap: 8px; padding: 10px 10px 8px; }
-
-/* Actions: tighter row */
-.sf-app .sf-agent-actions { margin-top: 10px; gap: 6px; }
-
-/* Agent head: no extra decoration */
-.sf-app .sf-agent-head {
-  padding: 9px 12px 8px;
-  border-bottom: 1px solid var(--sf-border, #2e2e32);
-  background: var(--sf-chrome-2, #1e1e22);
-}
-.sf-app .sf-agent-title { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; }
-
 /* pal-node search input: keep focus ring amber, not blue */
 .sf-app .sf-search-input:focus {
   border-color: rgba(255, 176, 6, 0.55) !important;
   outline: none;
 }
+
+/* the fixed-objective note under the optimize decision label (no goal chips,
+   the direction is read from the modeled property, not chosen). */
+.sf-app .goal-note {
+  font-size: 11px; line-height: 1.5; color: var(--faint, #82827C);
+  margin: -2px 0 4px;
+}
+
+/* v4: port hover label, a small dark pill naming the real port (X_train,
+   models, bo_obj, ...). Native title= is the accessible fallback; this is the
+   styled one. Positioned off the CARD's own edge (left:100%/0) since the port
+   itself is now centred exactly there (see the CARD_W/CARD_H port fix). */
+.sf-app .snode .port[data-label]:hover::after {
+  content: attr(data-label);
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  white-space: nowrap; pointer-events: none; z-index: 6;
+  font: 500 10px/1 var(--mono, monospace); letter-spacing: 0.02em;
+  color: var(--sf-ink, #e6e6e6);
+  background: rgba(10,10,10,0.94); border: 1px solid var(--sf-border, #3a3a3c);
+  border-radius: 4px; padding: 3px 6px;
+}
+.sf-app .snode .port[data-role="out"][data-label]:hover::after { left: auto; right: 12px; }
+
+/* v4: explicit z-order so edges always paint UNDER node cards, ghosts always
+   paint under both, and popovers paint above everything on the canvas
+   (belt-and-braces on top of the natural DOM order, which already puts the
+   once-created <svg> before every node card appended later). */
+.sf-app svg.sf-edges { z-index: 1; }
+.sf-app .studio-ghost { z-index: 1; }
+.sf-app .snode { z-index: 2; }
 `;
   document.head.appendChild(s);
 }());
 
-export async function mountStudio(root) {
-  // Lifecycle: a full rebuild on every mount. Tear down any prior renderer.
-  if (root._studioField && root._studioField.destroy) {
-    try { root._studioField.destroy(); } catch (e) { /* already gone */ }
-  }
-  root._studioField = null;
+// Quiet identity marks for the industry picker cards: minimal geometric line
+// art, single amber accent, aria-hidden. Kept faint per house style (no
+// gradient washes, no glows); these replace the old blurred-glow blob.
+const PICK_MARK = {
+  paint: `<svg viewBox="0 0 28 28" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="15" height="7" rx="2"/><line x1="11.5" y1="13" x2="11.5" y2="18"/><line x1="11.5" y1="18" x2="20" y2="24"/></svg>`,
+  chemistry: `<svg viewBox="0 0 28 28" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4h6"/><path d="M12 4v7l-6.2 10.8c-.9 1.6.2 3.6 2 3.6h10.4c1.8 0 2.9-2 2-3.6L14 11V4"/><path d="M9.2 17.5h9.6"/></svg>`,
+  // studio's "engineering" case is the pin-fin heat sink (cooling), not the
+  // challenge's bottle: fins over a baseplate.
+  engineering: `<svg viewBox="0 0 28 28" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="4" x2="6" y2="16"/><line x1="11" y1="4" x2="11" y2="16"/><line x1="16" y1="4" x2="16" y2="16"/><line x1="21" y1="4" x2="21" y2="16"/><rect x="4" y="16" width="19" height="5" rx="1"/></svg>`,
+};
 
+export async function mountStudio(root) {
   // Track the resize listener added inside buildStage so we can remove it on
   // teardown (M3 fix: prevent listener accumulation across studio visits).
   let _onResize = null;
+  // AUDIT FIX 5: the idle-nudge timer lives at this outer scope, not as a
+  // buildStage-local `let`, so the returned destroy() below can clear it too.
+  let idleTimer = null;
+  // AUDIT FIX 6: cleanup for whichever pointer-drag (palette drag or wire drag) is
+  // currently live, so tearing down mid-drag removes its document listeners and any
+  // floating clone / rubber-band wire instead of leaking them.
+  let _dragCleanup = null;
+  // v4: cleanup for a live anchored popover + its auto-hide timer, same idea.
+  let _popoverCleanup = null;
+  // v4.1: cleanup for the chat's typing/streaming timers (see the "chat (v4)"
+  // block inside buildStage), so navigating away mid-stream cancels every
+  // outstanding setTimeout instead of letting it fire after unmount.
+  let _streamCleanup = null;
 
   root.innerHTML = `
   <div class="studio fade-in">
@@ -345,7 +440,7 @@ export async function mountStudio(root) {
       <div class="pick-head">
         <button class="studio-pick-back" id="studioPickBack">&#8592; Use cases</button>
         <h1>Build it yourself</h1>
-        <div class="lead">Pick an industry. You will assemble a Stochos Flow workflow by dragging nodes and wiring their ports, make a real decision at each step, and watch a live DIM-GP model respond.</div>
+        <div class="lead">Pick an industry. You will assemble the real Stochos Flow workflow by dragging nodes and wiring their ports, make two real decisions, and chat with the agent as you go.</div>
       </div>
       <div class="pick-cards" id="pickcards"></div>
     </div>
@@ -369,9 +464,8 @@ export async function mountStudio(root) {
     const card = document.createElement('div');
     card.className = 'pick-card';
     card.dataset.domain = key;
-    card.style.setProperty('--glow', s.accent || 'var(--accent)');
     card.innerHTML = `
-      <span class="glow" style="background:${s.accent || 'var(--accent)'}"></span>
+      <span class="mark" aria-hidden="true">${PICK_MARK[key] || ''}</span>
       <span class="tag">${s.tag || key}</span>
       <h3>${s.outcome || ''}</h3>
       <p>${s.pitch || ''}</p>
@@ -381,7 +475,9 @@ export async function mountStudio(root) {
   }
 
   // ---- "Beat Stochos" hand-off: if we arrived from the challenge game, skip the
-  // picker, build that case directly, and offer a return-to-showdown banner. ----
+  // picker, build that case directly, and offer a return-to-showdown banner
+  // (v4: the banner is GATED -- it only appears once the graph is fully built,
+  // see maybeShowChallengeBanner() inside buildStage). ----
   // M4 fix: consume challengeCtx immediately (one-shot). Clearing it here ensures
   // that a later plain #/studio visit (entered via nav, not from the challenge)
   // shows the normal picker rather than auto-skipping to the old challenge domain.
@@ -394,8 +490,13 @@ export async function mountStudio(root) {
   function finishChallenge(surrogate) {
     if (!challengeCtx) return;
     const prim = challengeCtx.primary || { out: surrogate.outputs[0].name, goal: 'high' };
-    // budget-limited best (same as the challenge's compact path), so the game is winnable
-    const r = stochosRun(surrogate, prim.out, prim.goal, 7);
+    // AUDIT FIX 1: call stochosRun the SAME way the challenge's own "watch it
+    // optimize" path does (challenge.js), i.e. with no budget override, so this
+    // resolves the per-domain calibrated budget from DOMAIN_RUN_CFG (score.js)
+    // instead of a hardcoded one. Both paths are deterministic (fixed per-domain
+    // seed), so this keeps the showdown score identical no matter which path the
+    // visitor took to get here.
+    const r = stochosRun(surrogate, prim.out, prim.goal);
     try {
       sessionStorage.setItem('challengeShowdown', JSON.stringify({
         domain: challengeCtx.domain, userBest: challengeCtx.userBest,
@@ -409,7 +510,7 @@ export async function mountStudio(root) {
   function addChallengeBanner(surrogate) {
     const b = document.createElement('div');
     b.className = 'sf-challenge-banner';
-    b.innerHTML = `<span>Challenge: build the workflow, then settle the score.</span><button class="sf-ch-return" id="chReturn">See the showdown</button>`;
+    b.innerHTML = `<span>Challenge: the workflow is built.</span><button class="sf-ch-return" id="chReturn">See the showdown</button>`;
     root.appendChild(b);
     b.querySelector('#chReturn').onclick = () => finishChallenge(surrogate);
   }
@@ -431,26 +532,32 @@ export async function mountStudio(root) {
       return;
     }
     buildStage(domain, story, surrogate);
-    if (challengeCtx) addChallengeBanner(surrogate);
+    // v4: no banner here -- it only appears once the graph is fully built
+    // (maybeShowChallengeBanner, called from onNodeDone / autobuild).
   }
 
   // ---------------------------------------------------------------- stage ----
   function buildStage(domain, story, surrogate) {
-    // resolve the per-industry branch node (story-supplied, else fallback)
+    // resolve the per-industry branch node (story-supplied, else fallback) and
+    // build the full node + edge model (a real multi-port graph, not a chain).
     const branch = resolveBranch(story, domain);
-    // bind the branch node identity onto the analyze step so the rest of the code
-    // treats it like any other node.
-    const steps = STEPS.map((s) => s.branch
-      ? { ...s, node: branch.node, label: branch.label, icon: branch.icon, slot: slotFor(story, s.id, s.slot) }
-      : { ...s, slot: slotFor(story, s.id, s.slot) });
+    const nodeDefs = buildNodeDefs(branch);
+    const edgeDefs = buildEdgeDefs(branch);
+    const POS = buildPos(branch);
+    // v4.3: the automatic-BO domains (engineering, bottle) merge the old
+    // `analyze` phase into `optimize` and swap Next Sample for a Python
+    // Solver source node -- see buildPhases()'s own comment. PHASES/
+    // PHASE_FOR_NODE/NODE_ORDER are per-domain now (branch-shape dependent),
+    // computed once here and closed over by every helper below.
+    const automatic = branch.kind === 'pareto';
+    const PHASES = buildPhases(branch);
+    const PHASE_FOR_NODE = {};
+    PHASES.forEach((p) => p.nodeIds.forEach((id) => { PHASE_FOR_NODE[id] = p.id; }));
+    const NODE_ORDER = PHASES.reduce((acc, p) => acc.concat(p.nodeIds), []);
 
     // per-industry Flow project name shown in the title bar + Working Dir.
     const project = PROJECT_NAME[domain] || 'workflow.sfpj';
-    const ctxDocs = `${domain}_docs`;
     const workDir = `C:\\Users\\you\\StochosFlow\\${project.replace('.sfpj', '')}`;
-
-    // the title-bar viewer for the per-industry branch ("Sensitivity"/"Pareto"/"Correlations")
-    const branchViewer = { tornado: 'Sensitivity', pareto: 'Pareto', correlation: 'Correlations' }[branch.kind] || 'Analysis';
 
     const stage = document.createElement('div');
     stage.className = 'sf-app studio-stage';
@@ -458,7 +565,7 @@ export async function mountStudio(root) {
       <div class="sf-titlebar">
         <button class="sf-back-btn" id="btnBack" title="Back to domain picker">&#8592; Back</button>
         <span class="sf-logo">SF</span>
-        <span class="sf-title"><span class="sf-dot"></span> Stochos Flow - ${project}</span>
+        <span class="sf-title"><span class="sf-dot"></span> Stochos Flow: ${project}</span>
         <span class="sf-winctl"><i class="sf-min"></i><i class="sf-max"></i><i class="sf-close"></i></span>
       </div>
       <div class="sf-menubar">
@@ -476,26 +583,6 @@ export async function mountStudio(root) {
         <section class="sf-center">
           <div class="sf-canvas" id="graph">
             <svg class="sf-edges studio-edges" id="edges"></svg>
-            <div class="sf-viewers" id="viewers">
-              <div class="sf-viewer" id="viewerField">
-                <div class="sf-viewer-bar">
-                  <span class="sf-viewer-title">DIM-GP Surface</span>
-                  <button class="sf-viewer-toggle" id="btnToggleField" title="Collapse / expand preview"><span class="sf-viewer-toggle-icon">&#8963;</span></button>
-                </div>
-                <div class="sf-viewer-body studio-result" id="result"></div>
-              </div>
-              <div class="sf-viewer" id="viewerBranch" hidden>
-                <div class="sf-viewer-bar">
-                  <span class="sf-viewer-title" id="branchViewerTitle">${branchViewer}</span>
-                  <button class="sf-viewer-toggle" id="btnToggleBranch" title="Collapse / expand"><span class="sf-viewer-toggle-icon">&#8963;</span></button>
-                </div>
-                <div class="sf-viewer-body studio-branch" id="branch">
-                  <div class="branch-head"><span class="branch-title" id="branchTitle"></span></div>
-                  <canvas class="branch-chart" id="branchChart" width="300" height="170"></canvas>
-                  <div class="branch-legend" id="branchLegend"></div>
-                </div>
-              </div>
-            </div>
           </div>
           <div class="sf-dock" id="dock">
             <div class="sf-dock-head">
@@ -515,42 +602,18 @@ export async function mountStudio(root) {
             </div>
           </div>
         </section>
-        <aside class="sf-agent" id="agent">
-          <div class="sf-agent-head"><span class="sf-agent-title">Agent</span><span class="sf-agent-ctl"><i class="sf-max"></i><i class="sf-close"></i></span></div>
-          <div class="sf-chat" id="chat">
-            <div class="sf-msg sf-msg-agent" id="guideMsg">
-              <div class="insp-kicker" id="inspKicker"></div>
-              <div class="insp-title" id="inspTitle"></div>
-              <div class="insp-why" id="inspWhy"></div>
-            </div>
-            <div class="sf-msg sf-msg-agent sf-msg-decision" id="decisionMsg">
-              <div class="insp-decision" id="inspDecision"></div>
-              <div class="insp-changed" id="inspChanged"></div>
-              <div class="sf-agent-actions">
-                <button class="btn-connect-for-me sf-chip-btn" id="btnConnect">Connect for me</button>
-                <button class="btn-autobuild sf-chip-btn" id="btnAutobuild">Auto-build rest</button>
-                <button class="insp-next sf-chip-btn" id="inspNext">Next</button>
-              </div>
-            </div>
-          </div>
-          <div class="sf-agent-foot">
-            <div class="sf-ctx-chip">Context: ${ctxDocs}</div>
-            <textarea class="sf-agent-input" id="agentInput" placeholder="Describe what you want to build... (Ctrl+Enter to send)"></textarea>
-            <div class="sf-agent-btns">
-              <button class="sf-abtn sf-ctx" id="btnContext">Context</button>
-              <button class="sf-abtn sf-send" id="btnSend">Send</button>
-              <button class="sf-abtn sf-clear" id="btnClearChat">Clear</button>
-            </div>
-          </div>
+        <aside class="sf-agent" id="guide">
+          <div class="sfg-head"><span class="sfg-agent-dot"></span> Agent</div>
+          <div class="sfg-chat" id="chatScroll"></div>
+          <div class="sfg-presets" id="chatPresets"></div>
         </aside>
       </div>`;
     pickWrap.appendChild(stage);
 
     const $ = (s) => stage.querySelector(s);
-    const graph = $('#graph'), svg = $('#edges'), resultHost = $('#result');
+    const graph = $('#graph'), svg = $('#edges');
     const vbody = $('#vbody'), vcountEl = $('#vcount'), consoleEl = $('#console');
-    const branchPanel = $('#viewerBranch');
-    const chatEl = $('#chat'), varsTable = $('#varsTable');
+    const varsTable = $('#varsTable');
 
     // ---- Back button: return to the domain picker (B1 / M3) ----
     // Uses the shared studioTeardown() helper (defined after onResize is created)
@@ -560,46 +623,6 @@ export async function mountStudio(root) {
       // re-mount: this rebuilds the pick screen from scratch
       mountStudio(root);
     };
-
-    // ---- Collapsible Model Preview (DIM-GP Surface viewer) ----
-    // Persist collapsed state per session. Default to collapsed on narrow viewports
-    // where the viewer would cover the canvas (<=900px wide).
-    const FIELD_COLLAPSE_KEY = 'sf_field_collapsed';
-    const fieldViewer = $('#viewerField');
-    const shouldDefaultCollapse = window.innerWidth <= 900;
-    const savedCollapse = sessionStorage.getItem(FIELD_COLLAPSE_KEY);
-    const initCollapsed = savedCollapse !== null ? savedCollapse === '1' : shouldDefaultCollapse;
-    if (initCollapsed) fieldViewer.classList.add('collapsed');
-
-    const applyToggle = (viewer, btn, key) => {
-      const isCollapsed = viewer.classList.toggle('collapsed');
-      try { sessionStorage.setItem(key, isCollapsed ? '1' : '0'); } catch (_e) {}
-      // when expanding the field viewer, trigger a resize so StudioField repaints
-      if (!isCollapsed && key === FIELD_COLLAPSE_KEY && field.resize) {
-        requestAnimationFrame(() => { if (resultHost.isConnected) field.resize(); });
-      }
-    };
-
-    $('#btnToggleField').onclick = (e) => {
-      e.stopPropagation();
-      applyToggle(fieldViewer, $('#btnToggleField'), FIELD_COLLAPSE_KEY);
-    };
-    // also allow clicking the viewer bar itself to toggle
-    fieldViewer.querySelector('.sf-viewer-bar').addEventListener('click', (e) => {
-      if (e.target.classList.contains('sf-viewer-toggle') || e.target.classList.contains('sf-viewer-toggle-icon')) return;
-      applyToggle(fieldViewer, $('#btnToggleField'), FIELD_COLLAPSE_KEY);
-    });
-
-    // Branch viewer also gets a collapse toggle (no persistent state needed)
-    // (branchPanel already holds the same #viewerBranch reference from line above)
-    $('#btnToggleBranch').onclick = (e) => {
-      e.stopPropagation();
-      branchPanel.classList.toggle('collapsed');
-    };
-    branchPanel.querySelector('.sf-viewer-bar').addEventListener('click', (e) => {
-      if (e.target.classList.contains('sf-viewer-toggle') || e.target.classList.contains('sf-viewer-toggle-icon')) return;
-      branchPanel.classList.toggle('collapsed');
-    });
 
     // dock tabs (Console / Variables / Connections / Notes). Variables shows the
     // tree table; the other tabs share the console body (visual parity with Flow).
@@ -622,86 +645,66 @@ export async function mountStudio(root) {
     $('#btnStop').onclick = (e) => { e.preventDefault(); };
     $('#btnSave').onclick = (e) => { e.preventDefault(); };
     $('#btnExport').onclick = (e) => { e.preventDefault(); };
-    $('#btnContext').onclick = () => { $('#btnContext').classList.add('attached'); };
-    $('#btnClearChat').onclick = () => { resetGuide(); };
-    // Send / Ctrl+Enter in the agent input runs Auto-build (the agent "builds it")
-    const agentInput = $('#agentInput');
-    $('#btnSend').onclick = () => { if (!placing) autobuild(); };
-    agentInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!placing) autobuild(); }
-    });
 
-    // ---- the renderer: fills #result with its own canvas. We hold the ref. ----
-    const axisLabels = (story.axes || []).map((a) => {
-      const inp = surrogate.inputs.find((i) => i.name === a);
-      return inp ? (inp.label || inp.name) : a;
-    });
-    const field = new StudioField(resultHost, surrogate, {
-      colormap: 'amber',
-      axisLabels,
-      accent: story.accent || 'var(--accent)',
-    });
-    root._studioField = field;
-    if (field.setStage) field.setStage('empty');
-    if (field.resize) requestAnimationFrame(() => field.resize());
     // M3 fix: track the resize listener in the outer-scoped _onResize so the
     // returned teardown (and btnBack) can always remove the exact same function.
+    // v4: no StudioField to resize anymore; just close any open popover (its
+    // anchor position is stale after a resize) and redraw edges.
     const onResize = () => {
-      if (!resultHost.isConnected) { window.removeEventListener('resize', onResize); return; }
-      if (field.resize) field.resize();
+      if (!stage.isConnected) { window.removeEventListener('resize', onResize); return; }
+      closePopover();
       drawEdges();
     };
     _onResize = onResize;
     window.addEventListener('resize', onResize);
 
-    // Shared cleanup: remove the resize listener and destroy the field renderer.
-    // Called by btnBack (navigate back to picker) AND by the teardown returned to
-    // main.js (navigate away from #/studio entirely).
+    // Shared cleanup: remove the resize listener, close any open popover, and
+    // cancel a live drag. Called by btnBack (navigate back to picker) AND by
+    // the teardown returned to main.js (navigate away from #/studio entirely).
     function studioTeardown() {
+      clearTimeout(idleTimer);  // AUDIT FIX 5
+      if (_popoverCleanup) { _popoverCleanup(); _popoverCleanup = null; }
+      if (_dragCleanup) { _dragCleanup(); _dragCleanup = null; }  // AUDIT FIX 6
+      if (_streamCleanup) { _streamCleanup(); _streamCleanup = null; }  // v4.1: cancel chat typing/streaming timers
       if (_onResize) { window.removeEventListener('resize', _onResize); _onResize = null; }
-      if (root._studioField && root._studioField.destroy) {
-        try { root._studioField.destroy(); } catch (_e) {}
-        root._studioField = null;
-      }
     }
 
-    // ---- node model: positions + port counts (cards render on placement) ----
+    // ---- node model: real multi-port nodes. Positions come from POS (a
+    // fixed, domain-agnostic branched layout); port counts come from each node's
+    // ins/outs arrays (real port names, shown on hover). ----
     const nodes = {};
-    steps.forEach((s) => {
-      const [c, r] = ROW[s.id] || [0, 0];
-      nodes[s.id] = {
-        ...s, x: OX + c * COLX, y: OY + r * COLY,
-        inN: FLOW_LINKS[s.id] ? FLOW_LINKS[s.id].length : 0,
-        outN: s.id === 'deploy' ? 0 : 1,
-        el: null, placed: false,
-      };
+    Object.keys(nodeDefs).forEach((id) => {
+      const d = nodeDefs[id];
+      const [x, y] = POS[id];
+      nodes[id] = { id, ...d, x, y, inN: d.ins.length, outN: d.outs.length, el: null, ghost: null, placed: false };
     });
 
-    // ---- ghost slots: a dashed blueprint of what to build, laid out by ROW ----
-    steps.forEach((s) => {
-      const n = nodes[s.id];
+    // ---- ghost slots: a dashed blueprint of what to build, laid out by POS,
+    // ALL visible from the start (unchanged from v3). ----
+    Object.keys(nodes).forEach((id) => {
+      const n = nodes[id];
       const g = document.createElement('div');
       g.className = 'studio-ghost';
-      g.dataset.id = s.id;
+      g.dataset.id = id;
       g.style.left = n.x + 'px';
       g.style.top = n.y + 'px';
       g.style.width = NW + 'px';
       g.style.height = NH + 'px';
-      g.innerHTML = `<span class="ghost-label">${s.slot || s.id}</span>`;
+      g.innerHTML = `<span class="ghost-label">${n.slot || id}</span>`;
       graph.appendChild(g);
       n.ghost = g;
     });
 
-    // ---- edges (svg paths created up-front; drawn only once both ends exist) ----
+    // ---- edges (svg paths created up-front; drawn only once both ends exist).
+    // Each edge carries a real fromPort/toPort index into its node's outs/ins
+    // array, so multiple wires into one node fan into visibly distinct ports. ----
     const edgeEls = [];
-    for (const id in FLOW_LINKS) {
-      FLOW_LINKS[id].forEach((from, i) => {
-        const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        p.setAttribute('class', 'edge');
-        svg.appendChild(p);
-        edgeEls.push({ from, to: id, toPort: i, el: p, live: false });
-      });
-    }
+    edgeDefs.forEach((d) => {
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('class', 'edge');
+      svg.appendChild(p);
+      edgeEls.push({ from: d.from, fromPort: d.fromPort, to: d.to, toPort: d.toPort, el: p, live: false });
+    });
     // rubber-band wire shown while the user drags from a port
     const dragWire = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     dragWire.setAttribute('class', 'wire-drag');
@@ -711,20 +714,294 @@ export async function mountStudio(root) {
     const drawEdges = () => edgeEls.forEach((e) => {
       const a = nodes[e.from], b = nodes[e.to];
       if (!a || !b || !a.el || !b.el) { e.el.setAttribute('d', ''); return; }
-      const s = port(a, 'out', 0), t = port(b, 'in', e.toPort);
-      const dx = Math.max(40, Math.abs(t.x - s.x) * 0.5);
-      e.el.setAttribute('d', `M ${s.x},${s.y} C ${s.x + dx},${s.y} ${t.x - dx},${t.y} ${t.x},${t.y}`);
+      const s = port(a, 'out', e.fromPort), t = port(b, 'in', e.toPort);
+      e.el.setAttribute('d', edgePath(s, t));
     });
 
-    // ----------------------------------------------------- state machine ----
-    let vcount = 0;
-    let lastChoice = {};    // remembers each step's chosen value
-    let stepSeq = 0;        // bumped on each step entry; cancels an in-flight optimize run
-    let current = 0;        // current step index
-    let idleTimer = null;   // 6s idle hint per step
-    let placing = false;    // a drag/auto-build animation is in flight
+    // -------------------------------------------------------- popovers (v4) --
+    // Small, anchored, NON-BLOCKING info popups: the explainer channel for
+    // every placed/wired node. One at a time. Only the popover box itself is
+    // interactive; everything else on the canvas stays fully clickable/
+    // draggable underneath. v4.2: there is no "decision" variant left -- every
+    // popover is plain explainer copy, including the two nodes that used to
+    // carry a chip/slider (train_test_split, bayesian_opt_init); they now just
+    // state what happened, defaults included, same as any other node.
+    let activePopover = null, popoverTimer = null;
+    function closePopover() {
+      if (popoverTimer) { clearTimeout(popoverTimer); popoverTimer = null; }
+      if (activePopover) { activePopover.remove(); activePopover = null; }
+    }
+    _popoverCleanup = closePopover;
+    function positionPopover(pop, anchorEl) {
+      if (!anchorEl || !anchorEl.isConnected) return;
+      const gr = graph.getBoundingClientRect();
+      const ar = anchorEl.getBoundingClientRect();
+      const left = ar.left - gr.left + ar.width / 2;
+      const top = ar.top - gr.top + ar.height + 10;
+      pop.style.left = left + 'px';
+      pop.style.top = top + 'px';
+      requestAnimationFrame(() => {
+        if (!pop.isConnected) return;
+        const pr = pop.getBoundingClientRect(), grr = graph.getBoundingClientRect();
+        if (pr.bottom > grr.bottom - 6) pop.style.top = (ar.top - gr.top - pr.height - 10) + 'px';
+        const pr2 = pop.getBoundingClientRect();
+        let dx = 0;
+        if (pr2.right > grr.right - 6) dx = grr.right - 6 - pr2.right;
+        if (pr2.left < grr.left + 6) dx = grr.left + 6 - pr2.left;
+        if (dx) pop.style.left = (parseFloat(pop.style.left) + dx) + 'px';
+      });
+    }
+    function showPopover(anchorEl, { title, body, autoHideMs = 3200 } = {}) {
+      closePopover();
+      if (!anchorEl) return null;
+      const pop = document.createElement('div');
+      pop.className = 'node-popover';
+      if (title) {
+        const t = document.createElement('div'); t.className = 'popover-title'; t.textContent = title;
+        pop.appendChild(t);
+      }
+      const b = document.createElement('div'); b.className = 'popover-body';
+      if (body) b.textContent = body;
+      pop.appendChild(b);
+      pop.addEventListener('click', (e) => {
+        if (e.target === pop || e.target === b || e.target.classList.contains('popover-title')) closePopover();
+      });
+      graph.appendChild(pop);
+      positionPopover(pop, anchorEl);
+      activePopover = pop;
+      if (autoHideMs) popoverTimer = setTimeout(closePopover, autoHideMs);
+      return pop;
+    }
 
-    // Enhanced Python Console: timestamped lines, Flow-style. A leading ✓ / [Tools]
+    // ---------------------------------------------------------- chat (v4) ----
+    // The agent chat stream + result cards. PRESETS ONLY drive replies (no
+    // free-text field): scripted answers must not pretend to be a live LLM.
+    function scrollChat() { const s = $('#chatScroll'); if (s) s.scrollTop = s.scrollHeight; }
+    // Bubble shell: the title (optional) + an EMPTY body, appended to the
+    // stream. Callers (chatUser, chatAgent, chatResult) fill the body in,
+    // either instantly (the user echo) or over time (typing + streaming, v4.1).
+    function chatShell(kind, title) {
+      // Teardown guard: every chat-posting call (chatUser/chatAgent/chatResult)
+      // funnels through here, so this one check stops a still-in-flight async
+      // chain (autobuild's onNodeDone -> postBeat -> runGroupPayoff, an
+      // in-flight runOptimize's own result card, the idle nudge, ...) from
+      // creating a NEW bubble on an already-torn-down stage. Those call sites
+      // do not each need their own stage.isConnected check. location.hash is
+      // the same belt-and-braces addition as trackTimeout's (see its comment):
+      // it updates synchronously on navigation, before the async 'hashchange'
+      // listener (and therefore teardown) actually runs.
+      if (!stage.isConnected || !location.hash.startsWith('#/studio')) return null;
+      const streamEl = $('#chatScroll');
+      if (!streamEl) return null;
+      const el = document.createElement('div');
+      el.className = `chat-msg ${kind}`;
+      if (title) { const h = document.createElement('div'); h.className = 'chat-msg-title'; h.textContent = title; el.appendChild(h); }
+      const body = document.createElement('div');
+      body.className = 'chat-msg-body';
+      el.appendChild(body);
+      streamEl.appendChild(el);
+      return { el, body };
+    }
+    // the visitor's own echoed preset click: always instant, never typed/streamed.
+    function chatUser(text) {
+      const shell = chatShell('user');
+      if (!shell) return null;
+      shell.body.textContent = text || '';
+      scrollChat();
+      return shell.el;
+    }
+
+    // ---------------------------------------- typing indicator + word stream --
+    // v4.1 (2026-07-13, "give the chat writing animations", Jason's direct
+    // feedback on the v4 chat panel): every agent reply -- a plain chat line OR
+    // a result card -- first shows a brief pulsing-dot "typing" beat, then
+    // either streams the text in word by word (chatAgent) or fades in as ONE
+    // unit (chatResult -- a metrics row / chart cannot sensibly stream word by
+    // word). Only one message is ever in flight: starting a new one (another
+    // preset click, a place/wire reaction, an autobuild line) FAST-FORWARDS
+    // whatever is still typing/streaming to its finished state first, so two
+    // typing indicators never overlap and nothing is ever queued invisibly.
+    // Reduced motion renders every message in its final state immediately (no
+    // dots, no streaming), checked once per message (cheap, and honors a
+    // mid-session toggle for the next message that posts).
+    let activeStream = null;        // { finish() } for the in-flight message, or null
+    const streamTimers = new Set(); // every live setTimeout id spawned by streaming (teardown)
+    function reducedMotion() {
+      return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+    // AUDIT-FIX-style guard (matches onResize/autobuild's existing idiom):
+    // a timer that was still pending at teardown and somehow escaped
+    // _streamCleanup's sweep never mutates a detached stage. Belt AND braces:
+    // `stage.isConnected` catches teardown via the synchronous "Back" button
+    // (studioTeardown runs immediately, no event round-trip); a route change
+    // away from #/studio goes through main.js's 'hashchange' listener, which
+    // is an async-dispatched event -- location.hash itself, unlike the
+    // listener firing, updates SYNCHRONOUSLY the instant it is assigned, so
+    // checking it here closes the narrow window where a timer that was
+    // already due fires before the hashchange event (and therefore
+    // _streamCleanup) has run at all.
+    function trackTimeout(fn, ms) {
+      const id = setTimeout(() => {
+        streamTimers.delete(id);
+        if (!stage.isConnected || !location.hash.startsWith('#/studio')) return;
+        fn();
+      }, ms);
+      streamTimers.add(id);
+      return id;
+    }
+    // teardown seam: cancel every outstanding streaming timer. Wired to the
+    // outer-scoped _streamCleanup right below, alongside _popoverCleanup/_dragCleanup.
+    function clearStreamTimers() { streamTimers.forEach((id) => clearTimeout(id)); streamTimers.clear(); }
+    _streamCleanup = () => { clearStreamTimers(); activeStream = null; };
+    // interrupt whatever is currently typing/streaming, jumping it straight to
+    // its finished state (full text / the revealed card), before any new
+    // message starts. A no-op when nothing is in flight.
+    function fastForwardActive() {
+      if (!activeStream) return;
+      const s = activeStream;
+      activeStream = null;
+      s.finish();
+    }
+    function typingDots() {
+      const d = document.createElement('span');
+      d.className = 'chat-typing';
+      d.innerHTML = '<i></i><i></i><i></i>';
+      return d;
+    }
+
+    // Post a streamed agent text reply: dots, then the words reveal one at a
+    // time. The per-word delay is derived from the word count so the WHOLE
+    // message (typing beat included) always finishes within ~1.2s, however
+    // long the text is -- a short reply is not artificially slowed down, a
+    // long one is not left crawling.
+    function chatAgent(text, title) {
+      fastForwardActive();
+      const shell = chatShell('agent', title);
+      if (!shell) return null;
+      const { el, body } = shell;
+      const full = text || '';
+      if (reducedMotion()) { body.textContent = full; scrollChat(); return el; }
+
+      el.classList.add('typing');
+      body.appendChild(typingDots());
+      scrollChat();
+
+      const words = full.split(/\s+/).filter(Boolean);
+      let settled = false;
+      let pendingId = null;
+      const schedule = (fn, ms) => { pendingId = trackTimeout(() => { pendingId = null; fn(); }, ms); };
+      const handle = {
+        finish() {
+          if (settled) return;
+          settled = true;
+          if (pendingId != null) { clearTimeout(pendingId); streamTimers.delete(pendingId); pendingId = null; }
+          el.classList.remove('typing');
+          body.textContent = full; // exact original text, not the whitespace-normalized word join
+          scrollChat();
+          if (activeStream === handle) activeStream = null;
+        },
+      };
+      activeStream = handle;
+
+      const typingMs = 350 + Math.random() * 250; // 350-600ms, randomized so it feels alive
+      schedule(() => {
+        el.classList.remove('typing');
+        body.textContent = '';
+        if (!words.length) { handle.finish(); return; }
+        const budget = Math.max(300, 1200 - typingMs); // remaining ms so the total stays under ~1.2s
+        const perWord = Math.min(140, budget / words.length);
+        let shown = 0;
+        const revealNext = () => {
+          shown++;
+          if (shown >= words.length) { handle.finish(); return; }
+          body.textContent = words.slice(0, shown).join(' ');
+          scrollChat();
+          schedule(revealNext, perWord);
+        };
+        schedule(revealNext, perWord);
+      }, typingMs);
+
+      return el;
+    }
+
+    // result cards: metrics row + optional chart(+legend) + callout, OR a fully
+    // custom build(host) callback (used by the deploy predictor). The content
+    // is assembled up front (so a chart's draw() runs normally against a plain
+    // canvas, visible or not) then revealed as ONE unit -- after the same
+    // typing beat as chatAgent -- rather than streamed word by word.
+    function chatResult({ title, metrics, chart, callout, build } = {}) {
+      fastForwardActive();
+      const shell = chatShell('agent result', title);
+      if (!shell) return null;
+      const { el, body } = shell;
+
+      const content = document.createElement('div');
+      content.className = 'result-content';
+      if (build) {
+        build(content);
+      } else {
+        if (metrics && metrics.length) {
+          const row = document.createElement('div');
+          row.className = 'result-metrics';
+          row.innerHTML = metrics.map((m) => `<span class="rm"><b>${m.value}</b><i>${m.label}</i></span>`).join('');
+          content.appendChild(row);
+        }
+        if (chart) {
+          const cv = document.createElement('canvas');
+          cv.className = 'result-chart';
+          cv.width = chart.w || 260; cv.height = chart.h || 120;
+          content.appendChild(cv);
+          const legendHtml = chart.draw(cv);
+          if (legendHtml) {
+            const lg = document.createElement('div');
+            lg.className = 'result-legend';
+            lg.innerHTML = legendHtml;
+            content.appendChild(lg);
+          }
+        }
+        if (callout) {
+          const c = document.createElement('div');
+          c.className = 'result-callout';
+          c.textContent = callout;
+          content.appendChild(c);
+        }
+      }
+
+      if (reducedMotion()) { body.appendChild(content); scrollChat(); return el; }
+
+      el.classList.add('typing');
+      body.appendChild(typingDots());
+      scrollChat();
+
+      let settled = false;
+      let pendingId = null;
+      const handle = {
+        finish() {
+          if (settled) return;
+          settled = true;
+          if (pendingId != null) { clearTimeout(pendingId); streamTimers.delete(pendingId); pendingId = null; }
+          el.classList.remove('typing');
+          body.textContent = '';
+          content.classList.add('result-fade-in');
+          body.appendChild(content);
+          scrollChat();
+          if (activeStream === handle) activeStream = null;
+        },
+      };
+      activeStream = handle;
+      const typingMs = 350 + Math.random() * 250;
+      pendingId = trackTimeout(() => { pendingId = null; handle.finish(); }, typingMs);
+      return el;
+    }
+
+    // ----------------------------------------------------- build state ----
+    let vcount = 0;
+    let lastChoice = { ratio: DEFAULT_RATIO };  // remembers the two applied defaults (no longer user-chosen, v4.2)
+    let placing = false;     // a drag/auto-build animation is in flight
+    let optimizing = false;  // an acquisition run is in flight
+    let bannerShown = false; // challenge banner gate (fires once, on completion)
+
+    // Enhanced Python Console: timestamped lines, Flow-style. A leading check-mark
     // token in the message renders with its own accent (design-polish styles them).
     function log(msg) {
       const line = document.createElement('div');
@@ -745,34 +1022,9 @@ export async function mountStudio(root) {
     log('✓ Stochos license verified successfully');
     log('[Tools] Registry built: 30 tools from 22 modules');
 
-    // post a guidance/story line as a SINGLE story beat in the Agent chat.
-    // Rather than appending a new bubble every time (which creates a wall of
-    // messages), we maintain exactly ONE .sf-beat-single element and replace
-    // its text. The guide+decision block is always visible above it.
-    function beat(msg) {
-      if (!msg) return;
-      let m = chatEl.querySelector('.sf-beat-single');
-      if (!m) {
-        m = document.createElement('div');
-        m.className = 'sf-msg sf-beat-single';
-        chatEl.appendChild(m);
-      }
-      m.textContent = msg;
-      // briefly re-trigger the fade-in by toggling the animation
-      m.style.animation = 'none';
-      void m.offsetWidth;
-      m.style.animation = '';
-      chatEl.scrollTop = chatEl.scrollHeight;
-    }
-    // Clear Chat: remove the beat block, keep guide + decision visible.
-    function resetGuide() {
-      const b = chatEl.querySelector('.sf-beat-single');
-      if (b) b.remove();
-      chatEl.scrollTop = 0;
-    }
     function addVar(label, name, type, size, val) {
       const cells = `<td class="node">${label || ''} <span style="color:var(--faint);font-weight:400">${name}</span></td><td class="type">${type}</td><td>${size}</td><td class="val">${val}</td>`;
-      // dedupe: re-deciding a step updates that node's variable in place rather than
+      // dedupe: re-deciding a phase updates that node's variable in place rather than
       // stacking a duplicate row (bo_next rows carry a #i label so they stay distinct).
       const key = `${label || ''} ${name}`;
       const existing = Array.from(vbody.children).find((tr) => tr.dataset.key === key);
@@ -784,12 +1036,70 @@ export async function mountStudio(root) {
       vcountEl.textContent = `${vcount} variable${vcount === 1 ? '' : 's'}`;
     }
     function flash(el) { el.classList.remove('var-flash'); void el.offsetWidth; el.classList.add('var-flash'); }
+    function setBadgeText(nodeId, text) {
+      const n = nodes[nodeId];
+      const tag = n && n.el && n.el.querySelector('.snode-tag');
+      if (tag) tag.textContent = text;
+    }
+
+    // ------------------------------------------------ availability (v4) ----
+    // "A node becomes available when its upstream exists" (Jason): a node can
+    // be placed once every node feeding it (per edgeDefs) is itself placed.
+    // Source nodes (no in-edges) are always available. This replaces v3's
+    // single-"current phase" gate -- MULTIPLE nodes can be available/hinted at
+    // once, and the visitor may act on any of them in any order.
+    function upstreamIds(nodeId) {
+      return [...new Set(edgeDefs.filter((e) => e.to === nodeId).map((e) => e.from))];
+    }
+    function isAvailable(nodeId) {
+      return upstreamIds(nodeId).every((id) => nodes[id].placed);
+    }
+    function clearHints() {
+      stage.querySelectorAll('.pal-node.hint').forEach((p) => {
+        p.classList.remove('hint');
+        p.style.position = '';
+        p.style.pointerEvents = '';
+      });
+      stage.querySelectorAll('.studio-ghost.want').forEach((g) => g.classList.remove('want'));
+    }
+    function refreshAvailability() {
+      clearHints();
+      Object.keys(nodes).forEach((id) => {
+        const n = nodes[id];
+        if (n.placed || !isAvailable(id)) return;
+        const pn = stage.querySelector(`.pal-node[data-node="${n.node}"]`);
+        if (pn) {
+          pn.classList.add('hint');
+          // Defensive: a generic global ".hint" tooltip rule sets position:absolute
+          // + pointer-events:none, which would rip the palette node out of its
+          // column. Pin it in flow inline so it stays grabbable.
+          pn.style.position = 'relative';
+          pn.style.pointerEvents = 'auto';
+        }
+        if (n.ghost) n.ghost.classList.add('want');
+      });
+    }
+    function groupWired(phaseId) {
+      const phase = PHASES.find((p) => p.id === phaseId);
+      return phase.nodeIds.every((id) => nodes[id].el && nodes[id].el.classList.contains('done'));
+    }
+    function buildComplete() { return PHASES.every((p) => groupWired(p.id)); }
+    // the next unplaced node (place target), else the next placed-but-unwired
+    // node (wire target), else null once the whole graph is built.
+    function nextTargetInfo() {
+      for (const id of NODE_ORDER) { if (!nodes[id].placed) return { node: nodes[id], mode: 'place' }; }
+      for (const id of NODE_ORDER) {
+        const n = nodes[id];
+        if (n.placed && n.el && !n.el.classList.contains('done')) return { node: n, mode: 'wire' };
+      }
+      return null;
+    }
 
     // -------------------------------------------------- place + wire core ----
     // Render the real node card into its slot with the drop-in animation, mark the
     // ghost filled. Idempotent: a second call is a no-op.
-    function placeNode(stepId) {
-      const n = nodes[stepId];
+    function placeNode(nodeId) {
+      const n = nodes[nodeId];
       if (n.placed) return;
       renderNode(n, graph);
       n.placed = true;
@@ -803,421 +1113,441 @@ export async function mountStudio(root) {
       drawEdges();
     }
 
-    // Wire the incoming edges of a placed node: animate a packet down each, glow the
-    // edge green, run the step effect, fire the beat, and complete the step.
-    // silent=true suppresses the beat (used by autobuild to avoid a flood of messages).
-    async function wireNode(stepId, withBeat = true, silent = false) {
-      const n = nodes[stepId];
-      if (!n.placed) placeNode(stepId);
+    // fires right after a node is placed: an anchored "what does this do"
+    // popover (manual) or a short chat line (auto/autobuild).
+    function onPlaced(nodeId, auto) {
+      const n = nodes[nodeId];
+      if (auto) {
+        chatAgent(`Placed ${n.label}.`);
+      } else {
+        const text = (story.chat && story.chat.nodeWhat && story.chat.nodeWhat[nodeId]) || '';
+        showPopover(n.el, { title: n.label, body: text });
+      }
+      refreshAvailability();
+      renderPresets();
+      armIdle();
+    }
+
+    // Wire a placed node: animate a packet down EVERY real incoming edge at once
+    // (never just the one the user happened to drag from), glow each edge green,
+    // run its effect, and advance the build. A source node (0 in-ports, e.g. the
+    // Excel Readers or BO Init) wires instantly: Promise.all([]) resolves at once.
+    async function wireNode(nodeId, auto = false) {
+      const n = nodes[nodeId];
+      if (!n.placed) { placeNode(nodeId); onPlaced(nodeId, auto); }
       n.el.classList.add('running');
       drawEdges();
-      const incoming = edgeEls.filter((e) => e.to === stepId);
+      const incoming = edgeEls.filter((e) => e.to === nodeId);
       await Promise.all(incoming.map((e) => packet(e, svg)));
       await delay(120);
       n.el.classList.remove('running');
       n.el.classList.add('done');
       incoming.forEach((e) => { e.el.classList.add('hot'); e.live = true; });
-      runEffect(stepId);
-      if (withBeat && !silent) beat(beatFor(story, stepId, branch));
-      completeStep(stepId);
+      await onNodeDone(nodeId, auto);
     }
 
-    // -------- per-step decision controls, from STORIES + fixed vocabulary -----
-    function renderDecision(stepId, decision) {
-      const host = $('#inspDecision');
-      host.innerHTML = '';
-      if (!decision || !decision.key) return; // pure-confirm step (deploy)
-      const key = decision.key;
-      if (decision.label) {
-        const lab = document.createElement('div');
-        lab.className = 'decision-label';
-        lab.textContent = decision.label;
-        host.appendChild(lab);
+    // Fires once a node finishes wiring: (a) its small per-node var/log effect,
+    // always; (b) the two real node parameters that USED to be chip/slider
+    // decisions (train/test ratio at split, BO explore/exploit at boInit) now
+    // just apply their default silently and, on a manual wire, surface an
+    // anchored explainer popover naming what happened (no choice offered); (c)
+    // if this completes its whole phase-group, that group's narrative beat +
+    // result payoff; (d) the challenge banner gate check. async + awaited by
+    // wireNode so autobuild's sequential loop waits for a group's result card
+    // (e.g. the optimize run) to actually post before moving on to the next
+    // phase -- otherwise the async optimize loop's card could land in the chat
+    // AFTER the (synchronous) deploy card that follows it in build order,
+    // reading out of sequence.
+    async function onNodeDone(nodeId, auto) {
+      nodeEffect(nodeId);
+      if (nodeId === 'split') {
+        // auto (autobuild): apply + post the usual chat "changed" card, same as
+        // before. manual: apply silently and explain it in the popover instead
+        // of also posting a chat card, so the visitor is not told twice.
+        applyRatio(DEFAULT_RATIO, { silent: !auto });
+        if (!auto) showSplitAppliedPopover();
+      } else if (nodeId === 'boInit') {
+        applyStrategyBase();
+        if (!auto) showStrategyAppliedPopover();
       }
-      if (key === 'strategy') { renderStrategy(host, stepId, decision); return; }
-      if (key === 'transform') { renderToggle(host, stepId, decision); return; }
-      // budget / output / ci / goal => choice chips
-      const chipRow = document.createElement('div');
-      chipRow.className = 'chip-row';
-      const opts = decision.options || [];
-      opts.forEach((opt) => {
-        const chip = document.createElement('button');
-        chip.className = 'choice-chip';
-        chip.dataset.value = opt.value;
-        chip.innerHTML = `<span class="chip-label">${opt.label}</span>${opt.hint ? `<span class="chip-hint">${opt.hint}</span>` : ''}`;
-        chip.onclick = () => {
-          chipRow.querySelectorAll('.choice-chip').forEach((c) => c.classList.toggle('on', c === chip));
-          applyChoice(stepId, key, opt.value, opt);
-        };
-        chipRow.appendChild(chip);
-      });
-      host.appendChild(chipRow);
-      const def = pickDefault(stepId, key, opts, story);
-      const defChip = chipRow.querySelector(`.choice-chip[data-value="${def}"]`) || chipRow.querySelector('.choice-chip');
-      if (defChip) defChip.click();
+      if (auto) chatAgent(`Wired ${nodes[nodeId].label}.`);
+      refreshAvailability();
+      renderPresets();
+      const phaseId = PHASE_FOR_NODE[nodeId];
+      if (groupWired(phaseId)) {
+        postBeat(phaseId);
+        await runGroupPayoff(phaseId);
+      }
+      maybeShowChallengeBanner();
+      armIdle();
     }
 
-    function renderToggle(host, stepId, decision) {
-      const opts = decision.options || [{ value: 'on', label: 'On' }, { value: 'off', label: 'Off' }];
-      const row = document.createElement('div');
-      row.className = 'toggle-row';
-      opts.forEach((opt) => {
-        const b = document.createElement('button');
-        b.className = 'toggle-opt';
-        b.dataset.value = opt.value;
-        b.textContent = opt.label;
-        b.onclick = () => {
-          row.querySelectorAll('.toggle-opt').forEach((o) => o.classList.toggle('on', o === b));
-          applyChoice(stepId, 'transform', opt.value, opt);
-        };
-        row.appendChild(b);
-      });
-      host.appendChild(row);
-      (row.querySelector('.toggle-opt[data-value="on"]') || row.firstChild).click();
+    // Small, always-on console/vars effect for nodes whose real payoff is a
+    // pure data-load (the two readers, BO Init). The other nodes' effects are
+    // richer and fire once their whole phase-group completes (see runGroupPayoff).
+    function nodeEffect(nodeId) {
+      if (nodeId === 'readerX') {
+        addVar('excel_reader', 'X', 'ndarray (float64)', `(${story.totalRuns}, ${surrogate.inputs.length})`, `Inputs (X), ${story.totalRuns} rows`);
+        log(`excel_reader: loaded inputs (X), ${story.totalRuns} rows x ${surrogate.inputs.length} columns`);
+      } else if (nodeId === 'readerY') {
+        addVar('excel_reader', 'Y', 'ndarray (float64)', `(${story.totalRuns}, ${story.outputs.length})`, `Targets (Y), ${story.totalRuns} rows`);
+        log(`excel_reader: loaded targets (Y), ${story.totalRuns} rows x ${story.outputs.length} columns`);
+      } else if (nodeId === 'boInit') {
+        addVar('bayesian_opt_init', 'bayesian_opt', 'BayesianOpt', DASH, 'search space initialized');
+        log('bayesian_opt_init: search space initialized');
+      } else if (nodeId === 'solver') {
+        // v4.3: the automatic-BO domains' source node -- illustrative of a real
+        // simulation hook, not a claimed performance figure (see chat.nodeWhat.solver).
+        addVar('python_solver', 'evaluator', 'callable', DASH, 'registered (illustrative)');
+        log('python_solver: registered as the automatic optimizer\'s evaluator (illustrative)');
+      }
     }
 
-    function renderStrategy(host, stepId, decision) {
-      // goal (direction) + kappa slider (explore <-> exploit) + a "Run N" action
-      const out = lastChoice.output || story.defaultOutput;
-      const goalOpts = (decision.goalOptions) || goalChips(story, out);
-      const wrap = document.createElement('div');
-      wrap.className = 'strategy-ctl';
-      wrap.innerHTML = `
-        <div class="goal-row" id="goalRow"></div>
-        <div class="kappa-row">
-          <span class="kappa-end">Exploit</span>
-          <input class="kappa-slider" id="kappa" type="range" min="0.2" max="3" step="0.1" value="1.4">
-          <span class="kappa-end">Explore</span>
-        </div>
-        <div class="kappa-readout" id="kappaVal">kappa <b>1.4</b></div>
-        <div class="opt-actions">
-          <label class="iter-label">Iterations <input class="iter-input" id="iterN" type="number" min="1" max="12" value="6"></label>
-          <button class="run-iter" id="runIter">Run iterations</button>
-        </div>
-        <div class="opt-readout" id="optReadout">No samples yet. Run a few iterations and the best result updates as STOCHOS picks each next point.</div>`;
-      host.appendChild(wrap);
+    // the short reaction posted to chat once a whole phase-group is wired,
+    // reusing the story's own beat/why copy (the "reactions... reusing the
+    // story beats" Jason asked for). v4.3: the automatic-BO domains merge the
+    // old separate `analyze` phase into `optimize`, so that completion posts
+    // TWO short lines instead of one -- the mechanic (meta.beat: BO Init +
+    // Python Solver + BO Optimize) then the Pareto narrative (branch.story) --
+    // mirroring what used to be two separate phase completions.
+    function postBeat(phaseId) {
+      if (phaseId === 'analyze') {
+        const text = branch.story || branch.why;
+        if (text) chatAgent(text);
+        return;
+      }
+      const meta = phaseMeta(story, phaseId, branch);
+      if (phaseId === 'optimize' && automatic) {
+        if (meta.beat) chatAgent(meta.beat);
+        if (branch.story) chatAgent(branch.story);
+        return;
+      }
+      const text = meta.beat || meta.why;
+      if (text) chatAgent(text);
+    }
 
-      // goal chips: set the objective direction (drives the field marker)
-      const goalRow = wrap.querySelector('#goalRow');
-      goalOpts.forEach((opt) => {
-        const c = document.createElement('button');
-        c.className = 'choice-chip goal-chip';
-        c.dataset.value = opt.value;
-        c.innerHTML = `<span class="chip-label">${opt.label}</span>`;
-        c.onclick = () => {
-          goalRow.querySelectorAll('.goal-chip').forEach((g) => g.classList.toggle('on', g === c));
-          lastChoice.goal = opt.value;
-          if (field.setGoal) field.setGoal(opt.value);
-          addVar('bayesian_opt_init', 'goal', 'str', DASH, opt.value);
-          log(`bayesian_opt_init: objective goal = ${opt.value}`);
-        };
-        goalRow.appendChild(c);
+    // -------- phase-group payoff: runs once every node in that group is wired --
+    // async + awaits runOptimize specifically (the only genuinely asynchronous
+    // payoff, an acquisition loop) so callers that await this (autobuild, via
+    // wireNode -> onNodeDone) see result cards post in build order.
+    async function runGroupPayoff(phaseId) {
+      const meta = phaseMeta(story, phaseId, branch);
+      if (phaseId === 'data') {
+        chatResult({ title: meta.title, callout: meta.changed });
+      } else if (phaseId === 'fit') {
+        addVar('dimgp_regr_fit', 'models', 'DIM-GP', DASH, 'fitted');
+        log('dimgp_regr_fit: trained on the split training set');
+        chatResult({ title: meta.title, callout: meta.changed });
+      } else if (phaseId === 'validate') {
+        runValidate(meta);
+      } else if (phaseId === 'analyze') {
+        runAnalyze(meta);
+      } else if (phaseId === 'optimize') {
+        // v4.3: automatic-BO domains (engineering, bottle) have no Next Sample
+        // to run an acquisition loop against; BO Optimize's own payoff IS the
+        // Pareto chart (the merged analyze+optimize phase), so reuse the same
+        // chart-drawing path runAnalyze uses, titled by the branch itself.
+        if (automatic) runAutoOptimize(meta);
+        else await runOptimize(meta);
+      } else if (phaseId === 'deploy') {
+        runDeploy(meta);
+      }
+      // 'split' has no group-level card here: applyRatio already posts the
+      // "changed" card (autobuild) or the applied popover (manual) the moment
+      // its default lands.
+    }
+
+    function runValidate(meta) {
+      const out = story.defaultOutput;
+      const z = 1.96;
+      const { r2, rmse } = scoreFit(surrogate, out);
+      addVar('pam_regr', 'pam_r2', 'float', DASH, fmt(r2, 3));
+      addVar('', 'rmse', 'float', DASH, fmt(rmse, 3));
+      log(`pam_regr: R2=${fmt(r2, 3)}, RMSE=${fmt(rmse, 3)} at 95% CI (z=${z}), the standard engineering default`);
+      chatResult({
+        title: meta.title,
+        metrics: [
+          { label: 'R2', value: fmt(r2, 3) },
+          { label: 'RMSE', value: fmt(rmse, 3) },
+          { label: 'CI', value: '95% (z 1.96)' },
+        ],
+        chart: { draw: (cv) => { drawPredTrue(cv, surrogate, out); } },
+        callout: meta.changed,
       });
-      const gdef = goalFor(story, out);
-      (goalRow.querySelector(`.goal-chip[data-value="${gdef}"]`) || goalRow.firstChild).click();
+    }
 
-      const slider = wrap.querySelector('#kappa');
-      const kVal = wrap.querySelector('#kappaVal');
-      const setK = () => {
-        const k = parseFloat(slider.value);
-        kVal.innerHTML = `kappa <b>${k.toFixed(1)}</b>`;
-        lastChoice.strategy = k;
-        if (field.setStrategy) field.setStrategy(k);
-      };
-      slider.oninput = setK;
-      setK();
+    // The per-industry analyze branch: a real readout chart, computed directly,
+    // no decision chip (the chart IS the deliverable).
+    function runAnalyze(meta) {
+      chatResult({
+        title: meta.title,
+        chart: {
+          w: 260, h: 138,
+          draw: (cv) => {
+            try {
+              if (branch.kind === 'tornado') {
+                const items = tornadoItems(surrogate, story, story.defaultOutput);
+                if (Charts.drawTornado) Charts.drawTornado(cv, items);
+                else fallbackBars(cv, items.map((i) => ({ label: i.label, v: i.importance })));
+                log(`${branch.node}: ranked axis influence on ${story.defaultOutput}`);
+                return items.map((i) => `<span class="lg-row"><b>${i.label}</b> ${fmt(i.importance * 100, 0)}%</span>`).join('');
+              }
+              if (branch.kind === 'pareto') {
+                const pair = paretoPair(story, null);
+                const points = paretoPoints(surrogate, pair);
+                if (Charts.drawPareto) Charts.drawPareto(cv, points, {
+                  aLabel: labelFor(surrogate, pair[0]), bLabel: labelFor(surrogate, pair[1]),
+                  aGoal: goalFor(story, pair[0]), bGoal: goalFor(story, pair[1]),
+                });
+                else fallbackScatter(cv, points);
+                log(`${branch.node}: Pareto front of ${pair[0]} vs ${pair[1]} (${points.length} grid samples)`);
+                return `<span class="lg-row"><b>${labelFor(surrogate, pair[0])}</b> vs <b>${labelFor(surrogate, pair[1])}</b>, front highlighted</span>`;
+              }
+              // correlation (dist_cor)
+              const pairs = correlationPairs(surrogate, story);
+              if (Charts.drawCorrelation) Charts.drawCorrelation(cv, pairs);
+              else fallbackBars(cv, pairs.map((p) => ({ label: p.label, v: Math.abs(p.r) })));
+              log(`${branch.node}: distance correlation across ${pairs.length} output pairs`);
+              return pairs.map((p) => `<span class="lg-row"><b>${p.label}</b> r ${fmt(p.r, 2)}</span>`).join('');
+            } catch (e) {
+              return `<span class="lg-row">Chart unavailable (${e.message})</span>`;
+            }
+          },
+        },
+        callout: branch.changed || meta.changed,
+      });
+    }
 
-      let running = false;
-      wrap.querySelector('#runIter').onclick = async () => {
-        if (running) return;
-        running = true;
-        const mySeq = stepSeq;   // cancel the run if the user leaves this step
-        const btn = wrap.querySelector('#runIter');
-        btn.disabled = true; btn.classList.add('busy');
-        const n = Math.max(1, Math.min(12, parseInt(wrap.querySelector('#iterN').value || '6', 10)));
-        const out2 = lastChoice.output || story.defaultOutput;
-        const outLabel = labelFor(surrogate, out2);
-        const goal = lastChoice.goal || goalFor(story, out2);
-        const readout = wrap.querySelector('#optReadout');
-        let best = null;
-        for (let i = 0; i < n; i++) {
-          if (mySeq !== stepSeq || !resultHost.isConnected) break;  // left the step / unmounted
-          let r = null;
-          if (field.step) r = await field.step();
-          if (r && (best == null || better(r, best, goal))) best = r;
-          if (r) {
-            addVar(`bayesian_opt #${i + 1}`, 'X_next', 'ndarray', `(1, ${surrogate.inputs.length})`,
-              `[${fmt(r.x, 2)}, ${fmt(r.y, 2)}, ...]`);
-            const confTxt = r.conf != null ? `${fmt(r.conf, 0)}%` : 'n/a';
-            readout.innerHTML = `Iteration <b>${i + 1}</b> of ${n} &nbsp; best ${outLabel} <b>${fmt((best || r).mean, 2)}</b> &nbsp; confidence <b>${confTxt}</b>`;
-            log(`bayesian_opt: sampled ${out2}=${fmt(r.mean, 2)} at (${fmt(r.x, 2)}, ${fmt(r.y, 2)}), conf ${confTxt}`);
+    // -------- automatic-BO domains only (engineering, bottle): BO Optimize's
+    // own payoff once boInit + solver + branch are all wired. Honest console
+    // line first (the automatic run against the connected solver), then the
+    // SAME Pareto chart runAnalyze draws, titled by the branch itself (the
+    // merged phase's chart card reads "Map the Pareto trade-off", matching
+    // what used to be the separate analyze phase's card title). ----------
+    function runAutoOptimize(meta) {
+      addVar('bayesian_opt_optimize', 'models', 'DIM-GP', DASH, 'refit by the automatic loop');
+      log(`${branch.node}: ran the automatic loop against the connected solver (bo_obj + true_evaluator), refitting the model each iteration`);
+      runAnalyze({ title: branch.title || branch.label || meta.title });
+    }
+
+    // -------- train_test_split: real default, explained, no chips (v4.2) -----
+    // The 70% default already applied (silently) in onNodeDone right before
+    // this runs; this just anchors a small popover on the split node stating
+    // what the node does plus the split it just used, matching the console
+    // line. No control, nothing to click, only the popover box itself
+    // dismisses it -- the canvas underneath stays fully interactive.
+    function showSplitAppliedPopover() {
+      const pct = Math.round(DEFAULT_RATIO * 100);
+      const train = resolveTrainCount(story, DEFAULT_RATIO);
+      const test = story.totalRuns - train;
+      const what = (story.chat && story.chat.nodeWhat && story.chat.nodeWhat.split) ||
+        'Train/Test Split holds back real validation data.';
+      showPopover(nodes.split.el, {
+        title: 'Train / test split',
+        body: `${what} Default applied: ${pct}% train (${train} runs), ${100 - pct}% held out for validation (${test} runs).`,
+      });
+    }
+    function applyRatio(value, opts = {}) {
+      lastChoice.ratio = value;
+      const train = resolveTrainCount(story, value);
+      const test = story.totalRuns - train;
+      const pct = Math.round(value * 100);
+      addVar('train_test_split', 'X_train', 'ndarray (float64)', `(${train}, ${surrogate.inputs.length})`, `${pct}% train`);
+      addVar('', 'Y_train', 'ndarray (float64)', `(${train}, 1)`, `${pct}% train`);
+      log(`train_test_split: ${pct}% train (${train} runs), ${100 - pct}% held out for validation (${test} runs)`);
+      setBadgeText('split', `${pct}/${100 - pct}`);
+      if (!opts.silent) {
+        const meta = phaseMeta(story, 'split', branch);
+        chatResult({ title: meta.title, callout: meta.changed });
+      }
+    }
+
+    // -------- bayesian_opt_init: real default, explained, no slider (v4.2) ---
+    // Fires on placing/wiring bayesian_opt_init (before Next Sample even
+    // exists): the goal (read from the modeled property, never chosen) and the
+    // balanced default acquisition weighting both apply immediately and
+    // silently. A manual wire also anchors a small popover stating what the
+    // node does plus the balance it is using -- nothing to tune, nothing to
+    // click but the popover's own dismissal.
+    function applyStrategyBase() {
+      const goal = goalFor(story, story.defaultOutput);
+      lastChoice.goal = goal;
+      if (lastChoice.strategy == null) lastChoice.strategy = DEFAULT_KAPPA;
+      addVar('bayesian_opt_init', 'goal', 'str', DASH, goal);
+      log(`bayesian_opt_init: objective goal = ${goal}, read from ${labelFor(surrogate, story.defaultOutput)}`);
+    }
+    function showStrategyAppliedPopover() {
+      const meta = phaseMeta(story, 'optimize', branch);
+      const what = (story.chat && story.chat.nodeWhat && story.chat.nodeWhat.boInit) ||
+        'BO Init configures the search space for the next sample.';
+      const balance = meta.appliedInfo ||
+        'It balances trying promising candidates against probing regions STOCHOS is still unsure about.';
+      showPopover(nodes.boInit.el, { title: 'Explore and exploit', body: `${what} ${balance}` });
+    }
+
+    // real acquisition loop (Next Sample), run once boInit + boNext are both
+    // wired, and replayable via the "Run optimize again" preset. Uses the
+    // Surrogate directly (surrogate.nextSample/addSample), the same math
+    // StudioField.step() used to wrap -- see ARCHITECTURE.md's honesty rule:
+    // conf% = 100*(1 - CI_half_width/|mean|).
+    async function runOptimize(meta) {
+      if (optimizing) return;
+      optimizing = true;
+      renderPresets();
+      const out = story.defaultOutput;
+      const goal = goalFor(story, out);
+      const kappa = lastChoice.strategy != null ? lastChoice.strategy : DEFAULT_KAPPA;
+      const outLabel = labelFor(surrogate, out);
+      const outMeta = surrogate.outputs.find((o) => o.name === out);
+      const n = 6;
+      let best = null;
+      for (let i = 0; i < n; i++) {
+        if (!stage.isConnected) { optimizing = false; return; }
+        const r = stepAcquisition(surrogate, out, goal, kappa);
+        if (!r) break;
+        if (!best || better(r, best, goal, outMeta)) best = r;
+        const confTxt = r.conf != null ? `${fmt(r.conf, 0)}%` : 'n/a';
+        addVar(`bayesian_opt_next_sample #${i + 1}`, 'X_next', 'ndarray', `(1, ${surrogate.inputs.length})`, `[${fmt(r.x, 2)}, ${fmt(r.y, 2)}, ...]`);
+        log(`bayesian_opt_next_sample: sampled ${out}=${fmt(r.mean, 2)} at (${fmt(r.x, 2)}, ${fmt(r.y, 2)}), conf ${confTxt}`);
+        await delay(380);
+      }
+      optimizing = false;
+      renderPresets();
+      if (!stage.isConnected || !best) return;
+      chatResult({
+        title: meta.title,
+        metrics: [
+          { label: `Best ${outLabel}`, value: fmt(best.mean, 2) },
+          { label: 'At', value: `${fmt(best.x, 2)}, ${fmt(best.y, 2)}` },
+          { label: 'Confidence', value: best.conf != null ? `${fmt(best.conf, 0)}%` : 'n/a' },
+        ],
+        callout: 'The uncertainty has thinned around the points STOCHOS sampled.',
+      });
+    }
+
+    function runDeploy(meta) {
+      chatResult({
+        title: meta.title,
+        build: (host) => {
+          revealDeploy(story, surrogate, host);
+          if (meta.changed) {
+            const c = document.createElement('div');
+            c.className = 'result-callout';
+            c.textContent = meta.changed;
+            host.appendChild(c);
           }
-          await delay(450);
-        }
-        if (best && mySeq === stepSeq) {
-          readout.innerHTML = `Run complete. Best ${outLabel} so far <b>${fmt(best.mean, 2)}</b> at (${fmt(best.x, 2)}, ${fmt(best.y, 2)}). The uncertainty fog has thinned around the points it sampled.`;
-        }
-        btn.disabled = false; btn.classList.remove('busy');
-        running = false;
-      };
-    }
-
-    // -------- map a decision to the renderer + the Variables dock ----
-    function applyChoice(stepId, key, value, opt) {
-      lastChoice[key] = value;
-      const meta = stepMeta(story, stepId);
-      const out = lastChoice.output || story.defaultOutput;
-
-      if (key === 'budget') {
-        const n = resolveBudget(story, value);
-        if (field.setBudget) field.setBudget(n);
-        const shown = n === 0 ? (surrogate.trainPoints.length) : n;
-        addVar('excel_reader', 'data_array', 'ndarray (float64)',
-          `(${shown}, ${surrogate.inputs.length + surrogate.outputs.length})`,
-          `${shown} runs loaded`);
-        log(`excel_reader: loaded ${shown} training runs (budget=${value})`);
-      } else if (key === 'output') {
-        if (field.setOutput) field.setOutput(value);
-        const o = surrogate.outputs.find((x) => x.name === value);
-        addVar('train_test_split', 'Y_target', 'column', '(1,)',
-          `${o ? (o.label || o.name) : value}${o && o.unit ? ' [' + o.unit + ']' : ''}`);
-        log(`train_test_split: target = ${value}`);
-      } else if (key === 'transform') {
-        // cosmetic, honestly labeled: the same trained surface either way.
-        if (field.setStage) field.setStage('field');
-        addVar('dimgp_regr_fit', 'model', 'DIM-GP', DASH,
-          `fitted, power_transform=${value === 'on'}`);
-        log(`dimgp_regr_fit: surface revealed (power_transform=${value === 'on'})`);
-      } else if (key === 'ci') {
-        const z = CI_Z[value] || 1.96;
-        if (field.setCI) field.setCI(z);
-        const { r2, rmse } = scoreFit(surrogate, out);
-        addVar('pam_regr', 'pam_r2', 'float', DASH, fmt(r2, 3));
-        addVar('', 'rmse', 'float', DASH, fmt(rmse, 3));
-        const sc = $('#inspDecision').querySelector('.fit-score');
-        const html = `<span>R&sup2; <b>${fmt(r2, 3)}</b></span><span>RMSE <b>${fmt(rmse, 3)}</b></span><span>CI <b>${value}%</b> (z ${z})</span>`;
-        if (sc) sc.innerHTML = html;
-        else {
-          const div = document.createElement('div');
-          div.className = 'fit-score';
-          div.innerHTML = html;
-          $('#inspDecision').appendChild(div);
-        }
-        // pred-vs-true mini scatter (real: predict at each measured run)
-        const vhost = $('#inspDecision');
-        let viz = vhost.querySelector('.validate-viz');
-        if (!viz) {
-          viz = document.createElement('div');
-          viz.className = 'validate-viz';
-          viz.innerHTML = '<div class="vv-title">Predicted vs measured</div><canvas class="validate-scatter" width="252" height="120"></canvas>';
-          vhost.appendChild(viz);
-        }
-        drawPredTrue(viz.querySelector('canvas'), surrogate, out);
-        log(`pam_regr: R2=${fmt(r2, 3)}, RMSE=${fmt(rmse, 3)} at ${value}% CI (z=${z})`);
-      }
-      // surface the "what changed" copy for this step
-      if (meta.changed) $('#inspChanged').textContent = meta.changed;
-    }
-
-    // -------- the analyze branch: a real readout chart, per industry ----
-    function renderBranchDecision(host, br) {
-      host.innerHTML = '';
-      const lab = document.createElement('div');
-      lab.className = 'decision-label';
-      lab.textContent = (br.decision && br.decision.label) || `Read the ${br.kind}`;
-      host.appendChild(lab);
-      const opts = (br.decision && br.decision.options) || branchControl(br.kind, story, surrogate);
-      if (opts && opts.length) {
-        const chipRow = document.createElement('div');
-        chipRow.className = 'chip-row';
-        opts.forEach((opt) => {
-          const chip = document.createElement('button');
-          chip.className = 'choice-chip';
-          chip.dataset.value = opt.value;
-          chip.innerHTML = `<span class="chip-label">${opt.label}</span>${opt.hint ? `<span class="chip-hint">${opt.hint}</span>` : ''}`;
-          chip.onclick = () => {
-            chipRow.querySelectorAll('.choice-chip').forEach((c) => c.classList.toggle('on', c === chip));
-            lastChoice.branch = opt.value;
-            drawBranch(br, opt.value);
-          };
-          chipRow.appendChild(chip);
-        });
-        host.appendChild(chipRow);
-        const firstChip = chipRow.querySelector('.choice-chip');
-        if (firstChip) firstChip.click();
-      } else {
-        drawBranch(br, null);
-      }
-      if (br.changed) $('#inspChanged').textContent = br.changed;
-    }
-
-    // Render the branch chart into .studio-branch from REAL surrogate numbers.
-    function drawBranch(br, controlValue) {
-      branchPanel.hidden = false;
-      $('#branchTitle').textContent = br.title || br.label || 'Analysis';
-      const cv = $('#branchChart');
-      const legend = $('#branchLegend');
-      legend.innerHTML = '';
-      const out = lastChoice.output || story.defaultOutput;
-      try {
-        if (br.kind === 'tornado') {
-          const items = tornadoItems(surrogate, story, controlValue || out);
-          if (Charts.drawTornado) Charts.drawTornado(cv, items);
-          else fallbackBars(cv, items.map((i) => ({ label: i.label, v: i.importance })));
-          legend.innerHTML = items.map((i) => `<span class="lg-row"><b>${i.label}</b> ${fmt(i.importance * 100, 0)}%</span>`).join('');
-          log(`${br.node}: ranked axis influence on ${controlValue || out}`);
-        } else if (br.kind === 'pareto') {
-          const pair = paretoPair(story, controlValue);
-          const points = paretoPoints(surrogate, pair);
-          if (Charts.drawPareto) Charts.drawPareto(cv, points, {
-            aLabel: labelFor(surrogate, pair[0]), bLabel: labelFor(surrogate, pair[1]),
-            aGoal: goalFor(story, pair[0]), bGoal: goalFor(story, pair[1]),
-          });
-          else fallbackScatter(cv, points);
-          legend.innerHTML = `<span class="lg-row"><b>${labelFor(surrogate, pair[0])}</b> vs <b>${labelFor(surrogate, pair[1])}</b>, front highlighted</span>`;
-          log(`${br.node}: Pareto front of ${pair[0]} vs ${pair[1]} (${points.length} grid samples)`);
-        } else { // correlation
-          const pairs = correlationPairs(surrogate, story);
-          if (Charts.drawCorrelation) Charts.drawCorrelation(cv, pairs);
-          else fallbackBars(cv, pairs.map((p) => ({ label: p.label, v: Math.abs(p.r) })));
-          legend.innerHTML = pairs.map((p) => `<span class="lg-row"><b>${p.label}</b> r ${fmt(p.r, 2)}</span>`).join('');
-          log(`${br.node}: Pearson r across ${pairs.length} output pairs`);
-        }
-      } catch (e) {
-        legend.innerHTML = `<span class="lg-row">Chart unavailable (${e.message})</span>`;
-      }
-    }
-
-    // -------- run a step's model effect (shared by drag + escape hatches) ----
-    function runEffect(stepId) {
-      const step = steps.find((s) => s.id === stepId);
-      const meta = stepMeta(story, stepId);
-      if (stepId === 'analyze') {
-        renderBranchDecision($('#inspDecision'), branch);
-      } else if (stepId === 'deploy') {
-        $('#inspDecision').innerHTML = '';
-        $('#inspChanged').textContent = meta.changed || '';
-        revealDeploy(story, surrogate, field);
-      } else {
-        renderDecision(stepId, meta.decision);
-      }
-    }
-
-    // ---------------------------------------------------- step transitions ----
-    // The v2 progress rail is gone; the Agent chat is the guide. setActiveStep is
-    // kept as a stub so the autobuild path and enterStep can call it unchanged.
-    function setActiveStep(i) { /* rail removed; guidance lives in the Agent chat */ }
-
-    async function enterStep(i) {
-      stepSeq++;   // cancels any in-flight optimize run from the step we are leaving
-      current = i;
-      clearTimeout(idleTimer);
-      const step = steps[i];
-      const meta = stepMeta(story, step.id);
-      const nextBtn = $('#inspNext');
-      if (nextBtn) nextBtn.disabled = true;       // locked until this node is wired
-
-      // advance the renderer stage per the contract progression (analyze == objective)
-      const stageFor = { data: 'data', target: 'data', fit: 'field', validate: 'validate', analyze: 'objective', optimize: 'optimize', deploy: 'optimize' };
-      if (field.setStage) field.setStage(stageFor[step.id]);
-
-      setActiveStep(i);
-
-      // inspector copy (branch step pulls its copy from story.branch)
-      const isBranch = step.id === 'analyze';
-      $('#inspKicker').textContent = meta.kicker || `Step ${i + 1} of ${steps.length}`;
-      $('#inspTitle').textContent = (isBranch ? (branch.title || branch.label) : meta.title) || step.id;
-      $('#inspChanged').textContent = '';
-      $('#inspWhy').textContent = (isBranch ? branch.why : meta.why) || '';
-      $('#inspDecision').innerHTML = '';
-
-      // the branch chart is the analyze step's payoff; hide it elsewhere so the
-      // optimize step's acquisition view and the deploy preview are not crowded
-      if (step.id !== 'analyze') branchPanel.hidden = true;
-
-      // light the palette node this step wants, prime the slot, arm the idle hint
-      hintPalette(step.id);
-      armIdle(step.id);
-
-      // Clear any prior guide card so only one message is shown at a time (Fix 4 + 5)
-      chatEl.querySelectorAll('.sf-autobuild-guide').forEach((el) => el.remove());
-      // Story beat: one clear instruction - what to do right now (Fix 5)
-      beat(`Now: drag the ${step.label} node from the palette onto the "${step.slot}" slot. Then wire its input port.`);
-
-      // escape hatch: per-step "connect for me"
-      const connectBtn = $('#btnConnect');
-      connectBtn.style.display = (i >= steps.length) ? 'none' : '';
-      connectBtn.disabled = false;
-      connectBtn.onclick = () => connectForMe(step.id);
-
-      // Next button wiring (disabled until the node is wired; see completeStep)
-      const next = $('#inspNext');
-      if (i >= steps.length - 1) {
-        next.textContent = 'Restart workflow';
-        next.onclick = () => { mountStudio(root); };
-      } else {
-        next.textContent = 'Next';
-        next.onclick = () => { if (!placing) enterStep(i + 1); };
-      }
-
-      // If this node was already built (revisiting), reflect completion immediately.
-      if (nodes[step.id].placed && nodes[step.id].el.classList.contains('done')) {
-        runEffect(step.id);
-        completeStep(step.id);
-      }
-    }
-
-    // called once a node is placed + wired: unlock Next, clear the per-step hint
-    function completeStep(stepId) {
-      const i = indexOfStep(stepId);
-      if (i !== current) return; // only the active step controls Next
-      clearTimeout(idleTimer);
-      clearHints();
-      const next = $('#inspNext');
-      if (next) next.disabled = false;
-    }
-
-    // ----- pulse the palette node the current step wants; prime its slot -----
-    function hintPalette(stepId) {
-      clearHints();
-      const n = nodes[stepId];
-      const pn = stage.querySelector(`.pal-node[data-node="${n.node}"]`);
-      if (pn) {
-        pn.classList.add('hint');
-        // Defensive: a generic global ".hint" rule (a floating tooltip) sets
-        // position:absolute + pointer-events:none, which would rip the palette
-        // node out of its column. Pin it in flow inline so it stays grabbable
-        // until design-polish ships the specific .pal-node.hint rule (which wins
-        // by specificity and animates the pulse). Inline beats the generic rule.
-        pn.style.position = 'relative';
-        pn.style.pointerEvents = 'auto';
-      }
-      if (n.ghost && !n.placed) n.ghost.classList.add('want');
-    }
-    function clearHints() {
-      stage.querySelectorAll('.pal-node.hint').forEach((p) => {
-        p.classList.remove('hint');
-        p.style.position = '';
-        p.style.pointerEvents = '';
+        },
       });
-      stage.querySelectorAll('.studio-ghost.want').forEach((g) => g.classList.remove('want'));
     }
-    function armIdle(stepId) {
+
+    // ------------------------------------------------------- challenge gate --
+    // Change 5: the "See the showdown" banner only appears once the whole
+    // graph is built, never on entry.
+    function maybeShowChallengeBanner() {
+      if (!challengeCtx || bannerShown || !buildComplete()) return;
+      bannerShown = true;
+      addChallengeBanner(surrogate);
+    }
+
+    // --------------------------------------------------------- idle nudge ----
+    function armIdle() {
       clearTimeout(idleTimer);
+      if (buildComplete()) return;
       idleTimer = setTimeout(() => {
-        if (indexOfStep(stepId) !== current) return;
-        const n = nodes[stepId];
-        // Update the single beat bubble with a nudge, then stop (no re-arm):
-        // one reminder per step is enough; the palette pulse is the persistent hint.
-        if (!n.placed) beat(`Stuck? Grab the pulsing ${n.label} node from the palette and drop it on the "${n.slot}" slot. Or tap "Connect for me."`)
-        else if (!n.el.classList.contains('done')) beat(`Node placed. Now wire it: drag from the green output port of the upstream node into the ${n.label} input port.`);
-      }, 8000);
+        if (!stage.isConnected || buildComplete()) return;
+        chatAgent('Take your time. Drag any pulsing node from the palette, or tap "Build the workflow for me" below.');
+      }, 12000);
+    }
+
+    // ------------------------------------------------------- chat presets ----
+    function renderPresets() {
+      const host = $('#chatPresets');
+      if (!host) return;
+      host.innerHTML = '';
+      const complete = buildComplete();
+      const info = nextTargetInfo();
+      const whatTarget = info ? info.node : nodes.webapp;
+      const chips = [
+        { label: `What does ${whatTarget.label} do?`, fn: () => presetWhatDoes(whatTarget.id) },
+        { label: 'Explain this workflow', fn: presetExplainWorkflow },
+      ];
+      if (!complete) {
+        chips.push({ label: 'What should I do next?', fn: presetWhatNext });
+        chips.push({ label: 'Build the workflow for me', fn: presetBuild });
+      } else {
+        chips.push({ label: 'Explain the result', fn: presetExplainResult });
+      }
+      if (nodes.boNext && nodes.boNext.el && nodes.boNext.el.classList.contains('done')) {
+        chips.push({ label: 'Run optimize again', fn: presetRunAgain });
+      }
+      chips.forEach((c) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chat-chip';
+        b.textContent = c.label;
+        b.onclick = () => { if (!placing && !optimizing) c.fn(); };
+        host.appendChild(b);
+      });
+    }
+    function presetWhatDoes(nodeId) {
+      const n = nodes[nodeId];
+      chatUser(`What does ${n.label} do?`);
+      const text = (story.chat && story.chat.nodeWhat && story.chat.nodeWhat[nodeId]) || `${n.label} is part of the Stochos Flow workflow.`;
+      chatAgent(text);
+      armIdle();
+    }
+    function presetExplainWorkflow() {
+      chatUser('Explain this workflow.');
+      chatAgent((story.chat && story.chat.explainWorkflow) || story.pitch || 'This workflow trains a real model on your data, validates it honestly, then proposes the next experiment.');
+      armIdle();
+    }
+    function presetWhatNext() {
+      chatUser('What should I do next?');
+      const info = nextTargetInfo();
+      if (!info) { chatAgent('The workflow is complete. Try "Explain the result."'); armIdle(); return; }
+      const { node, mode } = info;
+      if (node.ghost) node.ghost.classList.add('want');
+      chatAgent(mode === 'place'
+        ? `Drag the ${node.label} node from the palette onto the "${node.slot}" slot.`
+        : `${node.label} is placed. Wire it: drag from an upstream output port into its input port.`);
+      armIdle();
+    }
+    function presetBuild() {
+      chatUser('Build the workflow for me.');
+      autobuild();
+    }
+    function presetExplainResult() {
+      chatUser('Explain the result.');
+      chatAgent((story.chat && story.chat.explainResult) || 'The workflow is built end to end: a trained model, a validated fit, an analysis chart, a proposed next experiment, and a deployed predictor.');
+      armIdle();
+    }
+    function presetRunAgain() {
+      chatUser('Run optimize again.');
+      runOptimize(phaseMeta(story, 'optimize', branch));
+      armIdle();
+    }
+
+    // welcome message: goal + drag hint, plus the challenge context line when
+    // handed off from "Beat Stochos" (change 5: the banner itself stays gated,
+    // but this short entry line is allowed).
+    function postWelcome() {
+      const text = (story.chat && story.chat.welcome) ||
+        `Pick nodes from the palette and build the ${story.tag} workflow: drag a node onto its dashed slot, then wire it to its upstream source.`;
+      chatAgent(text, 'Agent');
+      if (challengeCtx) {
+        const score = challengeCtx.userBest && isFinite(challengeCtx.userBest.score) ? Math.round(challengeCtx.userBest.score) : null;
+        chatAgent(score != null
+          ? `You locked ${score}. Build the workflow, then settle the score.`
+          : 'Build the workflow, then settle the score.');
+      }
     }
 
     // ------------------------------ palette drag ------------------------------
     // Pointer-drag a node from the palette. A floating ghost follows the cursor;
-    // dropping it over the CURRENT step's matching slot snaps the node in. A wrong
-    // node or wrong slot springs back with a one-line hint.
+    // dropping it over ANY unplaced ghost slot that WANTS this node type snaps it
+    // in (v4: not gated to a single "current phase" target -- whichever available
+    // slot the visitor drops on). A wrong node, or a slot whose upstream is not
+    // ready yet, springs back with a one-line popover hint.
     function buildPaletteDrag() {
       stage.querySelectorAll('.pal-node').forEach((pn) => {
         pn.addEventListener('pointerdown', (e) => startPaletteDrag(e, pn));
@@ -1236,38 +1566,45 @@ export async function mountStudio(root) {
       const move = (ev) => {
         fly.style.left = (ev.clientX - 30) + 'px';
         fly.style.top = (ev.clientY - 22) + 'px';
-        // glow the current step's slot if we hover it with the right node
-        const slot = nodes[steps[current].id].ghost;
-        const over = slot && hitGhost(slot, ev.clientX, ev.clientY);
         stage.querySelectorAll('.studio-ghost.target').forEach((g) => g.classList.remove('target'));
-        if (over && nodeName === steps[current].node) slot.classList.add('target');
+        Object.keys(nodes).forEach((id) => {
+          const n = nodes[id];
+          if (n.placed || n.node !== nodeName || !n.ghost) return;
+          if (hitGhost(n.ghost, ev.clientX, ev.clientY)) n.ghost.classList.add('target');
+        });
       };
-      const up = (ev) => {
+      // AUDIT FIX 6: cleanup shared by a normal drop AND a mid-drag teardown
+      // (studioTeardown / the returned destroy() call this if the user navigates
+      // away with the pointer still down, so the clone + document listeners never leak).
+      const cleanup = () => {
         document.removeEventListener('pointermove', move);
         document.removeEventListener('pointerup', up);
         pn.classList.remove('dragging');
         fly.remove();
         stage.querySelectorAll('.studio-ghost.target').forEach((g) => g.classList.remove('target'));
-        const step = steps[current];
-        const slot = nodes[step.id].ghost;
-        const over = slot && hitGhost(slot, ev.clientX, ev.clientY);
-        if (over && nodeName === step.node && !nodes[step.id].placed) {
-          placeNode(step.id);
-          clearHints();
-          if (nodes[step.id].inN === 0) {
-            // a source node (Excel Reader) has no input to wire: complete it on place
-            wireNode(step.id);
-          } else {
-            beat(`${step.label} placed. Now wire its input: drag from the upstream output port.`);
-          }
-        } else if (over && nodeName !== step.node) {
-          beat(`That slot wants the ${step.label} node. Grab the pulsing one in the palette.`);
-        } else if (nodeName === step.node && !over) {
-          beat(`Drop the ${step.label} node onto its ${step.slot} slot (the dashed outline that is glowing).`);
+      };
+      const up = (ev) => {
+        cleanup();
+        _dragCleanup = null;
+        const overId = Object.keys(nodes).find((id) => !nodes[id].placed && nodes[id].ghost && hitGhost(nodes[id].ghost, ev.clientX, ev.clientY));
+        if (!overId) return;
+        const target = nodes[overId];
+        if (target.node !== nodeName) {
+          showPopover(target.ghost, { body: `That slot wants the ${target.label} node.` });
+          return;
         }
+        if (!isAvailable(overId)) {
+          const missing = upstreamIds(overId).filter((id) => !nodes[id].placed).map((id) => nodes[id].label);
+          showPopover(target.ghost, { body: `Place ${missing.join(' and ')} first.` });
+          return;
+        }
+        placeNode(overId);
+        onPlaced(overId, false);
+        if (target.inN === 0) wireNode(overId, false);
       };
       document.addEventListener('pointermove', move);
       document.addEventListener('pointerup', up);
+      _dragCleanup = cleanup;
     }
     function hitGhost(g, cx, cy) {
       const r = g.getBoundingClientRect();
@@ -1277,8 +1614,11 @@ export async function mountStudio(root) {
 
     // ------------------------------ port wiring -------------------------------
     // Drag from a placed node's OUTPUT port to a compatible INPUT port. While
-    // dragging, a rubber-band wire follows the cursor and compatible input ports
-    // glow. Releasing near one connects + wires the downstream node.
+    // dragging, a rubber-band wire follows the cursor and every compatible input
+    // port (across ALL downstream nodes this output feeds, v4: not just the one
+    // "current phase" target) glows. Releasing near one wires the WHOLE
+    // downstream node (every real edge into it, not just the one dragged), so
+    // one drag is enough regardless of how many in-ports that node has.
     function bindPorts(n) {
       if (!n.el) return;
       const ports = n.el.querySelectorAll('.port');
@@ -1287,59 +1627,58 @@ export async function mountStudio(root) {
         const isOut = idx >= n.inN;
         if (!isOut) return;
         p.dataset.role = 'out';
-        p.addEventListener('pointerdown', (e) => startWire(e, n));
+        p.addEventListener('pointerdown', (e) => startWire(e, n, idx - n.inN));
       });
     }
-    function startWire(e, fromNode) {
+    function candidateTargetsFrom(fromId) {
+      const tos = [...new Set(edgeDefs.filter((e) => e.from === fromId).map((e) => e.to))];
+      return tos.map((id) => nodes[id]).filter((n) => n.placed && n.el && !n.el.classList.contains('done'));
+    }
+    function inPortsFed(targetId, fromId) {
+      const idxs = edgeDefs.filter((e) => e.to === targetId && e.from === fromId).map((e) => e.toPort);
+      const portEls = nodes[targetId].el.querySelectorAll('.port');
+      return idxs.map((i) => portEls[i]).filter(Boolean);
+    }
+    function startWire(e, fromNode, fromPort) {
       if (placing) return;
       e.preventDefault();
       e.stopPropagation();
-      // which downstream node consumes fromNode and is the CURRENT step?
-      const target = downstreamTarget(fromNode.id);
-      // glow every compatible input port (the current step's node, if placed)
+      const candidates = candidateTargetsFrom(fromNode.id);
+      if (!candidates.length) return; // nothing placed yet that this output feeds
       const compatible = [];
-      if (target && nodes[target.id].el) {
-        const ins = nodes[target.id].el.querySelectorAll('.port');
-        const ip = ins[target.port];
-        if (ip) { ip.classList.add('compatible'); compatible.push(ip); }
-      }
+      candidates.forEach((c) => {
+        inPortsFed(c.id, fromNode.id).forEach((p) => { p.classList.add('compatible'); compatible.push({ el: p, targetId: c.id }); });
+      });
+      if (!compatible.length) return;
       dragWire.style.display = '';
-      const s = port(fromNode, 'out', 0);
+      const s = port(fromNode, 'out', fromPort);
       const move = (ev) => {
         const pt = toGraph(ev.clientX, ev.clientY);
-        const dx = Math.max(40, Math.abs(pt.x - s.x) * 0.5);
-        dragWire.setAttribute('d', `M ${s.x},${s.y} C ${s.x + dx},${s.y} ${pt.x - dx},${pt.y} ${pt.x},${pt.y}`);
+        dragWire.setAttribute('d', edgePath(s, pt));
       };
-      const up = (ev) => {
+      // AUDIT FIX 6: cleanup shared by a normal release AND a mid-drag teardown.
+      const cleanup = () => {
         document.removeEventListener('pointermove', move);
         document.removeEventListener('pointerup', up);
         dragWire.style.display = 'none';
         dragWire.setAttribute('d', '');
-        compatible.forEach((c) => c.classList.remove('compatible'));
-        // did we release near a compatible input port?
+        compatible.forEach((c) => c.el.classList.remove('compatible'));
+      };
+      const up = (ev) => {
+        cleanup();
+        _dragCleanup = null;
         let hit = null;
-        compatible.forEach((c) => {
-          const r = c.getBoundingClientRect();
+        compatible.forEach(({ el, targetId }) => {
+          const r = el.getBoundingClientRect();
           const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-          if (Math.hypot(ev.clientX - cx, ev.clientY - cy) < 46) hit = c;
+          if (Math.hypot(ev.clientX - cx, ev.clientY - cy) < 46) hit = targetId;
         });
-        if (hit && target && !nodes[target.id].el.classList.contains('done')) {
-          wireNode(target.id);
-        } else if (target && nodes[target.id].placed) {
-          beat(`Release on the ${nodes[target.id].label} input port to connect the wire.`);
-        }
+        if (hit) wireNode(hit, false);
       };
       document.addEventListener('pointermove', move);
       document.addEventListener('pointerup', up);
+      _dragCleanup = cleanup;
       move(e);
-    }
-    // which node should consume fromNode's output as the CURRENT step?
-    function downstreamTarget(fromId) {
-      const step = steps[current];
-      const links = FLOW_LINKS[step.id] || [];
-      const idx = links.indexOf(fromId);
-      if (idx >= 0 && nodes[step.id].placed) return { id: step.id, port: idx };
-      return null;
     }
     function toGraph(cx, cy) {
       const r = graph.getBoundingClientRect();
@@ -1352,6 +1691,7 @@ export async function mountStudio(root) {
       if (!card) return;
       card.addEventListener('pointerdown', (e) => {
         if (e.target.classList.contains('port')) return; // ports start wires
+        closePopover(); // avoid a stale-positioned popover while the card moves
         const r = graph.getBoundingClientRect();
         let ox = e.clientX - r.left - n.x, oy = e.clientY - r.top - n.y;
         const move = (ev) => {
@@ -1367,151 +1707,80 @@ export async function mountStudio(root) {
       });
     }
 
-    // --------------------------- escape hatches -------------------------------
-    // Per-step: auto-place + auto-wire the CURRENT node via the same code paths.
-    async function connectForMe(stepId) {
-      if (placing) return;
-      placing = true;
-      $('#inspNext').disabled = true;
-      $('#btnConnect').disabled = true;
-      const n = nodes[stepId];
-      if (!n.placed) { placeNode(stepId); beat(`Placing ${n.label}.`); await delay(220); }
-      if (!n.el.classList.contains('done')) await wireNode(stepId);
-      placing = false;
-      $('#btnConnect').disabled = false;
-    }
-
-    // Global: finish ALL remaining nodes, agent-style (place, then wire, ~220ms
-    // apart, streaming a short line to the Console). Runs silently (no per-step
-    // beat messages) then shows ONE concise end-guide in the Agent chat.
+    // --------------------------- escape hatch: autobuild -----------------------
+    // The ONLY escape hatch left (v4 drops the old per-phase "Connect for me" --
+    // there is no more "phase" to partially auto-connect once the build is
+    // ungated). Triggered by the "Build the workflow for me" preset chip AND the
+    // toolbar Run button. Places + wires every remaining node in build order,
+    // streaming short agent lines to chat as it goes -- exactly what the real
+    // Flow agent does.
     async function autobuild() {
       if (placing) return;
       placing = true;
-      const btn = $('#btnAutobuild');
-      btn.disabled = true; btn.classList.add('busy');
-      // Clear any existing beat bubble so the chat is quiet during assembly
-      resetGuide();
+      closePopover();
+      renderPresets();
+      chatAgent('Building the workflow now.');
       log('agent: auto-assembling workflow...');
-      for (let i = 0; i < steps.length; i++) {
-        const s = steps[i];
-        const n = nodes[s.id];
-        if (n.el && n.el.classList.contains('done')) continue;
-        current = i; setActiveStep(i);
-        const stageFor = { data: 'data', target: 'data', fit: 'field', validate: 'validate', analyze: 'objective', optimize: 'optimize', deploy: 'optimize' };
-        if (field.setStage) field.setStage(stageFor[s.id]);
-        const meta = stepMeta(story, s.id);
-        const isBranch = s.id === 'analyze';
-        $('#inspKicker').textContent = meta.kicker || `Step ${i + 1} of ${steps.length}`;
-        $('#inspTitle').textContent = (isBranch ? (branch.title || branch.label) : meta.title) || s.id;
-        $('#inspWhy').textContent = (isBranch ? branch.why : meta.why) || '';
-        if (!n.placed) { placeNode(s.id); log(`agent: placed ${s.node}`); await delay(180); }
-        log(`agent: wired ${s.node}`);
-        await wireNode(s.id, true, true);  // silent=true suppresses per-step beats
-        await delay(180);
+      for (const phase of PHASES) {
+        for (const id of phase.nodeIds) {
+          const n = nodes[id];
+          if (n.el && n.el.classList.contains('done')) continue;
+          if (!n.placed) {
+            placeNode(id);
+            onPlaced(id, true);
+            log(`agent: placed ${n.node}`);
+            await delay(150);
+          }
+          if (!stage.isConnected) { placing = false; return; }
+          log(`agent: wired ${n.node}`);
+          await wireNode(id, true);
+          await delay(150);
+          if (!stage.isConnected) { placing = false; return; }
+        }
       }
-      current = steps.length - 1;
-      setActiveStep(current);
-      completeStep(steps[current].id);
-      const next = $('#inspNext');
-      next.textContent = 'Restart workflow';
-      next.onclick = () => { mountStudio(root); };
-      next.disabled = false;
-      btn.disabled = false; btn.classList.remove('busy');
-      // ONE concise end-guide: what was built and what to explore next
-      const branchLabel = branch.label || 'Analysis';
-      showAutobuildGuide(
-        `<strong>Workflow assembled.</strong> Here is what you can explore now:<br>` +
-        `<br>` +
-        `<strong>DIM-GP Surface</strong> (top-right viewer) - the trained response surface for the target you selected. Color is the predicted value; the fog is model uncertainty.<br>` +
-        `<br>` +
-        `<strong>${branchLabel}</strong> (second viewer) - the per-industry readout: ${branch.story || 'see how the inputs and outputs relate.'}<br>` +
-        `<br>` +
-        `<strong>Variables / Console</strong> (bottom dock) - every decision your workflow made, logged. Switch the tab to see the variable table.<br>` +
-        `<br>` +
-        `Use the <em>kappa</em> slider in the Optimizer step to balance exploration vs exploitation, then run more iterations to watch the fog thin.`
-      );
       placing = false;
-    }
-
-    // Show a single auto-build end-guide card in the chat, replacing any prior beat.
-    function showAutobuildGuide(html) {
-      // Remove old beat and any prior guide
-      chatEl.querySelectorAll('.sf-beat-single, .sf-autobuild-guide').forEach((el) => el.remove());
-      const card = document.createElement('div');
-      card.className = 'sf-msg sf-autobuild-guide';
-      card.innerHTML = html;
-      chatEl.appendChild(card);
-      chatEl.scrollTop = chatEl.scrollHeight;
+      renderPresets();
     }
 
     // ------------------------------ wire up UI --------------------------------
-    buildPalette($('#palette'), story, steps);
+    buildPalette($('#palette'), branch);
     buildPaletteDrag();
-    $('#btnAutobuild').onclick = autobuild;
 
-    // reset interaction on any pointer activity in the stage (idle hint)
-    stage.addEventListener('pointerdown', () => { if (!placing) armIdle(steps[current].id); });
+    // reset the idle timer on any pointer activity in the stage
+    stage.addEventListener('pointerdown', () => { if (!placing) armIdle(); });
 
-    // kick off the state machine at step 0
-    enterStep(0);
-
-    // -------- intro + tour (AFTER the industry is picked) ----
-    const tourSteps = [
-      { target: '#palette', place: 'right', title: 'The node library', body: 'Every STOCHOS capability is a node. The one the current step needs pulses. Drag it onto its slot on the canvas.' },
-      { target: '#graph', place: 'bottom', title: 'Build the workflow', body: 'Dashed slots are a blueprint. Drag each node into its slot, then drag a wire from the upstream output port to the new input port. Edges glow green as data flows.' },
-      { target: '#result', place: 'top', title: 'The live model', body: 'This DIM-GP Surface is real output. Color is the prediction, the fog is the model uncertainty. It updates with every node you wire.' },
-      { target: '#agent', place: 'left', title: 'Make the call', body: 'The Agent guides each step and asks you the real decision here, and you can let it connect a node or build the rest for you any time.' },
-      { target: '.sf-toolbar', place: 'bottom', title: 'Seven steps to a deployed app', body: 'From raw runs to a deployable web app, with a per-industry analysis at step five. Press the green Run to let the agent assemble it.' },
-    ];
-    // M5 fix: skip the intro modal when arriving from a challenge build.
-    // When challengeCtx was present, the user already knows how the builder works
-    // (they came from the challenge flow). The intro-modal covers the entire stage
-    // including the challenge "See the showdown" return banner (#chReturn).
-    // Only show the intro for plain (non-challenge) studio visits.
-    if (!challengeCtx) {
-      showIntro(root, {
-        eyebrow: 'Stochos Flow · build it yourself',
-        title: `Build a ${(story.tag || domain).toLowerCase()} workflow, node by node.`,
-        body: 'You will drag each node into place and wire its ports, then make a real decision. The Confidence Field and Variables dock are live DIM-GP output, not a canned animation.',
-        tourLabel: 'Show me how it works (40s)',
-        onTour: () => new Tour(tourSteps).start(),
-        onExplore: () => {},
-      });
-    }
+    refreshAvailability();
+    postWelcome();
+    renderPresets();
+    armIdle();
   }
 
-  // M3 fix: return a teardown to main.js so it can remove the resize listener and
-  // destroy the field when the user navigates away from #/studio via the site nav.
-  // The teardown uses _onResize (outer-scoped) so it always targets the live listener
-  // from the most recent buildStage call. If the user is still on the picker (no
-  // buildStage called yet), _onResize is null and the teardown is a safe no-op.
+  // M3 fix: return a teardown to main.js so it can remove the resize listener,
+  // close any open popover, and cancel a live drag when the user navigates away
+  // from #/studio via the site nav. The teardown uses the outer-scoped bindings
+  // so it always targets the live listener/cleanup from the most recent
+  // buildStage call. If the user is still on the picker (no buildStage called
+  // yet), those bindings are null and the teardown is a safe no-op.
   return {
     destroy() {
+      clearTimeout(idleTimer);  // AUDIT FIX 5
+      if (_popoverCleanup) { _popoverCleanup(); _popoverCleanup = null; }
+      if (_dragCleanup) { _dragCleanup(); _dragCleanup = null; }  // AUDIT FIX 6
+      if (_streamCleanup) { _streamCleanup(); _streamCleanup = null; }  // v4.1: cancel chat typing/streaming timers
       if (_onResize) { window.removeEventListener('resize', _onResize); _onResize = null; }
-      if (root._studioField && root._studioField.destroy) {
-        try { root._studioField.destroy(); } catch (_e) {}
-        root._studioField = null;
-      }
     },
   };
 }
 
-// ============================ deploy preview ==============================
-// A mini "deployed web app": 2 axis sliders -> live surrogate.predict, shown as
-// mean +/- z*std as a labeled band, plus a real-looking (non-functional) Download.
-function revealDeploy(story, surrogate, field) {
-  const studio = document.querySelector('.sf-app') || document.querySelector('.studio');
-  if (!studio) return;
-  // Mount the "Web App" output viewer inside the center column so it docks over the
-  // black canvas like a real Flow plot window. Falls back to the app root.
-  const host = studio.querySelector('.sf-center') || studio;
-  let panel = studio.querySelector('.studio-deploy');
-  if (panel) panel.remove();
-  panel = document.createElement('div');
-  panel.className = 'sf-viewer studio-deploy';
+// ============================ deploy result card ===========================
+// The deployed-web-app preview: 2 axis sliders -> live surrogate.predict, shown
+// as mean +/- z*std as a labeled band, plus a real-looking (non-functional)
+// Download. v4: renders into a chat result card's body (host) instead of the
+// removed docked viewer's "Web app" pane -- same honest content either way.
+function revealDeploy(story, surrogate, host) {
+  if (!host) return;
 
-  // report the TARGET the user actually chose at step 2 (field.name), not the default
-  const out = (field && field.name) || story.defaultOutput;
+  const out = story.defaultOutput;
   const o = surrogate.outputs.find((x) => x.name === out) || surrogate.outputs[0];
   const outName = o ? o.name : out;
   const outLabel = o ? (o.label || o.name) : out;
@@ -1521,11 +1790,9 @@ function revealDeploy(story, surrogate, field) {
   const sliders = (story.deploy && story.deploy.sliders) || story.axes || [];
   const inputs = sliders.map((name) => surrogate.inputs.find((i) => i.name === name)).filter(Boolean);
 
-  panel.innerHTML = `
-    <div class="sf-viewer-bar"><span class="sf-viewer-title">Web App</span></div>
+  host.innerHTML = `
     <div class="deploy-head">
       <span class="deploy-badge">Deployed web app preview</span>
-      <button class="deploy-close" id="depClose" aria-label="Close preview" title="Close preview">×</button>
       <h3>${(story.deploy && story.deploy.appName) || 'STOCHOS Predictor'}</h3>
       <p class="deploy-blurb">${(story.deploy && story.deploy.blurb) || 'Move the inputs, read the prediction with its confidence band.'}</p>
     </div>
@@ -1542,13 +1809,8 @@ function revealDeploy(story, surrogate, field) {
       <button class="deploy-download" id="depDl">Download web app</button>
       <span class="deploy-disclaimer">Preview only. The export button is illustrative.</span>
     </div>`;
-  host.appendChild(panel);
-  requestAnimationFrame(() => panel.classList.add('show'));
-  panel.querySelector('#depClose').onclick = () => {
-    panel.classList.remove('show'); setTimeout(() => panel.remove(), 240);
-  };
 
-  const ctl = panel.querySelector('#depCtl');
+  const ctl = host.querySelector('#depCtl');
   const state = {};
   inputs.forEach((inp) => {
     state[inp.name] = inp.default != null ? inp.default : (inp.min + inp.max) / 2;
@@ -1569,17 +1831,17 @@ function revealDeploy(story, surrogate, field) {
     ctl.appendChild(row);
   });
 
-  const meanEl = panel.querySelector('#depMean');
-  const bandEl = panel.querySelector('#depBand');
-  const fillEl = panel.querySelector('#depFill');
-  const barBand = panel.querySelector('#depBarBand');
+  const meanEl = host.querySelector('#depMean');
+  const bandEl = host.querySelector('#depBand');
+  const fillEl = host.querySelector('#depFill');
+  const barBand = host.querySelector('#depBarBand');
   const ax = story.axes || [];
   function recompute() {
     const x = state[ax[0]] != null ? state[ax[0]] : surrogate.axisInput(0).default;
     const y = state[ax[1]] != null ? state[ax[1]] : surrogate.axisInput(1).default;
-    // The deployed app reports the TRAINED model's predictive uncertainty, not the
+    // The deployed app reports the TRAINED model's predictive uncertainty, not any
     // transient acquisition scratch state, so predict against the base field (no
-    // active-learning shrink from the optimize step's virtual samples).
+    // active-learning shrink from prior optimize-phase samples).
     const saved = surrogate.samples;
     surrogate.samples = [];
     const { mean, std } = surrogate.predict(outName, x, y);
@@ -1596,7 +1858,25 @@ function revealDeploy(story, surrogate, field) {
     barBand.style.width = `${Math.min(100, bandPct * 200)}%`;
   }
   recompute();
-  panel.querySelector('#depDl').onclick = (e) => { e.preventDefault(); };
+  host.querySelector('#depDl').onclick = (e) => { e.preventDefault(); };
+}
+
+// ============================ acquisition (v4) =============================
+// Direct-Surrogate replacements for what StudioField.step()/confAt() used to
+// wrap, now that the docked field renderer is gone. Same math, same honesty
+// rule: conf% = 100*(1 - CI_half_width/|mean|), clamped [0,100].
+function confAt(surrogate, name, x, y, z = 1.96) {
+  const { mean, std } = surrogate.predict(name, x, y);
+  const denom = Math.abs(mean) || 1e-9;
+  const c = 100 * (1 - (z * std) / denom);
+  return Math.max(0, Math.min(100, c));
+}
+function stepAcquisition(surrogate, name, goal, kappa) {
+  const acqGoal = goal === 'window' ? 'explore' : goal;
+  const p = surrogate.nextSample(name, acqGoal, kappa);
+  if (!p) return null;
+  surrogate.addSample(p.x, p.y); // shrink local uncertainty at the chosen location (real GP-like effect)
+  return { x: p.x, y: p.y, mean: p.mean, std: p.std, conf: confAt(surrogate, name, p.x, p.y) };
 }
 
 // ============================ branch math (real) ==========================
@@ -1675,31 +1955,14 @@ function pearson(xs, ys) {
   return d ? sxy / d : 0;
 }
 
-// the two competing outputs for the engineering pareto (defaults to the first two
-// 'low'-goal outputs, e.g. peak_temp vs pressure_drop).
+// the two competing outputs for the engineering/bottle pareto (defaults to the
+// first two 'low'-goal outputs, e.g. peak_temp vs pressure_drop).
 function paretoPair(story, controlValue) {
   const outs = story.outputs || [];
   if (controlValue && controlValue.includes('|')) return controlValue.split('|');
   const lows = outs.filter((n) => goalFor(story, n) === 'low');
   if (lows.length >= 2) return [lows[0], lows[1]];
   return [outs[0], outs[1]];
-}
-
-// a small per-branch control list when stories supplies none (keeps the chart
-// interactive). For tornado: which target to rank. For pareto: which pair.
-function branchControl(kind, story, surrogate) {
-  if (kind === 'tornado') {
-    return (story.outputs || []).slice(0, 3).map((n) => ({ value: n, label: labelFor(surrogate, n) }));
-  }
-  if (kind === 'pareto') {
-    const outs = story.outputs || [];
-    const out = [];
-    for (let a = 0; a < outs.length && out.length < 3; a++)
-      for (let b = a + 1; b < outs.length && out.length < 3; b++)
-        out.push({ value: `${outs[a]}|${outs[b]}`, label: `${labelFor(surrogate, outs[a])} vs ${labelFor(surrogate, outs[b])}` });
-    return out;
-  }
-  return null; // correlation: no control, show the full matrix
 }
 
 // fallback charts (only used if studio-charts.js is missing one of its exports)
@@ -1736,12 +1999,12 @@ function fallbackScatter(cv, pts) {
 
 // ============================ small helpers ==============================
 // The left node palette, in the real Flow shape: a search box, Export/Import Node +
-// Open Nodes Folder buttons, then amber-triangle category groups (the real Flow
-// category names) each with node rows (real names + icons mirrored from flow.js).
-// The pipeline nodes keep their exact data-node so the state machine can pulse the
-// one the current step needs; the per-industry branch node is always included.
-function buildPalette(el, story, steps) {
-  const branchStep = steps.find((s) => s.branch);
+// Open Nodes Folder buttons, then amber-triangle category groups, using the REAL
+// Flow category names and node names/icons (from vendor/node-icons + flow.md's
+// catalog). The pipeline nodes keep their exact data-node so refreshAvailability
+// can pulse whichever ones are currently placeable; the per-industry branch node
+// is always included even if it is not one of the "core" library rows below.
+function buildPalette(el, branch) {
   el.innerHTML = `
     <div class="sf-search"><span class="sf-search-icon">&#128269;</span><input class="flow-search sf-search-input" placeholder="Search nodes..." /></div>
     <div class="sf-palbtns">
@@ -1751,43 +2014,59 @@ function buildPalette(el, story, steps) {
     <button class="sf-palbtn sf-palbtn-wide"><span class="sf-folder">&#128193;</span> Open Nodes Folder</button>`;
 
   // amber-triangle categories using the real Flow category names. Each node row is
-  // [data-node, label, icon, robot?]. Only icons that ship as SVGs are referenced.
+  // [data-node, label, icon, robot?, sub?]. Only icons that ship as SVGs are used.
+  // v4.3 (ground-truth audit fix, palette fidelity): the real GUI's visible
+  // palette groups are "Generative / Input / Misc / Modelling" (reference/
+  // flow-gui.md) plus the real taxonomy separates Validation/metrics from
+  // Model fit/predict -- so `pam_regr` moves out of Modelling into its own
+  // Validation group, a one-row Generative group is added (a real distractor
+  // node, `gen_model_fit`, reusing the closest shipped icon -- no icon file is
+  // fabricated), and the classification distractor's id is fixed to the real
+  // `dimgp_clf_fit` (display label unchanged).
   const lib = {
-    Agents: [
-      ['smart_data_loader', 'Smart Data Loader', 'smart_data_loader', true],
-    ],
     Generative: [
-      ['gen_model', 'Gen Model', 'python_solver', false, true],
+      ['gen_model_fit', 'Gen Model', 'dimgp_fit', false, true],
     ],
     Input: [
       ['excel_reader', 'Excel Reader', 'excel_reader'],
-      ['column_splitter', 'Column Splitter', 'column_splitter'],
+    ],
+    Preprocessing: [
       ['train_test_split', 'Train/Test Split', 'train_test_split'],
+      ['column_splitter', 'Column Splitter', 'column_splitter'],
     ],
     Modelling: [
       ['dimgp_regr_fit', 'DIM-GP Fit', 'dimgp_fit'],
-      ['dimgp_classification', 'DIM-GP Classification', 'dimgp_predict', false, true],
+      ['dimgp_clf_fit', 'DIM-GP Classification', 'dimgp_predict', false, true],
+    ],
+    Validation: [
       ['pam_regr', 'PAM Validation', 'pam_regr'],
+    ],
+    Sensitivity: [
       ['sobol_indices', 'Sobol Indices', 'sobol_indices'],
-      ['shap_values', 'SHAP Values', 'plot_bar'],
+      ['dist_cor', 'Distance Correlation', 'plot_bar'],
+      ['shap_values', 'SHAP Values', 'plot_bar', false, true],
+    ],
+    Optimization: [
       ['bayesian_opt_init', 'BO Init', 'bo_init'],
-      ['bayesian_opt', 'Next Sample', 'bo_next'],
-      ['bayesian_opt_optimize', 'Optimize', 'bo_optimize'],
+      ['bayesian_opt_next_sample', 'Next Sample', 'bo_next'],
+      ['bayesian_opt_optimize', 'BO Optimize', 'bo_optimize'],
+    ],
+    Deploy: [
+      ['web_app_scalar', 'Web App Export', 'smart_data_loader'],
+    ],
+    Agents: [
+      ['smart_data_loader', 'Smart Data Loader', 'smart_data_loader', true],
     ],
     Misc: [
-      ['correlation_coefficients', 'Correlation Coefficients', 'plot_line'],
-      ['plot_predicted_vs_observed', 'Pred vs Observed', 'plot_scatter'],
       ['python_solver', 'Python Solver', 'python_solver'],
-      ['web_app_scalar', 'Web App Export', 'smart_data_loader'],
+      ['plot_predicted_vs_observed', 'Pred vs Observed', 'plot_scatter'],
     ],
   };
 
   // make sure the per-industry branch node has a palette row (some branches reuse a
   // node already listed; only inject when it is missing).
-  if (branchStep) {
-    const present = Object.values(lib).some((rows) => rows.some((r) => r[0] === branchStep.node));
-    if (!present) (lib.Misc).push([branchStep.node, branchStep.label, branchStep.icon]);
-  }
+  const present = Object.values(lib).some((rows) => rows.some((r) => r[0] === branch.node));
+  if (!present) (lib.Sensitivity).push([branch.node, branch.label, branch.icon]);
 
   for (const cat in lib) {
     el.insertAdjacentHTML('beforeend', `<div class="pal-cat"><span class="pal-tri">&#9656;</span>${cat}</div>`);
@@ -1801,9 +2080,13 @@ function buildPalette(el, story, steps) {
 }
 
 // A Flow node TILE: a rounded .snode-card with the icon filling it, port dots on
-// left (in) / right (out) carrying data-role, an optional small text badge (FIT,
-// INIT, NEXT, 70/30, ...), a green done-check, and the friendly label BELOW the
-// tile. The green "built" border is applied by wireNode adding .done to .snode.
+// left (in) / right (out) carrying data-role + data-label (the real port name,
+// shown on hover), an optional small text badge (X, Y, FIT, INIT, NEXT, SIM, PAM,
+// APP, a live ratio, ...), a green done-check, and the friendly label BELOW the tile.
+// PORT FIX (v4): each port is positioned at left:0%/100% + top:N% of the CARD's
+// OWN box (not the outer .snode footprint), then CSS centers it exactly on that
+// coordinate via transform:translate(-50%,-50%) -- a clean full circle dead on
+// the card edge, never clipped, regardless of the card's pixel size.
 function renderNode(n, graph) {
   const el = document.createElement('div');
   el.className = 'snode';
@@ -1812,19 +2095,61 @@ function renderNode(n, graph) {
   el.style.top = n.y + 'px';
   el.style.setProperty('--cat', CAT[n.cat] || '#888');
   let ports = '';
-  for (let i = 0; i < n.inN; i++) ports += `<span class="port" data-role="in" style="left:1.5px;top:${(i + 1) / (n.inN + 1) * NH - 4.5}px"></span>`;
-  for (let i = 0; i < n.outN; i++) ports += `<span class="port" data-role="out" style="left:${NW - 4.5}px;top:${(i + 1) / (n.outN + 1) * NH - 4.5}px"></span>`;
-  const badge = NODE_BADGE[n.node];
+  n.ins.forEach((label, i) => {
+    const topPct = ((i + 1) / (n.ins.length + 1) * 100).toFixed(2);
+    ports += `<span class="port" data-role="in" data-label="${label}" title="${label}" style="left:0%;top:${topPct}%"></span>`;
+  });
+  n.outs.forEach((label, i) => {
+    const topPct = ((i + 1) / (n.outs.length + 1) * 100).toFixed(2);
+    ports += `<span class="port" data-role="out" data-label="${label}" title="${label}" style="left:100%;top:${topPct}%"></span>`;
+  });
+  const badge = n.badge;
   const badgeEl = badge ? `<span class="snode-tag">${badge}</span>` : '';
-  el.innerHTML = `<div class="snode-card"><img src="${IC}${n.icon}.svg" alt="">${badgeEl}${ports}<div class="snode-badge">✓</div></div><div class="snode-label">${n.label || n.node}</div>`;
+  el.innerHTML = `<div class="snode-card"><img src="${IC}${n.icon}.svg" alt="">${badgeEl}${ports}<div class="snode-badge">&#10003;</div></div><div class="snode-label">${n.label || n.node}</div>`;
   graph.appendChild(el);
   n.el = el;
 }
 
+// PORT FIX (v4): matches the CSS above exactly. cardLeft/cardTop are the CARD's
+// (not the wrapper's) absolute position: the card is centred inside the NW-wide
+// .snode via a (NW-CARD_W)/2 gutter, and flush with the wrapper's top (the label
+// sits below it). CARD_W/CARD_H must match .sf-app .snode-card's real size in
+// styles.css (currently 66x66) -- see the constant's own comment above.
 function port(n, kind, idx) {
   const count = kind === 'out' ? n.outN : n.inN;
-  const cardLeft = n.x + 6;
-  return { x: kind === 'out' ? cardLeft + NW - 6 : cardLeft, y: n.y + (idx + 1) / (count + 1) * NH };
+  const cardLeft = n.x + (NW - CARD_W) / 2;
+  const cardTop = n.y;
+  return {
+    x: kind === 'out' ? cardLeft + CARD_W : cardLeft,
+    y: cardTop + (idx + 1) / (Math.max(1, count) + 1) * CARD_H,
+  };
+}
+
+// Robust bezier routing (fixes the "wire loops over the node it just left" bug).
+// Two cases:
+//   - FORWARD (target strictly right of the source, dx>0): a plain horizontal-
+//     tangent cubic with an offset capped at dx*0.42. This is geometrically safe
+//     for ANY positive dx (the two control points can never cross, since
+//     2*(dx*0.42) < dx), so it is always used when the target is to the right,
+//     even by a small margin.
+//   - BACKWARD/STACKED (target at or left of the source's x, dx<=0 -- same
+//     column, or a node the user dragged past its upstream neighbor): a clamped,
+//     vertically-bowed S-curve that exits/enters through a FIXED minimum
+//     clearance (not a distance-derived one) and bows toward whichever side the
+//     target sits on, so it routes around instead of through.
+function edgePath(s, t) {
+  const dx = t.x - s.x;
+  if (dx > 0) {
+    const off = Math.max(18, Math.min(150, dx * 0.42));
+    return `M ${s.x},${s.y} C ${s.x + off},${s.y} ${t.x - off},${t.y} ${t.x},${t.y}`;
+  }
+  const MIN_OFF = 30;
+  const dy = t.y - s.y;
+  const dir = dy === 0 ? 1 : Math.sign(dy);
+  const bow = dir * Math.max(46, Math.abs(dy) * 0.5 + 30);
+  const c1x = s.x + MIN_OFF, c1y = s.y + bow * 0.5;
+  const c2x = t.x - MIN_OFF, c2y = t.y - bow * 0.5;
+  return `M ${s.x},${s.y} C ${c1x},${c1y} ${c2x},${c2y} ${t.x},${t.y}`;
 }
 
 // animated data packet along an edge, then leave the edge glowing green (live)
@@ -1849,82 +2174,88 @@ function packet(e, svg) {
   });
 }
 
-function stepMeta(story, stepId) {
-  const s = (story.steps || []).find((x) => x.id === stepId) || {};
-  return { ...s, nodeLabel: (STEPS.find((x) => x.id === stepId) || {}).node };
+// graph model: node identities (real Stochos Flow names/labels/icons) and the
+// edges between them. Domain-agnostic except the analyze/optimize branch,
+// which comes from `branch` (story.branch, resolved via resolveBranch below).
+// v4.3 (ground-truth audit fix): `branch.kind === 'pareto'` (engineering,
+// bottle) switches the node set onto the AUTOMATIC-BO pattern -- no
+// `bayesian_opt_next_sample`, a `solver` (python_solver) source node added,
+// and `branch` itself becomes the merged optimize+analyze node
+// (bayesian_opt_optimize, ins bo_obj/true_evaluator, outs X/Y/models -- it
+// never takes a trained `models` input, it produces its own). Every other
+// domain keeps the original manual-BO Next-Sample node.
+function buildNodeDefs(branch) {
+  const automatic = branch.kind === 'pareto';
+  const defs = {
+    readerX: { node: 'excel_reader', label: 'Inputs (X)', icon: 'excel_reader', cat: 'input', slot: 'Inputs (X)', badge: NODE_BADGE.readerX, ins: [], outs: ['X'] },
+    readerY: { node: 'excel_reader', label: 'Targets (Y)', icon: 'excel_reader', cat: 'input', slot: 'Targets (Y)', badge: NODE_BADGE.readerY, ins: [], outs: ['Y'] },
+    split:   { node: 'train_test_split', label: 'Train/Test Split', icon: 'train_test_split', cat: 'preprocessing', slot: 'Split', badge: NODE_BADGE.split, ins: ['X', 'Y'], outs: ['X_train', 'Y_train'] },
+    fit:     { node: 'dimgp_regr_fit', label: 'DIM-GP Fit', icon: 'dimgp_fit', cat: 'modelling', slot: 'Model', badge: NODE_BADGE.fit, ins: ['X', 'Y'], outs: ['models'] },
+    pam:     { node: 'pam_regr', label: 'PAM Validation', icon: 'pam_regr', cat: 'validation', slot: 'Validation', badge: NODE_BADGE.pam, ins: ['X_train', 'Y_train', 'models'], outs: ['pam_scores'] },
+    boInit:  { node: 'bayesian_opt_init', label: 'BO Init', icon: 'bo_init', cat: 'optimization', slot: 'BO Init', badge: NODE_BADGE.boInit, ins: [], outs: ['bayesian_opt'] },
+    webapp:  { node: 'web_app_scalar', label: 'Web App Export', icon: 'smart_data_loader', cat: 'misc', slot: 'Web app', badge: NODE_BADGE.webapp, ins: ['models', 'X', 'Y'], outs: [] },
+  };
+  if (automatic) {
+    defs.solver = { node: 'python_solver', label: 'Python Solver', icon: 'python_solver', cat: 'misc', slot: 'Simulation', badge: NODE_BADGE.solver, ins: [], outs: ['evaluator'] };
+    defs.branch = { node: branch.node, label: branch.label, icon: branch.icon, cat: 'optimization', slot: branch.label, badge: branch.badge, ins: branch.ins, outs: branch.outs || [] };
+  } else {
+    defs.branch = { node: branch.node, label: branch.label, icon: branch.icon, cat: 'sensitivity', slot: branch.label, badge: branch.badge, ins: branch.ins, outs: branch.outs || [] };
+    defs.boNext = { node: 'bayesian_opt_next_sample', label: 'Next Sample', icon: 'bo_next', cat: 'optimization', slot: 'Optimizer', badge: NODE_BADGE.boNext, ins: ['bo_obj', 'models', 'X', 'Y'], outs: ['X_next', 'Y_next'] };
+  }
+  return defs;
+}
+function buildEdgeDefs(branch) {
+  const automatic = branch.kind === 'pareto';
+  const edges = [
+    { from: 'readerX', fromPort: 0, to: 'split', toPort: 0 },
+    { from: 'readerY', fromPort: 0, to: 'split', toPort: 1 },
+    { from: 'split', fromPort: 0, to: 'fit', toPort: 0 },
+    { from: 'split', fromPort: 1, to: 'fit', toPort: 1 },
+    { from: 'split', fromPort: 0, to: 'pam', toPort: 0 },
+    { from: 'split', fromPort: 1, to: 'pam', toPort: 1 },
+    { from: 'fit', fromPort: 0, to: 'pam', toPort: 2 },
+    { from: 'fit', fromPort: 0, to: 'webapp', toPort: 0 },
+    { from: 'readerX', fromPort: 0, to: 'webapp', toPort: 1 },
+    { from: 'readerY', fromPort: 0, to: 'webapp', toPort: 2 },
+  ];
+  if (automatic) {
+    // boInit -> branch (bo_obj) + solver -> branch (true_evaluator), from story.branch.edges.
+    edges.push(...(branch.edges || []));
+  } else {
+    edges.push(
+      { from: 'boInit', fromPort: 0, to: 'boNext', toPort: 0 },
+      { from: 'fit', fromPort: 0, to: 'boNext', toPort: 1 },
+      { from: 'readerX', fromPort: 0, to: 'boNext', toPort: 2 },
+      { from: 'readerY', fromPort: 0, to: 'boNext', toPort: 3 },
+      ...(branch.edges || []), // the analyze branch's own inbound edges (dist_cor / sobol_indices)
+    );
+  }
+  return edges;
 }
 
-// the per-industry branch identity for step 5 (story.branch, else fallback)
+// the per-industry branch identity for the analyze phase (story.branch, else the
+// real-node fallback keyed by domain).
 function resolveBranch(story, domain) {
-  const fb = BRANCH_FALLBACK[domain] || BRANCH_FALLBACK.chemistry;
+  const fb = BRANCH_FALLBACK[domain] || BRANCH_FALLBACK.engineering;
   const b = story.branch || {};
   return {
-    node: b.node || fb.node,
-    icon: b.icon || fb.icon,
-    label: b.label || fb.label,
-    kind: b.kind || fb.kind,
-    title: b.title || fb.title,
-    decision: b.decision || null,
-    story: b.story || fb.story,
-    changed: b.changed || fb.changed,
-    why: b.why || fb.why,
+    node: b.node || fb.node, icon: b.icon || fb.icon, label: b.label || fb.label, kind: b.kind || fb.kind,
+    badge: b.badge || fb.badge, ins: b.ins || fb.ins, outs: b.outs || fb.outs, edges: b.edges || fb.edges,
+    title: b.title || '', why: b.why || '', story: b.story || '', changed: b.changed || '',
   };
 }
 
-// the story banner beat for a step (industry-specific copy when present)
-function beatFor(story, stepId, branch) {
-  if (stepId === 'analyze') return branch.story || `Analysis wired: ${branch.label}.`;
-  const meta = (story.steps || []).find((x) => x.id === stepId) || {};
-  if (meta.beat) return meta.beat;
-  // fall back to the per-step "changed" copy so the banner is never empty
-  return meta.changed || `${(STEPS.find((s) => s.id === stepId) || {}).label || stepId} connected.`;
-}
-
-// ghost-slot label, preferring the per-step story 'slot' override
-function slotFor(story, stepId, fallback) {
-  const meta = (story.steps || []).find((x) => x.id === stepId) || {};
-  return meta.slot || fallback;
-}
-
-function indexOfStep(stepId) {
-  return STEPS.findIndex((s) => s.id === stepId);
-}
-
-function resolveBudget(story, value) {
-  const b = story.budgets || {};
-  const n = b[value];
-  return n == null ? 0 : n; // 0 = all
-}
-
-function pickDefault(stepId, key, opts, story) {
-  if (key === 'output') return story.defaultOutput || (opts[0] && opts[0].value);
-  if (key === 'goal') {
-    const out = story.defaultOutput;
-    const g = goalFor(story, out);
-    if (opts.some((o) => o.value === g)) return g;
+// phase copy lookup: 'analyze' pulls from the resolved branch; every other phase
+// pulls from story.phases[id].
+function phaseMeta(story, phaseId, branch) {
+  if (phaseId === 'analyze') {
+    return { kicker: 'Analyze', title: branch.title || branch.label, why: branch.why, changed: branch.changed };
   }
-  if (key === 'budget') {
-    const med = opts.find((o) => o.value === 'medium');
-    return med ? med.value : (opts[0] && opts[0].value);
-  }
-  if (key === 'ci') {
-    const c95 = opts.find((o) => o.value === '95' || o.value === 95);
-    return c95 ? c95.value : (opts[0] && opts[0].value);
-  }
-  return opts[0] && opts[0].value;
+  return (story.phases && story.phases[phaseId]) || {};
 }
 
-// goal chips for the optimize step (direction options), defaulting from the output
-function goalChips(story, out) {
-  const g = goalFor(story, out);
-  const base = [
-    { value: 'high', label: 'Maximize' },
-    { value: 'low', label: 'Minimize' },
-    { value: 'window', label: 'Hit a band' },
-  ];
-  // put the recommended direction first
-  base.sort((a, b) => (a.value === g ? -1 : b.value === g ? 1 : 0));
-  return base;
+function resolveTrainCount(story, ratio) {
+  return Math.round((story.totalRuns || 0) * ratio);
 }
 
 function goalFor(story, outName) {
@@ -1938,9 +2269,23 @@ function labelFor(surrogate, outName) {
   return o ? (o.label || o.name) : outName;
 }
 
-function better(a, b, goal) {
+// AUDIT FIX 7: picks the better of two acquisition candidates for the optimize
+// phase's "best so far" readout. 'low' is a real minimize; 'high' is a real
+// maximize. 'window' has no single directional max, so the honest readout is the
+// candidate CLOSEST to the target band's centre -- but the surrogate JSON's output
+// metadata only ever carries {name,label,unit,goal} (see ARCHITECTURE.md's data
+// contract), no band bounds, so there is nothing to be closest TO today. outMeta is
+// accepted so the day an output DOES carry band bounds (windowMin/windowMax) this
+// picks the closest-to-centre candidate automatically; until then 'window' keeps
+// the same maximize-confidence approximation as 'high' (documented here, not a
+// silent wrong answer).
+function better(a, b, goal, outMeta) {
   if (goal === 'low') return a.mean < b.mean;
-  return a.mean > b.mean; // 'high' and 'window' both treated as maximize-confidence here
+  if (goal === 'window' && outMeta && outMeta.windowMin != null && outMeta.windowMax != null) {
+    const mid = (outMeta.windowMin + outMeta.windowMax) / 2;
+    return Math.abs(a.mean - mid) < Math.abs(b.mean - mid);
+  }
+  return a.mean > b.mean; // 'high' and window-without-band-metadata: maximize-confidence
 }
 
 // real R2 / RMSE: predict at each train point's axis location for the active output

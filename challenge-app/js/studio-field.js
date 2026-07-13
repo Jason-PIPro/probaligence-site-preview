@@ -39,6 +39,25 @@ export class StudioField {
     this._anim = [];           // transient pin-drop animations
     this._alive = true;
 
+    // AUDIT FIX 2: prefers-reduced-motion. When true, _loop() parks itself: no
+    // continuous noise drift, no best-marker pulse, no per-frame redraw. State
+    // changes (the public setters, step(), pointer moves) still repaint a single
+    // static frame via _markDirty() / direct _renderStatic() calls, so nothing
+    // shown ever goes stale -- only the CONTINUOUS motion stops.
+    this._reducedMotion = false;
+    this._mq = (typeof window.matchMedia === 'function') ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    if (this._mq) this._reducedMotion = this._mq.matches;
+
+    // AUDIT FIX 8 (perf): visibility gates for the rAF loop. _ioVisible tracks
+    // whether the canvas is actually in the viewport (IntersectionObserver, feature
+    // -detected below); _extVisible is the host's own explicit hint via setVisible()
+    // (studio.js calls it when its collapsible "DIM-GP Surface" viewer collapses,
+    // since a collapsed panel does not reliably report a zero intersection rect
+    // across every CSS collapse technique). Either being false parks the loop.
+    this._ioVisible = true;
+    this._extVisible = true;
+    this._parked = false;
+
     // ---- DOM: a layered host (field canvas + acquisition inset canvas) ----
     // host gets position:relative so children can absolutely overlay.
     if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
@@ -78,6 +97,31 @@ export class StudioField {
     window.addEventListener('resize', this._onResize);
     this._bindPointer();
 
+    // AUDIT FIX 8: observe the canvas so the loop can park itself while scrolled
+    // out of view. Guarded: IntersectionObserver is broadly supported, but degrade
+    // to always-visible (the pre-fix behavior) if it is ever missing.
+    this._io = null;
+    if (typeof IntersectionObserver === 'function') {
+      this._io = new IntersectionObserver((entries) => {
+        const hit = entries[entries.length - 1];
+        this._ioVisible = !!(hit && hit.isIntersecting);
+        if (this._ioVisible) this._wake();
+      }, { threshold: 0 });
+      this._io.observe(this.canvas);
+    }
+
+    // AUDIT FIX 2: react to a LIVE OS-level reduced-motion toggle, not just its
+    // value at construction time.
+    this._onMotionChange = (e) => {
+      this._reducedMotion = e.matches;
+      if (this._reducedMotion) this._renderStatic();
+      else this._wake();
+    };
+    if (this._mq) {
+      if (this._mq.addEventListener) this._mq.addEventListener('change', this._onMotionChange);
+      else if (this._mq.addListener) this._mq.addListener(this._onMotionChange); // older Safari
+    }
+
     // Preallocated noise buffer - reused every frame to avoid ~20 KB/s heap churn.
     this._noiseBuf = new Uint8ClampedArray(72 * 72 * 4);
     this._noiseFrame = 0; // frame counter for throttling noise regen
@@ -99,8 +143,11 @@ export class StudioField {
     this.acq.style.display = showAcq ? 'block' : 'none';
     // the inset has no layout while display:none, so its canvas buffer was sized to
     // ~0; once shown, re-measure on the next frame so f_acq(x) draws at real size.
-    if (showAcq) requestAnimationFrame(() => this._resize());
-    this.dirty = true;
+    // That single deferred frame is a one-off layout correction, not a continuous
+    // animation, so it runs even under reduced motion; it just also has to repaint
+    // itself (AUDIT FIX 2) since the loop may be parked and won't do it for us.
+    if (showAcq) requestAnimationFrame(() => { this._resize(); if (this._reducedMotion && this._isVisible()) this._renderStatic(); });
+    this._markDirty();
   }
 
   setOutput(name) {
@@ -108,7 +155,7 @@ export class StudioField {
     this.name = name;
     const o = this.s.outputs.find((q) => q.name === name);
     if (o && o.goal) this.goal = o.goal;
-    this.dirty = true;
+    this._markDirty();
   }
 
   // show n real training points (n<=0 = all). Drives the fog honestly: register
@@ -123,21 +170,30 @@ export class StudioField {
     for (const p of shown) this.s.addSample(p.x, p.y);
     this._budgetCount = shown.length;
     for (const a of acqSamples) this.s.addSample(a.x, a.y);
-    this.dirty = true;
+    this._markDirty();
   }
 
   setCI(z) {
     this.z = +z || 1.96;
-    this.dirty = true; // fog intensity / band scale with z
+    this._markDirty(); // fog intensity / band scale with z
   }
 
   setGoal(goal) {
     this.goal = goal;
-    this.dirty = true;
+    this._markDirty();
   }
 
   setStrategy(kappa) {
     this.kappa = +kappa;
+  }
+
+  // AUDIT FIX 8 (perf): explicit visibility hint from the host (e.g. studio.js's
+  // collapsible "DIM-GP Surface" viewer). false pauses the loop the same way
+  // scrolling the canvas out of view does; true wakes it and repaints immediately.
+  // Kept minimal on purpose: one boolean in, no other API surface.
+  setVisible(visible) {
+    this._extVisible = !!visible;
+    if (this._extVisible) this._wake();
   }
 
   // run ONE acquisition iteration: pick next, drop a pin, shrink local fog.
@@ -150,8 +206,12 @@ export class StudioField {
     this.s.addSample(p.x, p.y); // shrink local fog at the chosen location
     const rec = { x: p.x, y: p.y, mean: p.mean, std: p.std, conf: this.confAt(p.x, p.y) };
     this._acqHistory.push(rec);
-    this._anim.push({ x: p.x, y: p.y, t: 0 }); // animate the pin drop
-    this.dirty = true;
+    // AUDIT FIX 2: the pin-drop flourish is a continuous per-frame animation (eased
+    // rise + fading ring over ~1s); under reduced motion, skip it entirely and let
+    // the persisted-samples draw in _draw() show the settled pin immediately, still
+    // fully visible, just without the motion.
+    if (!this._reducedMotion) this._anim.push({ x: p.x, y: p.y, t: 0 }); // animate the pin drop
+    this._markDirty();
     return rec;
   }
 
@@ -162,14 +222,20 @@ export class StudioField {
     this._anim = [];
     // drop everything past the budget anchors
     this.s.samples.length = this._budgetCount;
-    this.dirty = true;
+    this._markDirty();
   }
 
-  resize() { this._resize(); this.dirty = true; }
+  resize() { this._resize(); this._markDirty(); }
 
   destroy() {
     this._alive = false;
     window.removeEventListener('resize', this._onResize);
+    if (this._io) { this._io.disconnect(); this._io = null; }  // AUDIT FIX 8
+    if (this._mq) {  // AUDIT FIX 2
+      if (this._mq.removeEventListener) this._mq.removeEventListener('change', this._onMotionChange);
+      else if (this._mq.removeListener) this._mq.removeListener(this._onMotionChange);
+      this._mq = null;
+    }
     if (this._pointerEl) {
       this._pointerEl.removeEventListener('pointermove', this._setCursor);
       this._pointerEl.removeEventListener('pointerdown', this._setCursor);
@@ -195,6 +261,53 @@ export class StudioField {
   }
 
   // ============================ internals ============================
+
+  // AUDIT FIXES 2 + 8: is the loop allowed to run continuously right now? Both the
+  // viewport-intersection signal and the host's explicit setVisible() hint must be
+  // true; reduced-motion is checked separately (it parks the loop but is not a
+  // "not visible" state -- state changes still repaint via _markDirty()).
+  _isVisible() { return this._ioVisible && this._extVisible; }
+
+  // route every "something changed, please repaint" call through here instead of
+  // setting `this.dirty = true` directly: when the continuous loop is parked
+  // (reduced motion, or not visible), nothing else will ever notice the flag, so
+  // this also paints one static frame immediately if the loop is parked and
+  // visible (reduced-motion case). If not visible, dirty stays true and _wake()
+  // (setVisible(true) / back in viewport) picks it up on the next paint.
+  _markDirty() {
+    this.dirty = true;
+    if (this._reducedMotion && this._isVisible()) this._renderStatic();
+  }
+
+  // paint exactly one frame outside the rAF loop: bake if needed, draw, and the
+  // acquisition inset if relevant. Used by reduced-motion state changes and by
+  // _wake() so a resumed/re-shown field is never a stale frame while it waits for
+  // the next requestAnimationFrame tick.
+  _renderStatic() {
+    if (!this.canvas.isConnected || !this._alive) return;
+    if (this.dirty) this._bake();
+    this._draw();
+    if (this.stage === 'optimize') this._drawAcq();
+  }
+
+  // resume the parked loop (AUDIT FIX 8: called by the IntersectionObserver
+  // callback and setVisible(true); AUDIT FIX 2: called when reduced-motion is
+  // turned back off). Always repaints immediately so there is no visible stale
+  // frame while waiting on the next rAF tick. Only actually clears _parked and
+  // resumes the continuous rAF loop if reduced motion is NOT active -- otherwise
+  // this would wrongly mark the loop "not parked" while reduced motion still
+  // means no continuous frame will ever be scheduled again (a real bug: a later
+  // motion-re-enabled _wake() would then see _parked=false and never resume it).
+  _wake() {
+    if (!this._alive || !this.canvas.isConnected) return;
+    if (!this._isVisible()) return; // still hidden by the other visibility gate
+    this._renderStatic();
+    if (this._reducedMotion) return; // stays parked; state-driven repaints only
+    if (this._parked) {
+      this._parked = false;
+      requestAnimationFrame(this._loop);
+    }
+  }
 
   // pick best-so-far honoring 'high'|'low'|'window'. surrogate.bestSoFar only knows
   // low vs else, so window is handled here (closest to the mid of the value range).
@@ -254,6 +367,10 @@ export class StudioField {
   pxY(ny) { return (1 - ny) * this.h; }
 
   _resize() {
+    // AUDIT FIX 3: re-read devicePixelRatio here (not just once in the constructor)
+    // so browser zoom or dragging the window to a different-DPR display re-sharpens
+    // the canvas instead of staying pinned to whatever ratio was true at mount time.
+    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
     const r = this.canvas.getBoundingClientRect();
     this.w = Math.max(2, r.width); this.h = Math.max(2, r.height);
     this.canvas.width = this.w * this.dpr; this.canvas.height = this.h * this.dpr;
@@ -271,8 +388,15 @@ export class StudioField {
       this.cursor.nx = clamp01((e.clientX - r.left) / r.width);
       this.cursor.ny = clamp01(1 - (e.clientY - r.top) / r.height);
       this.cursor.on = true;
+      // AUDIT FIX 2: the cursor halo is real information (live uncertainty at the
+      // hovered point), not decoration, so it must keep following the pointer even
+      // with the continuous loop parked; repaint on the actual input event instead.
+      if (this._reducedMotion) this._renderStatic();
     };
-    this._leaveCursor = () => { this.cursor.on = false; };
+    this._leaveCursor = () => {
+      this.cursor.on = false;
+      if (this._reducedMotion) this._renderStatic();
+    };
     this.canvas.addEventListener('pointermove', this._setCursor);
     this.canvas.addEventListener('pointerdown', this._setCursor);
     this.canvas.addEventListener('pointerleave', this._leaveCursor);
@@ -331,7 +455,16 @@ export class StudioField {
 
   _loop(ts) {
     if (!this.canvas.isConnected || !this._alive) return; // die on unmount / destroy
-    if (document.hidden) { requestAnimationFrame(this._loop); return; } // page-visibility guard
+    if (document.hidden) { requestAnimationFrame(this._loop); return; } // page-visibility guard (cheap: rAF is already throttled to ~0 in background tabs)
+    // AUDIT FIX 8 (perf): not visible (scrolled out / collapsed) -> stop scheduling
+    // frames entirely instead of polling. _wake() (IntersectionObserver / setVisible)
+    // restarts us the instant it is visible again, with an immediate repaint.
+    if (!this._isVisible()) { this._parked = true; return; }
+    // AUDIT FIX 2: reduced motion -> park here too. Every state change already
+    // repaints a static frame on its own via _markDirty()/_renderStatic(), so the
+    // continuous loop has nothing left to do.
+    if (this._reducedMotion) { this._parked = true; return; }
+    this._parked = false;
     this.t = ts * 0.001;
     if (this.dirty) this._bake();
     // Throttle noise regen: every 9th frame (~150 ms at 60 fps). Only regenerate
@@ -358,7 +491,11 @@ export class StudioField {
       sc.ctx.clearRect(0, 0, sc.cv.width, sc.cv.height);
       sc.ctx.globalCompositeOperation = 'source-over';
       sc.ctx.save();
-      const off = (this.t * 14) % 24;
+      // AUDIT FIX 2: freeze the grain drift + shimmer under reduced motion (a fixed
+      // offset/alpha instead of a function of this.t) rather than relying on this.t
+      // happening to have stopped advancing -- explicit is correct even if reduced
+      // motion is toggled on mid-session after this.t has already accumulated.
+      const off = this._reducedMotion ? 0 : (this.t * 14) % 24;
       sc.ctx.translate(-off, off * 0.6);
       sc.ctx.imageSmoothingEnabled = true;
       sc.ctx.drawImage(this.noise.cv, 0, 0, sc.cv.width + 24, sc.cv.height + 24);
@@ -367,7 +504,7 @@ export class StudioField {
       sc.ctx.drawImage(this.mask.cv, 0, 0);
       sc.ctx.globalCompositeOperation = 'source-over';
       ctx.save();
-      ctx.globalAlpha = 0.16 + 0.05 * Math.sin(this.t * 2);
+      ctx.globalAlpha = this._reducedMotion ? 0.16 : (0.16 + 0.05 * Math.sin(this.t * 2));
       ctx.globalCompositeOperation = 'screen';
       ctx.drawImage(sc.cv, 0, 0, w, h);
       ctx.restore();
@@ -443,7 +580,9 @@ export class StudioField {
     const bx = this.pxX(this.nxOf(b.x)), by = this.pxY(this.nyOf(b.y));
     ctx.save(); ctx.translate(bx, by);
     ctx.strokeStyle = 'rgba(255,176,6,0.95)'; ctx.lineWidth = 1.6;
-    const rr = 9 + Math.sin(this.t * 3) * 1.5;
+    // AUDIT FIX 2: a static marker (no pulse) under reduced motion, explicit rather
+    // than relying on a possibly-stale this.t landing on sin()=0.
+    const rr = this._reducedMotion ? 9 : 9 + Math.sin(this.t * 3) * 1.5;
     ctx.beginPath(); ctx.arc(0, 0, rr, 0, 7); ctx.stroke();
     ctx.beginPath();
     ctx.moveTo(-rr - 4, 0); ctx.lineTo(rr + 4, 0);

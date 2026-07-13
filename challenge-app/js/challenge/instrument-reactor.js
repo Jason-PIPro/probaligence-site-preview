@@ -112,8 +112,10 @@ export function mountInstrument(host, surrogate, opts = {}) {
   // ---- CENTRE bench: process controls, varied in type ----------------------
   // temperature -> rotary knob (big), catalyst -> rotary knob (small),
   // residence time -> +/- stepper, addition rate -> slider.
+  // both knobs share ONE size so the 2x2 cluster reads even (a smaller catalyst dial
+  // pushed its label out of line with the temperature dial's).
   if (tempInput) buildKnob(knobsEl, tempInput, params, onParam, accent, { size: 'lg' });
-  if (catInput) buildKnob(knobsEl, catInput, params, onParam, accent, { size: 'sm' });
+  if (catInput) buildKnob(knobsEl, catInput, params, onParam, accent, { size: 'lg' });
   if (resInput) buildStepper(knobsEl, resInput, params, onParam);
   if (addInput) buildBenchSlider(knobsEl, addInput, params, onParam);
   // any process input we did not explicitly place gets a bench slider, so all
@@ -542,7 +544,13 @@ function buildKnob(parent, input, params, onChange, accent, opts = {}) {
   const wrap = document.createElement('div');
   wrap.className = `${NS}-bench-ctl ${NS}-knob ${NS}-knob--${size}`;
   const dec = stepDecimals(input);
+  // label + value ABOVE the dial, matching the stepper and slider on the bench so all
+  // four process controls read "label on top, control below".
   wrap.innerHTML = `
+    <div class="${NS}-knob-meta">
+      <span class="${NS}-bc-label">${input.label}</span>
+      <span class="${NS}-bc-val"><b data-v></b> <i>${input.unit || ''}</i></span>
+    </div>
     <div class="${NS}-knob-dial" tabindex="0" role="slider"
          aria-label="${input.label}" aria-valuemin="${input.min}" aria-valuemax="${input.max}">
       <div class="${NS}-knob-arc"></div>
@@ -552,10 +560,6 @@ function buildKnob(parent, input, params, onChange, accent, opts = {}) {
         </div>
         <span class="${NS}-knob-dot"></span>
       </div>
-    </div>
-    <div class="${NS}-knob-meta">
-      <span class="${NS}-bc-label">${input.label}</span>
-      <span class="${NS}-bc-val"><b data-v></b> <i>${input.unit || ''}</i></span>
     </div>
   `;
   const dial = wrap.querySelector(`.${NS}-knob-dial`);
@@ -735,7 +739,7 @@ function injectStyle(accent) {
 .${NS}-s-label { color:#f5f2ec; }
 .${NS}-s-val { font-family:ui-monospace,"SF Mono",Consolas,monospace; color:${accent}; }
 .${NS}-s-val i { color:#8a847a; font-style:normal; font-size:11px; }
-.${NS}-formnote { margin-top:auto; padding-top:16px; font-size:11px; color:#8a847a; line-height:1.5; }
+.${NS}-formnote { margin-top:16px; padding-top:16px; border-top:1px solid rgba(245,242,236,0.07); font-size:11px; color:#8a847a; line-height:1.5; }
 
 .${NS}-root input[type=range]{ -webkit-appearance:none; appearance:none; width:100%; height:4px; border-radius:3px; background:rgba(245,242,236,0.14); outline:none; }
 .${NS}-root input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:${accent}; cursor:pointer; box-shadow:0 0 0 4px ${hexA(accent,0.18)}; }
@@ -798,16 +802,17 @@ function injectStyle(accent) {
 .${NS}-knob-meta { display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center; }
 .${NS}-knob-meta .${NS}-bc-label { font-size:11px; }
 
-.${NS}-go { margin-top:14px; appearance:none; border:none; cursor:pointer; border-radius:999px; padding:13px 20px; font-size:14px; font-weight:650; color:#1a1205; background:linear-gradient(180deg, #ffc23a, ${accent}); box-shadow:0 8px 24px ${hexA(accent,0.28)}; transition:transform .12s ease, box-shadow .2s ease, filter .2s ease; }
-.${NS}-go:hover{ filter:brightness(1.06); transform:translateY(-1px); }
-.${NS}-go:active{ transform:translateY(1px); }
+.${NS}-go { margin-top:14px; appearance:none; border:none; cursor:pointer; border-radius:2px; padding:13px 20px; font-size:14px; font-weight:600; color:#08070A; background:${accent}; transition:filter .18s ease, transform .18s ease; }
+.${NS}-go:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+.${NS}-go:active{ transform:translateY(0); }
 .${NS}-go:disabled{ cursor:default; filter:grayscale(.3) brightness(.85); }
 .${NS}-go--busy{ animation:${NS}-pulse 1.2s ease-in-out infinite; }
-@keyframes ${NS}-pulse{ 0%,100%{ box-shadow:0 8px 24px ${hexA(accent,0.28)};} 50%{ box-shadow:0 8px 34px ${hexA(accent,0.55)};} }
+@keyframes ${NS}-pulse{ 0%,100%{ opacity:1;} 50%{ opacity:.72;} }
 
 /* ---- RIGHT: readout ---- */
 .${NS}-readout { gap:0; }
-.${NS}-scorewrap { display:flex; flex-direction:column; align-items:center; padding:6px 0 14px; border-bottom:1px solid rgba(245,242,236,0.08); margin-bottom:12px; }
+/* centre the score+outputs+hint group in the tall panel (see paint note) */
+.${NS}-scorewrap { margin-top:auto; display:flex; flex-direction:column; align-items:center; padding:6px 0 14px; border-bottom:1px solid rgba(245,242,236,0.08); margin-bottom:12px; }
 .${NS}-score { font-family:ui-monospace,monospace; font-size:58px; line-height:1; font-weight:700; color:#3a362d; transition:color .3s ease; }
 .${NS}-score--in { color:${accent}; text-shadow:0 0 24px ${hexA(accent,0.45)}; }
 .${NS}-score-cap { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#8a847a; margin-top:4px; }
@@ -818,7 +823,7 @@ function injectStyle(accent) {
 .${NS}-out-label { color:#aaa49a; }
 .${NS}-out-val { font-family:ui-monospace,monospace; font-size:17px; color:#f5f2ec; text-align:right; }
 .${NS}-out-unit { color:#8a847a; font-size:11px; }
-.${NS}-hint { margin-top:auto; padding-top:14px; font-size:11px; color:#8a847a; line-height:1.5; }
+.${NS}-hint { margin-bottom:auto; padding-top:14px; font-size:11px; color:#8a847a; line-height:1.5; }
 `;
   const tag = document.createElement('style');
   tag.id = STYLE_ID;

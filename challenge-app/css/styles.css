@@ -1,68 +1,99 @@
 /* ============================================================
-   STOCHOS live demonstrators — design system
-   crisp "scientific instrument" look, dark, motion-friendly
+   STOCHOS live demonstrators, design system
+   Mirrors the probaligence.com marketing site's site.css token set:
+   near-black, a single amber accent, Space Grotesk/IBM Plex, a crisp
+   "scientific instrument" feel. Extend this system, do not fork it.
    ============================================================ */
 :root {
-  /* PI Probaligence locked brand tokens: near-black, single amber accent, system fonts */
-  --bg: #070707;
-  --bg-2: #0c0c0e;
-  --panel: #0e0e11;
-  --panel-2: #141417;
-  --line: rgba(255, 255, 255, 0.11);
+  /* canonical marketing-site tokens (site.css) */
+  --bg: #060607;
+  --bg-warm: #0A0908;
+  --surface: #101012;
+  --hairline: rgba(255, 255, 255, .09);
+  --text: #F4F3EF;
+  --muted: #9C9C96;
+  --faint: #82827C;
+  --amber: #FFB006;
+  --amber-lt: #FFCA4D;
+  --ease-out: cubic-bezier(.16, .84, .32, 1);
+
+  /* type: Space Grotesk (display/headings), IBM Plex Sans (body/UI),
+     IBM Plex Mono (labels, data readouts, tracked kickers) */
+  --display: 'Space Grotesk', sans-serif;
+  --sans: 'IBM Plex Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+
+  /* aliases: this file's original token names, kept so every existing
+     var() reference below (and in the JS style blocks) still resolves */
+  --bg-2: var(--bg-warm);
+  --panel: var(--surface);
+  --panel-2: #16161a;              /* one step up from --surface, for stacked panels */
+  --line: var(--hairline);
   --line-2: rgba(255, 255, 255, 0.19);
-  --txt: #f5f5f7;
-  --muted: #aaaab0;
-  --faint: #76767d;
-  --accent: #ffb006;          /* the one accent */
-  --accent-2: #f59e0b;        /* deeper amber, subtle variety only */
+  --txt: var(--text);
+  --accent: var(--amber);          /* the one accent */
+  --accent-2: var(--amber-lt);
   --accent-soft: rgba(255, 176, 6, 0.12);
   --accent-line: rgba(255, 176, 6, 0.5);
-  --warm: #ffb006;
-  --warm-2: #ff9c2a;
-  --good: #ffb006;
+  --warm: var(--amber);
+  --warm-2: var(--amber-lt);
+  --good: var(--amber);
   --bad: #ff6b6b;
-  --shadow: 0 30px 90px rgba(0, 0, 0, 0.34);
-  --r: 16px;
-  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
-  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.6);   /* floating surfaces only: dropdowns, lightboxes */
+  --r: 4px;
 }
+
+@font-face { font-family: 'Space Grotesk'; src: url('../assets/fonts/space-grotesk-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Space Grotesk'; src: url('../assets/fonts/space-grotesk-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('../assets/fonts/ibm-plex-sans-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('../assets/fonts/ibm-plex-sans-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('../assets/fonts/ibm-plex-sans-600.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('../assets/fonts/ibm-plex-mono-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('../assets/fonts/ibm-plex-mono-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
   margin: 0;
   font-family: var(--sans);
-  background:
-    radial-gradient(1100px 680px at 80% -10%, rgba(255, 176, 6, 0.10), transparent 60%),
-    radial-gradient(820px 560px at 6% 110%, rgba(255, 140, 6, 0.06), transparent 55%),
-    var(--bg);
+  background: var(--bg);      /* flat near-black; no ambient glow gradients */
   color: var(--txt);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 a { color: inherit; text-decoration: none; }
 em { font-style: normal; }
+::selection { background: #FFB006; color: #000; }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--amber-lt); outline-offset: 2px; border-radius: 2px;
+}
 
-/* ---------- top bar ---------- */
+/* ---------- top bar ----------
+   Mirrors the site's scrolled header. Height is 66px (not the site's 68px):
+   the app's layout math is built on calc(100vh - 66px) in many places
+   (including a !important override injected by studio.js), so 66px keeps
+   every full-height panel fitting exactly; the 2px difference is not
+   perceptible. Sticky is required, the app layout depends on it. */
 .topbar {
   position: sticky; top: 0; z-index: 50;
+  height: 66px;
+  background: rgba(6, 6, 7, 0.78);
+  backdrop-filter: saturate(140%) blur(16px);
+  -webkit-backdrop-filter: saturate(140%) blur(16px);
+  border-bottom: 1px solid var(--hairline);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .topbar { background: rgba(6, 6, 7, 0.97); }
+}
+.topbar-inner {
+  height: 100%; max-width: 1280px; margin: 0 auto; padding: 0 24px;
   display: flex; align-items: center; gap: 28px;
   flex-wrap: nowrap; /* keep brand + nav + cta on one row */
   min-width: 0;      /* allow flex children to shrink below their content width */
-  padding: 14px 26px;
-  background: linear-gradient(180deg, rgba(7, 7, 9, 0.92), rgba(7, 7, 9, 0.55));
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
 }
-.brand { display: flex; align-items: center; gap: 11px; font-weight: 650; letter-spacing: 0.04em; flex-shrink: 0; }
-.brand-mark {
-  width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center;
-  border: 1px dashed var(--accent-line); color: var(--accent);
-  font-size: 8px; font-weight: 700; letter-spacing: 0.06em;
-}
-.brand-mark::after { content: "PI"; }
-.brand-text { font-size: 15px; }
-.brand-text em { color: var(--accent); font-weight: 500; opacity: 0.85; }
+.brand { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
+.brand img { height: 34px; display: block; }
+.brand span { font: 600 17px/1 var(--display); color: var(--text); letter-spacing: -0.01em; }
 .domnav {
   display: flex; gap: 6px; margin-left: 10px;
   /* allow horizontal scroll on narrow viewports without spilling the page */
@@ -80,135 +111,277 @@ em { font-style: normal; }
   mask-image: linear-gradient(90deg, #000 calc(100% - 44px), transparent);
 }
 .domnav a {
-  padding: 8px 14px; border-radius: 999px; font-size: 13.5px; color: var(--muted);
-  border: 1px solid transparent; transition: 0.18s;
-  white-space: nowrap; flex-shrink: 0; /* prevent pill text from wrapping */
+  padding: 9px 13px; border-radius: 2px; font: 500 14.5px/1 var(--sans); color: var(--muted);
+  border: 1px solid transparent; transition: color 0.18s;
+  white-space: nowrap; flex-shrink: 0;
 }
-.domnav a:hover { color: var(--txt); background: var(--panel); }
-.domnav a.active { color: var(--bg); background: var(--accent); font-weight: 600; box-shadow: 0 0 20px -4px var(--accent); }
+.domnav a:hover { color: var(--text); }
+.domnav a.active { color: var(--amber); font-weight: 600; }
 .cta {
-  margin-left: auto; font-size: 13px; padding: 9px 16px; border-radius: 999px;
-  border: 1px solid var(--line-2); color: var(--txt); transition: 0.18s;
-  flex-shrink: 0; white-space: nowrap;
+  margin-left: auto; flex-shrink: 0; white-space: nowrap;
+  background: var(--amber); color: #08070A;
+  font: 600 14.5px/1 var(--sans);
+  padding: 11px 18px; border-radius: 2px; border: none;
+  transition: filter 0.18s, transform 0.18s;
 }
-.cta:hover { border-color: var(--accent); color: var(--accent); }
+.cta:hover { filter: brightness(1.08); transform: translateY(-1px); }
+/* full label by default; a short "Demo" label takes over once the header row
+   gets too tight for both nav links plus the full CTA text (see the 420px
+   breakpoint below). */
+.cta-short { display: none; }
 
-/* ---------- app shell ---------- */
-.app { min-height: calc(100vh - 66px); }
+/* ---------- app shell ----------
+   Content determines height and the footer follows it (the marketing site does
+   the same: no route is force-stretched to a full viewport, which would float a
+   viewport of dead black space below short screens like the hub or the pick).
+   The one full-height need left is the error placeholder, handled on its own. */
+.app { min-height: 0; }
 
-/* ---------- hub / landing ---------- */
-.hub { max-width: 1180px; margin: 0 auto; padding: 64px 26px 80px; }
-.hub h1 { font-size: clamp(30px, 4.6vw, 52px); line-height: 1.05; margin: 0 0 18px; letter-spacing: -0.02em; }
-.hub h1 .grad {
-  background: linear-gradient(100deg, var(--accent), var(--accent-2) 60%, var(--warm));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.hub .lead { font-size: 18px; color: var(--muted); max-width: 720px; line-height: 1.55; }
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; }
-.card {
+/* ---------- hub / landing ----------
+   No width constraint here: the hero is a full-bleed section managing its own
+   centered inner container so its background can span the full viewport
+   (the site's alternating warm/near-black band rhythm continues below, into
+   the footer; see "section rhythm" near the footer rules). */
+.hub { }
+
+/* ---------- hub HERO: the Beat STOCHOS challenge as the flagship ----------
+   Full-bleed on the page background, no outer box. The illustrative panel on
+   the right is the only boxed element. A soft radial amber glow sits behind
+   the headline, mirroring the marketing site's hero treatment (static, so it
+   needs no reduced-motion guard). */
+.hero {
   position: relative; overflow: hidden;
-  border: 1px solid var(--line); border-radius: var(--r); background: var(--panel);
-  padding: 22px; min-height: 230px; transition: 0.2s; cursor: pointer;
-  display: flex; flex-direction: column;
+  padding: 96px 24px 72px;
 }
-.card:hover { transform: translateY(-4px); border-color: var(--line-2); box-shadow: var(--shadow); }
-.card .tag { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); }
-.card h2 { margin: 12px 0 8px; font-size: 21px; }
-.card p { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0; }
-.card .go { margin-top: auto; color: var(--accent); font-size: 13px; font-weight: 600; }
-.card .glow { position: absolute; inset: auto -40% -60% auto; width: 60%; height: 70%; filter: blur(40px); opacity: 0.5; border-radius: 50%; }
-
-/* ---------- hub HERO: the Beat STOCHOS challenge as the flagship ---------- */
-.hub .hero {
-  position: relative; overflow: hidden;
+.hero::before {
+  content: ""; position: absolute; z-index: 0; pointer-events: none;
+  top: -12%; left: 50%; transform: translateX(-50%);
+  width: 1100px; height: 560px; max-width: 120vw;
+  background: radial-gradient(rgba(255, 176, 6, 0.10), transparent 62%);
+  filter: blur(6px);
+}
+.hero-inner {
+  position: relative; z-index: 1;
   display: grid; grid-template-columns: 1.55fr 1fr; align-items: center; gap: 36px;
-  border: 1px solid var(--accent-line); border-radius: 22px;
-  background:
-    radial-gradient(120% 140% at 12% 0%, rgba(255, 176, 6, 0.13), transparent 58%),
-    linear-gradient(165deg, var(--panel-2), var(--panel));
-  padding: 44px 44px 42px;
-  box-shadow: 0 40px 110px -50px rgba(255, 176, 6, 0.35), var(--shadow);
-}
-.hero-glow {
-  position: absolute; inset: auto -10% -55% auto; width: 52%; height: 110%;
-  background: var(--accent); filter: blur(120px); opacity: 0.16; border-radius: 50%;
-  pointer-events: none;
+  max-width: 1120px; margin: 0 auto;
 }
 .hero-body { position: relative; z-index: 1; min-width: 0; }
+/* the hero eyebrow; matches the reusable .eyebrow recipe below (see "shared
+   card + eyebrow system") but kept as its own rule since main.js renders this
+   markup and cannot be handed an extra class. */
 .hero-kicker {
-  display: inline-block; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase;
-  font-weight: 700; color: var(--accent);
-  border: 1px solid var(--accent-line); border-radius: 999px; padding: 5px 13px;
-  background: var(--accent-soft);
+  display: block; font: 500 12px/1 var(--mono); letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--amber);
 }
 .hero-title {
-  font-size: clamp(34px, 5vw, 60px); line-height: 1.02; letter-spacing: -0.025em;
-  margin: 18px 0 16px; font-weight: 700;
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(36px, 5.4vw, 64px); line-height: 1.03; letter-spacing: -0.025em;
+  margin: 18px 0 16px;
 }
-.hero-title .grad {
-  background: linear-gradient(100deg, var(--accent), var(--accent-2) 60%, var(--warm));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
+.hero-hot { color: var(--amber); }
 .hero-pitch { font-size: 17px; color: var(--muted); line-height: 1.55; max-width: 560px; margin: 0; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 18px; margin-top: 26px; }
 .hero-cta {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 15px 28px; border-radius: 999px; font-size: 16px; font-weight: 700;
-  background: var(--accent); color: #111; border: 1px solid var(--accent);
-  box-shadow: 0 0 32px -6px var(--accent); transition: 0.2s;
+  padding: 15px 28px; border-radius: 2px; font: 600 16px/1 var(--sans);
+  background: var(--amber); color: #08070A; border: none;
+  transition: filter 0.18s, transform 0.18s;
 }
-.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 18px 44px -10px rgba(255, 176, 6, 0.5); }
+.hero-cta:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .hero-sub { font-size: 13px; color: var(--faint); }
 .hero-cases { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
 .hero-chip {
   font-size: 13px; padding: 8px 15px; border-radius: 999px; color: var(--muted);
-  border: 1px solid var(--line-2); background: rgba(255, 255, 255, 0.02); transition: 0.16s;
+  border: 1px solid rgba(255, 255, 255, 0.14); background: transparent; transition: 0.16s;
 }
-.hero-chip:hover { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+.hero-chip:hover { color: var(--amber); border-color: var(--accent-line); background: var(--accent-soft); }
 
-/* illustrative "you vs STOCHOS" race strip - labelled, decorative only */
+/* illustrative "you vs STOCHOS" race strip: a small instrument panel, labelled
+   and decorative only. Sized to the site's card recipe (6px radius, generous
+   padding, hairline border; see "shared card + eyebrow system" below). */
 .hero-illus {
   position: relative; z-index: 1;
-  display: flex; flex-direction: column; gap: 12px; justify-content: center;
-  border: 1px solid var(--line); border-radius: 16px; padding: 22px 22px 18px;
-  background: rgba(7, 7, 7, 0.5); min-height: 160px;
+  display: flex; flex-direction: column; justify-content: center;
+  border: 1px solid var(--hairline); border-radius: 6px; padding: 28px 26px 24px;
+  background: var(--surface); min-height: 160px;
 }
 .hero-illus-label {
-  position: absolute; top: 11px; right: 13px; font-size: 10px; letter-spacing: 0.12em;
+  position: absolute; top: 14px; right: 16px; font: 500 10px/1 var(--mono); letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--faint);
 }
-.hi-track { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
-.hi-you, .hi-st { height: 9px; border-radius: 999px; background: var(--panel-2); position: relative; overflow: hidden; }
-.hi-you::after, .hi-st::after {
-  content: ""; position: absolute; left: 0; top: 0; height: 100%; border-radius: 999px;
-  animation: hi-fill 2.6s cubic-bezier(.3,.7,.3,1) infinite;
+.hi-grid { display: flex; flex-direction: column; gap: 20px; margin-top: 4px; }
+.hi-row { display: flex; align-items: center; gap: 12px; }
+.hi-row-label {
+  flex: 0 0 58px; font: 500 10.5px/1 var(--mono); letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--muted);
 }
-.hi-you::after { width: 64%; background: linear-gradient(90deg, rgba(255,255,255,0.25), rgba(255,255,255,0.45)); }
-.hi-st::after { width: 92%; background: linear-gradient(90deg, var(--accent-2), var(--accent)); box-shadow: 0 0 16px -2px var(--accent); animation-delay: 0.35s; }
+.hi-bar-track { position: relative; flex: 1; height: 8px; border-radius: 2px; background: var(--panel-2); overflow: hidden; }
+/* faint hairline gridline ticks behind the fill: 8 even divisions */
+.hi-bar-track::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(90deg,
+    rgba(255, 255, 255, 0.10) 0, rgba(255, 255, 255, 0.10) 1px,
+    transparent 1px, transparent 12.5%);
+}
+.hi-you, .hi-st {
+  position: absolute; left: 0; top: 0; height: 100%; border-radius: 2px;
+  animation: hi-fill 2.6s var(--ease-out) infinite;
+}
+.hi-you { width: 64%; background: linear-gradient(90deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.45)); }
+.hi-st { width: 92%; background: linear-gradient(90deg, var(--accent-2), var(--accent)); animation-delay: 0.35s; }
 @keyframes hi-fill { 0% { transform: scaleX(0.04); transform-origin: left; } 55%, 100% { transform: scaleX(1); transform-origin: left; } }
-.hi-cap { display: flex; justify-content: space-between; font-size: 12px; }
-.hi-cap span:first-child { color: var(--muted); }
-.hi-cap span:last-child { color: var(--accent); font-weight: 600; }
-
-/* ---------- hub secondary (the other demonstrators) ---------- */
-.hub-rest { margin-top: 56px; }
-.hub-rest-lead { font-size: 16px; color: var(--muted); max-width: 720px; line-height: 1.55; margin: 0; }
-.hub-rest .cards { margin-top: 26px; }
+.hi-row-val { flex: 0 0 26px; text-align: right; font: 600 13px/1 var(--mono); color: var(--muted); }
+.hi-row-val.hot { color: var(--accent); }
 
 @media (max-width: 880px) {
-  .hub .hero { grid-template-columns: 1fr; gap: 26px; padding: 34px 24px 32px; }
+  .hero { padding: 64px 24px 48px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 26px; }
   .hero-illus { order: 2; min-height: 130px; }
   .hero-body { order: 1; }
 }
 @media (max-width: 480px) {
-  .hub .hero { padding: 26px 18px 24px; border-radius: 18px; }
+  .hero { padding: 48px 18px 40px; }
   .hero-title { font-size: clamp(27px, 8.5vw, 38px); }
   .hero-pitch { font-size: 15px; }
   .hero-cta { width: 100%; justify-content: center; font-size: 15px; padding: 14px 22px; }
   .hero-actions { gap: 10px; }
-  .hub-rest { margin-top: 40px; }
 }
 
+/* ---------- shared card + eyebrow system ----------
+   Mirrors the marketing site's hairline card + mono eyebrow recipe (see
+   site.css: the /challenge/ "How it works" cards and the hero's tracked
+   kicker). Utility classes for any demo markup (challenge.js included) that
+   wants the same look; .hero-illus above hand-matches this recipe directly
+   since main.js renders that markup and cannot be handed an extra class. */
+.card {
+  border: 1px solid var(--hairline); border-radius: 6px; padding: 28px;
+  background: transparent;
+}
+.eyebrow {
+  display: block; font: 500 12px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--amber);
+}
+
+/* boot */
+.boot { position: fixed; inset: 0; display: grid; place-items: center; background: var(--bg); z-index: 100; transition: opacity .5s; }
+.boot.hidden { opacity: 0; pointer-events: none; }
+.boot-ring { width: 46px; height: 46px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--accent); animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.placeholder { display: grid; place-items: center; min-height: 60vh; color: var(--muted); text-align: center; padding: 40px; }
+.placeholder .big { font-size: 26px; color: var(--txt); margin-bottom: 10px; }
+
+.fade-in { animation: fade .5s ease both; }
+@keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 768px) {
+  /* Tighten topbar so the scrollable nav gets maximum width */
+  .topbar-inner { gap: 16px; }
+  /* CTA shrinks to just its text: no extra padding eating nav space */
+  .cta { padding: 8px 12px; font-size: 12px; flex-shrink: 0; }
+}
+
+@media (max-width: 480px) {
+  body { overflow-x: hidden; }
+  .topbar-inner { padding: 0 14px; gap: 8px; }
+  .brand span { display: none; }
+  /* both nav links + the CTA must share a very tight row here: tighten the
+     link padding/size and shrink the CTA further so nothing clips behind it. */
+  .domnav a { padding: 8px 9px; font-size: 13px; }
+  .cta { padding: 9px 12px; font-size: 13px; }
+}
+@media (max-width: 420px) {
+  /* still not enough room for both full nav labels and "Request a Demo":
+     the CTA drops to a short "Demo" label instead of clipping a nav link. */
+  .cta-full { display: none; }
+  .cta-short { display: inline; }
+}
+@media (max-width: 360px) {
+  /* out of room even at the tightened sizes above: drop the CTA rather than
+     let it clip a nav label (the CTA is still one tap away via the hub hero). */
+  .cta { display: none; }
+}
+
+/* ---------- site footer ----------
+   Verbatim port of the marketing site's .site-footer (site.css), minus the
+   cookie-consent JS hooks (no site.js in this app, so "Cookie settings" and
+   the live copyright-year script are dropped; plain links + a static year
+   stand in). One deliberate deviation from the literal site value: this
+   footer sits on --bg-warm rather than the site's flat --bg. The app hub has
+   no middle "how it works" band to alternate against (that content lives on
+   the marketing site's own /challenge/ bridge page, not in this app), so the
+   warm tone here is what carries the site's alternating-band rhythm between
+   the hero and the page's end. Section rhythm, subtle not heavy. */
+.site-footer {
+  background: var(--bg-warm); border-top: 1px solid var(--hairline);
+  padding: 80px 24px 40px; font-family: var(--sans);
+}
+.footer-inner { max-width: 1280px; margin: 0 auto; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 48px 32px; align-items: start; }
+.footer-brand { min-width: 220px; }
+.footer-brand .brand { margin-bottom: 18px; }
+.footer-brand .brand img { height: 32px; }
+.footer-brand .brand span { font-size: 16px; }
+.footer-brand p { color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 300px; margin: 0 0 18px; }
+.footer-cred { display: flex; flex-direction: column; gap: 7px; }
+.footer-cred span { font: 500 12px/1.4 var(--mono); color: var(--faint); letter-spacing: 0.04em; }
+.footer-grid .f-h {
+  font: 500 11.5px/1 var(--mono); color: var(--faint);
+  letter-spacing: 0.16em; text-transform: uppercase; margin: 0 0 18px;
+}
+.footer-grid ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.footer-grid li a { color: var(--muted); text-decoration: none; font-size: 14px; }
+.footer-grid li a:hover { color: var(--text); }
+.footer-grid li a.amber { color: var(--amber); }
+.footer-bottom {
+  display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center;
+  margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--hairline);
+}
+.footer-bottom .copy { font: 400 13px/1 var(--mono); color: var(--faint); }
+.footer-bottom .legal { display: flex; gap: 18px; flex-wrap: wrap; }
+.footer-bottom .legal a { color: var(--faint); text-decoration: none; font-size: 13px; }
+.footer-bottom .legal a:hover { color: var(--text); }
+.footer-social { display: flex; gap: 10px; margin-top: 22px; }
+.social-btn {
+  display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px;
+  border: 1px solid var(--hairline); border-radius: 9px; color: var(--muted);
+  background: rgba(255, 255, 255, 0.02);
+  transition: color 0.18s var(--ease-out), border-color 0.18s, background 0.18s, transform 0.18s;
+}
+.social-btn svg { height: 18px; width: auto; fill: currentColor; display: block; }
+.social-btn:hover { color: var(--amber); border-color: rgba(255, 176, 6, 0.5); background: rgba(255, 176, 6, 0.09); transform: translateY(-2px); }
+.social-btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.social-btn--pending { opacity: 0.4; cursor: default; }
+.social-btn--pending:hover { color: var(--muted); border-color: var(--hairline); background: rgba(255, 255, 255, 0.02); transform: none; }
+@media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; } }
+
+/* ---------- reduced motion (site standard: motion is never mandatory) ----------
+   Collapses every keyframe animation to a single instant pass, which stops the
+   infinite decorative loops (hero race strip, pulses, dashes) while keeping all
+   content visible; nothing in the app gates visibility on an animation, and no
+   JS listens for animationend. One-shot transitions are left alone. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ============================================================
+   STUDIO (Build-it-yourself) CSS, restored 2026-07-13 from the
+   pre-trim backup. Verified on-brand (all colors resolve through
+   the :root tokens above; no off-brand hexes, no gradient text,
+   no bounce easing). The .sf-app block deliberately replicates
+   the Flow desktop product's grey/green look per the contract;
+   the amber site chrome wraps it. Picker cards aligned to the
+   site 6px card recipe 2026-07-13.
+   ============================================================ */
+/* touch: the drag-to-build surfaces must own the pointer stream. Without
+   touch-action none, a touch browser's scroll/pan gesture pre-empts the
+   pointerdrag (pointercancel) and silently aborts placing or wiring a node.
+   The canvas sits in a fixed-height app layout, so no page scroll is lost. */
+.pal-node, .snode-card, .snode .port, .port, .sf-canvas { touch-action: none; }
 /* ---------- demo layout ---------- */
 .demo { display: grid; grid-template-columns: 360px 1fr; gap: 0; height: calc(100vh - 66px); }
 .panel {
@@ -540,19 +713,13 @@ canvas.field { position: absolute; inset: 0; width: 100%; height: 100%; }
 }
 .pick-card {
   position: relative; overflow: hidden; cursor: pointer;
-  border: 1px solid var(--line); border-radius: var(--r);
-  background: var(--panel); padding: 24px; min-height: 230px;
+  border: 1px solid var(--line); border-radius: 6px;
+  background: var(--panel); padding: 26px; min-height: 230px;
   display: flex; flex-direction: column;
-  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s var(--ease-out), border-color 0.2s, box-shadow 0.2s;
 }
 .pick-card:hover {
-  transform: translateY(-6px); border-color: var(--line-2); box-shadow: var(--shadow);
-}
-.pick-card:hover .glow { opacity: 0.62; }
-.pick-card .glow {
-  position: absolute; inset: auto -36% -58% auto; width: 62%; height: 72%;
-  filter: blur(46px); opacity: 0.42; border-radius: 50%;
-  transition: opacity 0.25s; pointer-events: none;
+  transform: translateY(-2px); border-color: var(--accent-line); box-shadow: var(--shadow);
 }
 .pick-card .tag {
   font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.14em;
@@ -813,14 +980,9 @@ svg.studio-edges {
 }
 .opt-readout b { color: var(--accent); font-family: var(--mono); }
 
-/* "what changed" highlight + "why it matters" helper */
-.insp-changed {
-  margin-top: 16px; font-size: 13px; line-height: 1.5; color: var(--txt);
-  border-left: 2px solid var(--accent); padding: 9px 0 9px 12px;
-  background: linear-gradient(90deg, var(--accent-soft), transparent);
-  border-radius: 0 8px 8px 0;
-}
-.insp-changed:empty { display: none; }
+/* "why it matters" helper (the v1 "what changed" callout, .insp-changed, is
+   retired: studio.js now renders that copy inside the single .sfg-result
+   card's .result-callout instead, see the guide-panel block below). */
 .insp-why { margin-top: 12px; font-size: 12.5px; line-height: 1.55; color: var(--muted); }
 .insp-why:empty { display: none; }
 
@@ -1445,9 +1607,21 @@ svg.sf-edges {
   white-space: nowrap; font-family: var(--sans); letter-spacing: 0;
 }
 /* ports: left in / right out; open grey, connected green */
+/* PORT CLIP BUG FIX (v4): ports are children of .snode-card and are placed at
+   left:0%/left:100% (the card's own left/right edge) with top:N% down the card,
+   THEN translate(-50%,-50%) centers the dot exactly ON that edge coordinate
+   (half inside the card, half outside), so it renders as a clean full circle
+   regardless of the card's pixel size -- no more hardcoded-pixel mismatch
+   between this CSS and the card's actual width (that mismatch was the root
+   cause: out-ports floated detached past the card's right edge and in-ports
+   sat mostly under the card's own left border, reading as half-clipped). The
+   matching JS math lives in studio.js's port() helper (CARD_W/CARD_H). z-index
+   keeps every port above the card's own background/border, below nothing. */
 .sf-app .snode .port {
   position: absolute; width: 9px; height: 9px; border-radius: 50%;
   background: #8a8a8a; border: 2px solid #000;
+  transform: translate(-50%, -50%);
+  z-index: 4;
   transition: transform 0.14s, box-shadow 0.18s, background 0.18s; cursor: crosshair;
 }
 .sf-app .snode.done .port { background: var(--sf-green); }
@@ -1456,7 +1630,7 @@ svg.sf-edges {
 .sf-app .snode .port.compatible {
   background: var(--sf-green); border-color: rgba(0,0,0,0.85);
   box-shadow: 0 0 0 4px rgba(57,211,83,0.18), 0 0 12px 1px var(--sf-green);
-  transform: scale(1.4); animation: sfPortPulse 1.1s ease-in-out infinite;
+  transform: translate(-50%, -50%) scale(1.4); animation: sfPortPulse 1.1s ease-in-out infinite;
 }
 @keyframes sfPortPulse {
   0%, 100% { box-shadow: 0 0 0 4px rgba(57,211,83,0.14), 0 0 10px 0 rgba(57,211,83,0.7); }
@@ -1522,131 +1696,27 @@ svg.sf-edges {
 }
 .pal-fly img { width: 20px; height: 20px; flex: none; }
 
-/* ------------------------------------------------- output viewer windows --- */
-/* the overlay does not eat pointer events; each viewer window does. They dock
-   bottom-right over the black canvas like real Flow plot windows. */
-.sf-viewers {
-  position: absolute; inset: 0; z-index: 5;
-  pointer-events: none;
-  display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;
-  gap: 12px; padding: 14px;
-}
-.sf-viewer {
-  pointer-events: auto;
-  border: 1px solid var(--sf-border); border-radius: 10px; overflow: hidden;
-  background: var(--sf-chrome-2);
-  box-shadow: 0 24px 60px -18px #000, 0 0 0 1px rgba(0,0,0,0.4);
-  display: flex; flex-direction: column; min-height: 0;
-  animation: sfViewerIn 0.32s cubic-bezier(.2,.8,.2,1) both;
-}
-.sf-viewer[hidden] { display: none; }
-@keyframes sfViewerIn {
-  from { opacity: 0; transform: translateY(14px) scale(0.98); }
-  to   { opacity: 1; transform: none; }
-}
-.sf-viewer-bar {
-  flex: none; display: flex; align-items: center; gap: 8px;
-  padding: 7px 11px; background: var(--sf-chrome-3); border-bottom: 1px solid var(--sf-border);
-  -webkit-user-select: none; user-select: none; cursor: pointer;
-}
-.sf-viewer-bar::before {
-  content: ""; flex: none; width: 7px; height: 7px; border-radius: 2px;
-  background: var(--sf-blue); box-shadow: 0 0 7px rgba(201,137,10,0.7);
-}
-.sf-viewer-title { font-size: 11.5px; font-weight: 600; color: var(--sf-ink); letter-spacing: -0.01em; flex: 1; }
-.sf-viewer-body { min-height: 0; overflow: hidden; }
-
-/* Collapsible viewer: a chevron toggle on the viewer bar collapses the body */
-.sf-viewer-toggle {
-  flex: none; background: none; border: none; padding: 2px 4px; cursor: pointer;
-  color: var(--sf-muted); font-size: 13px; line-height: 1; border-radius: 4px;
-  transition: color 0.12s, background 0.12s;
-}
-.sf-viewer-toggle:hover { color: var(--sf-ink); background: rgba(255,255,255,0.07); }
-.sf-viewer.collapsed .sf-viewer-body { display: none; }
-.sf-viewer.collapsed { border-bottom: none; }
-.sf-viewer.collapsed .sf-viewer-bar { border-bottom: none; }
-.sf-viewer-toggle-icon { display: inline-block; transition: transform 0.18s; }
-.sf-viewer.collapsed .sf-viewer-toggle-icon { transform: rotate(-90deg); }
-
-/* the DIM-GP Surface viewer stays LARGE + readable: it is the hero window. */
-#viewerField { width: min(430px, 60%); max-width: 60%; }
-#viewerField .sf-viewer-body.studio-result {
-  position: relative; overflow: hidden; height: 290px; min-height: 240px;
-  background: #000; border: none;
-}
-.sf-app .studio-result .studio-field-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.sf-app .studio-result .studio-field-acq {
-  position: absolute; left: 12px; bottom: 12px; border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.14); background: rgba(0,0,0,0.78);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.45); pointer-events: none;
-}
-.sf-app .studio-result .fo-title {
-  position: absolute; left: 14px; top: 12px; z-index: 3; font-size: 11px;
-  color: var(--sf-ink); background: rgba(0,0,0,0.6);
-  border: 1px solid var(--sf-border); border-radius: 8px; padding: 5px 10px; backdrop-filter: blur(6px);
-}
-.sf-app .studio-result .readout-chip {
-  position: absolute; z-index: 3; font-family: var(--mono); font-size: 12px;
-  color: #d9d9db; background: rgba(0,0,0,0.66);
-  border: 1px solid var(--sf-border); border-radius: 8px; padding: 6px 10px; backdrop-filter: blur(6px);
-}
-
-/* the branch viewer (Sensitivity / Pareto / Correlations): dark Flow frame, no
-   amber chrome. Override the v2 .studio-branch absolute amber card. */
-.sf-app #viewerBranch { width: min(340px, 52%); }
-.sf-app #viewerBranch .studio-branch {
-  position: static; right: auto; bottom: auto; width: auto;
-  border: none; border-radius: 0; background: var(--sf-chrome-2);
-  box-shadow: none; backdrop-filter: none; padding: 11px 12px 12px; animation: none;
-}
-.sf-app .branch-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-.sf-app .branch-head::before {
-  content: ""; flex: none; width: 7px; height: 7px; border-radius: 2px;
-  background: var(--sf-green); box-shadow: 0 0 8px var(--sf-green);
-}
-.sf-app .branch-title { font-size: 12px; font-weight: 600; color: var(--sf-ink); }
-.sf-app .branch-chart {
-  display: block; width: 100%; height: 178px; border-radius: 8px;
-  background: #000; border: 1px solid var(--sf-border);
-}
-.sf-app .branch-legend {
-  margin-top: 9px; display: flex; flex-direction: column; gap: 3px;
-  font-family: var(--mono); font-size: 11px; color: var(--sf-muted);
-}
-.sf-app .branch-legend .lg-row { line-height: 1.4; }
-.sf-app .branch-legend .lg-row b { color: #8ee79c; font-weight: 600; }
-
-/* the Web App viewer (deploy preview): re-home it as a dark Flow output window,
-   docked bottom-right inside .sf-center, no amber chrome. Override v1 .studio-deploy. */
-.sf-app .studio-deploy {
-  position: absolute; right: 14px; bottom: 14px; left: auto; z-index: 8;
-  width: min(420px, 56%); max-height: calc(100% - 28px); overflow: auto;
-  border: 1px solid var(--sf-border); border-radius: 10px;
-  background: var(--sf-chrome-2); box-shadow: 0 24px 60px -18px #000;
-  opacity: 0; transform: translateY(18px) scale(0.98);
-  transition: opacity 0.34s cubic-bezier(.2,.8,.2,1), transform 0.34s cubic-bezier(.2,.8,.2,1);
-}
-.sf-app .studio-deploy.show { opacity: 1; transform: none; }
-.sf-app .studio-deploy .deploy-head { position: relative; padding: 14px 44px 12px 16px; border-bottom: 1px solid var(--sf-border); }
-.sf-app .deploy-close {
-  position: absolute; top: 12px; right: 12px; width: 26px; height: 26px;
-  display: grid; place-items: center; border-radius: 50%;
-  border: 1px solid var(--sf-border); background: var(--sf-chrome-3); color: var(--sf-muted);
-  font-size: 17px; line-height: 1; cursor: pointer; transition: 0.15s;
-}
-.sf-app .deploy-close:hover { color: var(--sf-ink); border-color: #555; background: #2e2e32; }
-.sf-app .deploy-badge {
-  display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
-  color: #8ee79c; border: 1px solid rgba(57,211,83,0.4); border-radius: 999px;
-  padding: 3px 10px; margin-bottom: 9px;
-}
-.sf-app .deploy-head h3 { margin: 0 0 5px; font-size: 17px; letter-spacing: -0.01em; color: var(--sf-ink); }
-.sf-app .deploy-blurb { margin: 0; font-size: 12.5px; color: var(--sf-muted); line-height: 1.45; }
-.sf-app .deploy-body { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px; }
-.sf-app .deploy-controls { display: flex; flex-direction: column; gap: 13px; }
-.sf-app .deploy-slider { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; align-items: center; }
-.sf-app .deploy-slider label { grid-column: 1 / -1; font-size: 12px; color: var(--sf-muted); }
+/* ------------------------------------------------ deploy result card ------- */
+/* v4 (2026-07-13, "ungate + chat" rework): the docked Surface/Web-app viewer is
+   REMOVED (Jason: "the surface window does not really add value... it can be
+   removed"). There is no live Confidence Field canvas anymore; the branch
+   analysis chart and the deployed-predictor preview both render as RESULT
+   CARDS inside the agent chat stream instead (studio.js's chatResult()), using
+   the same real Surrogate math as before. The deploy-* rules below still style
+   that predictor content, just hosted in a chat bubble now instead of a
+   floating dock pane; `.chat-msg .deploy-body` below narrows it to one column
+   to fit the chat column's width. */
+.sf-app .deploy-head { padding: 11px 14px 9px; border-bottom: 1px solid var(--sf-border); }
+.sf-app .deploy-badge { display: none; }
+.sf-app .deploy-head h3 { margin: 0 0 3px; font-size: 15px; letter-spacing: -0.01em; color: var(--sf-ink); }
+.sf-app .deploy-blurb { margin: 0; font-size: 11.5px; color: var(--sf-muted); line-height: 1.35; }
+.sf-app .deploy-body { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 11px 14px; }
+/* narrow to a single column inside the ~320px chat card so nothing crowds */
+.sf-app .chat-msg .deploy-body { grid-template-columns: 1fr; padding: 10px 12px; }
+.sf-app .chat-msg .deploy-out-val { font-size: 19px; }
+.sf-app .deploy-controls { display: flex; flex-direction: column; gap: 12px; justify-content: center; }
+.sf-app .deploy-slider { display: grid; grid-template-columns: 1fr auto; gap: 3px 8px; align-items: center; }
+.sf-app .deploy-slider label { grid-column: 1 / -1; font-size: 11.5px; color: var(--sf-muted); }
 .sf-app .deploy-slider input[type=range] {
   appearance: none; -webkit-appearance: none; width: 100%; height: 4px; border-radius: 4px;
   background: #4a4a4f; outline: none;
@@ -1662,25 +1732,28 @@ svg.sf-edges {
 .sf-app .deploy-slider-val { font-family: var(--mono); font-size: 12px; color: #c8b98a; }
 .sf-app .deploy-out {
   display: flex; flex-direction: column; justify-content: center;
-  border: 1px solid var(--sf-border); border-radius: 10px; background: var(--sf-chrome-3); padding: 14px;
+  border: 1px solid var(--sf-border); border-radius: 10px; background: var(--sf-chrome-3); padding: 10px 12px;
 }
-.sf-app .deploy-out-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sf-muted); }
-.sf-app .deploy-out-val { margin-top: 4px; font-family: var(--mono); font-size: 26px; font-weight: 600; color: var(--sf-ink); }
-.sf-app .deploy-band { font-size: 13px; font-weight: 500; color: #8ee79c; margin-left: 2px; }
-.sf-app .deploy-bar { position: relative; height: 6px; border-radius: 4px; margin-top: 12px; background: #1f1f22; overflow: hidden; }
+.sf-app .deploy-out-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sf-muted); }
+.sf-app .deploy-out-val { margin-top: 3px; font-family: var(--mono); font-size: 22px; font-weight: 600; color: var(--sf-ink); }
+.sf-app .deploy-band { font-size: 12.5px; font-weight: 500; color: #8ee79c; margin-left: 2px; }
+.sf-app .deploy-bar { position: relative; height: 6px; border-radius: 4px; margin-top: 9px; background: #1f1f22; overflow: hidden; }
 .sf-app .deploy-bar-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--sf-green); opacity: 0.85; transition: width 0.18s; }
 .sf-app .deploy-bar-band { position: absolute; top: 0; height: 100%; background: linear-gradient(90deg, transparent, rgba(57,211,83,0.5), transparent); transition: 0.18s; }
-.sf-app .deploy-note { margin-top: 9px; font-size: 11px; color: var(--sf-muted); line-height: 1.4; }
+.sf-app .deploy-note { margin-top: 7px; font-size: 10.5px; color: var(--sf-muted); line-height: 1.35; }
 .sf-app .deploy-foot {
-  display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px; padding: 9px 14px;
   border-top: 1px solid var(--sf-border); background: var(--sf-chrome-3);
 }
+/* PI amber system for the one interactive control the visitor's eye lands on
+   in this otherwise-neutral pane, per the rework spec (item 4). */
 .sf-app .deploy-download {
-  cursor: pointer; padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 700;
-  border: 1px solid #27a838; background: var(--sf-green); color: #042a0e; transition: 0.18s;
+  cursor: pointer; padding: 8px 14px; border-radius: 2px; font: 600 12.5px/1.2 var(--sans);
+  border: 1px solid var(--accent); background: var(--accent); color: #08070A;
+  transition: filter 0.18s, transform 0.18s;
 }
-.sf-app .deploy-download:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(57,211,83,0.22); }
-.sf-app .deploy-disclaimer { font-size: 11px; color: var(--sf-muted); }
+.sf-app .deploy-download:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.sf-app .deploy-disclaimer { font-size: 10.5px; color: var(--sf-muted); }
 
 /* ----------------------------------------------- bottom dock (console) ----- */
 .sf-dock {
@@ -1763,199 +1836,156 @@ svg.sf-edges {
 .sf-app .sf-dock-tabs .sf-toggle-console { margin-left: auto; cursor: pointer; color: var(--sf-muted); font-size: 11.5px; }
 .sf-app .sf-dock-tabs .sf-toggle-console:hover { color: var(--sf-ink); }
 
-/* ------------------------------------------------------- right agent ------- */
+/* ------------------------------------------------------- right guide ------- */
+/* v4 (2026-07-13, "ungate + chat" rework, Jason's direct feedback): the right
+   panel is now the AGENT CHAT, not a step-card inspector. It carries a welcome
+   message, short reactions as nodes are placed/wired (reusing the story
+   beats), preset chips the visitor clicks (no free-text input -- scripted
+   answers must not pretend to be a live LLM), and RESULT cards (the branch
+   chart + the deployed-predictor preview) posted as the agent's replies. Still
+   PI amber (this is guidance UI, not the product canvas). The old per-phase
+   "why"/decision blocks move to small anchored popovers on the canvas itself
+   (see .node-popover below); the old Next/Connect-for-me/Auto-build buttons
+   are gone (build is ungated) except "Build the workflow for me", now a
+   preset chip that triggers the same autobuild. */
 .sf-agent {
   display: flex; flex-direction: column; min-height: 0;
-  border-left: 1px solid var(--sf-border); background: var(--sf-chrome);
+  border-left: 1px solid var(--line); background: var(--bg-2); color: var(--txt);
+  font-family: var(--sans);
 }
-.sf-agent-head {
-  flex: none; display: flex; align-items: center;
-  padding: 9px 12px; background: var(--sf-chrome-2); border-bottom: 1px solid var(--sf-border);
+.sfg-head {
+  flex: none; display: flex; align-items: center; gap: 8px;
+  padding: 11px 14px; border-bottom: 1px solid var(--line);
+  font-size: 12.5px; font-weight: 700; color: var(--txt);
 }
-.sf-agent-title { font-size: 13px; font-weight: 700; color: var(--sf-ink); }
-.sf-agent-ctl { margin-left: auto; display: flex; gap: 9px; }
-.sf-agent-ctl i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: #555; }
-.sf-agent-ctl .sf-max { background: #5ec45e; }
-.sf-agent-ctl .sf-close { background: #e3584f; }
-/* chat transcript */
-.sf-chat {
+.sfg-agent-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); flex: none; }
+
+/* the chat transcript: bubbles, agent left / user echo right, auto-scrolled by JS */
+.sfg-chat {
   flex: 1 1 auto; min-height: 0; overflow-y: auto;
-  padding: 12px; display: flex; flex-direction: column; gap: 10px;
+  padding: 14px 14px 8px; display: flex; flex-direction: column; gap: 10px;
 }
-.sf-chat::-webkit-scrollbar { width: 10px; }
-.sf-chat::-webkit-scrollbar-thumb { background: #46464a; border-radius: 6px; border: 2px solid var(--sf-chrome); }
-.sf-msg {
-  border-radius: 10px; padding: 11px 13px; font-size: 13px; line-height: 1.5;
-  animation: sfMsgIn 0.3s ease both;
+.sfg-chat::-webkit-scrollbar { width: 10px; }
+.sfg-chat::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 6px; border: 2px solid var(--bg-2); }
+.chat-msg { max-width: 96%; animation: fade 0.22s ease both; }
+.chat-msg.agent { align-self: flex-start; }
+.chat-msg.user { align-self: flex-end; }
+.chat-msg-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 4px; padding: 0 2px;
 }
-@keyframes sfMsgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.sf-msg-agent { background: var(--sf-chrome-2); border: 1px solid var(--sf-border); color: var(--sf-ink); }
-.sf-beat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); color: #d6d6d8; font-size: 12.5px; }
-.sf-msg-decision { background: var(--sf-chrome-2); border: 1px solid var(--sf-border); }
+.chat-msg-body { font-size: 12.5px; line-height: 1.5; padding: 9px 12px; border-radius: 12px; }
+.chat-msg.agent .chat-msg-body {
+  background: var(--accent-soft, rgba(255,176,6,0.07)); border: 1px solid rgba(255,176,6,0.18);
+  color: #ece7da; border-bottom-left-radius: 3px;
+}
+.chat-msg.user .chat-msg-body { background: var(--panel); border: 1px solid var(--line); color: var(--txt); border-bottom-right-radius: 3px; }
+/* result cards: same bubble family, but a neutral panel (it is data, not chat prose) */
+.chat-msg.result .chat-msg-body {
+  background: var(--panel); border: 1px solid var(--line); color: var(--txt);
+  border-bottom-left-radius: 12px; display: flex; flex-direction: column; gap: 10px;
+}
 
-/* guide message internals: override the amber .insp-* rules (kicker amber, etc.)
-   Kept compact so the panel is scannable, not a wall of text. */
-.sf-app .insp-kicker {
-  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: #c8aa78; font-weight: 600; margin-bottom: 5px; animation: fade 0.3s ease both;
-}
-/* Title: prominent but compact. 15px keeps it readable without dominating. */
-.sf-app .insp-title { font-size: 15px; line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 8px; color: var(--sf-ink); font-weight: 700; }
-/* Why: kept subtle, short lines, faint colour */
-.sf-app .insp-why { margin-top: 8px; font-size: 12px; line-height: 1.5; color: var(--sf-muted); }
-.sf-app .insp-why:empty { display: none; }
-.sf-app .insp-decision { display: flex; flex-direction: column; gap: 8px; animation: fade 0.32s ease both; }
-.sf-app .decision-label { font-size: 12.5px; color: var(--sf-muted); line-height: 1.4; }
-/* "what changed": compact green-accented line, clearly secondary to the decision */
-.sf-app .insp-changed {
-  margin-top: 10px; font-size: 12px; line-height: 1.45; color: var(--sf-ink);
-  border-left: 2px solid var(--sf-green); padding: 6px 0 6px 10px;
-  background: linear-gradient(90deg, rgba(57,211,83,0.08), transparent);
-  border-radius: 0 6px 6px 0;
-}
-.sf-app .insp-changed:empty { display: none; }
+/* the ONE merged result card content: metrics row + optional compact chart (+
+   legend) + a callout, never a stack of separately bordered boxes. */
+.result-metrics { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.result-metrics .rm { display: flex; flex-direction: column; gap: 1px; }
+.result-metrics .rm b { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--accent); line-height: 1.1; }
+.result-metrics .rm i { font-style: normal; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
+.result-chart { display: block; width: 100%; height: 120px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); }
+.result-legend { display: flex; flex-direction: column; gap: 3px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.result-legend .lg-row { line-height: 1.4; }
+.result-legend .lg-row b { color: var(--accent); font-weight: 600; }
+.result-callout { font-size: 12.5px; line-height: 1.5; color: var(--txt); border-left: 2px solid var(--accent); padding: 1px 0 1px 10px; }
+/* v4.1: chatResult's content now assembles inside an inner .result-content
+   wrapper (revealed as one unit after the typing beat, see below), so a
+   callout-only card is a direct child of THAT, not of .chat-msg-body itself. */
+.result-content > .result-callout:only-child { border-left: none; padding-left: 0; color: var(--muted); }
 
-/* decision chips: dark with a light selected state (NOT amber-filled).
-   Compact padding keeps the list scannable when there are 5+ options. */
-.sf-app .chip-row { display: flex; flex-direction: column; gap: 6px; }
-.sf-app .choice-chip {
-  display: flex; flex-direction: row; align-items: center; gap: 8px;
-  text-align: left; width: 100%; cursor: pointer;
-  padding: 7px 11px; border-radius: 8px; font-family: var(--sans);
-  border: 1px solid var(--sf-border); background: var(--sf-chrome-3); color: var(--sf-ink); transition: 0.16s;
+/* -------------------------------------------------- chat typing (v4.1) ----- */
+/* Product-standard "agent is composing" idiom (Jason: "give the chat writing
+   animations"): three small pulsing dots inside the bubble shell, shown
+   briefly before every agent reply, then either the text streams in word by
+   word (a plain chat line) or the card fades in as ONE unit (a result card --
+   a chart/metrics row streaming in piecewise would read as broken, not
+   alive). Equal class-specificity to `.chat-msg.result .chat-msg-body` above,
+   so this rule is placed AFTER it in the cascade to win while `.typing` is on
+   a result bubble too. The sitewide reduced-motion rule (near the top of this
+   file) already collapses the dot pulse to a single instant frame as a
+   second, CSS-only line of defence; studio.js's own reducedMotion() check
+   skips the whole typing/streaming sequence before it starts. */
+.chat-msg.typing .chat-msg-body {
+  display: inline-flex; flex-direction: row; align-items: center; padding: 11px 14px;
 }
-.sf-app .choice-chip:hover { border-color: #555; transform: translateY(-1px); }
-.sf-app .choice-chip:active { transform: translateY(0) scale(0.99); }
-.sf-app .choice-chip .chip-label { font-size: 12.5px; font-weight: 600; flex: 1; }
-.sf-app .choice-chip .chip-hint { font-size: 11px; color: var(--sf-muted); flex: none; max-width: 50%; text-align: right; }
-/* selected = subtle green-edged light state, not a full amber fill */
-.sf-app .choice-chip.on {
-  background: rgba(57,211,83,0.13); border-color: rgba(57,211,83,0.55); color: #fff;
-  box-shadow: 0 0 16px -7px var(--sf-green);
+.chat-typing { display: inline-flex; align-items: center; gap: 4px; }
+.chat-typing i {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  opacity: 0.35; animation: chatDotPulse 1.1s ease-in-out infinite;
 }
-.sf-app .choice-chip.on .chip-hint { color: #bfe9c8; }
-/* goal chips (row layout in the strategy control) */
-.sf-app .goal-row { display: flex; flex-wrap: wrap; gap: 7px; }
-.sf-app .goal-chip { width: auto; flex: 0 1 auto; padding: 8px 12px; }
-.sf-app .goal-chip .chip-label { font-size: 12.5px; }
-/* transform toggle: 2-segment, selected segment green-tinted (override amber) */
-.sf-app .toggle-row {
-  display: inline-flex; padding: 3px; gap: 3px; border-radius: 9px;
-  border: 1px solid var(--sf-border); background: var(--sf-chrome-3); align-self: flex-start;
+.chat-typing i:nth-child(2) { animation-delay: 0.15s; }
+.chat-typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes chatDotPulse {
+  0%, 60%, 100% { opacity: 0.32; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-2px); }
 }
-.sf-app .toggle-opt {
-  padding: 7px 16px; border-radius: 7px; cursor: pointer; font-size: 12.5px;
-  font-weight: 600; border: none; background: transparent; color: var(--sf-muted); transition: 0.15s;
+/* result card content: built up front, revealed as one unit once the typing
+   beat elapses (see chatResult in studio.js). A quick fade + settle, not a
+   bounce -- matches the site's no-bounce-easing rule. */
+.result-content { display: flex; flex-direction: column; gap: 10px; }
+.result-content.result-fade-in { animation: resultCardIn 0.22s ease both; }
+@keyframes resultCardIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.sf-app .toggle-opt:hover { color: var(--sf-ink); }
-.sf-app .toggle-opt.on { background: rgba(57,211,83,0.16); color: #d6f5dd; }
-/* fit score readout (override amber b) */
-.sf-app .fit-score {
-  display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 4px;
-  padding: 10px 12px; border-radius: 9px;
-  border: 1px solid var(--sf-border); background: var(--sf-chrome-3);
-  font-size: 12.5px; color: var(--sf-muted); font-family: var(--mono);
-}
-.sf-app .fit-score b { color: #8ee79c; font-weight: 600; }
-/* validate pred-vs-true mini scatter */
-.sf-app .validate-viz { margin-top: 12px; }
-.sf-app .validate-viz .vv-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sf-muted); margin-bottom: 6px; }
-.sf-app .validate-scatter { width: 100%; height: auto; display: block; border: 1px solid var(--sf-border); border-radius: 9px; background: #000; }
 
-/* optimize strategy: kappa slider on theme (override amber gradient + thumb) */
-.sf-app .strategy-ctl { display: flex; flex-direction: column; gap: 12px; }
-.sf-app .kappa-row { display: flex; align-items: center; gap: 10px; }
-.sf-app .kappa-end { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sf-muted); flex: none; }
-.sf-app .kappa-slider {
-  flex: 1; appearance: none; -webkit-appearance: none; height: 4px; border-radius: 4px; outline: none;
-  background: linear-gradient(90deg, var(--sf-green), #4a4a4f);
+/* preset chips: the ONLY input surface (no free-text field -- scripted answers
+   must not pretend to be a live LLM). Contextual: studio.js regenerates this
+   row after every place/wire/preset action. */
+.sfg-presets { flex: none; display: flex; flex-wrap: wrap; gap: 7px; padding: 10px 14px 14px; border-top: 1px solid var(--line); }
+.chat-chip {
+  cursor: pointer; padding: 7px 12px; border-radius: 999px;
+  border: 1px solid rgba(255,176,6,0.35); background: rgba(255,176,6,0.06);
+  color: var(--accent); font: 600 11.5px/1.3 var(--sans); text-align: left;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
 }
-.sf-app .kappa-slider::-webkit-slider-thumb {
-  -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: var(--sf-green);
-  box-shadow: 0 0 12px -1px var(--sf-green); cursor: pointer; border: 2px solid #000;
-}
-.sf-app .kappa-slider::-moz-range-thumb {
-  width: 15px; height: 15px; border-radius: 50%; background: var(--sf-green);
-  box-shadow: 0 0 12px -1px var(--sf-green); cursor: pointer; border: 2px solid #000;
-}
-.sf-app .kappa-readout { font-size: 12.5px; color: var(--sf-muted); font-family: var(--mono); }
-.sf-app .kappa-readout b { color: #8ee79c; }
-.sf-app .opt-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.sf-app .iter-label { font-size: 12.5px; color: var(--sf-muted); display: inline-flex; align-items: center; gap: 7px; }
-.sf-app .iter-input {
-  width: 54px; background: var(--sf-chrome-3); border: 1px solid var(--sf-border); border-radius: 7px;
-  padding: 6px 8px; color: var(--sf-ink); font-family: var(--mono); font-size: 12.5px;
-}
-/* "Run iterations": a green action button (override the amber pill) */
-.sf-app .run-iter {
-  flex: 1; min-width: 120px; cursor: pointer; padding: 9px 16px; border-radius: 8px;
-  font-size: 13px; font-weight: 700; border: 1px solid #27a838;
-  background: var(--sf-green); color: #042a0e; transition: 0.18s;
-}
-.sf-app .run-iter:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(57,211,83,0.2); }
-.sf-app .run-iter.busy { opacity: 0.55; pointer-events: none; }
-.sf-app .opt-readout {
-  font-size: 12.5px; color: var(--sf-muted); line-height: 1.5;
-  padding: 10px 12px; border-radius: 9px; border: 1px solid var(--sf-border); background: var(--sf-chrome-3);
-}
-.sf-app .opt-readout b { color: #8ee79c; font-family: var(--mono); }
+.chat-chip:hover { background: rgba(255,176,6,0.15); border-color: var(--accent); }
+.chat-chip:active { transform: scale(0.97); }
 
-/* the in-chat agent action chips (Connect / Auto-build / Next). Override the v2
-   amber .btn-connect-for-me / .btn-autobuild and the amber .insp-next pill. */
-.sf-app .sf-agent-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.sf-app .sf-chip-btn {
-  cursor: pointer; padding: 8px 13px; border-radius: 8px;
-  font-size: 12.5px; font-weight: 600; font-family: var(--sans); transition: 0.16s;
-  border: 1px solid var(--sf-border); background: var(--sf-chrome-3); color: var(--sf-ink);
+/* ------------------------------------------------ node popovers (v4) ------- */
+/* Small, anchored, NON-BLOCKING info popups (Jason: "the info messages and next
+   button hold up a natural building process; they should rather be little
+   popup highlight boxes"). One at a time (a new one replaces the last).
+   pointer-events are scoped to the popover box itself -- everything else on the
+   canvas (dragging nodes, wiring, palette) stays fully interactive underneath.
+   v4.2 (2026-07-13, direct feedback): the ratio chips and the kappa slider that
+   used to live inside this box are REMOVED -- no knobs, no clickable choices
+   anywhere on the canvas. Every popover, including the two that used to carry
+   those controls, is now plain explainer copy (what the node did, defaults
+   included) and always auto-fades; there is no more "decision" variant. */
+.node-popover {
+  position: absolute; z-index: 20; max-width: 258px; width: max-content;
+  background: rgba(9,9,10,0.97); border: 1px solid rgba(255,176,6,0.3);
+  border-radius: 8px; padding: 9px 12px 10px; pointer-events: auto;
+  box-shadow: 0 16px 36px -12px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,0,0,0.4);
+  cursor: default;
+  transform: translate(-50%, 0);
+  animation: nodePopIn 0.16s ease both;
 }
-.sf-app .sf-chip-btn:hover { border-color: #555; background: #2e2e32; transform: translateY(-1px); }
-.sf-app .sf-chip-btn:disabled { opacity: 0.45; cursor: default; transform: none; }
-/* override v2/v1 widths + margins so they sit as inline chips in the chat */
-.sf-app .btn-connect-for-me {
-  width: auto; margin: 0; color: #9ad8a6; background: rgba(57,211,83,0.1); border-color: rgba(57,211,83,0.4);
+@keyframes nodePopIn { from { opacity: 0; transform: translate(-50%, 4px); } to { opacity: 1; transform: translate(-50%, 0); } }
+.popover-title { font-size: 10.5px; font-weight: 700; color: var(--accent); margin-bottom: 4px; letter-spacing: 0.02em; }
+.popover-body { font-size: 12px; line-height: 1.5; color: #e6e6e8; }
+.popover-body:empty { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .node-popover { animation: none; }
 }
-.sf-app .btn-connect-for-me:hover { background: rgba(57,211,83,0.18); border-color: rgba(57,211,83,0.6); transform: translateY(-1px); }
-.sf-app .btn-autobuild { width: auto; margin: 0; flex: 0 0 auto; }
-.sf-app .insp-next {
-  width: auto; margin: 0 0 0 auto;
-  padding: 8px 16px; border-radius: 8px; border: 1px solid var(--sf-blue);
-  font-size: 12.5px; font-weight: 700; background: var(--sf-blue); color: #1a0d00;
-}
-.sf-app .insp-next:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(201,137,10,0.25); }
-.sf-app .insp-next:disabled { opacity: 0.5; cursor: default; transform: none; }
-
-/* agent footer: textarea + Context (purple) / Send (orange) / Clear (red) + ctx chip */
-.sf-agent-foot { flex: none; padding: 10px 12px 12px; border-top: 1px solid var(--sf-border); background: var(--sf-chrome-2); }
-.sf-ctx-chip {
-  display: inline-block; max-width: 100%; margin-bottom: 8px;
-  font-size: 11px; color: #d8ccb0; background: rgba(200,160,80,0.10);
-  border: 1px solid rgba(200,160,80,0.35); border-radius: 999px; padding: 3px 10px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.sf-agent-input {
-  width: 100%; min-height: 56px; resize: vertical;
-  background: var(--sf-chrome-3); border: 1px solid var(--sf-border); border-radius: 8px;
-  padding: 9px 10px; color: var(--sf-ink); font-family: var(--sans); font-size: 12.5px;
-  outline: none; line-height: 1.45;
-}
-.sf-agent-input::placeholder { color: var(--sf-muted); }
-.sf-agent-input:focus { border-color: var(--sf-orange); }
-.sf-agent-btns { display: flex; gap: 7px; margin-top: 8px; }
-.sf-abtn {
-  flex: 1 1 0; min-width: 0; cursor: pointer;
-  padding: 8px 10px; border-radius: 8px; font-size: 12px; font-weight: 700;
-  font-family: var(--sans); color: #fff; border: 1px solid transparent; transition: 0.16s;
-}
-.sf-abtn:hover { transform: translateY(-1px); filter: brightness(1.08); }
-.sf-abtn:active { transform: translateY(0) scale(0.98); }
-.sf-ctx { background: var(--sf-purple); border-color: #524d44; }
-.sf-ctx.attached { background: #2faf5a; border-color: #279249; }  /* turns green when a context is attached */
-.sf-send { background: var(--sf-orange); border-color: #cf5320; }
-.sf-clear { background: var(--sf-red); border-color: #973030; }
 
 /* ------------------------------------------------------------ responsive --- */
-/* keep it usable on narrow widths: the palette narrows, the agent panel drops
-   below the center, and the canvas + field stay visible. */
+/* keep it usable on narrow widths: the palette narrows, the agent chat drops
+   below the center. v4: with the docked Surface/Web-app viewer removed there
+   is nothing left that must never sit in a scrolling ancestor, so narrow
+   viewports let the CANVAS scroll horizontally instead of clipping/hiding
+   nodes (the previously flagged ~800px clipping) -- the graph itself keeps
+   its full 1440px-reference layout and spacing; it just pans. */
 @media (max-width: 1100px) {
   .sf-main {
     grid-template-columns: 168px 1fr;
@@ -1964,14 +1994,12 @@ svg.sf-edges {
   .sf-palette { grid-area: palette; }
   .sf-center { grid-area: center; }
   .sf-agent {
-    grid-area: agent; border-left: none; border-top: 1px solid var(--sf-border);
+    grid-area: agent; border-left: none; border-top: 1px solid var(--line);
     max-height: 340px;
   }
   .sf-palette { padding: 9px 7px; }
   .sf-app .pal-node { font-size: 12px; }
-  #viewerField, .sf-app #viewerBranch, .sf-app .studio-deploy { width: min(94%, 360px); max-width: 94%; }
-  .sf-viewers { padding: 10px; }
-  .sf-app .deploy-body { grid-template-columns: 1fr; }
+  .sf-canvas { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
 }
 @media (max-width: 720px) {
   .sf-main { grid-template-columns: 0 1fr; }
@@ -1984,7 +2012,7 @@ svg.sf-edges {
   .sf-drag-handle { display: none; }
   .sf-tool { width: 26px; height: 26px; font-size: 11px; }
   .sf-agent { max-height: 260px; }
-  #viewerField, .sf-app #viewerBranch, .sf-app .studio-deploy { width: 98%; max-width: 98%; }
+  .sf-app .deploy-body { grid-template-columns: 1fr; }
   .pick-cards { grid-template-columns: 1fr; }
   .studio-pick { padding: 32px 14px 48px; }
 }
@@ -2010,3 +2038,35 @@ svg.sf-edges {
   border: 1px solid var(--accent); background: var(--accent); color: #1a0d05; transition: 0.16s;
 }
 .sf-ch-return:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(255,176,6,0.3); }
+
+/* ---------- hub-builder: the "Build it yourself" feature band ----------
+   Restored 2026-07-13. Full-bleed alternating band (warm bg + hairline top).
+   Two columns on desktop: copy left, a decorative node-chain preview right. */
+.hub-builder { border-top: 1px solid var(--hairline); background: var(--bg-warm); padding: 72px 26px; }
+.hub-builder-body { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 48px; }
+.hub-builder-text { min-width: 0; }
+.hub-builder-tag { display: block; font: 500 11.5px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; }
+.hub-builder-title { font-family: var(--display); font-weight: 700; font-size: clamp(26px, 3.4vw, 38px); line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 14px; color: var(--text); }
+.hub-builder-pitch { font-size: 16px; color: var(--muted); line-height: 1.6; max-width: 46ch; margin: 0 0 26px; }
+.hub-builder-cta { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 2px; font: 600 14.5px/1 var(--sans); color: var(--amber-lt); border: 1px solid rgba(255, 176, 6, 0.5); transition: border-color 0.18s, background 0.18s, transform 0.18s; }
+.hub-builder-cta:hover { border-color: var(--amber); background: rgba(255, 176, 6, 0.08); transform: translateY(-1px); }
+.hbv-chain { display: flex; align-items: center; justify-content: center; }
+.hbv-node { display: flex; flex-direction: column; align-items: center; gap: 9px; padding: 16px 14px; border: 1px solid var(--hairline); border-radius: 6px; background: var(--surface); min-width: 92px; }
+.hbv-node-icon { width: 26px; height: 26px; display: grid; place-items: center; }
+.hbv-node-icon img { width: 24px; height: 24px; display: block; }
+.hbv-node-label { font: 500 10px/1.2 var(--mono); color: var(--muted); letter-spacing: 0.02em; white-space: nowrap; }
+.hbv-link { display: flex; align-items: center; width: 40px; flex: none; }
+.hbv-line { flex: 1; height: 1px; background: rgba(255, 176, 6, 0.4); }
+.hbv-port { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex: none; }
+@media (max-width: 880px) {
+  .hub-builder-body { grid-template-columns: 1fr; gap: 32px; }
+  .hub-builder-visual { order: 2; }
+}
+@media (max-width: 480px) {
+  .hub-builder { padding: 44px 18px; }
+  .hbv-node { width: 64px; min-width: 0; padding: 10px 6px; gap: 6px; }
+  .hbv-node-icon { width: 22px; height: 22px; }
+  .hbv-node-icon img { width: 20px; height: 20px; }
+  .hbv-node-label { font-size: 9px; white-space: normal; text-align: center; }
+  .hbv-link { width: 14px; }
+}

@@ -1,11 +1,13 @@
-// "Beat Stochos" challenge: a demo-game that wraps the Flow studio.
+// "Beat Stochos" challenge: a demo-game that hands off to the Flow studio.
 // Acts: pick industry -> intro (story + dataset peek) -> YOUR TURN (an animated
-// instrument you play, lock your best) -> STOCHOS TURN (it optimizes the same
-// problem) -> SHOWDOWN (you vs Stochos). PI website brand (amber on near-black).
+// instrument you play, lock your best) -> STOCHOS TURN (build its workflow in the
+// studio, or watch it optimize live) -> SHOWDOWN (you vs Stochos). PI website brand.
 import { loadDomain } from '../surrogate.js';
 import { PRIMARY, scoreOf, outputsFull, beatRate, stochosRun } from '../challenge/score.js';
 
 // industry -> { data json, instrument module, copy }
+// Single amber accent per brand rule (was 3 distinct hexes, 2 off-brand);
+// all three challenge domains now share the one accent, #ffb006.
 const CH = {
   paint: {
     data: 'paint', instrument: '../challenge/instrument-paint.js', accent: '#ffb006',
@@ -15,14 +17,14 @@ const CH = {
     task: 'Tune the formulation for the highest hiding power.',
   },
   chemistry: {
-    data: 'chemistry', instrument: '../challenge/instrument-reactor.js', accent: '#ff9c2a',
+    data: 'chemistry', instrument: '../challenge/instrument-reactor.js', accent: '#ffb006',
     tag: 'Chemistry', title: 'Push a reaction to higher yield', verb: 'Run the reaction',
     blurb: 'You run a reaction that makes a specialty pharma intermediate. Too much is wasted. Tune the conditions to lift the yield and beat STOCHOS.',
     story: 'You are a process chemist making a specialty pharma intermediate, the building block that goes into the final drug. Right now the reaction wastes too much: low yield means starting material burned off as by-products and less product in the flask, so higher cost and more waste per batch. Your job is to lift the yield by tuning the PROCESS (temperature, catalyst loading, residence time, addition rate) and the FORMULATION (solvent ratio, concentration, cosolvent, base equivalents), while keeping selectivity in spec and cost down. Run the reaction, read the yield, and see if you can beat STOCHOS.',
     task: 'Tune the conditions for the highest yield.',
   },
   engineering: {
-    data: 'bottle', instrument: '../challenge/instrument-bottle.js', accent: '#f59e0b',
+    data: 'bottle', instrument: '../challenge/instrument-bottle.js', accent: '#ffb006',
     tag: 'Engineering', title: 'Design a bottle that survives', verb: 'Run a load test',
     blurb: 'Design a plastic bottle that holds pressure without bursting. Reshape it, pick a material, and beat STOCHOS.',
     story: 'You are designing a plastic bottle that must hold pressure without bursting. Reshape it, pick a material, and test it. Can you beat STOCHOS?',
@@ -36,6 +38,16 @@ const OBJECTIVE_LEAD = {
   paint: 'Goal: maximise hiding power, keeping gloss and viscosity in spec and cost down.',
   chemistry: 'Goal: maximise yield, keeping selectivity in spec and raw-material cost down. Higher yield means less waste and more product per batch.',
   engineering: 'Goal: maximise burst pressure, keeping weight and material cost down.',
+};
+
+// Quiet identity marks for the picker cards: minimal geometric line art, single
+// amber accent, aria-hidden. Replaces the old blurred-glow blob at card bottom.
+const CH_MARK = {
+  paint: `<svg viewBox="0 0 28 28" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="15" height="7" rx="2"/><line x1="11.5" y1="13" x2="11.5" y2="18"/><line x1="11.5" y1="18" x2="20" y2="24"/></svg>`,
+  chemistry: `<svg viewBox="0 0 28 28" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4h6"/><path d="M12 4v7l-6.2 10.8c-.9 1.6.2 3.6 2 3.6h10.4c1.8 0 2.9-2 2-3.6L14 11V4"/><path d="M9.2 17.5h9.6"/></svg>`,
+  // the challenge's "engineering" case is the pressure-test bottle: a bottle
+  // outline with inward pressure arrows.
+  engineering: `<svg viewBox="0 0 28 28" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3h6v4l2 3v13a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2V10l2-3V3z"/><line x1="2.5" y1="8" x2="7.5" y2="8"/><polyline points="5.5,5.7 7.7,8 5.5,10.3"/><line x1="25.5" y1="8" x2="20.5" y2="8"/><polyline points="22.3,5.7 20.1,8 22.3,10.3"/></svg>`,
 };
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -140,6 +152,17 @@ function maybeShowGuide(stage) {
   };
   g.querySelector('#chGuideX').onclick = dismiss;
   g.querySelector('#chGuideGo').onclick = dismiss;
+  // auto-dismiss once the visitor starts acting: the fixed card sits bottom-right
+  // and on short viewports it can cover the Lock CTA, so it must never outlive
+  // the first real interaction (capture phase, so stopPropagation cannot keep it alive)
+  const auto = (e) => {
+    if (g.contains(e.target)) return;
+    if (e.target.closest && e.target.closest('button')) {
+      document.removeEventListener('click', auto, true);
+      dismiss();
+    }
+  };
+  document.addEventListener('click', auto, true);
 }
 
 export async function mountChallenge(root) {
@@ -180,12 +203,18 @@ function renderPick(stage) {
       <div class="ch-cards">
         ${Object.entries(CH).map(([k, d]) => `
           <button class="ch-card" data-domain="${k}">
-            <span class="ch-glow" style="background:${d.accent}"></span>
+            <span class="ch-mark" aria-hidden="true">${CH_MARK[k] || ''}</span>
             <span class="ch-tag">${d.tag}</span>
             <h3>${d.title}</h3>
             <p>${d.blurb || d.story}</p>
             <span class="ch-go">Take the challenge &rarr;</span>
           </button>`).join('')}
+      </div>
+      <div class="ch-hiw">
+        <span class="ch-hiw-step">01 Set</span><span class="ch-hiw-sep">&middot;</span>
+        <span class="ch-hiw-step">02 Run</span><span class="ch-hiw-sep">&middot;</span>
+        <span class="ch-hiw-step">03 Lock</span><span class="ch-hiw-sep">&middot;</span>
+        <span class="ch-hiw-step">04 Build the workflow</span>
       </div>
     </div>`;
   stage.querySelectorAll('.ch-card').forEach((c) => {
@@ -259,7 +288,7 @@ async function renderPlay(stage, domain, surrogate) {
       <div class="ch-play-head">
         <div><div class="ch-eyebrow">${cfg.tag} &middot; your turn</div><h2>${cfg.task}</h2></div>
         <div class="ch-hud">
-          <div class="ch-hud-score"><span class="ch-hud-lbl">Best score</span><b id="chBest">--</b></div>
+          <div class="ch-hud-score"><span class="ch-hud-lbl">Best score</span><b id="chBest"></b></div>
           <div class="ch-attempts" id="chAttempts"></div>
         </div>
       </div>
@@ -279,7 +308,10 @@ async function renderPlay(stage, domain, surrogate) {
     ctrl = mod.mountInstrument(host, surrogate, { accent: cfg.accent });
     setActiveCtrl(ctrl);
   } catch (e) {
-    host.innerHTML = `<div class="ch-missing">Instrument coming soon (${e.message}).</div>`;
+    // honest fallback: the instrument exists, the browser lacks WebGL (or the
+    // module failed to load). Never imply the feature is unbuilt.
+    host.innerHTML = `<div class="ch-missing">This instrument needs WebGL, which this browser has disabled or does not support. The other use cases run without it.</div>`;
+    console.warn('challenge instrument failed to mount:', e);
   }
   const bestEl = stage.querySelector('#chBest'), attEl = stage.querySelector('#chAttempts');
   const lockBtn = stage.querySelector('#chLock');
@@ -301,7 +333,10 @@ async function renderPlay(stage, domain, surrogate) {
     stage.querySelector('#chHint').textContent = `Attempt ${attempts}. Your best so far: ${best.score} / 100.`;
   }
   if (ctrl && ctrl.onAttempt) ctrl.onAttempt(onAttempt);
-  lockBtn.onclick = () => { teardownActive(); renderStochos(stage, domain, surrogate, best); };
+  // one-shot: a fast double-click would otherwise re-render the STOCHOS screen twice
+  // (the second click lands on the now-detached button).
+  let locked = false;
+  lockBtn.onclick = () => { if (locked) return; locked = true; teardownActive(); renderStochos(stage, domain, surrogate, best); };
 }
 
 // -------------------------------------------------------------- stochos ----
@@ -654,11 +689,17 @@ function renderShowdown(stage, domain, surrogate, userBest, stoch) {
   // (the chance a random setting beats it), computed from the trained model field.
   const br = beatRate(surrogate, prim.out, prim.goal, sS);
   const brTxt = br < 0.5 ? 'under 1%' : `${Math.round(br)}%`;
+  // only call the score "rare" when the fraction is genuinely small, so a close
+  // human win (where a sizeable slice of designs also clears STOCHOS) does not
+  // read as "the rare 30%".
+  const rare = br < 12;
   const stat = won
     ? `Only <b>${brTxt}</b> of all possible designs would have beaten STOCHOS here.`
     : tie
       ? `Only <b>${brTxt}</b> of designs reach this score at all. You found one.`
-      : `You landed in the rare <b>${brTxt}</b> of designs that beat STOCHOS.`;
+      : rare
+        ? `You landed in the rare <b>${brTxt}</b> of designs that beat STOCHOS.`
+        : `You are in the <b>${brTxt}</b> of designs that clear STOCHOS. Strong hand-tuning.`;
   stage.innerHTML = `
     <div class="ch-showdown">
       ${backBarHTML()}
@@ -685,49 +726,63 @@ function injectStyles() {
   const s = document.createElement('style');
   s.id = 'ch-styles';
   s.textContent = `
-  .challenge { position: relative; min-height: calc(100vh - 66px); padding: 40px 26px 72px; max-width: 1120px; margin: 0 auto; }
-  .ch-disclaimer { position: fixed; right: 14px; bottom: 12px; font-size: 11px; color: var(--faint);
+  .challenge { position: relative; min-height: 60vh; padding: 48px 26px 80px; max-width: 1120px; margin: 0 auto; }
+  .ch-disclaimer { position: fixed; right: 14px; bottom: 12px; font: 500 11px/1 var(--mono); color: var(--faint);
     background: rgba(10,10,12,0.7); border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; z-index: 5; }
-  .ch-eyebrow { font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-  .challenge h1 { font-size: clamp(30px, 4.4vw, 50px); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 16px; }
-  .challenge h2 { font-size: 24px; letter-spacing: -0.01em; margin: 2px 0 0; }
-  .grad { background: linear-gradient(100deg, var(--accent), var(--warm)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .ch-eyebrow { font: 500 11.5px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .challenge h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 4.4vw, 50px); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 16px; }
+  .challenge h2 { font-family: var(--display); font-weight: 700; font-size: 24px; letter-spacing: -0.01em; margin: 2px 0 0; }
+  .grad { color: var(--amber); }
   .ch-lead { font-size: 17px; color: var(--muted); line-height: 1.55; max-width: 720px; }
-  .ch-btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 999px; font-size: 14.5px; font-weight: 700; cursor: pointer; border: 1px solid var(--accent); transition: 0.18s; }
-  .ch-btn.primary { background: var(--accent); color: #1a0d05; }
-  .ch-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(255,176,6,0.22); }
-  .ch-btn.primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
-  .ch-btn.ghost { background: transparent; color: var(--txt); border-color: var(--line-2); }
-  .ch-btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
-  /* persistent back-to-pick affordance (every screen) */
+  .ch-btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 2px; font: 600 14.5px/1 var(--sans); cursor: pointer; border: none; transition: filter 0.18s, transform 0.18s; }
+  .ch-btn.primary { background: var(--accent); color: #08070A; }
+  .ch-btn.primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .ch-btn.primary:disabled {
+    background: transparent; color: rgba(255,202,77,0.45); border: 1px solid rgba(255,176,6,0.25);
+    opacity: 1; cursor: default; transform: none; filter: none;
+  }
+  .ch-btn.ghost { background: transparent; color: var(--amber-lt); border: 1px solid rgba(255,176,6,0.5); }
+  .ch-btn.ghost:hover { border-color: var(--accent); background: rgba(255,176,6,0.08); }
+  /* persistent back-to-pick affordance (every screen): plain mono text link */
   .ch-topbar { display: flex; margin-bottom: 14px; }
-  .ch-back { display: inline-flex; align-items: center; gap: 6px; font: inherit; cursor: pointer;
-    background: rgba(255,176,6,0.06); border: 1px solid var(--line); color: var(--muted);
-    border-radius: 999px; padding: 7px 15px; font-size: 13px; font-weight: 600; transition: 0.16s; }
-  .ch-back:hover { border-color: var(--accent); color: var(--accent); background: rgba(255,176,6,0.12); }
+  .ch-back { display: inline-flex; align-items: center; gap: 6px; font: 500 12.5px/1 var(--mono); letter-spacing: 0.02em; cursor: pointer;
+    background: none; border: none; color: var(--faint); padding: 0; transition: color 0.16s; }
+  .ch-back:hover { color: var(--accent); }
   /* pick */
   .ch-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 34px; }
   .ch-card { position: relative; overflow: hidden; text-align: left; cursor: pointer; color: var(--txt);
-    border: 1px solid var(--line); border-radius: 16px; background: var(--panel); padding: 22px; min-height: 220px;
-    display: flex; flex-direction: column; transition: 0.2s; font: inherit; }
-  .ch-card:hover { transform: translateY(-4px); border-color: var(--line-2); box-shadow: var(--shadow); }
-  .ch-card .ch-glow { position: absolute; inset: auto -40% -60% auto; width: 60%; height: 70%; filter: blur(42px); opacity: 0.5; border-radius: 50%; }
-  .ch-tag { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--accent); }
-  .ch-card h3 { margin: 11px 0 8px; font-size: 20px; }
+    border: 1px solid var(--line); border-radius: 6px; background: var(--surface); padding: 26px; min-height: 220px;
+    display: flex; flex-direction: column; transition: transform 0.2s var(--ease-out), border-color 0.2s, box-shadow 0.2s; font: inherit; }
+  .ch-card:hover { transform: translateY(-2px); border-color: rgba(255,176,6,0.5); box-shadow: var(--shadow); }
+  .ch-card .ch-mark { position: absolute; top: 22px; right: 22px; width: 26px; height: 26px; pointer-events: none; }
+  .ch-tag { font: 500 11.5px/1 var(--mono); text-transform: uppercase; letter-spacing: 0.13em; color: var(--accent); padding-right: 34px; display: block; }
+  .ch-card h3 { font-family: var(--display); font-weight: 700; margin: 11px 0 8px; font-size: 20px; }
   .ch-card p { color: var(--muted); font-size: 13.5px; line-height: 1.5; margin: 0; }
   .ch-card .ch-go { margin-top: auto; color: var(--accent); font-size: 13px; font-weight: 600; padding-top: 14px; }
-  /* intro: scatter + data table side by side, stack under ~720px */
-  .ch-peek-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 16px; align-items: stretch; margin: 26px 0; min-width: 0; }
-  .ch-peek { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 16px; min-width: 0; }
-  .ch-peek-head { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  /* compact one-line "how it works" strip under the cards */
+  .ch-hiw { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 30px; padding-top: 18px;
+    border-top: 1px solid var(--line); font: 500 12px/1 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint); }
+  .ch-hiw-sep { color: var(--line-2); }
+  /* intro: scatter + data table side by side, stack under ~720px. The table
+     tends to carry more columns than the scatter needs width for, so it gets
+     the larger share of the row (was an even 1:1.05 split, clipping the last
+     column at 1440px). */
+  .ch-peek-row { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.28fr); gap: 16px; align-items: stretch; margin: 26px 0; min-width: 0; }
+  .ch-peek { border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 16px; min-width: 0; }
+  .ch-peek-head { font: 500 12px/1 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
   .ch-peek-cv { width: 100%; height: auto; display: block; border-radius: 8px; background: #0a0a0c; }
   .ch-peek-axes { display: flex; justify-content: space-between; font-size: 11px; color: var(--faint); margin-top: 6px; font-family: var(--mono); }
-  /* data table (preview_rows) — overflow-x scrolls on narrow, full table at 1280+ */
-  .ch-tbl-wrap { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 16px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
-  .ch-tbl-cap { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
-  .ch-tbl-scroll { overflow-x: auto; overflow-y: visible; border-radius: 8px; flex: 1; -webkit-overflow-scrolling: touch; }
-  .ch-tbl { min-width: max-content; width: 100%; border-collapse: collapse; font-size: 12px; }
-  .ch-tbl th, .ch-tbl td { padding: 5px 8px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+  /* data table (preview_rows): tight column padding so a typical 7 to 9 column
+     table fits at 1440px without scrolling; overflow-x still scrolls on
+     narrower widths, with a right-edge fade signalling more instead of a
+     hard clip. */
+  .ch-tbl-wrap { border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 16px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+  .ch-tbl-cap { font: 500 12px/1 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .ch-tbl-scroll { overflow-x: auto; overflow-y: visible; border-radius: 8px; flex: 1; -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 18px), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 18px), transparent); }
+  .ch-tbl { min-width: max-content; width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .ch-tbl th, .ch-tbl td { padding: 5px 6px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
   .ch-tbl thead th { color: var(--accent); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;
     border-bottom: 1px solid var(--accent-line); background: rgba(255,176,6,0.05); position: sticky; top: 0; }
   .ch-tbl td { font-family: var(--mono); color: var(--txt); }
@@ -741,11 +796,11 @@ function injectStyles() {
   .ch-guide.out { animation: chGuideOut 0.2s both; }
   @keyframes chGuideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
   @keyframes chGuideOut { to { opacity: 0; transform: translateY(8px); } }
-  .ch-guide-card { position: relative; border: 1px solid var(--accent-line); border-radius: 16px; padding: 18px 18px 16px;
-    background: linear-gradient(180deg, #16110a, #0c0c0e); box-shadow: 0 20px 50px -18px rgba(255,176,6,0.4), var(--shadow); }
+  .ch-guide-card { position: relative; border: 1px solid var(--accent-line); border-radius: 6px; padding: 18px 18px 16px;
+    background: var(--panel-2); box-shadow: var(--shadow); }
   .ch-guide-x { position: absolute; top: 10px; right: 12px; background: none; border: none; color: var(--faint); font-size: 20px; line-height: 1; cursor: pointer; }
   .ch-guide-x:hover { color: var(--accent); }
-  .ch-guide-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .ch-guide-eyebrow { font: 500 11px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
   .ch-guide-steps { margin: 0 0 14px; padding-left: 20px; color: var(--txt); font-size: 13.5px; line-height: 1.5; }
   .ch-guide-steps li { margin-bottom: 5px; }
   .ch-guide-steps b { color: var(--accent); }
@@ -757,35 +812,44 @@ function injectStyles() {
   /* play */
   .ch-play-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
   .ch-hud { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-  .ch-hud-score { display: flex; align-items: baseline; gap: 8px; }
-  .ch-hud-lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
-  .ch-hud-score b { font-family: var(--mono); font-size: 30px; color: var(--accent); }
+  .ch-hud-score { display: flex; align-items: baseline; gap: 10px; }
+  .ch-hud-lbl { font: 500 11px/1 var(--mono); color: var(--faint); text-transform: uppercase; letter-spacing: 0.1em; }
+  .ch-hud-score b { font-family: var(--mono); font-weight: 600; font-size: 30px; color: var(--accent); }
+  /* before the first attempt the readout is a quiet placeholder, not a full-strength number */
+  .ch-hud-score b:empty::before { content: "--"; opacity: 0.4; }
   .ch-attempts { display: flex; gap: 5px; flex-wrap: wrap; max-width: 260px; justify-content: flex-end; }
   .ch-att { font-family: var(--mono); font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; }
   .ch-att.best { color: #1a0d05; background: var(--accent); border-color: var(--accent); font-weight: 700; }
-  .ch-instrument { margin: 20px 0; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); min-height: 320px; overflow: hidden; }
+  .ch-instrument { margin: 20px 0; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); min-height: 320px; overflow: hidden; }
   .ch-missing { padding: 60px; text-align: center; color: var(--muted); }
   .ch-play-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
   .ch-hint { font-size: 13.5px; color: var(--muted); }
   /* stochos */
   .ch-stochos, .ch-intro, .ch-showdown { animation: fade 0.4s both; }
-  .ch-sto-readout { margin: 22px 0; font-family: var(--mono); font-size: 18px; color: var(--txt); border: 1px solid var(--line); border-radius: 12px; background: var(--panel); padding: 18px 20px; }
+  .ch-sto-readout { margin: 22px 0; font-family: var(--mono); font-size: 18px; color: var(--txt); border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 18px 20px; }
   .ch-sto-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
-  /* WATCH-IT-OPTIMIZE result: [score] over [graph slid down] over [chosen design] */
+  /* WATCH-IT-OPTIMIZE result: [score] over [graph slid down] over [chosen design].
+     max-height/margin drive this reveal (not transform/opacity alone): the block's
+     content height is not fixed ahead of time, so a max-height grow reads correctly
+     regardless of content; JS never writes inline height here. Left as-is: converting
+     to a transform/grid-rows reveal is a bigger restructure than this visual pass
+     warrants, noted for a follow-up. */
   .ch-watch { display: flex; flex-direction: column; margin: 8px 0 4px; }
   .ch-watch-score { display: flex; flex-direction: column; gap: 2px; overflow: hidden;
     max-height: 0; opacity: 0; transform: translateY(-8px);
-    transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease, margin 0.5s ease; }
+    transition: max-height 0.5s var(--ease-out), opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), margin 0.5s var(--ease-out); }
   .ch-watch-score.in { max-height: 140px; opacity: 1; transform: none; margin: 4px 0 14px; }
-  .ch-watch-score-lbl { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .ch-watch-score-lbl { font: 500 12px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   .ch-watch-score-val b { font-family: var(--mono); font-weight: 700; font-size: clamp(46px, 7vw, 68px);
     line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
   .ch-watch-score-slash { font-family: var(--mono); font-size: 22px; color: var(--faint); margin-left: 6px; }
-  /* VIZ-CONVERGE: animated convergence chart for "watch it optimize" */
-  .ch-converge { border: 1px solid var(--accent-line); border-radius: 14px;
-    background: linear-gradient(180deg, #110d07, #0b0b0d); padding: 14px 16px 12px;
-    box-shadow: 0 18px 50px -28px rgba(255,176,6,0.45); animation: fade 0.35s both;
-    transition: transform 0.55s cubic-bezier(0.22,0.61,0.36,1), margin 0.55s ease, box-shadow 0.55s ease; }
+  /* VIZ-CONVERGE: animated convergence chart for "watch it optimize". The .slid
+     transition below only animates transform/box-shadow/margin-bottom (a small
+     spacing nudge, not a height/width thrash), kept on var(--ease-out). */
+  .ch-converge { border: 1px solid var(--accent-line); border-radius: 6px;
+    background: var(--panel-2); padding: 14px 16px 12px;
+    box-shadow: var(--shadow); animation: fade 0.35s both;
+    transition: transform 0.5s var(--ease-out), margin 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out); }
   .ch-converge.slid { transform: translateY(6px); margin-bottom: 8px;
     box-shadow: 0 10px 34px -26px rgba(255,176,6,0.35); }
   .ch-converge-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
@@ -799,15 +863,15 @@ function injectStyles() {
   .ch-lg-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,196,110,0.9); box-shadow: 0 0 6px rgba(255,176,6,0.6); }
   .ch-lg-line { width: 18px; height: 0; border-top: 2.4px solid #ffb006; border-radius: 2px; margin-left: 8px; }
   /* chosen-design mini-row (STOCHOS's final settings + key outputs) */
-  .ch-design { margin-top: 10px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel);
+  .ch-design { margin-top: 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel);
     padding: 14px 16px; opacity: 0; transform: translateY(10px);
-    transition: opacity 0.45s ease, transform 0.45s ease; }
+    transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out); }
   .ch-design.in { opacity: 1; transform: none; }
-  .ch-design-cap { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .ch-design-cap { font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
   .ch-design-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: start; }
-  .ch-design-grp-lbl { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .ch-design-grp-lbl { font: 500 11px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
   .ch-design-cells { display: flex; flex-wrap: wrap; gap: 8px; }
-  .ch-design-cell { display: flex; flex-direction: column; gap: 3px; border: 1px solid var(--line); border-radius: 10px;
+  .ch-design-cell { display: flex; flex-direction: column; gap: 3px; border: 1px solid var(--line); border-radius: 6px;
     padding: 8px 11px; background: rgba(255,255,255,0.015); min-width: 92px; }
   .ch-design-cell.primary { border-color: var(--accent-line); background: rgba(255,176,6,0.06); }
   .ch-design-k { font-size: 10.5px; color: var(--muted); letter-spacing: 0.02em; }
@@ -820,9 +884,9 @@ function injectStyles() {
   .ch-stat b { color: var(--accent); font-family: var(--mono); }
   .ch-stat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
   .ch-results { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
-  .ch-result { border: 1px solid var(--line); border-radius: 16px; background: var(--panel); padding: 22px; }
-  .ch-result.win { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-line), 0 18px 50px -20px rgba(255,176,6,0.4); }
-  .ch-result-who { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .ch-result { border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 26px; }
+  .ch-result.win { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-line); }
+  .ch-result-who { font: 500 12px/1 var(--mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
   .ch-result.win .ch-result-who { color: var(--accent); }
   .ch-result-score { font-family: var(--mono); font-size: 52px; font-weight: 700; letter-spacing: -0.02em; margin: 4px 0 14px; }
   .ch-result-score span { font-size: 20px; color: var(--faint); margin-left: 4px; }

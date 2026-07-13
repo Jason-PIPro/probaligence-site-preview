@@ -1,8 +1,8 @@
-/* PI Probaligence — PIScrollFX
+/* PI Probaligence, PIScrollFX
    Shared, dependency-free scroll/motion engine loaded by every page.
    Purpose: make motion MEAN something. Each page's signature diagram performs
-   its own concept — confidence bands bloom, mean lines draw, ranked bars grow,
-   data points pop, comparison images wipe in — triggered on load for hero
+   its own concept: confidence bands bloom, mean lines draw, ranked bars grow,
+   data points pop, comparison images wipe in, triggered on load for hero
    visuals and on scroll-in for deeper ones. Plus a sitewide scroll-progress
    rail and a subtle armed parallax on the signature visual for depth.
 

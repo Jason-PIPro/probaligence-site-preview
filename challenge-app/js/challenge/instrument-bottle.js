@@ -26,7 +26,7 @@ import * as THREE from '../../vendor/three.module.min.js';
 import { scoreOf } from './score.js';
 
 const NS = 'bt';                       // scope class prefix
-const ACCENT = '#f59e0b';
+const ACCENT = '#ffb006';              // single brand amber (was an off-brand deeper orange)
 const STYLE_ID = 'instrument-bottle-style';
 
 // Geometry constants shared by the view + the auto-fit so framing always matches
@@ -92,26 +92,21 @@ export function mountInstrument(host, surrogate, opts = {}) {
       </div>
 
       <div class="${NS}-panel ${NS}-stage">
-        <div class="${NS}-stage-head">
-          <div class="${NS}-eyebrow">Load test rig</div>
-          <div class="${NS}-goal" data-role="goal"></div>
-        </div>
+        <div class="${NS}-eyebrow">Load test rig</div>
         <div class="${NS}-canvaswrap" data-role="canvaswrap">
-          <div class="${NS}-gauge" data-role="gauge">
-            <div class="${NS}-gauge-title">Pressure gauge</div>
-            <div class="${NS}-gauge-dial">
-              <div class="${NS}-gauge-arc"></div>
-              <div class="${NS}-gauge-ticks" data-role="ticks"></div>
-              <div class="${NS}-gauge-testmark" data-role="testmark"></div>
-              <div class="${NS}-gauge-needle" data-role="needle"></div>
-              <div class="${NS}-gauge-hub"></div>
-              <div class="${NS}-gauge-unit">bar</div>
-            </div>
-            <div class="${NS}-gauge-testlabel" data-role="testlabel"></div>
-            <div class="${NS}-gauge-read"><span class="${NS}-gauge-read-cap">measured</span><b data-role="gaugeval">0.0</b><span class="${NS}-gauge-read-unit">bar</span></div>
-          </div>
           <div class="${NS}-verdict" data-role="verdict"></div>
           <div class="${NS}-stamp" data-role="stamp"></div>
+        </div>
+        <!-- pressure gauge sits in its own panel BELOW the bottle (was an overlay that
+             cut a translucent rectangle across the 3D rig). Matches the reactor's
+             canvas + instrument-panel layout. -->
+        <div class="${NS}-gauge" data-role="gauge">
+          <canvas class="${NS}-gauge-dial" data-role="gaugecv"></canvas>
+          <div class="${NS}-gauge-side">
+            <div class="${NS}-gauge-title">Pressure gauge</div>
+            <div class="${NS}-gauge-read"><span class="${NS}-gauge-read-cap">measured</span><b data-role="gaugeval">0.0</b><span class="${NS}-gauge-read-unit">bar</span></div>
+            <div class="${NS}-gauge-rated"><span class="${NS}-gauge-rated-dot"></span>rated test <b data-role="ratedval">--</b> bar</div>
+          </div>
         </div>
         <button class="${NS}-go" data-role="go">
           <span class="${NS}-go-label">Run load test</span>
@@ -136,14 +131,12 @@ export function mountInstrument(host, surrogate, opts = {}) {
   const slidersEl = $(`[data-role="sliders"]`);
   const swatchesEl = $(`[data-role="swatches"]`);
   const canvasWrap = $(`[data-role="canvaswrap"]`);
-  const needleEl = $(`[data-role="needle"]`);
+  const gaugeCv = $(`[data-role="gaugecv"]`);
+  const gaugeCtx = gaugeCv ? gaugeCv.getContext('2d') : null;
   const gaugeValEl = $(`[data-role="gaugeval"]`);
   const verdictEl = $(`[data-role="verdict"]`);
-  const testMarkEl = $(`[data-role="testmark"]`);
-  const ticksEl = $(`[data-role="ticks"]`);
-  const testLabelEl = $(`[data-role="testlabel"]`);
+  const ratedValEl = $(`[data-role="ratedval"]`);
   const stampEl = $(`[data-role="stamp"]`);
-  const goalEl = $(`[data-role="goal"]`);
   const goBtn = $(`[data-role="go"]`);
   const gagSlot = $(`[data-role="gagslot"]`);
   const scoreEl = $(`[data-role="score"]`);
@@ -151,19 +144,56 @@ export function mountInstrument(host, surrogate, opts = {}) {
   const outsEl = $(`[data-role="outs"]`);
   const hintEl = $(`[data-role="hint"]`);
 
-  // legible GOAL on screen (both the optimisation goal + the survive-the-rig spec)
-  goalEl.innerHTML = `
-    <span class="${NS}-goal-line"><b>Goal</b> push the burst pressure as high as it goes</span>
-    <span class="${NS}-goal-line ${NS}-goal-line--rig">Rated test: survive <b>${TEST_PRESSURE} bar</b></span>`;
-
-  // ---- build the labeled gauge dial: numbered ticks across the 0..GAUGE_MAX sweep
-  // plus a marked "rated test" threshold. The needle (set elsewhere) lands on the
-  // design's REAL burst pressure, so the dial is a readable, self-explanatory scale.
-  buildGaugeTicks(ticksEl, GAUGE_MAX);
-  // fixed marker + label at the rated test pressure on the gauge dial
-  testMarkEl.style.transform = `rotate(${gaugeAngle(TEST_PRESSURE, GAUGE_MAX)}deg)`;
-  positionTestLabel(testLabelEl, TEST_PRESSURE, GAUGE_MAX);
-  testLabelEl.innerHTML = `<span>rated</span><b>${TEST_PRESSURE}</b>`;
+  // ---- gauge dial, drawn as ONE canvas (arc + ticks + numbers + red rated-test
+  // threshold + needle in a single piece, so nothing clips and the needle animates
+  // as one unit). The rated VALUE also shows as a label beside the dial.
+  const GW = 152, GH = 92;                 // css px size of the gauge canvas
+  if (gaugeCv && gaugeCtx) {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    gaugeCv.width = Math.round(GW * dpr);
+    gaugeCv.height = Math.round(GH * dpr);
+    gaugeCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  // draw the whole gauge with the needle at `bar`. Pure function of bar + the consts.
+  function drawGauge(bar) {
+    if (!gaugeCtx) return;
+    const ctx = gaugeCtx, cx = GW / 2, cy = GH - 10, R = 60;
+    const ang = (f) => Math.PI * (1 + clamp01(f));           // 0 -> left, 1 -> right
+    const pt = (f, r) => [cx + Math.cos(ang(f)) * r, cy + Math.sin(ang(f)) * r];
+    ctx.clearRect(0, 0, GW, GH);
+    ctx.lineCap = 'round';
+    // background arc
+    ctx.strokeStyle = 'rgba(255,255,255,0.14)'; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.arc(cx, cy, R, Math.PI, 2 * Math.PI); ctx.stroke();
+    // ticks + numbers (neutral grey, matches the other instruments)
+    const step = niceStep(GAUGE_MAX);
+    ctx.font = '9px ui-monospace, monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    for (let v = 0; v <= GAUGE_MAX + 1e-6; v += step) {
+      const f = v / GAUGE_MAX;
+      const [x1, y1] = pt(f, R + 2), [x2, y2] = pt(f, R - 6);
+      ctx.strokeStyle = 'rgba(255,255,255,0.42)'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      const [nx, ny] = pt(f, R - 15);
+      ctx.fillStyle = 'rgba(176,176,168,0.9)';
+      ctx.fillText(String(Number.isInteger(step) ? v : round1(v)), nx, ny);
+    }
+    // red rated-test threshold mark
+    const tf = clamp01(TEST_PRESSURE / GAUGE_MAX);
+    const [rx1, ry1] = pt(tf, R + 4), [rx2, ry2] = pt(tf, R - 8);
+    ctx.save(); ctx.strokeStyle = '#ff7a5c'; ctx.lineWidth = 3;
+    ctx.shadowColor = 'rgba(255,122,92,0.85)'; ctx.shadowBlur = 6;
+    ctx.beginPath(); ctx.moveTo(rx1, ry1); ctx.lineTo(rx2, ry2); ctx.stroke(); ctx.restore();
+    // needle + hub (amber)
+    const f = clamp01((Number.isFinite(bar) ? bar : 0) / GAUGE_MAX);
+    const [tx, ty] = pt(f, R - 5);
+    ctx.save(); ctx.strokeStyle = accent; ctx.lineWidth = 3;
+    ctx.shadowColor = hexA(accent, 0.8); ctx.shadowBlur = 8;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(tx, ty); ctx.stroke(); ctx.restore();
+    ctx.fillStyle = accent;
+    ctx.beginPath(); ctx.arc(cx, cy, 5, 0, 7); ctx.fill();
+  }
+  if (ratedValEl) ratedValEl.textContent = round1(TEST_PRESSURE);
+  drawGauge(0);
 
   // ---- the 3D bottle (Three.js) ----
   const bottle = new BottleView(canvasWrap, accent);
@@ -237,11 +267,11 @@ export function mountInstrument(host, surrogate, opts = {}) {
     stampEl.textContent = '';
   }
 
-  // ---- gauge needle helper (0..GAUGE_MAX bar -> -90..+90 deg sweep) ----
-  // The needle and testmark pivot from the dial centre (transform-origin set in CSS).
+  // ---- gauge needle helper: redraw the whole dial with the needle at `bar`. Called
+  // every frame of the pressurise phase, so the needle sweeps as one canvas piece.
   function setNeedle(bar) {
     const b = Number.isFinite(bar) ? Math.max(0, bar) : 0;
-    needleEl.style.transform = `rotate(${gaugeAngle(b, GAUGE_MAX)}deg)`;
+    drawGauge(b);
     if (gaugeValEl) gaugeValEl.textContent = b.toFixed(1);
   }
 
@@ -425,7 +455,7 @@ export function mountInstrument(host, surrogate, opts = {}) {
     // verdict + result stamp on the rig. Both states name the REAL burst value so the
     // verdict matches the gauge needle and the readout (no fixed-number mismatch).
     verdictEl.textContent = holds
-      ? `HELD - burst ${round1(burstBar)} bar`
+      ? `HELD, burst ${round1(burstBar)} bar`
       : `BURST at ${round1(burstBar)} bar`;
     verdictEl.className = `${NS}-verdict ${NS}-verdict--in ${holds ? `${NS}-verdict--ok` : `${NS}-verdict--bad`}`;
     stampEl.textContent = holds ? 'PASS' : 'FAIL';
@@ -481,12 +511,6 @@ export function mountInstrument(host, surrogate, opts = {}) {
   return controller;
 }
 
-// Map a bar reading (0..max) to the gauge needle angle (-90 left .. +90 right).
-function gaugeAngle(bar, max) {
-  const f = clamp01((Number.isFinite(bar) ? bar : 0) / (max || 1));
-  return (-90 + 180 * f).toFixed(1);
-}
-
 // A "nice" round tick step that yields ~5-7 major ticks across 0..max.
 function niceStep(max) {
   const target = max / 6;                 // aim for ~6 intervals
@@ -495,40 +519,6 @@ function niceStep(max) {
   let best = candidates[0];
   for (const c of candidates) if (Math.abs(c - target) < Math.abs(best - target)) best = c;
   return best || 5;
-}
-
-// Build numbered major ticks (radial lines + bar numbers) around the semicircular
-// dial so the scale is readable. Each tick sits at its bar value's needle angle.
-function buildGaugeTicks(el, max) {
-  if (!el) return;
-  el.innerHTML = '';
-  const step = niceStep(max);
-  for (let v = 0; v <= max + 1e-6; v += step) {
-    const ang = parseFloat(gaugeAngle(v, max));    // -90..+90
-    const tick = document.createElement('div');
-    tick.className = `${NS}-gtick`;
-    tick.style.transform = `rotate(${ang}deg)`;
-    el.appendChild(tick);
-    const num = document.createElement('div');
-    num.className = `${NS}-gnum`;
-    // place number just inside the rim along the same angle (clear of the tick marks)
-    const rad = (ang * Math.PI) / 180;
-    const R = 50;                                   // number radius (px) from hub
-    num.style.left = `calc(50% + ${(Math.sin(rad) * R).toFixed(1)}px)`;
-    num.style.bottom = `${(Math.cos(rad) * R + 2).toFixed(1)}px`;
-    num.textContent = (Number.isInteger(step) ? v : round1(v)).toString();
-    el.appendChild(num);
-  }
-}
-
-// Position the "rated test" callout label just outside the rim at the rated angle.
-function positionTestLabel(el, bar, max) {
-  if (!el) return;
-  const ang = parseFloat(gaugeAngle(bar, max));
-  const rad = (ang * Math.PI) / 180;
-  const R = 60;
-  el.style.left = `calc(50% + ${(Math.sin(rad) * R).toFixed(1)}px)`;
-  el.style.bottom = `${(Math.cos(rad) * R + 4).toFixed(1)}px`;
 }
 
 // A timer-backed animation phase: drives onStep(progress 0..1) on rAF while the
@@ -631,7 +621,7 @@ class BottleView {
     this.pPos = new Float32Array(this.PCOUNT * 3);
     this.pVel = new Float32Array(this.PCOUNT * 3);
     pgeo.setAttribute('position', new THREE.BufferAttribute(this.pPos, 3));
-    this.pMat = new THREE.PointsMaterial({ color: 0xffb454, size: 0.16, transparent: true, opacity: 0, depthWrite: false });
+    this.pMat = new THREE.PointsMaterial({ color: 0xffb006, size: 0.16, transparent: true, opacity: 0, depthWrite: false });
     this.particles = new THREE.Points(pgeo, this.pMat);
     this.particles.frustumCulled = false; this.particles.visible = false; this.group.add(this.particles);
 
@@ -910,6 +900,9 @@ class BottleView {
       this.outerMat.dispose(); this.innerMat.dispose(); this.fillMat.dispose();
       this.crackMat.dispose(); this.pMat.dispose();
       this.renderer.dispose();
+      // release the GL context immediately; GC on real GPUs can lag mount/unmount
+      // cycles and hit the browser's active-context ceiling
+      if (this.renderer.forceContextLoss) this.renderer.forceContextLoss();
     } catch (e) { /* noop */ }
     if (this.renderer.domElement.parentNode) this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
   }
@@ -1012,114 +1005,102 @@ function injectStyle(accent) {
 .${NS}-root { color:#f5f5f7; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
 .${NS}-grid { display:grid; grid-template-columns: minmax(220px,1fr) minmax(300px,1.4fr) minmax(220px,1fr); gap:14px; align-items:stretch; }
 @media (max-width: 860px){ .${NS}-grid{ grid-template-columns:1fr; } }
-.${NS}-panel { background:#0c0a07; border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:16px; display:flex; flex-direction:column; min-width:0; }
-.${NS}-eyebrow { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#857a66; margin-bottom:12px; }
+.${NS}-panel { background:#0c0c0e; border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:16px; display:flex; flex-direction:column; min-width:0; }
+.${NS}-eyebrow { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#8a8a82; margin-bottom:12px; }
 .${NS}-sliders { display:flex; flex-direction:column; gap:14px; }
 .${NS}-slider { display:flex; flex-direction:column; gap:6px; }
 .${NS}-s-top { display:flex; justify-content:space-between; align-items:baseline; font-size:13px; }
 .${NS}-s-label { color:#f5f5f7; }
 .${NS}-s-val { font-family:ui-monospace,"SF Mono",Consolas,monospace; color:${accent}; }
-.${NS}-s-val i { color:#857a66; font-style:normal; font-size:11px; }
+.${NS}-s-val i { color:#8a8a82; font-style:normal; font-size:11px; }
 .${NS}-root input[type=range]{ -webkit-appearance:none; appearance:none; width:100%; height:4px; border-radius:3px; background:rgba(255,255,255,0.12); outline:none; }
 .${NS}-root input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:${accent}; cursor:pointer; box-shadow:0 0 0 4px ${hexA(accent, 0.18)}; }
 .${NS}-root input[type=range]::-moz-range-thumb{ width:16px; height:16px; border:none; border-radius:50%; background:${accent}; cursor:pointer; }
 .${NS}-matblock { margin-top:18px; border-top:1px solid rgba(255,255,255,0.08); padding-top:14px; }
-.${NS}-matblock-head { font-size:11px; color:#b6ab97; margin-bottom:12px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.${NS}-illus { font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:#857a66; border:1px solid rgba(255,255,255,0.16); border-radius:999px; padding:1px 7px; }
+.${NS}-matblock-head { font-size:11px; color:#b0b0a8; margin-bottom:12px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.${NS}-illus { font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:#8a8a82; border:1px solid rgba(255,255,255,0.16); border-radius:999px; padding:1px 7px; }
 .${NS}-swatches { display:flex; gap:10px; }
-.${NS}-swatch { flex:1; appearance:none; cursor:pointer; background:#100d09; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:10px 6px; display:flex; flex-direction:column; align-items:center; gap:7px; color:#b6ab97; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+.${NS}-swatch { flex:1; appearance:none; cursor:pointer; background:#121214; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:10px 6px; display:flex; flex-direction:column; align-items:center; gap:7px; color:#b0b0a8; transition:border-color .15s ease, background .15s ease, color .15s ease; }
 .${NS}-swatch:hover { border-color:rgba(255,255,255,0.28); }
 .${NS}-swatch--on { border-color:${accent}; background:${hexA(accent, 0.10)}; color:#f5f5f7; box-shadow:0 0 0 1px ${hexA(accent, 0.4)} inset; }
 .${NS}-swatch-dot { width:26px; height:26px; border-radius:50%; border:1px solid rgba(0,0,0,0.4); box-shadow:inset 0 2px 5px rgba(255,255,255,0.45), inset 0 -3px 6px rgba(0,0,0,0.4); }
 .${NS}-swatch-name { font-size:11px; }
 .${NS}-stage { position:relative; }
-.${NS}-stage-head { display:flex; flex-direction:column; gap:8px; margin-bottom:10px; }
-.${NS}-stage-head .${NS}-eyebrow { margin-bottom:0; }
-.${NS}-goal { display:flex; flex-direction:column; gap:4px; background:${hexA(accent, 0.07)}; border:1px solid ${hexA(accent, 0.28)}; border-radius:10px; padding:9px 11px; }
-.${NS}-goal-line { font-size:12px; color:#e6dcc8; line-height:1.35; }
-.${NS}-goal-line b { color:${accent}; font-weight:700; }
-.${NS}-goal-line--rig { font-size:11px; color:#b6ab97; }
-.${NS}-goal-line--rig b { color:#ffcf9a; }
-.${NS}-canvaswrap { position:relative; flex:1; min-height:300px; }
-/* ---- labeled pressure gauge (semicircular dial, numbered ticks, rated mark) ---- */
-.${NS}-gauge { position:absolute; left:14px; top:14px; width:160px; pointer-events:none; z-index:3; background:rgba(10,8,5,0.62); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:8px 10px 9px; backdrop-filter:blur(3px); }
-.${NS}-gauge-title { font-size:9px; letter-spacing:.13em; text-transform:uppercase; color:#9a8e78; text-align:center; margin-bottom:4px; }
-.${NS}-gauge-dial { position:relative; width:140px; height:78px; margin:0 auto; }
-.${NS}-gauge-arc { position:absolute; left:0; bottom:0; width:140px; height:140px; border-radius:50%; border:5px solid rgba(255,255,255,0.14); border-bottom-color:transparent; border-left-color:transparent; transform:rotate(-45deg); box-sizing:border-box; }
-.${NS}-gauge-ticks { position:absolute; left:0; bottom:0; width:140px; height:78px; }
-.${NS}-gtick { position:absolute; left:50%; bottom:0; width:2px; height:70px; transform-origin:50% 100%; }
-.${NS}-gtick::before { content:''; position:absolute; left:0; top:0; width:2px; height:8px; background:rgba(255,255,255,0.45); border-radius:1px; }
-.${NS}-gnum { position:absolute; transform:translate(-50%,50%); font-size:8.5px; font-family:ui-monospace,monospace; color:#b6ab97; white-space:nowrap; }
-.${NS}-gauge-needle { position:absolute; left:50%; bottom:0; width:3px; height:60px; background:${accent}; transform-origin:50% 100%; transform:rotate(-90deg); border-radius:2px; box-shadow:0 0 7px ${hexA(accent, 0.8)}; transition:transform .12s linear; z-index:4; }
-.${NS}-gauge-testmark { position:absolute; left:50%; bottom:0; width:2px; height:70px; transform-origin:50% 100%; transform:rotate(0deg); pointer-events:none; z-index:2; }
-.${NS}-gauge-testmark::before { content:''; position:absolute; left:-1.5px; top:0; width:5px; height:14px; background:#ff7a5c; border-radius:1px; box-shadow:0 0 6px rgba(255,122,92,0.8); }
-.${NS}-gauge-testlabel { position:absolute; transform:translate(-50%,50%); font-size:8px; line-height:1.05; font-family:ui-monospace,monospace; text-align:center; color:#ff9c84; white-space:nowrap; }
-.${NS}-gauge-testlabel span { display:block; font-size:7px; letter-spacing:.06em; text-transform:uppercase; color:#c98e7e; }
-.${NS}-gauge-testlabel b { color:#ff9c84; }
-.${NS}-gauge-unit { position:absolute; left:50%; bottom:14px; transform:translateX(-50%); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#857a66; }
-.${NS}-gauge-hub { position:absolute; left:50%; bottom:-4px; width:11px; height:11px; border-radius:50%; background:${accent}; transform:translateX(-50%); box-shadow:0 0 8px ${hexA(accent, 0.6)}; z-index:5; }
-.${NS}-gauge-read { width:100%; text-align:center; margin-top:6px; display:flex; align-items:baseline; justify-content:center; gap:5px; font-family:ui-monospace,monospace; }
-.${NS}-gauge-read-cap { font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:#857a66; }
-.${NS}-gauge-read b { color:${accent}; font-size:19px; line-height:1; }
-.${NS}-gauge-read-unit { font-size:10px; color:#857a66; }
+.${NS}-canvaswrap { position:relative; flex:1; min-height:250px; }
+/* ---- pressure gauge: a panel BELOW the bottle (dial + digital read + rated tick),
+   styled to match the reactor's bench panel instead of a floating canvas overlay ---- */
+.${NS}-gauge { display:flex; align-items:center; gap:18px; margin-top:12px; padding:12px 16px; border:1px solid rgba(255,255,255,0.10); border-radius:14px; background:linear-gradient(180deg, rgba(255,180,84,0.05), rgba(0,0,0,0)); }
+.${NS}-gauge-dial { width:152px; height:92px; flex:none; display:block; }
+.${NS}-gauge-side { display:flex; flex-direction:column; gap:6px; min-width:0; }
+.${NS}-gauge-title { font-size:9px; letter-spacing:.13em; text-transform:uppercase; color:#9a9a92; }
+.${NS}-gauge-read { display:flex; align-items:baseline; gap:5px; font-family:ui-monospace,monospace; white-space:nowrap; }
+.${NS}-gauge-read-cap { font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:#8a8a82; }
+.${NS}-gauge-read b { color:${accent}; font-size:27px; line-height:1; }
+.${NS}-gauge-read-unit { font-size:11px; color:#8a8a82; }
+.${NS}-gauge-rated { display:flex; align-items:center; gap:7px; font-size:10.5px; font-family:ui-monospace,monospace; color:#b0b0a8; white-space:nowrap; }
+.${NS}-gauge-rated b { color:#ff9c84; }
+.${NS}-gauge-rated-dot { width:8px; height:8px; border-radius:2px; flex:none; background:#ff7a5c; box-shadow:0 0 6px rgba(255,122,92,0.8); }
 .${NS}-verdict { position:absolute; right:12px; top:12px; font-size:12px; font-weight:700; letter-spacing:.04em; font-family:ui-monospace,monospace; padding:6px 12px; border-radius:999px; border:1px solid transparent; opacity:0; transform:translateY(-4px); transition:opacity .25s ease, transform .25s ease; pointer-events:none; z-index:3; }
 .${NS}-verdict--in { opacity:1; transform:translateY(0); }
 .${NS}-verdict--ok { color:#7be0a3; border-color:rgba(123,224,163,0.4); background:rgba(123,224,163,0.10); }
 .${NS}-verdict--bad { color:#ff7a5c; border-color:rgba(255,122,92,0.4); background:rgba(255,122,92,0.10); }
 .${NS}-stamp { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) rotate(-14deg) scale(1.5); font-family:ui-monospace,monospace; font-weight:800; font-size:40px; letter-spacing:.08em; opacity:0; pointer-events:none; z-index:3; }
-.${NS}-stamp--in { animation:${NS}-stamp .5s cubic-bezier(.2,1.4,.4,1) forwards; }
+.${NS}-stamp--in { animation:${NS}-stamp .5s var(--ease-out, cubic-bezier(.16,.84,.32,1)) forwards; }
 .${NS}-stamp--pass { color:rgba(123,224,163,0.82); text-shadow:0 0 24px rgba(123,224,163,0.5); border:3px solid rgba(123,224,163,0.6); border-radius:10px; padding:4px 16px; }
 .${NS}-stamp--fail { color:rgba(255,122,92,0.86); text-shadow:0 0 24px rgba(255,122,92,0.55); border:3px solid rgba(255,122,92,0.6); border-radius:10px; padding:4px 16px; }
 @keyframes ${NS}-stamp{ 0%{ opacity:0; transform:translate(-50%,-50%) rotate(-14deg) scale(1.9);} 100%{ opacity:1; transform:translate(-50%,-50%) rotate(-14deg) scale(1);} }
-.${NS}-go { margin-top:12px; appearance:none; border:none; cursor:pointer; border-radius:999px; padding:13px 20px; font-size:14px; font-weight:650; letter-spacing:.01em; color:#1a1205; background:linear-gradient(180deg, #ffc23a, ${accent}); box-shadow:0 8px 24px ${hexA(accent, 0.28)}; transition:transform .12s ease, box-shadow .2s ease, filter .2s ease; }
-.${NS}-go:hover{ filter:brightness(1.06); transform:translateY(-1px); }
-.${NS}-go:active{ transform:translateY(1px); }
+.${NS}-go { margin-top:12px; appearance:none; border:none; cursor:pointer; border-radius:2px; padding:13px 20px; font-size:14px; font-weight:600; letter-spacing:.01em; color:#08070A; background:${accent}; transition:filter .18s ease, transform .18s ease; }
+.${NS}-go:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+.${NS}-go:active{ transform:translateY(0); }
 .${NS}-go:disabled{ cursor:default; filter:grayscale(.3) brightness(.85); }
 .${NS}-go--busy{ animation:${NS}-pulse 1.2s ease-in-out infinite; }
-@keyframes ${NS}-pulse{ 0%,100%{ box-shadow:0 8px 24px ${hexA(accent, 0.28)};} 50%{ box-shadow:0 8px 34px ${hexA(accent, 0.55)};} }
+@keyframes ${NS}-pulse{ 0%,100%{ opacity:1;} 50%{ opacity:.72;} }
 .${NS}-gagslot { margin-top:10px; }
-.${NS}-gag { background:#100d09; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:12px; }
-.${NS}-gag-q { font-size:12px; color:#d7cdb9; margin-bottom:10px; }
+.${NS}-gag { background:#121214; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:12px; }
+.${NS}-gag-q { font-size:12px; color:#d2d2cc; margin-bottom:10px; }
 .${NS}-gag-btns { display:flex; gap:10px; }
-.${NS}-gagbtn { flex:1; appearance:none; cursor:pointer; border-radius:14px; padding:10px 12px; font-size:13px; font-weight:600; border:1px solid rgba(255,255,255,0.18); background:#1a160f; color:#ece3d2; transition:filter .15s ease, transform .12s ease, border-color .15s ease; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.${NS}-gagbtn { flex:1; appearance:none; cursor:pointer; border-radius:4px; padding:10px 12px; font-size:13px; font-weight:600; border:1px solid rgba(255,255,255,0.18); background:#1a1a1e; color:#e8e8ea; transition:filter .15s ease, transform .12s ease, border-color .15s ease; display:flex; flex-direction:column; align-items:center; gap:4px; }
 .${NS}-gagbtn-main { font-size:13px; font-weight:650; }
 .${NS}-gagbtn-time { font-size:10px; font-family:ui-monospace,monospace; padding:1px 7px; border-radius:999px; }
 .${NS}-gagbtn-time--slow { color:#ff9c84; background:rgba(255,122,92,0.14); }
 .${NS}-gagbtn-time--fast { color:#1a1205; background:rgba(26,18,5,0.22); }
 .${NS}-gagbtn--solver:hover { border-color:rgba(255,255,255,0.4); }
-.${NS}-gagbtn--stochos { border:none; color:#1a1205; background:linear-gradient(180deg, #ffc23a, ${accent}); box-shadow:0 6px 18px ${hexA(accent, 0.3)}; }
-.${NS}-gagbtn:hover { filter:brightness(1.06); transform:translateY(-1px); }
-.${NS}-gag-pitch { margin-top:11px; font-size:11px; line-height:1.55; color:#cdbfa6; border-left:2px solid ${hexA(accent, 0.6)}; padding-left:9px; }
+.${NS}-gagbtn--stochos { border:1px solid ${accent}; color:#08070A; background:${accent}; }
+.${NS}-gagbtn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+.${NS}-gag-pitch { margin-top:11px; font-size:11px; line-height:1.55; color:#b0b0a8; border:1px solid ${hexA(accent, 0.3)}; background:${hexA(accent, 0.06)}; border-radius:8px; padding:8px 10px; }
 .${NS}-gag-pitch b { color:${accent}; font-weight:650; }
-.${NS}-gag-note { margin-top:9px; font-size:10px; line-height:1.5; color:#857a66; }
-.${NS}-solver { background:#100d09; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:12px; position:relative; }
-.${NS}-solver-head { display:flex; justify-content:space-between; align-items:baseline; gap:8px; font-size:12px; color:#d7cdb9; }
+.${NS}-gag-note { margin-top:9px; font-size:10px; line-height:1.5; color:#8a8a82; }
+.${NS}-solver { background:#121214; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:12px; position:relative; }
+.${NS}-solver-head { display:flex; justify-content:space-between; align-items:baseline; gap:8px; font-size:12px; color:#d2d2cc; }
 .${NS}-solver-eta { font-family:ui-monospace,monospace; font-size:11px; color:#ff7a5c; }
 .${NS}-solver-bar { margin-top:10px; height:8px; border-radius:999px; background:rgba(255,255,255,0.10); overflow:hidden; }
-.${NS}-solver-fill { height:100%; width:1%; border-radius:999px; background:linear-gradient(90deg, #ff7a5c, #ffb454); transition:width 3s ease; }
-.${NS}-solver-sub { margin-top:8px; font-size:10px; color:#857a66; font-family:ui-monospace,monospace; }
-.${NS}-popup { margin-top:12px; background:#1a160f; border:1px solid ${hexA(accent, 0.5)}; border-radius:10px; padding:11px 12px; display:flex; align-items:center; gap:10px; justify-content:space-between; opacity:0; transform:translateY(8px); transition:opacity .3s ease, transform .3s ease; }
+/* width-transition kept intentionally: JS sets fill.style.width directly
+   (the "~4h solver" crawl), so a transform-based reveal would not track it */
+.${NS}-solver-fill { height:100%; width:1%; border-radius:999px; background:linear-gradient(90deg, #ff7a5c, #ffb006); transition:width 3s var(--ease-out, cubic-bezier(.16,.84,.32,1)); }
+.${NS}-solver-sub { margin-top:8px; font-size:10px; color:#8a8a82; font-family:ui-monospace,monospace; }
+.${NS}-popup { margin-top:12px; background:#1a1a1e; border:1px solid ${hexA(accent, 0.5)}; border-radius:10px; padding:11px 12px; display:flex; align-items:center; gap:10px; justify-content:space-between; opacity:0; transform:translateY(8px); transition:opacity .3s ease, transform .3s ease; }
 .${NS}-popup--in { opacity:1; transform:translateY(0); }
-.${NS}-popup-msg { font-size:12px; color:#f3ead8; }
-.${NS}-popup-btn { appearance:none; cursor:pointer; border:none; border-radius:999px; padding:8px 14px; font-size:12px; font-weight:650; color:#1a1205; background:linear-gradient(180deg, #ffc23a, ${accent}); white-space:nowrap; }
-.${NS}-popup-btn:hover { filter:brightness(1.06); }
-.${NS}-spin { display:flex; align-items:center; gap:12px; background:#100d09; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px; }
+.${NS}-popup-msg { font-size:12px; color:#ececee; }
+.${NS}-popup-btn { appearance:none; cursor:pointer; border:none; border-radius:2px; padding:8px 14px; font-size:12px; font-weight:600; color:#08070A; background:${accent}; white-space:nowrap; transition:filter .18s ease, transform .18s ease; }
+.${NS}-popup-btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+.${NS}-spin { display:flex; align-items:center; gap:12px; background:#121214; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px; }
 .${NS}-spin-ring { width:26px; height:26px; border-radius:50%; border:3px solid ${hexA(accent, 0.25)}; border-top-color:${accent}; animation:${NS}-spin 0.8s linear infinite; }
 @keyframes ${NS}-spin{ to{ transform:rotate(360deg);} }
-.${NS}-spin-label { font-size:13px; color:#f3ead8; font-family:ui-monospace,monospace; }
+.${NS}-spin-label { font-size:13px; color:#ececee; font-family:ui-monospace,monospace; }
 .${NS}-readout { gap:0; }
-.${NS}-scorewrap { display:flex; flex-direction:column; align-items:center; padding:6px 0 14px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:12px; position:relative; }
-.${NS}-score { font-family:ui-monospace,monospace; font-size:58px; line-height:1; font-weight:700; color:#3a352b; transition:color .3s ease; }
+/* centre the score+outputs+hint group in the tall panel (see paint note) */
+.${NS}-scorewrap { margin-top:auto; display:flex; flex-direction:column; align-items:center; padding:6px 0 14px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:12px; position:relative; }
+.${NS}-score { font-family:ui-monospace,monospace; font-size:58px; line-height:1; font-weight:700; color:#3a3a36; transition:color .3s ease; }
 .${NS}-score--in { color:${accent}; text-shadow:0 0 24px ${hexA(accent, 0.45)}; }
-.${NS}-score-cap { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#857a66; margin-top:4px; }
-.${NS}-best { font-size:11px; color:#b6ab97; margin-top:8px; font-family:ui-monospace,monospace; }
+.${NS}-score-cap { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#8a8a82; margin-top:4px; }
+.${NS}-best { font-size:11px; color:#b0b0a8; margin-top:8px; font-family:ui-monospace,monospace; }
 .${NS}-best--up { color:${accent}; }
 .${NS}-outs { display:flex; flex-direction:column; gap:10px; }
 .${NS}-outrow { display:grid; grid-template-columns: 1fr auto auto; align-items:baseline; gap:6px; font-size:13px; }
-.${NS}-out-label { color:#b6ab97; }
+.${NS}-out-label { color:#b0b0a8; }
 .${NS}-out-val { font-family:ui-monospace,monospace; font-size:17px; color:#f5f5f7; text-align:right; }
-.${NS}-out-unit { color:#857a66; font-size:11px; }
-.${NS}-hint { margin-top:auto; padding-top:14px; font-size:11px; color:#857a66; line-height:1.5; }
+.${NS}-out-unit { color:#8a8a82; font-size:11px; }
+.${NS}-hint { margin-bottom:auto; padding-top:14px; font-size:11px; color:#8a8a82; line-height:1.5; }
 .${NS}-hint-pitch { color:${accent}; opacity:0.92; }
 `;
   const tag = document.createElement('style');

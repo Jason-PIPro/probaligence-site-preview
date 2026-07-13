@@ -58,6 +58,32 @@ function evalResponseBlock(block, u) {
   return mean;
 }
 
+// FIX (discrete-input fairness): snap a value onto an input's allowed grid, so
+// the acquisition/rarity samplers can never reach a value the player's own
+// control cannot. An input declares its granularity via the SAME optional,
+// backward-compatible fields the data contract allows:
+//   "choices": [v1,v2,...]  an explicit discrete set (e.g. a swatch picker) ->
+//              snap to the nearest listed choice.
+//   "step": n                a grid spacing anchored at `min` (e.g. an integer
+//              stepper) -> snap to the nearest min + k*step, clamped to range.
+// Inputs with neither field are untouched (still fully continuous).
+export function snapInput(inp, v) {
+  if (!Number.isFinite(v)) return v;
+  if (Array.isArray(inp.choices) && inp.choices.length) {
+    let best = inp.choices[0], bestD = Math.abs(v - best);
+    for (const c of inp.choices) {
+      const d = Math.abs(v - c);
+      if (d < bestD) { bestD = d; best = c; }
+    }
+    return best;
+  }
+  if (inp.step > 0) {
+    const snapped = inp.min + Math.round((v - inp.min) / inp.step) * inp.step;
+    return Math.max(inp.min, Math.min(inp.max, snapped));
+  }
+  return v;
+}
+
 // Compute the normalized u for every input, given a partial params object.
 // Missing keys fall back to the input's default.
 // FIX m8: any non-finite (NaN, Infinity, -Infinity) resolved value is coerced to
@@ -203,7 +229,9 @@ export class Surrogate {
     const rand = () => { seed = (seed * 1664525 + 1013904223) & 0xffffffff; return (seed >>> 0) / 4294967296; };
     for (let s = 0; s < N; s++) {
       const params = {};
-      for (const inp of this.inputs) params[inp.name] = inp.min + rand() * (inp.max - inp.min);
+      // snap discrete inputs (step/choices) so the range reflects the reachable
+      // design space, not a continuous relaxation of it (see snapInput above).
+      for (const inp of this.inputs) params[inp.name] = snapInput(inp, inp.min + rand() * (inp.max - inp.min));
       const { mean } = this.predictFull(name, params);
       if (mean < mn) mn = mean;
       if (mean > mx) mx = mean;
@@ -249,14 +277,18 @@ export class Surrogate {
       const isGlobal = (s < nGlobal) || !localRadius || !bestSoFar;
       const params = {};
       for (const inp of this.inputs) {
+        let v;
         if (!isGlobal && bestSoFar[inp.name] != null) {
           // local sampling: N(best, radius) in normalized space, mapped back
           const uBest = (bestSoFar[inp.name] - inp.min) / (inp.max - inp.min);
           const uNew  = Math.max(0, Math.min(1, uBest + randN() * localRadius));
-          params[inp.name] = inp.min + uNew * (inp.max - inp.min);
+          v = inp.min + uNew * (inp.max - inp.min);
         } else {
-          params[inp.name] = inp.min + rand() * (inp.max - inp.min);
+          v = inp.min + rand() * (inp.max - inp.min);
         }
+        // FIX (discrete-input fairness): STOCHOS may only propose a value the
+        // player's own control could reach (integer stepper, swatch picker, ...).
+        params[inp.name] = snapInput(inp, v);
       }
       const { mean } = this.predictFull(name, params);
       // acquisition value (exploit only; exploration handled by candidate diversity)

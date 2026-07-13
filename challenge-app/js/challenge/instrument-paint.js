@@ -706,14 +706,16 @@ function injectStyle(accent) {
 .${NS}-formnote { margin-top:14px; padding-top:13px; border-top:1px solid rgba(255,255,255,0.07); font-size:11px; color:#8a8a82; line-height:1.5; }
 .${NS}-bench { position:relative; }
 .${NS}-canvas { width:100%; flex:1; min-height:240px; display:block; }
-.${NS}-go { margin-top:12px; appearance:none; border:none; cursor:pointer; border-radius:999px; padding:13px 20px; font-size:14px; font-weight:650; letter-spacing:.01em; color:#1a1205; background:linear-gradient(180deg, #ffc23a, ${accent}); box-shadow:0 8px 24px ${hexA(accent,0.28)}; transition:transform .12s ease, box-shadow .2s ease, filter .2s ease; }
-.${NS}-go:hover{ filter:brightness(1.06); transform:translateY(-1px); }
-.${NS}-go:active{ transform:translateY(1px); }
+.${NS}-go { margin-top:12px; appearance:none; border:none; cursor:pointer; border-radius:2px; padding:13px 20px; font-size:14px; font-weight:600; letter-spacing:.01em; color:#08070A; background:${accent}; transition:filter .18s ease, transform .18s ease; }
+.${NS}-go:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+.${NS}-go:active{ transform:translateY(0); }
 .${NS}-go:disabled{ cursor:default; filter:grayscale(.3) brightness(.85); }
 .${NS}-go--busy{ animation:${NS}-pulse 1.2s ease-in-out infinite; }
-@keyframes ${NS}-pulse{ 0%,100%{ box-shadow:0 8px 24px ${hexA(accent,0.28)};} 50%{ box-shadow:0 8px 34px ${hexA(accent,0.55)};} }
+@keyframes ${NS}-pulse{ 0%,100%{ opacity:1;} 50%{ opacity:.72;} }
 .${NS}-readout { gap:0; }
-.${NS}-scorewrap { display:flex; flex-direction:column; align-items:center; padding:6px 0 14px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:12px; position:relative; }
+/* margin-top:auto here + margin-bottom:auto on .hint centres the score+outputs+hint
+   group in the tall stretched panel, so the pre-run "Result" panel is not hollow. */
+.${NS}-scorewrap { margin-top:auto; display:flex; flex-direction:column; align-items:center; padding:6px 0 14px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:12px; position:relative; }
 .${NS}-score { font-family:ui-monospace,monospace; font-size:58px; line-height:1; font-weight:700; color:#3a3a36; transition:color .3s ease; }
 .${NS}-score--in { color:${accent}; text-shadow:0 0 24px ${hexA(accent,0.45)}; }
 .${NS}-score-cap { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#9a9a92; margin-top:4px; }
@@ -724,7 +726,7 @@ function injectStyle(accent) {
 .${NS}-out-label { color:#b0b0a8; }
 .${NS}-out-val { font-family:ui-monospace,monospace; font-size:17px; color:#f5f5f7; text-align:right; }
 .${NS}-out-unit { color:#8a8a82; font-size:11px; }
-.${NS}-hint { margin-top:auto; padding-top:14px; font-size:11px; color:#8a8a82; line-height:1.5; }
+.${NS}-hint { margin-bottom:auto; padding-top:14px; font-size:11px; color:#8a8a82; line-height:1.5; }
 `;
   const tag = document.createElement('style');
   tag.id = STYLE_ID;

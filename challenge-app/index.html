@@ -4,27 +4,81 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>STOCHOS · Live Demonstrators</title>
+  <title>Beat STOCHOS, the Live Demonstrator | PI Probaligence</title>
+  <link rel="preload" href="assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <meta name="theme-color" content="#060607" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#/" aria-label="STOCHOS live, demo home">
-      <span class="brand-mark"></span>
-      <span class="brand-text">STOCHOS <em>live</em></span>
-    </a>
-    <nav class="domnav" id="domnav">
-      <a href="#/challenge" data-domain="challenge">Beat STOCHOS</a>
-      <a href="#/studio" data-domain="studio">Build it yourself</a>
-      <a href="#/flow" data-domain="flow">Stochos Flow</a>
-      <a href="#/paint" data-domain="paint">Paint &amp; Coatings</a>
-      <a href="#/chemistry" data-domain="chemistry">Chemistry</a>
-      <a href="#/engineering" data-domain="engineering">Engineering</a>
-    </nav>
-    <a class="cta" href="https://www.probaligence.com" target="_blank" rel="noopener">Talk to us</a>
+    <div class="topbar-inner">
+      <a class="brand" href="/" aria-label="PI Probaligence home">
+        <img src="assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true" />
+        <span>Probaligence</span>
+      </a>
+      <nav class="domnav" id="domnav" aria-label="Demonstrator">
+        <a href="/stochos/">STOCHOS</a>
+        <a href="/stochos-flow/">STOCHOS&nbsp;Flow</a>
+        <a href="#/challenge" data-domain="challenge">Beat STOCHOS</a>
+        <a href="#/studio" data-domain="studio">Build it yourself</a>
+      </nav>
+      <a class="cta" href="/contact/" aria-label="Request a Demo">
+        <span class="cta-full" aria-hidden="true">Request a Demo</span>
+        <span class="cta-short" aria-hidden="true">Demo</span>
+      </a>
+    </div>
   </header>
 
   <main id="app" class="app"><!-- demo mounts here --></main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="brand"><img src="assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true" /><span>Probaligence</span></a>
+          <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
+          <div class="footer-cred">
+            <span>Official Ansys Technology Partner</span>
+            <span>Part of the CADFEM Group</span>
+          </div>
+          <div class="footer-social">
+            <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
+              <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+            </a>
+            <span class="social-btn social-btn--pending" role="link" aria-disabled="true" aria-label="YouTube channel coming soon" title="YouTube (coming soon)">
+              <svg viewBox="0 0 576 512" aria-hidden="true"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+            </span>
+          </div>
+        </div>
+        <div>
+          <div class="f-h">Products</div>
+          <ul><li><a href="/stochos/">STOCHOS</a></li><li><a href="/stochos-flow/">STOCHOS Flow</a></li></ul>
+        </div>
+        <div>
+          <div class="f-h">Solutions</div>
+          <ul><li><a href="/ai-for-engineering/">AI for Engineering</a></li><li><a href="/paint-coating/">Paint and Coatings</a></li><li><a href="/ai-for-chemical-process-optimization/">Chemical R&amp;D</a></li></ul>
+        </div>
+        <div>
+          <div class="f-h">Science</div>
+          <ul><li><a href="/science/">Science overview</a></li><li><a href="/how-stochos-works/">How STOCHOS works</a></li><li><a href="/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/generative-design/">Generative Design</a></li></ul>
+        </div>
+        <div>
+          <div class="f-h">Company</div>
+          <ul><li><a href="/about/">About</a></li><li><a href="/news/">News and Guides</a></li><li><a href="/contact/">Contact</a></li><li><a class="amber" href="/contact/">Request a Demo</a></li></ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="copy">&copy; 2026 PI Probaligence GmbH</span>
+        <span class="legal">
+          <a href="/impressum/">Impressum</a>
+          <a href="/datenschutz/">Datenschutz</a>
+          <a href="/cookies/">Cookies</a>
+        </span>
+      </div>
+    </div>
+  </footer>
 
   <div id="boot" class="boot"><div class="boot-ring"></div></div>
 
