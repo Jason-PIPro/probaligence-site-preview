@@ -583,7 +583,7 @@ var wrap=document.getElementById('flow-basics-pin');if(!wrap)return;
 var canvas=document.getElementById('laptop-scrub');var overlay=document.getElementById('laptop-screen-content');var poster=document.getElementById('laptop-poster');
 var stage=canvas.parentElement;
 var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches&&!window.__PIFX_FORCE;
-var N=45,BASE='/assets/media/laptop-frames/laptop-scrub-',FA=2328/1768;
+var N=45,BASE='/probaligence-site-preview/assets/media/laptop-frames/laptop-scrub-',FA=2328/1768;
 var QUAD=[[0.0097,0.0754],[0.6364,0.0068],[0.6873,0.5655],[0.0721,0.6924]];
 var W0=1000,H0=692;
 if(reduce){canvas.style.display='none';overlay.style.display='none';if(poster)poster.hidden=false;return}
@@ -663,7 +663,7 @@ else{finish();startPk();}
 }catch(e){}})();</script>
 <script>(function(){'use strict';try{
 var canvas=document.getElementById('fbCanvas');if(!canvas)return;
-var IC='/assets/media/node-icons/';
+var IC='/probaligence-site-preview/assets/media/node-icons/';
 var CAT={input:'#58c46a',preprocessing:'#c89a3a',modelling:'#d4872a',validation:'#4CAF50',sensitivity:'#d4a040',optimization:'#b08030',plots:'#ff9f40',misc:'#9a9488'};
 var DESC={excel_reader:'reads your data table from Excel',train_test_split:'splits the data into train and test sets',dimgp_fit:'trains a DIM-GP model on the data',dimgp_predict:'predicts new points with uncertainty',pam_regr:'checks accuracy on held-out data',plot_scatter:'plots predictions against measured values',bo_init:'seeds the Bayesian optimization',bo_next:'proposes the next experiment to run',plot_line:'tracks the best result over the budget',sobol_indices:'ranks how much each input matters',plot_bar:'plots the driver ranking'};
 var COLX=142,COLY=112;
