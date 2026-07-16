@@ -71,10 +71,10 @@
 .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
 .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.6px) rotate(-45deg)}
 
-.mobile-panel{overflow:hidden;max-height:0;opacity:0;background:rgba(6,6,7,.98);
+.mobile-panel{overflow:hidden;max-height:0;opacity:0;visibility:hidden;background:rgba(6,6,7,.98);
   -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:0;
-  transition:max-height .34s ease, opacity .26s}
-.mobile-panel.open{max-height:92vh;opacity:1;overflow-y:auto;border-bottom:1px solid rgba(255,255,255,.08)}
+  transition:max-height .34s ease, opacity .26s, visibility .26s}
+.mobile-panel.open{max-height:92vh;opacity:1;visibility:visible;overflow-y:auto;border-bottom:1px solid rgba(255,255,255,.08)}
 .mobile-panel nav{display:flex;flex-direction:column;padding:14px 24px 28px;gap:2px}
 .mobile-panel a{text-decoration:none}
 .mobile-panel .m-item{font:500 19px/1 'Space Grotesk',sans-serif;color:var(--text);padding:11px 0}

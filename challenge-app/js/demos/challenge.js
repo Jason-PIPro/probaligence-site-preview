@@ -3,7 +3,7 @@
 // instrument you play, lock your best) -> STOCHOS TURN (build its workflow in the
 // studio, or watch it optimize live) -> SHOWDOWN (you vs Stochos). PI website brand.
 import { loadDomain } from '../surrogate.js';
-import { PRIMARY, scoreOf, outputsFull, beatRate, stochosRun } from '../challenge/score.js';
+import { PRIMARY, scoreOf, outputsFull, beatRate, stochosRun, constraintCfg } from '../challenge/score.js';
 
 // industry -> { data json, instrument module, copy }
 // Single amber accent per brand rule (was 3 distinct hexes, 2 off-brand);
@@ -11,6 +11,7 @@ import { PRIMARY, scoreOf, outputsFull, beatRate, stochosRun } from '../challeng
 const CH = {
   paint: {
     data: 'paint', instrument: '../challenge/instrument-paint.js', accent: '#ffb006',
+    img: 'assets/cases/paint-roller.webp',
     tag: 'Paint & coatings', title: 'Formulate the best coating', verb: 'Mix a paint',
     blurb: 'Formulate an interior wall paint for the highest hiding power. Beat the model that learned from the lab data.',
     story: 'You are formulating an interior wall paint. Set the recipe, run it, and read the hiding power. Can you beat the model that learned from the lab data?',
@@ -18,6 +19,7 @@ const CH = {
   },
   chemistry: {
     data: 'chemistry', instrument: '../challenge/instrument-reactor.js', accent: '#ffb006',
+    img: 'assets/cases/chemistry-flask.webp',
     tag: 'Chemistry', title: 'Push a reaction to higher yield', verb: 'Run the reaction',
     blurb: 'You run a reaction that makes a specialty pharma intermediate. Too much is wasted. Tune the conditions to lift the yield and beat STOCHOS.',
     story: 'You are a process chemist making a specialty pharma intermediate, the building block that goes into the final drug. Right now the reaction wastes too much: low yield means starting material burned off as by-products and less product in the flask, so higher cost and more waste per batch. Your job is to lift the yield by tuning the PROCESS (temperature, catalyst loading, residence time, addition rate) and the FORMULATION (solvent ratio, concentration, cosolvent, base equivalents), while keeping selectivity in spec and cost down. Run the reaction, read the yield, and see if you can beat STOCHOS.',
@@ -25,10 +27,11 @@ const CH = {
   },
   engineering: {
     data: 'bottle', instrument: '../challenge/instrument-bottle.js', accent: '#ffb006',
+    img: 'assets/cases/bottle-rig.webp',
     tag: 'Engineering', title: 'Design a bottle that survives', verb: 'Run a load test',
-    blurb: 'Design a plastic bottle that holds pressure without bursting. Reshape it, pick a material, and beat STOCHOS.',
-    story: 'You are designing a plastic bottle that must hold pressure without bursting. Reshape it, pick a material, and test it. Can you beat STOCHOS?',
-    task: 'Shape the bottle for the highest burst pressure.',
+    blurb: 'Design a plastic bottle that passes a 26 bar pressure test with the least material. Reshape it, pick a material, and beat STOCHOS.',
+    story: 'You are designing a plastic bottle that must pass a 26 bar rated pressure test. The win is not the highest burst pressure: it is the lightest, cheapest bottle that still holds. Reshape it, pick a material, and test it. Can you beat STOCHOS?',
+    task: 'Shape the bottle to hold 26 bar at the lowest weight and cost.',
   },
 };
 
@@ -37,7 +40,7 @@ const CH = {
 const OBJECTIVE_LEAD = {
   paint: 'Goal: maximise hiding power, keeping gloss and viscosity in spec and cost down.',
   chemistry: 'Goal: maximise yield, keeping selectivity in spec and raw-material cost down. Higher yield means less waste and more product per batch.',
-  engineering: 'Goal: maximise burst pressure, keeping weight and material cost down.',
+  engineering: 'Goal: pass the 26 bar rated pressure test with the lightest, cheapest bottle. Bursting well above 26 bar wastes material for no extra score.',
 };
 
 // Quiet identity marks for the picker cards: minimal geometric line art, single
@@ -57,13 +60,76 @@ const fmt = (v, d = 1) => (v == null || !isFinite(v)) ? '--' : Number(v).toFixed
 // challengeShowdown / challengeCtx restore path is attacker-writable via sessionStorage,
 // so every score/label that reaches innerHTML on that path is run through these.
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
-function sc(v) { const n = Number(v); return Number.isFinite(n) ? Math.round(n) : 0; }
+// clamped to 0..100 (adversarial audit: a forged sessionStorage score otherwise
+// rendered as "1000000000000/100"; legitimate paths are always 0..100 already).
+function sc(v) { const n = Number(v); return Number.isFinite(n) ? Math.max(0, Math.min(100, Math.round(n))) : 0; }
 // decimals per output unit, kept consistent with the instruments' readouts
 function decFor(o) {
   const u = (o.unit || '').toLowerCase();
   if (u === 'g' || u === 'cycles' || u.indexOf('mpa') === 0) return 0;
   if (u === '%' || u === 'bar' || u === 'gu') return 1;
   return 2; // rel, EUR/kg, etc.
+}
+
+// V4: compact one-line constraint-compliance readout, built straight from a
+// scoreOf() / stochosRun() terms array (score.js compositeObjective). This is
+// the honest "did the win actually hold the promises" readout: spec terms
+// (viscosity/gloss/selectivity bands) show a quiet tick when in band or a
+// muted warning when out; minimize terms (cost/weight, no band) show plainly
+// with no marker, since there is nothing to pass or fail. terms is null on a
+// legacy (non-constrained) domain, in which case this renders nothing.
+export function complianceChipsHTML(surrogate, terms) {
+  // adversarial audit: a tampered sessionStorage breakdown (non-array, or an
+  // array holding null) threw here, and the catch in mountChallenge silently
+  // dropped the whole showdown to the picker; malformed terms now just render
+  // no chips instead.
+  if (!Array.isArray(terms)) return '';
+  terms = terms.filter((t) => t && typeof t === 'object');
+  if (!terms.length) return '';
+  const chips = terms.map((t) => {
+    const o = surrogate.outputs.find((oo) => oo.name === t.out);
+    const label = esc(o ? (o.label || o.name) : t.out);
+    const unit = o && o.unit ? ` ${esc(o.unit)}` : '';
+    const dec = o ? decFor(o) : 1;
+    const val = fmt(t.value, dec);
+    if (t.kind === 'spec') {
+      const ok = t.inSpec !== false;
+      // band bounds are the plain config numbers (900, 2100, 24, 42, ...); show
+      // them without a synthetic ".0" when both ends are whole, even if the
+      // measured value itself carries a decimal (e.g. gloss 25.6 in band 24-42).
+      const bandDec = (Number.isInteger(t.lo) && Number.isInteger(t.hi)) ? 0 : dec;
+      const band = `${fmt(t.lo, bandDec)}-${fmt(t.hi, bandDec)}`;
+      return `<span class="ch-comp-chip ${ok ? 'ok' : 'bad'}">` +
+        `<span class="ch-comp-mark" aria-hidden="true">${ok ? '&#10003;' : '&#9888;'}</span>` +
+        `${label} ${val}${unit}, ${ok ? `in band ${band}` : `out of spec (band ${band})`}</span>`;
+    }
+    return `<span class="ch-comp-chip quiet">${label} ${val}${unit}</span>`;
+  }).join('');
+  return `<div class="ch-comp-row">${chips}</div>`;
+}
+
+// Shared aria-live region (one per route, per the a11y pass): announces the
+// per-run score, the STOCHOS convergence completion, and the showdown verdict.
+// Lives as a sibling of #chStage (mountChallenge renders it once per mount), so
+// it survives the stage's innerHTML swaps between acts. Deliberately NOT used
+// for per-frame convergence updates (that would spam the region every tick);
+// only the settled outcomes above are announced.
+function announce(msg) {
+  const el = document.getElementById('chLive');
+  if (el) el.textContent = msg;
+}
+// One-line "did it hold spec" summary for the live region, from a scoreOf()/
+// stochosRun() terms array (same shape complianceChipsHTML reads). '' when the
+// domain has no spec terms (legacy, non-constrained domain, or minimize-only).
+function complianceSummaryText(terms) {
+  // same tamper guard as complianceChipsHTML: storage-derived terms may be malformed
+  if (!Array.isArray(terms)) return '';
+  terms = terms.filter((t) => t && typeof t === 'object');
+  if (!terms.length) return '';
+  const specs = terms.filter((t) => t.kind === 'spec');
+  if (!specs.length) return '';
+  const bad = specs.filter((t) => t.inSpec === false).length;
+  return bad === 0 ? ', all specs in band' : `, ${bad} spec${bad > 1 ? 's' : ''} out of band`;
 }
 
 // the currently mounted instrument controller, so it can be torn down on ANY exit
@@ -177,7 +243,8 @@ export async function mountChallenge(root) {
   window.removeEventListener('hashchange', onLeave);
   window.addEventListener('hashchange', onLeave);
   root.innerHTML = `<div class="challenge fade-in"><div class="ch-stage" id="chStage"></div>
-    <div class="ch-disclaimer">Illustrative demo. Synthetic data, real DIM-GP model.</div></div>`;
+    <div class="ch-disclaimer">Illustrative demo. Synthetic data, response surfaces fitted offline from DIM-GP models.</div>
+    <div id="chLive" class="sr-only" aria-live="polite" aria-atomic="true"></div></div>`;
   const stage = root.querySelector('#chStage');
   // returning from the studio build with Stochos's result -> jump straight to the showdown
   let sd = null;
@@ -203,7 +270,9 @@ function renderPick(stage) {
       <div class="ch-cards">
         ${Object.entries(CH).map(([k, d]) => `
           <button class="ch-card" data-domain="${k}">
-            <span class="ch-mark" aria-hidden="true">${CH_MARK[k] || ''}</span>
+            ${d.img
+              ? `<img class="ch-card-img" src="${d.img}" alt="" loading="lazy" aria-hidden="true">`
+              : `<span class="ch-mark" aria-hidden="true">${CH_MARK[k] || ''}</span>`}
             <span class="ch-tag">${d.tag}</span>
             <h3>${d.title}</h3>
             <p>${d.blurb || d.story}</p>
@@ -243,7 +312,7 @@ function renderIntro(stage, domain, surrogate) {
       <div class="ch-peek-row">
         <div class="ch-peek">
           <div class="ch-peek-head">What STOCHOS learned from: ${surrogate.trainPoints.length} measured runs</div>
-          <canvas class="ch-peek-cv" width="520" height="240"></canvas>
+          <canvas class="ch-peek-cv" width="520" height="240" role="img" aria-label="Scatter plot of the ${surrogate.trainPoints.length} measured training runs, plotted by ${esc(ax.label || ax.name)} versus ${esc(ay.label || ay.name)}"></canvas>
           <div class="ch-peek-axes"><span>${ax.label || ax.name}</span><span>${ay.label || ay.name}</span></div>
         </div>
         ${previewTableHTML(surrogate)}
@@ -318,7 +387,7 @@ async function renderPlay(stage, domain, surrogate) {
   function onAttempt(state) {
     attempts++;
     // canonical score (shared with Stochos), recomputed from the instrument params
-    const { mean, score } = scoreOf(surrogate, state.params || {}, prim.out, prim.goal);
+    const { mean, score, terms } = scoreOf(surrogate, state.params || {}, prim.out, prim.goal);
     // full output set over ALL the player's inputs (not just the 2 field axes), so
     // the showdown You-vs-STOCHOS cards both read from the complete param set.
     const outputs = outputsFull(surrogate, state.params || {});
@@ -331,6 +400,7 @@ async function renderPlay(stage, domain, surrogate) {
     attEl.appendChild(dot);
     lockBtn.disabled = false;
     stage.querySelector('#chHint').textContent = `Attempt ${attempts}. Your best so far: ${best.score} / 100.`;
+    announce(`Run scored ${sc(score)} of 100${complianceSummaryText(terms)}.`);
   }
   if (ctrl && ctrl.onAttempt) ctrl.onAttempt(onAttempt);
   // one-shot: a fast double-click would otherwise re-render the STOCHOS screen twice
@@ -348,12 +418,18 @@ async function renderStochos(stage, domain, surrogate, userBest) {
   const lockedTxt = userBest ? `${sc(userBest.score)}` : '--';
   // domain-aware goal line: spell out the real trade-off, not just the primary
   const goalLine = OBJECTIVE_LEAD[domain] || `Goal: ${verb} ${objName}.`;
+  // V4: the player's own compliance readout (did the locked design hold the spec
+  // bands?), recomputed fresh from the locked params -- userBest never carries
+  // `terms` itself (renderPlay only stores {params, outputs, mean, score}).
+  const compCfg = constraintCfg(surrogate);
+  const userTerms = (userBest && compCfg) ? scoreOf(surrogate, userBest.params || {}, prim.out, prim.goal).terms : null;
   stage.innerHTML = `
     <div class="ch-stochos">
       ${backBarHTML()}
       <div class="ch-eyebrow">${cfg.tag} &middot; STOCHOS takes the challenge</div>
       <h2>Now STOCHOS solves the same problem</h2>
       <p class="ch-lead"><b>${goalLine}</b> Your locked score: <b>${lockedTxt}</b> / 100. STOCHOS will learn the response and try to beat it.</p>
+      ${complianceChipsHTML(surrogate, userTerms)}
       <div class="ch-objective">
         <span class="ch-obj-dot"></span>
         Build STOCHOS's workflow lays out the same pipeline in Stochos Flow: load the data, train the model, run the optimiser, then brings you back here for the showdown. Short on time? Just watch it run.
@@ -366,13 +442,14 @@ async function renderStochos(stage, domain, surrogate, userBest) {
         <div class="ch-watch-score" id="chWatchScore" hidden>
           <span class="ch-watch-score-lbl">STOCHOS converged on</span>
           <span class="ch-watch-score-val"><b id="chWatchScoreVal">--</b><span class="ch-watch-score-slash"> / 100</span></span>
+          <div class="ch-watch-compliance" id="chWatchCompliance"></div>
         </div>
         <div class="ch-converge" id="chConverge" hidden>
           <div class="ch-converge-head">
             <span class="ch-converge-cap" id="chConvCap">STOCHOS is searching</span>
             <span class="ch-converge-best">best so far <b id="chConvBest">--</b><span class="ch-converge-slash"> / 100</span></span>
           </div>
-          <canvas class="ch-converge-cv" id="chConvCv" width="760" height="300"></canvas>
+          <canvas class="ch-converge-cv" id="chConvCv" width="760" height="300" role="img" aria-label="Chart of STOCHOS's evaluations: score per evaluation, with a step line climbing to the best score found so far"></canvas>
           <div class="ch-converge-legend">
             <span class="ch-lg-dot"></span> each candidate STOCHOS evaluated
             <span class="ch-lg-line"></span> best so far
@@ -415,6 +492,7 @@ async function renderStochos(stage, domain, surrogate, userBest) {
     // so the viewer only learns the answer when the line gets there.
     await runConvergeViz(stage, picks, sResult.score);
     readout.innerHTML = `STOCHOS tested ${picks.length} candidates and converged on <b>${sc(sResult.score)}</b> / 100.`;
+    announce(`STOCHOS converged on ${sc(sResult.score)} of 100${complianceSummaryText(sResult.breakdown)}.`);
     // ---- result reveal: score eases in ON TOP, graph eases DOWN, design row below.
     revealWatchResult(stage, domain, surrogate, userBest, sResult);
   };
@@ -429,6 +507,11 @@ function revealWatchResult(stage, domain, surrogate, userBest, sResult) {
   const scoreWrap = stage.querySelector('#chWatchScore');
   const scoreVal = stage.querySelector('#chWatchScoreVal');
   if (scoreVal) scoreVal.textContent = isFinite(sResult.score) ? sResult.score : '--';
+  // V4: STOCHOS's own compliance readout, from the real breakdown the run
+  // returns (score.js stochosRun -> compositeObjective terms). null on a
+  // legacy (non-constrained) domain, in which case nothing renders.
+  const compEl = stage.querySelector('#chWatchCompliance');
+  if (compEl) compEl.innerHTML = complianceChipsHTML(surrogate, sResult.breakdown);
   if (scoreWrap) { scoreWrap.hidden = false; requestAnimationFrame(() => scoreWrap.classList.add('in')); }
   // 2) graph slides down (gives the score room above and reads as "settled")
   const conv = stage.querySelector('#chConverge');
@@ -528,9 +611,13 @@ function runConvergeViz(stage, picks, finalScore) {
   const finalBest = isFinite(finalScore) ? finalScore : bestSeries[K - 1];
 
   // per-evaluation cadence (ms). Keep the whole run under ~4.5s even for big K.
-  const stepMs = Math.max(280, Math.min(620, Math.round(3600 / K)));
-  const easeMs = Math.min(380, stepMs - 40);          // dot ease-in duration
-  const settleMs = 760;                                // hold on the final frame
+  // prefers-reduced-motion: skip the multi-second climb and jump straight to the
+  // settled frame (still the real per-evaluation data, just with no eased-in
+  // suspense) -- item 8 of the 2026-07-14 a11y pass.
+  const reducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const stepMs = reducedMotion ? 1 : Math.max(280, Math.min(620, Math.round(3600 / K)));
+  const easeMs = reducedMotion ? 1 : Math.min(380, stepMs - 40);          // dot ease-in duration
+  const settleMs = reducedMotion ? 0 : 760;                                // hold on the final frame
 
   const start = (typeof performance !== 'undefined' ? performance.now() : Date.now());
   const now = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
@@ -671,20 +758,29 @@ function renderShowdown(stage, domain, surrogate, userBest, stoch) {
   const tie = sS === uS;
   const primO = surrogate.outputs.find((o) => o.name === prim.out);
   const objName = primO ? esc((primO.label || primO.name).toLowerCase()) : 'the objective';
-  const card = (who, r, win) => `
+  // V4: THE point of this screen -- show that the win held the spec bands the
+  // copy promised, not just the headline score. The player side has no stored
+  // `terms` (renderPlay only keeps {params, outputs, mean, score}), so recompute
+  // fresh via scoreOf on the locked params; STOCHOS's side reads its run's real
+  // breakdown. Both are null on a legacy (non-constrained) domain.
+  const compCfg = constraintCfg(surrogate);
+  const uTerms = compCfg ? scoreOf(surrogate, u.params || {}, prim.out, prim.goal).terms : null;
+  const sTerms = compCfg ? (stoch.breakdown || null) : null;
+  const card = (who, r, win, terms) => `
     <div class="ch-result ${win ? 'win' : ''}">
       <div class="ch-result-who">${who}${win ? ' &middot; winner' : ''}</div>
       <div class="ch-result-score">${sc(r.score)}<span>/100</span></div>
+      ${complianceChipsHTML(surrogate, terms)}
       <div class="ch-result-rows">
         ${surrogate.outputs.map((o) => `<div><span>${esc(o.label || o.name)}</span><b>${fmt(r.outputs[o.name], decFor(o))} ${esc(o.unit || '')}</b></div>`).join('')}
       </div>
     </div>`;
   const headline = won ? 'STOCHOS wins this round' : tie ? 'Dead heat with STOCHOS' : 'You beat STOCHOS!';
   const lead = won
-    ? `STOCHOS reached <b>${sS}</b> versus your <b>${uS}</b> on ${objName}, in just a handful of smart experiments. With a few more, it pulls further ahead.`
+    ? `STOCHOS reached <b>${sS}</b> versus your <b>${uS}</b>, in just a handful of smart experiments. With a few more, it pulls further ahead.`
     : tie
-      ? `You matched STOCHOS at <b>${uS}</b> on ${objName}. Strong. On a real problem with more inputs, the model finds that sweet spot in far fewer runs.`
-      : `Nice. You found <b>${uS}</b> versus STOCHOS at <b>${sS}</b> on ${objName}. On a real problem with more inputs, the model pulls ahead fast.`;
+      ? `You matched STOCHOS at <b>${uS}</b>. Strong. On a real problem with more inputs, the model finds that sweet spot in far fewer runs.`
+      : `Nice. You found <b>${uS}</b> versus STOCHOS at <b>${sS}</b>. On a real problem with more inputs, the model pulls ahead fast.`;
   // rarity: the fraction of the whole design space that scores above STOCHOS's result
   // (the chance a random setting beats it), computed from the trained model field.
   const br = beatRate(surrogate, prim.out, prim.goal, sS);
@@ -700,6 +796,10 @@ function renderShowdown(stage, domain, surrogate, userBest, stoch) {
       : rare
         ? `You landed in the rare <b>${brTxt}</b> of designs that beat STOCHOS.`
         : `You are in the <b>${brTxt}</b> of designs that clear STOCHOS. Strong hand-tuning.`;
+  // Part 2 funnel: hand the showdown off to the contact form. Copy flips on the
+  // outcome. If STOCHOS won, invite them to try it on their own data; if they
+  // held or beat it, invite a harder problem. Both land on /contact/.
+  const contactLabel = won ? 'See it on your own data' : 'Bring us a harder problem';
   stage.innerHTML = `
     <div class="ch-showdown">
       ${backBarHTML()}
@@ -708,16 +808,18 @@ function renderShowdown(stage, domain, surrogate, userBest, stoch) {
       <p class="ch-lead">${lead}</p>
       <div class="ch-stat"><span class="ch-stat-dot"></span>${stat}</div>
       <div class="ch-results">
-        ${card('You', u, !won && !tie)}
-        ${card('STOCHOS', stoch, won)}
+        ${card('You', u, !won && !tie, uTerms)}
+        ${card('STOCHOS', stoch, won, sTerms)}
       </div>
       <div class="ch-sto-actions">
-        <button class="ch-btn primary" id="chAgain">Play again</button>
+        <a class="ch-btn primary" href="/contact/">${contactLabel}</a>
         <a class="ch-btn ghost" href="#/studio">Build it in Stochos Flow</a>
+        <button class="ch-btn muted" id="chAgain">Play again</button>
       </div>
     </div>`;
   wireBack(stage);
   stage.querySelector('#chAgain').onclick = () => renderPick(stage);
+  announce(`${headline}. You scored ${uS}, STOCHOS scored ${sS} of 100.`);
 }
 
 // ---------------------------------------------------------------- styles ----
@@ -743,6 +845,8 @@ function injectStyles() {
   }
   .ch-btn.ghost { background: transparent; color: var(--amber-lt); border: 1px solid rgba(255,176,6,0.5); }
   .ch-btn.ghost:hover { border-color: var(--accent); background: rgba(255,176,6,0.08); }
+  .ch-btn.muted { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+  .ch-btn.muted:hover { color: var(--txt); border-color: var(--line-2); }
   /* persistent back-to-pick affordance (every screen): plain mono text link */
   .ch-topbar { display: flex; margin-bottom: 14px; }
   .ch-back { display: inline-flex; align-items: center; gap: 6px; font: 500 12.5px/1 var(--mono); letter-spacing: 0.02em; cursor: pointer;
@@ -755,6 +859,10 @@ function injectStyles() {
     display: flex; flex-direction: column; transition: transform 0.2s var(--ease-out), border-color 0.2s, box-shadow 0.2s; font: inherit; }
   .ch-card:hover { transform: translateY(-2px); border-color: rgba(255,176,6,0.5); box-shadow: var(--shadow); }
   .ch-card .ch-mark { position: absolute; top: 22px; right: 22px; width: 26px; height: 26px; pointer-events: none; }
+  /* full-bleed still header (Jason's brand stills, 2026-07-14); the card's
+     overflow:hidden rounds the top corners. Static image, no motion. */
+  .ch-card .ch-card-img { display: block; margin: -26px -26px 18px; width: calc(100% + 52px);
+    height: clamp(140px, 12vw, 180px); object-fit: cover; border-bottom: 1px solid var(--line); }
   .ch-tag { font: 500 11.5px/1 var(--mono); text-transform: uppercase; letter-spacing: 0.13em; color: var(--accent); padding-right: 34px; display: block; }
   .ch-card h3 { font-family: var(--display); font-weight: 700; margin: 11px 0 8px; font-size: 20px; }
   .ch-card p { color: var(--muted); font-size: 13.5px; line-height: 1.5; margin: 0; }
@@ -828,6 +936,21 @@ function injectStyles() {
   .ch-stochos, .ch-intro, .ch-showdown { animation: fade 0.4s both; }
   .ch-sto-readout { margin: 22px 0; font-family: var(--mono); font-size: 18px; color: var(--txt); border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 18px 20px; }
   .ch-sto-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+  /* V4 constraint-compliance chips: the one-line "did the win hold the spec bands"
+     readout under a score, shared by the stochos screen (player's locked score,
+     STOCHOS's watch-run reveal) and the showdown cards. Spec terms get a quiet
+     amber tick (in band) or a muted-red warning (out); minimize terms (cost/
+     weight, no band) show plainly with no mark. */
+  .ch-comp-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0 2px; }
+  .ch-comp-chip { display: inline-flex; align-items: center; gap: 5px; font: 500 11.5px/1.3 var(--mono);
+    letter-spacing: 0.01em; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line);
+    background: rgba(255,255,255,0.02); color: var(--muted); }
+  .ch-comp-chip.ok { border-color: var(--accent-line); color: var(--txt); background: rgba(255,176,6,0.05); }
+  .ch-comp-chip.ok .ch-comp-mark { color: var(--accent); }
+  .ch-comp-chip.bad { border-color: rgba(255,107,107,0.4); background: rgba(255,107,107,0.08); color: #ffb3ac; }
+  .ch-comp-chip.bad .ch-comp-mark { color: var(--bad); }
+  .ch-comp-chip.quiet { color: var(--faint); }
+  .ch-comp-mark { font-size: 11px; line-height: 1; }
   /* WATCH-IT-OPTIMIZE result: [score] over [graph slid down] over [chosen design].
      max-height/margin drive this reveal (not transform/opacity alone): the block's
      content height is not fixed ahead of time, so a max-height grow reads correctly
@@ -838,11 +961,12 @@ function injectStyles() {
   .ch-watch-score { display: flex; flex-direction: column; gap: 2px; overflow: hidden;
     max-height: 0; opacity: 0; transform: translateY(-8px);
     transition: max-height 0.5s var(--ease-out), opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), margin 0.5s var(--ease-out); }
-  .ch-watch-score.in { max-height: 140px; opacity: 1; transform: none; margin: 4px 0 14px; }
+  .ch-watch-score.in { max-height: 220px; opacity: 1; transform: none; margin: 4px 0 14px; }
   .ch-watch-score-lbl { font: 500 12px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   .ch-watch-score-val b { font-family: var(--mono); font-weight: 700; font-size: clamp(46px, 7vw, 68px);
     line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
   .ch-watch-score-slash { font-family: var(--mono); font-size: 22px; color: var(--faint); margin-left: 6px; }
+  .ch-watch-compliance .ch-comp-row { margin-top: 6px; }
   /* VIZ-CONVERGE: animated convergence chart for "watch it optimize". The .slid
      transition below only animates transform/box-shadow/margin-bottom (a small
      spacing nudge, not a height/width thrash), kept on var(--ease-out). */

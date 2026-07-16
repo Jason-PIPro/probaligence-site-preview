@@ -124,8 +124,8 @@ export const STORIES = {
   paint: {
     domain: 'paint',
     tag: 'Paint & coatings',
-    outcome: 'Formulate an interior wall paint',
-    pitch: 'Hide the wall in one coat without losing scrub resistance or pushing up cost.',
+    outcome: 'Formulate the best coating',
+    pitch: 'Find the highest hiding power with viscosity and gloss in spec and cost down.',
     accent: 'var(--accent)',
     axes: ['tio2_pct', 'binder_pct'],
     outputs: ['contrast_ratio', 'gloss', 'scrub', 'viscosity', 'cost'],
@@ -222,9 +222,9 @@ export const STORIES = {
   // =====================================================================
   chemistry: {
     domain: 'chemistry',
-    tag: 'Chemical R&D',
-    outcome: 'Tune a reaction for higher yield',
-    pitch: 'Push yield and selectivity up while raw-material cost stays down.',
+    tag: 'Chemistry',
+    outcome: 'Push a reaction to higher yield',
+    pitch: 'Lift the yield with selectivity held in spec and raw-material cost down.',
     accent: 'var(--warm)',
     axes: ['temperature', 'catalyst'],
     outputs: ['yield_pct', 'selectivity', 'cost'],
@@ -421,9 +421,9 @@ export const STORIES = {
   // build the same case the "Beat Stochos" game hands off. Same schema.
   bottle: {
     domain: 'bottle',
-    tag: 'Engineering simulation',
-    outcome: 'Design a bottle that holds pressure',
-    pitch: 'Shape a bottle for the highest burst pressure without paying in weight or cost.',
+    tag: 'Engineering',
+    outcome: 'Design a bottle that survives',
+    pitch: 'Shape a bottle that holds the 26 bar rated test at the lowest weight and cost.',
     accent: 'var(--accent-2)',
     axes: ['height_mm', 'diameter_mm'],
     outputs: ['burst_bar', 'weight_g', 'cost_rel'],
@@ -465,7 +465,7 @@ export const STORIES = {
         why: 'BO Init configures the search space. Python Solver stands in for the load-test simulation, the live evaluator. BO Optimize runs the closed loop directly against it: propose a shape, simulate it, refit the model, repeat.',
         beat: 'BO Init sets up the search space. Python Solver plugs in as the live evaluator, standing in for the load-test simulation. BO Optimize runs the loop directly against it, proposing a shape, simulating it, and refitting the model, mapping where strength trades against weight.',
         appliedInfo: 'With a simulation in the loop, STOCHOS can drive it directly: propose a shape, evaluate it, refit the model, repeat, instead of waiting on you to run each one by hand.',
-        goalNote: 'Objective: maximize burst_bar, read from the property this workflow models.',
+        goalNote: 'Objective: hold the 26 bar rated test, then the lightest, cheapest design, read from the properties this workflow models.',
         changed: 'New candidate shapes appear across the front. The automatic loop keeps refitting the model as it explores.'
       },
       deploy: {
@@ -494,7 +494,7 @@ export const STORIES = {
       sliders: ['height_mm', 'diameter_mm']
     },
     chat: {
-      welcome: 'I am the Stochos Flow agent. Our goal: shape a bottle for the highest burst pressure without paying in weight or cost. Drag nodes from the palette onto their dashed slots, then wire each one to its upstream source. Ask me anything with the chips below.',
+      welcome: 'I am the Stochos Flow agent. Our goal: a bottle that holds the 26 bar rated test at the lowest weight and cost. Drag nodes from the palette onto their dashed slots, then wire each one to its upstream source. Ask me anything with the chips below.',
       explainWorkflow: 'Two Excel Readers load your test log, Train/Test Split holds back a validation set, DIM-GP Fit trains the burst-pressure surface, and PAM Validation scores it honestly. BO Init configures the search space, Python Solver stands in for the load-test simulation, and BO Optimize runs the loop directly against it, propose, simulate, refit, repeat, mapping the Pareto front. Web App Export ships a predictor.',
       explainResult: 'The trained surface predicts burst pressure from height and diameter, validated against tested bottles. The Pareto front shows the best strength-versus-weight compromises, found by the automatic optimizer running directly against the connected solver. The web app lets an engineer size a bottle without a load test.',
       nodeWhat: {

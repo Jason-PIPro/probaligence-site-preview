@@ -7,8 +7,8 @@
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<title>Sensitivity Analysis for Engineering | PI Probaligence</title><meta name="description" content="Sensitivity analysis shows which inputs drive an output. See the methods STOCHOS supports, from Sobol indices to SHAP, for engineering and R&amp;D."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/sensitivity-analysis/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Sensitivity Analysis for Engineering | PI Probaligence"><meta property="og:description" content="Sensitivity analysis shows which inputs drive an output. See the methods STOCHOS supports, from Sobol indices to SHAP."><meta property="og:url" content="https://probaligence.com/sensitivity-analysis/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"What is sensitivity analysis?","description":"Sensitivity analysis shows which inputs drive an output. See the methods STOCHOS supports, from Sobol indices to SHAP, for engineering and R&D.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://probaligence.com/sensitivity-analysis/"}
+<title>Sensitivity Analysis: Which Inputs Matter | PI Probaligence</title><meta name="description" content="Sensitivity analysis ranks which inputs actually drive an output: global vs local, with Sobol indices, SHAP, DGSM, and correlation, computed by STOCHOS."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/sensitivity-analysis/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Sensitivity Analysis: Which Inputs Matter | PI Probaligence"><meta property="og:description" content="Sensitivity analysis ranks which inputs actually drive an output: global vs local, with Sobol indices, SHAP, DGSM, and correlation."><meta property="og:url" content="https://probaligence.com/sensitivity-analysis/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"What is sensitivity analysis?","description":"Sensitivity analysis ranks which inputs actually drive an output: global versus local, with Sobol indices, SHAP, DGSM, and correlation, computed on the trained STOCHOS model.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-06-18","dateModified":"2026-07-15","mainEntityOfPage":"https://probaligence.com/sensitivity-analysis/"}
 </script><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"Sensitivity Analysis","item":"https://probaligence.com/sensitivity-analysis/"}]}
 </script><style>
@@ -56,6 +56,17 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
+<style id="tor-css">
+[data-bars]{position:relative}
+.sb-row{display:grid;grid-template-columns:118px 1fr 46px;align-items:center;gap:14px;padding:7px 0}
+.sb-name{font:500 12.5px/1.3 'IBM Plex Mono',monospace;color:#B8B8B2;text-align:right}
+.sb-track{position:relative;height:24px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden}
+.sb-fill{position:absolute;top:0;bottom:0;left:0;width:0;background:rgba(255,176,6,.85);border-radius:2px}
+[data-bars].sb-in .sb-fill{width:var(--w);transition:width .9s cubic-bezier(.22,1,.3,1) var(--d)}
+.sb-val{font:500 13px/1 'IBM Plex Mono',monospace;color:#FFCA4D}
+@media (max-width:560px){.sb-row{grid-template-columns:90px 1fr 40px;gap:10px}.sb-name{font-size:11px}}
+@media (prefers-reduced-motion:reduce){[data-bars].sb-in .sb-fill{transition:none}}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Sobol indices versus SHAP?","acceptedAnswer":{"@type":"Answer","text":"Sobol indices attribute the variance of an output to inputs globally, across the whole space. SHAP explains a single prediction by sharing its value among the inputs. STOCHOS supports both: Sobol for \"what drives the result overall\" and SHAP for \"why did this specific case behave this way.\""}},{"@type":"Question","name":"Does it need extra experiments?","acceptedAnswer":{"@type":"Answer","text":"No. STOCHOS computes sensitivity on the trained surrogate model, so it reuses the data already gathered and adds no expensive runs. The analysis then guides where new experiments would be most useful."}}]}</script>
 </head>
 <body>
@@ -91,6 +102,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
           <a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a>
           <a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
+          <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
       <a class="nav-link" href="/probaligence-site-preview/news/">Resources</a>
@@ -115,6 +127,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
       <a class="m-sub" href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a>
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
+      <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
       <a class="m-item" href="/probaligence-site-preview/news/">Resources</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
@@ -125,85 +138,109 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 </header>
 <main id="main" style="display: block;">
 
-  <section data-hero-in style="position: relative; padding: 124px 24px 80px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
+  <section data-hero-in style="position: relative; padding: 124px 24px 92px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
     <div aria-hidden="true" style="position: absolute; top: -14%; right: -6%; width: 740px; height: 540px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.1), transparent 64%); pointer-events: none;"></div>
     <div style="max-width: 1280px; margin: 0px auto; position: relative;">
       <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-bottom: 40px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <a href="/probaligence-site-preview/science/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Science</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">Sensitivity Analysis</span></nav>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: clamp(40px, 6vw, 72px); align-items: center;">
-        <div>
-          <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Method</div>
-          <h1 style="font: 700 clamp(34px, 5vw, 58px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 14ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">What</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">is</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">sensitivity</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">analysis?</span></span></h1>
-          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Sensitivity analysis identifies which inputs most affect an output, and by how much. Where prediction tells you what may happen, sensitivity analysis explains why, and shows where to focus next. STOCHOS computes it with Sobol indices, SHAP, distance correlation, and mutual information, on the same model it uses to predict.</p>
-          <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-            <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-            <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
-          </div>
+      <div style="max-width: 900px;">
+        <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Method</div>
+        <h1 style="font: 700 clamp(36px, 5.4vw, 62px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 15ch;">What is <span style="color: rgb(255, 176, 6);">sensitivity analysis?</span></h1>
+        <p data-hero="" style="margin-top: 26px; color: rgb(184, 184, 178); font-size: clamp(17px, 1.6vw, 20px); line-height: 1.6; max-width: 60ch;">Sensitivity analysis ranks which inputs actually drive a result, and by how much. Out of everything you could change, only a few parameters decide the outcome. STOCHOS finds them on the model it already trained, with no extra runs.</p>
+        <div data-hero="" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px;" aria-label="Sensitivity methods STOCHOS computes">
+          <span style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.02em; color: rgb(200, 200, 194); border: 1px solid rgba(255, 176, 6, 0.3); border-radius: 2px; padding: 8px 11px;">Sobol indices</span>
+          <span style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.02em; color: rgb(200, 200, 194); border: 1px solid rgba(255, 176, 6, 0.3); border-radius: 2px; padding: 8px 11px;">SHAP</span>
+          <span style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.02em; color: rgb(200, 200, 194); border: 1px solid rgba(255, 176, 6, 0.3); border-radius: 2px; padding: 8px 11px;">DGSM</span>
+          <span style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.02em; color: rgb(200, 200, 194); border: 1px solid rgba(255, 176, 6, 0.3); border-radius: 2px; padding: 8px 11px;">Correlation</span>
         </div>
-        <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 24px; background: rgb(10, 9, 8); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-          <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 14px;">Drivers, ranked</div>
-          <svg viewBox="0 0 520 300" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;">
-            <rect x="150" y="36" width="330" height="30" fill="#FFB006" style="transform-origin: left center; transform: none;"></rect>
-            <rect x="150" y="84" width="244" height="30" fill="rgba(255,176,6,.78)" style="transform-origin: left center; transform: none;"></rect>
-            <rect x="150" y="132" width="166" height="30" fill="rgba(255,176,6,.58)" style="transform-origin: left center; transform: none;"></rect>
-            <rect x="150" y="180" width="92" height="30" fill="rgba(255,176,6,.4)" style="transform-origin: left center; transform: none;"></rect>
-            <rect x="150" y="228" width="48" height="30" fill="rgba(255,176,6,.28)" style="transform-origin: left center; transform: none;"></rect>
-            <text x="138" y="56" text-anchor="end" fill="#C8C8C2" font-family="'IBM Plex Mono',monospace" font-size="12">temp</text>
-            <text x="138" y="104" text-anchor="end" fill="#9C9C96" font-family="'IBM Plex Mono',monospace" font-size="12">binder</text>
-            <text x="138" y="152" text-anchor="end" fill="#9C9C96" font-family="'IBM Plex Mono',monospace" font-size="12">time</text>
-            <text x="138" y="200" text-anchor="end" fill="#9C9C96" font-family="'IBM Plex Mono',monospace" font-size="12">additive</text>
-            <text x="138" y="248" text-anchor="end" fill="#9C9C96" font-family="'IBM Plex Mono',monospace" font-size="12">pH</text>
-            <text x="150" y="284" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11.5">influence on outcome →</text>
-          </svg>
-          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 8px;">Illustrative. A few drivers usually dominate the outcome.</figcaption>
+        <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px;">
+          <a href="/probaligence-site-preview/stochos/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Explore STOCHOS</a>
+          <a href="/probaligence-site-preview/how-stochos-works/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">How STOCHOS works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(72px, 8vw, 120px) 24px;">
+    <div style="max-width: 1000px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 18px;">The core idea</div>
+      <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">A few inputs carry the result</h2>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">Change one ingredient in a recipe and the dish barely moves. Change another and it is ruined. Every process is the same: many parameters you could adjust, a few that decide the outcome. Sensitivity analysis finds that few and ranks them.</p>
+      <figure style="margin: 44px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; padding: clamp(20px, 3vw, 32px); background: rgb(10, 9, 8);">
+        <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 6px;">Ranked drivers</div>
+        <p style="font: 400 13px / 1.5 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(156, 156, 150); margin: 0px 0px 22px;">Coating strength: how much each input moves the result.</p>
+        <div data-bars="" id="sbars" aria-label="Illustrative sensitivity ranking. Curing temperature 46 percent, filler content 27 percent, additive A 15 percent, mixing speed 8 percent, humidity 4 percent.">
+          <div class="sb-row"><span class="sb-name">curing temp</span><div class="sb-track"><div class="sb-fill" style="--w: 100%; --d: 0s;"></div></div><span class="sb-val">46%</span></div>
+          <div class="sb-row"><span class="sb-name">filler content</span><div class="sb-track"><div class="sb-fill" style="--w: 58.7%; --d: .1s;"></div></div><span class="sb-val">27%</span></div>
+          <div class="sb-row"><span class="sb-name">additive A</span><div class="sb-track"><div class="sb-fill" style="--w: 32.6%; --d: .2s;"></div></div><span class="sb-val">15%</span></div>
+          <div class="sb-row"><span class="sb-name">mixing speed</span><div class="sb-track"><div class="sb-fill" style="--w: 17.4%; --d: .3s;"></div></div><span class="sb-val">8%</span></div>
+          <div class="sb-row"><span class="sb-name">humidity</span><div class="sb-track"><div class="sb-fill" style="--w: 8.7%; --d: .4s;"></div></div><span class="sb-val">4%</span></div>
+        </div>
+        <figcaption style="font: 400 12.5px / 1.55 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 22px;">Illustrative. A few inputs move the result; most barely matter.</figcaption>
+      </figure>
+    </div>
+    <script>
+    (function(){var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var el=document.getElementById('sbars');if(!el)return;
+    var play=function(){el.classList.add('sb-in');};
+    if(reduce||!('IntersectionObserver' in window))play();
+    else{var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){play();io.disconnect();}});},{threshold:0.35});io.observe(el);}
+    })();
+    </script>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07);">
+    <div style="max-width: 1120px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Two questions</div>
+      <h2 style="font: 700 clamp(28px, 4vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Across the whole space, and for one case</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 70ch;">A global view ranks what drives the result across the whole space. A local view explains one specific case. STOCHOS produces both from the model it already trained.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 28px; margin-top: 44px;">
+        <figure style="margin: 0px;">
+          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/sensitivity-global-sobol.webp" width="1080" height="965" alt="A Sobol total-order bar chart ranking formulation inputs: filler content, curing temperature, and additive A dominate, and the top four factors carry 90 percent of the variation." style="display: block; width: 100%; height: auto; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; background: rgb(0, 0, 0);">
+          <h3 style="font: 600 17px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin: 18px 0px 8px;">Global view: Sobol indices</h3>
+          <p style="font: 400 14.5px / 1.6 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(156, 156, 150); max-width: 46ch;">A few inputs dominate. The rest can be fixed or ignored.</p>
+        </figure>
+        <figure style="margin: 0px;">
+          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/sensitivity-local-shap.webp" width="1080" height="897" alt="A SHAP waterfall chart for one batch: filler content and curing temperature push the predicted impact strength up while mixing speed and humidity pull it down." style="display: block; width: 100%; height: auto; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; background: rgb(0, 0, 0);">
+          <h3 style="font: 600 17px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin: 18px 0px 8px;">Local view: SHAP</h3>
+          <p style="font: 400 14.5px / 1.6 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(156, 156, 150); max-width: 46ch;">What pushed one specific case up, and what pulled it down.</p>
         </figure>
       </div>
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 980px; margin: 0px auto;">
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding-bottom: 48px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-        <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">01</span>
-        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">What it tells you</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Sensitivity analysis turns a prediction into engineering insight. It ranks the variables that drive the outcome globally and explains why a specific design, batch, or operating point behaved as it did. That focuses experiments and design effort on the factors that matter and away from the ones that do not.</p></div>
-      </div>
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding: 48px 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-        <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">02</span>
-        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">How STOCHOS does it</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">STOCHOS runs sensitivity analysis on the trained probabilistic model, so it is fast and uses no extra expensive evaluations. The result is a clear ranking of drivers and interactions.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px;">
-            <span style="border: 1px solid rgba(255, 176, 6, 0.4); background: rgba(255, 176, 6, 0.05); border-radius: 2px; padding: 9px 14px; font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">Sobol indices</span>
-            <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 14px; font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(200, 200, 194);">SHAP</span>
-            <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 14px; font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(200, 200, 194);">Distance correlation</span>
-            <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 9px 14px; font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(200, 200, 194);">Mutual information</span>
-          </div>
-        </div>
-      </div>
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding-top: 48px;">
-        <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">03</span>
-        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">When to use it, and what goes in and out</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Use sensitivity analysis to reduce a large parameter set, explain an unexpected result, or decide which inputs to control tightly.</p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px;">
-            <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 22px; opacity: 1; transform: none;"><div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 10px;">Inputs</div><p style="color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.55;">The trained model and its variables.</p></div>
-            <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 22px; opacity: 1; transform: none;"><div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 10px;">Outputs</div><p style="color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.55;">A ranked list of drivers and interactions that guides the next experiments and design changes.</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+  <section data-reveal="" style="padding: clamp(72px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
     <div style="max-width: 1000px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">A concrete example</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Change the factors that move the target</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 68ch;">In formulation work, sensitivity analysis shows which raw materials and process settings drive color, gloss, or viscosity, and which interactions matter. Instead of adjusting ingredients by trial and error, a developer sees the cause structure and changes the factors that move the target.</p>
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Which method fits</div>
+      <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Four ways to ask what matters</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; margin-top: 32px;">
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 22px; background: rgb(10, 9, 8);">
+          <div style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 10px;">Sobol indices</div>
+          <p style="font: 400 14.5px / 1.6 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(184, 184, 178); margin: 0px;">Splits the result's variation across inputs and interactions. For nonlinear effects and interactions.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 22px; background: rgb(10, 9, 8);">
+          <div style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 10px;">SHAP</div>
+          <p style="font: 400 14.5px / 1.6 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(184, 184, 178); margin: 0px;">Explains one prediction. For a single batch, design, or outlier.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 22px; background: rgb(10, 9, 8);">
+          <div style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 10px;">DGSM</div>
+          <p style="font: 400 14.5px / 1.6 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(184, 184, 178); margin: 0px;">Averages gradients to rank many inputs cheaply. For thinning a large parameter set.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 22px; background: rgb(10, 9, 8);">
+          <div style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 10px;">Correlation</div>
+          <p style="font: 400 14.5px / 1.6 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(184, 184, 178); margin: 0px;">Linear or monotonic association. A fast first look; it misses nonlinear effects.</p>
+        </div>
+      </div>
+      <p style="margin-top: 30px; color: rgb(156, 156, 150); font-size: 15.5px; line-height: 1.65; max-width: 66ch;">STOCHOS runs all of these. Once you know the drivers, tune them with <a href="/probaligence-site-preview/bayesian-optimization/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">Bayesian optimization</a>.</p>
     </div>
   </section>
 
-  
 
-  <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+
+  <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden;">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See the method on your data</h2>
-      <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 50ch;">Request a demo and we will show STOCHOS and STOCHOS Flow on a problem close to yours.</p>
+      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 18ch; margin: 0px auto;">Find out which of your parameters actually matter</h2>
+      <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring your data and the output you care about. We will show STOCHOS ranking your drivers on a problem close to yours.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
         <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
@@ -258,7 +295,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       </div>
       <div>
         <div class="f-h">Science</div>
-        <ul><li><a href="/probaligence-site-preview/science/">Science overview</a></li><li><a href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a></li><li><a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/science/">Science overview</a></li><li><a href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a></li><li><a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/probaligence-site-preview/generative-design/">Generative Design</a></li></ul>
       </div>
       <div>
         <div class="f-h">Company</div>

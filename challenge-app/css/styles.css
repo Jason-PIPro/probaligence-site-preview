@@ -67,6 +67,31 @@ em { font-style: normal; }
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   outline: 2px solid var(--amber-lt); outline-offset: 2px; border-radius: 2px;
 }
+/* Accessibility floor (2026-07-14 a11y pass): several component styles (the
+   three challenge instruments' own injected sliders, the studio's kappa/deploy
+   sliders) explicitly set outline:none on input[type=range] with no visible
+   replacement, and some are injected in their own <style> tag at mount time,
+   so a plain override placed here could still lose a specificity/order tie.
+   This is the one global backstop that restores a visible brand ring on every
+   native range input and custom [role=slider] widget, load-order-proof.
+   !important is deliberate: an invisible focus state is worse than an
+   over-specific override, and this must win over any outline:none, current or
+   future. .rx-knob-dial (the reactor's rotary knobs) already has its own
+   bespoke ring below, keyed off the same accent, so it is excluded here to
+   avoid a redundant double ring on a circular widget. */
+input[type=range]:focus-visible,
+[role="slider"]:focus-visible:not(.rx-knob-dial) {
+  outline: 2px solid var(--amber-lt) !important;
+  outline-offset: 3px !important;
+  border-radius: 3px !important;
+}
+/* visually hidden but still announced by assistive tech: used for aria-live
+   score/verdict announcements that must not show on screen (the visible copy
+   already carries the same information, styled). */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
 
 /* ---------- top bar ----------
    Mirrors the site's scrolled header. Height is 66px (not the site's 68px):
@@ -732,6 +757,21 @@ canvas.field { position: absolute; inset: 0; width: 100%; height: 100%; }
   font-size: 13px; font-weight: 600; transition: gap 0.18s;
 }
 .pick-card:hover .go { color: var(--warm); }
+/* quiet corner mark, the same treatment as the challenge picker's .ch-mark:
+   26px line art top-right. Without a size the inline SVG inflated to fill the
+   card (the giant-icon bug, fixed 2026-07-14). */
+.pick-card .mark {
+  position: absolute; top: 22px; right: 22px; width: 26px; height: 26px;
+  pointer-events: none;
+}
+.pick-card .mark svg { width: 100%; height: 100%; display: block; }
+/* full-bleed still header (Jason's brand stills, 2026-07-14), matching the
+   challenge picker's .ch-card-img; the card's overflow:hidden rounds the top. */
+.pick-card .pick-card-img {
+  display: block; margin: -26px -26px 18px; width: calc(100% + 52px);
+  height: clamp(140px, 12vw, 180px); object-fit: cover;
+  border-bottom: 1px solid var(--line);
+}
 
 /* ----------------------------------------------------------------- the app */
 /* Full-height 3-row grid (rail / main / dock), like .flow-app. */

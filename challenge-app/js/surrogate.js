@@ -257,6 +257,11 @@ export class Surrogate {
     const globalFrac  = opts.global_frac  != null ? opts.global_frac : 0.5;
     const noise       = opts.noise        || 0;        // std in normalized output units (0..1)
     const bestSoFar   = opts.best_so_far  || null;
+    // V4: optional composite objective. When supplied, STOCHOS optimizes THIS
+    // scalar (a 0..1 "higher is better" value computed from all relevant outputs,
+    // e.g. the constrained challenge score) instead of the single primary mean,
+    // so its search matches exactly what the challenge scores. null = legacy.
+    const objective   = opts.objective    || null;
 
     // Deterministic seeded random for reproducibility within a run
     let seed = opts.seed != null ? opts.seed : (Date.now() & 0xffffffff);
@@ -292,12 +297,20 @@ export class Surrogate {
       }
       const { mean } = this.predictFull(name, params);
       // acquisition value (exploit only; exploration handled by candidate diversity)
-      let acq = goal === 'low' ? -mean : mean;
-      if (noise > 0) {
-        // add noise in output units (noise * range)
-        const st = this.predictFullStats(name);
-        const range = (st.mx - st.mn) || 1;
-        acq += randN() * noise * range;
+      let acq;
+      if (objective) {
+        // V4 constrained path: maximize the composite objective (0..1). Noise is
+        // already in score units here, so it is NOT rescaled by an output range.
+        acq = objective(params);
+        if (noise > 0) acq += randN() * noise;
+      } else {
+        acq = goal === 'low' ? -mean : mean;
+        if (noise > 0) {
+          // add noise in output units (noise * range)
+          const st = this.predictFullStats(name);
+          const range = (st.mx - st.mn) || 1;
+          acq += randN() * noise * range;
+        }
       }
       if (!best || acq > best.acq) best = { params, mean, acq };
     }

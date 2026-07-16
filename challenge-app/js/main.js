@@ -42,6 +42,17 @@ function setNav(active) {
   document.querySelectorAll('#domnav a').forEach((a) => {
     a.classList.toggle('active', a.dataset.domain === active);
   });
+  // Keep the active tab visible on narrow viewports, where #domnav scrolls
+  // horizontally with its scrollbar hidden (a11y pass, item 9): without this
+  // the active tab (e.g. "Beat STOCHOS", third of four) can load scrolled
+  // off-screen to the right. block:'nearest' avoids any vertical page scroll;
+  // inline:'nearest' only nudges the nav's own horizontal scroll if needed.
+  if (active) {
+    const activeEl = domnav.querySelector(`a[data-domain="${active}"]`);
+    if (activeEl && activeEl.scrollIntoView) {
+      activeEl.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+  }
 }
 
 // The three use cases that live inside the challenge. The chips deep-link to

@@ -8,7 +8,7 @@
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
 <title>What Are AI Surrogate Models? | PI Probaligence</title><meta name="description" content="A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/surrogate-modeling/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="What Are AI Surrogate Models? | PI Probaligence"><meta property="og:description" content="A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them."><meta property="og:url" content="https://probaligence.com/surrogate-modeling/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"What are AI surrogate models?","description":"A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://probaligence.com/surrogate-modeling/"}
+{"@context":"https://schema.org","@type":"Article","headline":"What are AI surrogate models?","description":"A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-06-18","dateModified":"2026-07-15","mainEntityOfPage":"https://probaligence.com/surrogate-modeling/"}
 </script><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"Surrogate Modeling","item":"https://probaligence.com/surrogate-modeling/"}]}
 </script><style>
@@ -56,7 +56,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Surrogate model versus a solver?","acceptedAnswer":{"@type":"Answer","text":"A solver computes the physics from first principles at high cost. A surrogate model approximates the solver's input-output behavior from existing data and predicts new cases in seconds. The surrogate does not replace the solver; it reduces how often you need to run it, and the solver still validates key results."}},{"@type":"Question","name":"How much data does a surrogate model need?","acceptedAnswer":{"@type":"Answer","text":"It depends on the problem, but STOCHOS is built for small, expensive datasets rather than large ones. The DIM-GP approach is designed for tens of samples, noisy measurements, and multi-fidelity data, and it reports where confidence is low so you can add data where it helps most."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is a surrogate model the same as the solver?","acceptedAnswer":{"@type":"Answer","text":"No. A solver computes the physics from scratch at high cost. A surrogate learns that input-output behavior from existing runs and predicts new cases in seconds. It cuts how often you run the solver, which still validates the results that matter."}},{"@type":"Question","name":"How much data does a surrogate model need?","acceptedAnswer":{"@type":"Answer","text":"There is no fixed number. STOCHOS is built for small, expensive datasets, often tens of runs rather than thousands. It handles noisy and multi-fidelity data, and flags where confidence is low so you can add runs where they help most."}},{"@type":"Question","name":"Can a surrogate replace CFD or FEM?","acceptedAnswer":{"@type":"Answer","text":"It replaces many repeated runs inside the range it was trained on, but not the solver itself: you still need that for training data, new regimes, and final verification. A surrogate is an acceleration layer, not new physics."}}]}</script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -135,66 +135,83 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div>
           <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Method</div>
           <h1 style="font: 700 clamp(36px, 5.2vw, 62px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 14ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">What</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">are</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">AI</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">surrogate</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">models?</span></span></h1>
-          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">A surrogate model is a fast, data-driven approximation of an expensive simulation or experiment. It learns the relationship between inputs and outputs from data you already have, then predicts results for new variants in seconds. STOCHOS builds surrogate models that also report how far to trust each prediction.</p>
+          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">A surrogate model is a fast approximation of an expensive simulation or experiment. It learns from results you already have, then predicts new variants in seconds. STOCHOS surrogates also report how far to trust each prediction.</p>
           <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-            <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-            <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
+            <a href="/probaligence-site-preview/stochos/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Explore STOCHOS</a>
+            <a href="/probaligence-site-preview/how-stochos-works/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">How STOCHOS works</a>
           </div>
         </div>
-        <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 24px; background: rgb(10, 9, 8); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-          <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 14px;">A learned shortcut</div>
-          <svg viewBox="0 0 520 320" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;">
-            <line x1="46" y1="36" x2="46" y2="276" stroke="rgba(255,255,255,.16)"></line>
-            <line x1="46" y1="276" x2="496" y2="276" stroke="rgba(255,255,255,.16)"></line>
-            <path d="M56 210 C140 90 200 250 280 150 C340 80 410 170 486 96" fill="none" stroke="#FFB006" stroke-width="2.4" stroke-linecap="round" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path>
-            <circle cx="70" cy="200" r="4.5" fill="#0A0908" stroke="#FFCA4D" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle>
-            <circle cx="130" cy="128" r="4.5" fill="#0A0908" stroke="#FFCA4D" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle>
-            <circle cx="196" cy="206" r="4.5" fill="#0A0908" stroke="#FFCA4D" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle>
-            <circle cx="256" cy="168" r="4.5" fill="#0A0908" stroke="#FFCA4D" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle>
-            <circle cx="312" cy="120" r="4.5" fill="#0A0908" stroke="#FFCA4D" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle>
-            <circle cx="372" cy="150" r="4.5" fill="#0A0908" stroke="#FFCA4D" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle>
-            <circle cx="440" cy="118" r="4.5" fill="#0A0908" stroke="#FFCA4D" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle>
-            <text x="40" y="28" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="12">output</text>
-            <text x="492" y="298" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="12">input</text>
-            <text x="300" y="58" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="12">surrogate</text>
-          </svg>
-          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 8px;">Points are expensive evaluations; the curve answers new inputs in seconds.</figcaption>
+        <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 16px; background: rgb(0, 0, 0); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
+          <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Prediction vs simulation</div>
+          <video data-method-video autoplay muted loop playsinline preload="metadata" poster="/probaligence-site-preview/assets/media/surrogate-crash-poster.webp" width="640" height="480" style="display: block; width: 100%; height: auto; border-radius: 2px;" aria-label="A crash simulation next to the STOCHOS surrogate prediction of the same case: the deformed car bodies match.">
+            <source src="/probaligence-site-preview/assets/media/surrogate-crash.mp4" type="video/mp4">
+          </video>
+          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 10px;">Reference example: STOCHOS learned from 32 LS-DYNA crash models and predicted a new crash case with error below 5 percent, after 21 seconds of training on a CPU. The full solver still validates the cases that matter.</figcaption>
         </figure>
-      </div>
-    </div>
-  </section>
-
-  <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 980px; margin: 0px auto;">
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding-bottom: 48px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-        <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">01</span>
-        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">What a surrogate model is</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Think of a surrogate as a learned shortcut. A full CFD solve or a lab experiment maps inputs to an outcome at high cost. A surrogate watches enough of those input-output pairs to approximate the same map, then answers new questions in seconds. The approximation is only as good as the data and the region it covers.</p></div>
-      </div>
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding: 48px 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-        <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">02</span>
-        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">How STOCHOS builds surrogate models</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">STOCHOS uses DIM-GP, a Deep Infinite Mixture of Gaussian Processes built for small, noisy datasets, changing geometries, and multi-fidelity data. It learns the input-output relationship and returns a prediction with quantified uncertainty, so reliable interpolation is separated from risky extrapolation. It handles scalars, fields, geometries, and meshes, not just flat tables.</p><a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 16px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How the DIM-GP algorithm works →</a></div>
-      </div>
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding-top: 48px;">
-        <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">03</span>
-        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">When to use one, and what goes in and out</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Use a surrogate when evaluations are slow or expensive and you need many of them: design exploration, optimization loops, sensitivity studies, or real-time prediction.</p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px;">
-            <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 22px; opacity: 1; transform: none;"><div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 10px;">Inputs</div><p style="color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.55;">The parameters, geometries, or conditions you can change.</p></div>
-            <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 22px; opacity: 1; transform: none;"><div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 10px;">Outputs</div><p style="color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.55;">The results you care about, from a single KPI to a full field, each with confidence attached.</p></div>
-          </div>
-        </div>
+        <script>
+        (function () {
+          var v = document.querySelector("[data-method-video]");
+          if (!v) return;
+          if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); v.pause(); }
+        })();
+        </script>
       </div>
     </div>
   </section>
 
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">A concrete example</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">A new crash case in about 20 seconds</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 68ch;">In an LS-DYNA crash reference example, STOCHOS reproduced 32 crash models across more than 50 time steps and predicted a new case with error below 5 percent, after 21 seconds of training on a CPU. The full solver still validates the promising candidates; the surrogate makes exploring the rest affordable.</p>
-      <figure style="margin: 40px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0);">
-        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/field-prediction-clean.webp" width="1467" height="648" alt="A surrogate-model prediction: from an input surface geometry the model predicts the full volumetric field in seconds, shown as a coloured volume grid next to the input surface." style="display: block; width: 100%; height: auto;">
-        <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); padding: 14px 18px; border-top: 1px solid rgba(255, 255, 255, 0.07);">A surrogate model predicts the full field for a new design in seconds, no re-solve required.</figcaption>
+      <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">How it works, on one example</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Watch a surrogate learn a CFD case</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.7; max-width: 64ch;">A surrogate model is a fast stand-in for a slow calculation. Take computational fluid dynamics (CFD), which predicts how air or liquid flows around a shape: one run can take hours. A surrogate learns from a handful of those runs, then predicts a new case in seconds. Here is the whole method on that one example.</p>
+      <figure style="margin: clamp(32px, 5vw, 48px) 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0);">
+        <div style="font: 500 11.5px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); padding: 14px 18px 0px;">CFD: solver, surrogate, error</div>
+        <video data-lazy-video muted loop playsinline preload="none" poster="/probaligence-site-preview/assets/media/surrogate-cfd-poster.webp" width="1280" height="960" style="display: block; width: 100%; height: auto; margin-top: 12px;" aria-label="Three stacked velocity colour maps of flow past a cylinder: the CFD solver ground truth, the STOCHOS surrogate prediction of the same field, and their near-zero difference.">
+          <source data-src="/probaligence-site-preview/assets/media/surrogate-cfd.mp4" type="video/mp4">
+        </video>
+        <figcaption style="font: 400 12.5px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); padding: 14px 18px; border-top: 1px solid rgba(255, 255, 255, 0.07);">Flow past a cylinder: top the CFD solver, middle the surrogate's prediction, bottom the near-zero difference between them.</figcaption>
       </figure>
+      <div style="margin-top: clamp(40px, 6vw, 64px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+        <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; padding: 26px 0px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+          <span style="font: 500 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(255, 176, 6);">01</span>
+          <div><h3 style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">What goes in</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">A set of CFD runs you already have. Each pairs the inputs you can change, geometry and flow conditions, with the output you want: the full velocity field. Often tens of runs, not thousands.</p></div>
+        </div>
+        <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; padding: 26px 0px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+          <span style="font: 500 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(255, 176, 6);">02</span>
+          <div><h3 style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">What the model learns</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">STOCHOS fits the relationship between those inputs and the field, and learns how sure it should be in each region from where the runs actually landed.</p></div>
+        </div>
+        <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; padding: 26px 0px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+          <span style="font: 500 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(255, 176, 6);">03</span>
+          <div><h3 style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">What comes out</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">Give it a new case and it returns the predicted field in seconds, with confidence attached. In the clip, the prediction matches the solver and the error stays near zero.</p></div>
+        </div>
+        <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; padding: 26px 0px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+          <span style="font: 500 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(255, 176, 6);">04</span>
+          <div><h3 style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Where it is trusted</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">Inside the range it learned from, the prediction holds and its confidence says so. Outside that range, confidence drops. The solver still validates the design you commit to.</p></div>
+        </div>
+      </div>
+    </div>
+    <script>
+    (function () {
+      var v = document.querySelector('[data-lazy-video]');
+      if (!v) return;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var loaded = false;
+      function load() { if (loaded) return; loaded = true; var s = v.querySelector('source[data-src]'); if (s) { s.src = s.getAttribute('data-src'); v.load(); } }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { load(); if (!reduce && v.play) { v.play().catch(function () {}); } } else if (v.pause) { v.pause(); } }); }, { threshold: 0.25 });
+        io.observe(v);
+      } else { load(); if (!reduce && v.play) { v.play().catch(function () {}); } }
+    })();
+    </script>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 780px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Under the hood</div>
+      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 22ch;">How STOCHOS builds a surrogate</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">STOCHOS uses DIM-GP, a model family built for small, noisy datasets, changing geometries, and multi-fidelity data. Every prediction carries quantified uncertainty, so a reliable interpolation is easy to tell from a risky guess. It handles fields, geometries, and meshes, not just tidy tables.</p>
+      <a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 16px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 'IBM Plex Sans', sans-serif;">How the DIM-GP model works →</a>
+      <p style="margin-top: 28px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">See where a surrogate stays reliable with <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">uncertainty quantification</a>, and cut its data cost with <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">multi-fidelity modeling</a>.</p>
     </div>
   </section>
 
@@ -203,11 +220,12 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See the method on your data</h2>
-      <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 50ch;">Request a demo and we will show STOCHOS and STOCHOS Flow on a problem close to yours.</p>
+      <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Put a surrogate to work</div>
+      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Bring us your slowest simulation</h2>
+      <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Point us at a simulation or test you run again and again. We will train a surrogate on your data and show it predicting new cases in seconds, on a problem close to yours.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-        <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
+        <a href="/probaligence-site-preview/ai-for-engineering/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">AI for Engineering</a>
       </div>
     </div>
   </section>
@@ -216,8 +234,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div class="fqq-wrap">
       <h2 class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
-        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Surrogate model versus a solver?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>A solver computes the physics from first principles at high cost. A surrogate model approximates the solver's input-output behavior from existing data and predicts new cases in seconds. The surrogate does not replace the solver; it reduces how often you need to run it, and the solver still validates key results.</p></div></div></details>
-        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">How much data does a surrogate model need?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>It depends on the problem, but STOCHOS is built for small, expensive datasets rather than large ones. The DIM-GP approach is designed for tens of samples, noisy measurements, and multi-fidelity data, and it reports where confidence is low so you can add data where it helps most.</p></div></div></details>
+        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Is a surrogate model the same as the solver?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. A solver computes the physics from scratch at high cost. A surrogate learns that input-output behavior from existing runs and predicts new cases in seconds. It cuts how often you run the solver, which still validates the results that matter.</p></div></div></details>
+        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">How much data does a surrogate model need?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>There is no fixed number. STOCHOS is built for small, expensive datasets, often tens of runs rather than thousands. It handles noisy and multi-fidelity data, and flags where confidence is low so you can add runs where they help most.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Can a surrogate replace CFD or FEM?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>It replaces many repeated runs inside the range it was trained on, but not the solver itself: you still need that for training data, new regimes, and final verification. A surrogate is an acceleration layer, not new physics.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>

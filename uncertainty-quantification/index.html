@@ -7,8 +7,8 @@
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<title>Uncertainty Quantification in AI Models | PI Probaligence</title><meta name="description" content="Uncertainty quantification puts a confidence range on a prediction. See how STOCHOS quantifies uncertainty for engineering and R&amp;D decisions."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/uncertainty-quantification/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Uncertainty Quantification in AI Models | PI Probaligence"><meta property="og:description" content="Uncertainty quantification puts a confidence range on a prediction. See how STOCHOS quantifies uncertainty for engineering and R&amp;D decisions."><meta property="og:url" content="https://probaligence.com/uncertainty-quantification/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"What is uncertainty quantification?","description":"Uncertainty quantification puts a confidence range on a prediction. See how STOCHOS quantifies uncertainty for engineering and R&D decisions.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://probaligence.com/uncertainty-quantification/"}
+<title>Uncertainty Quantification in AI Models | PI Probaligence</title><meta name="description" content="Uncertainty quantification puts a range on a prediction, not just a number. Learn aleatoric versus epistemic uncertainty and why a bare number hides the risk."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/uncertainty-quantification/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Uncertainty Quantification in AI Models | PI Probaligence"><meta property="og:description" content="Uncertainty quantification puts a range on a prediction, not just a number. Learn aleatoric versus epistemic uncertainty and why a bare number hides the risk."><meta property="og:url" content="https://probaligence.com/uncertainty-quantification/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"What is uncertainty quantification?","description":"Uncertainty quantification puts a range on a prediction, not just a number. Learn aleatoric versus epistemic uncertainty and why a bare number hides the risk.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-06-18","dateModified":"2026-07-15","mainEntityOfPage":"https://probaligence.com/uncertainty-quantification/"}
 </script><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"Uncertainty Quantification","item":"https://probaligence.com/uncertainty-quantification/"}]}
 </script><style>
@@ -56,7 +56,14 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Accuracy versus uncertainty?","acceptedAnswer":{"@type":"Answer","text":"Accuracy is how close a prediction is to the truth on cases you can check. Uncertainty is the model's own estimate of how far to trust a prediction, including on new cases you have not checked. A useful model reports both, so you know not just the answer but how much to rely on it."}},{"@type":"Question","name":"Does it slow the model down?","acceptedAnswer":{"@type":"Answer","text":"No. With STOCHOS, confidence is part of the probabilistic prediction rather than a separate, costly step. You get the value and its reliability together, in seconds, which is what makes selective validation practical."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between aleatoric and epistemic uncertainty?","acceptedAnswer":{"@type":"Answer","text":"Aleatoric uncertainty is noise in the system itself, like batch-to-batch variation or sensor error. More data will not remove it, so you plan around it. Epistemic uncertainty is the model's own lack of knowledge, largest where it has seen little data. More data or a better model can reduce it."}},{"@type":"Question","name":"Does a 90 percent range mean a 90 percent chance the truth is inside it?","acceptedAnswer":{"@type":"Answer","text":"Only if the range is calibrated. Calibration means that over many predictions, the true value really falls inside the stated range about that often. A range that is never checked can be overconfident, so calibration should be validated on held-out data."}},{"@type":"Question","name":"Accuracy versus uncertainty?","acceptedAnswer":{"@type":"Answer","text":"Accuracy is how close a prediction is to the truth on cases you can check. Uncertainty is the model's own estimate of how far to trust a prediction, including on new cases you have not checked. A useful model reports both, so you know not just the answer but how much to rely on it."}},{"@type":"Question","name":"Does it slow the model down?","acceptedAnswer":{"@type":"Answer","text":"No. With STOCHOS, confidence is part of the probabilistic prediction rather than a separate, costly step. You get the value and its reliability together, in seconds, which is what makes selective validation practical."}}]}</script>
+<style id="uqcta-css">
+.uqcta-tick{position:absolute;width:14px;height:14px;pointer-events:none}
+.uqcta-tick::before,.uqcta-tick::after{content:'';position:absolute;background:rgba(255,176,6,.5)}
+.uqcta-tick::before{width:100%;height:1px;top:50%}
+.uqcta-tick::after{height:100%;width:1px;left:50%}
+.uqcta-tl{top:22px;left:22px}.uqcta-tr{top:22px;right:22px}.uqcta-bl{bottom:22px;left:22px}.uqcta-br{bottom:22px;right:22px}
+</style>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -135,10 +142,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div>
           <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Method</div>
           <h1 style="font: 700 clamp(34px, 5vw, 58px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 14ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">What</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">is</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">uncertainty</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">quantification?</span></span></h1>
-          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Uncertainty quantification reports how confident a model is in each prediction. Instead of a single number, you get a value and a measure of its reliability, so you trust predictions inside the data range and validate only where confidence is low. STOCHOS attaches quantified uncertainty to every output by design.</p>
+          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Uncertainty quantification puts a range on a prediction, not just a number. The model returns its best estimate and how sure it is, so you can tell a confident answer from a guess and know when to check it first.</p>
           <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-            <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-            <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
+            <a href="/probaligence-site-preview/stochos/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Explore STOCHOS</a>
+            <a href="/probaligence-site-preview/how-stochos-works/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">How STOCHOS works</a>
           </div>
         </div>
         <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 176, 6, 0.28); border-radius: 4px; padding: 14px; background: rgb(0, 0, 0); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
@@ -149,51 +156,130 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 980px; margin: 0px auto;">
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding-bottom: 48px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-        <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">01</span>
-        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">Why a number alone is not enough</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">A point prediction with no context hides risk. Two predictions can read the same yet differ completely in how trustworthy they are: one inside the data, one far outside it. Uncertainty quantification makes that difference visible, which matters most when decisions carry cost and the data is limited.</p></div>
+  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1100px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The black box</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">A number with no measure of trust</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(28px, 4vw, 52px); align-items: center; margin-top: 36px;">
+        <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; padding: 14px; background: rgb(0, 0, 0);">
+          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/uncertainty-black-box.webp" width="1600" height="932" alt="Twelve labeled inputs feed a closed model that returns a single bare prediction of 42.7, with no indication of how far to trust the number." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 10px; padding: 0px 4px;">Twelve inputs, one bare number. Nothing here says whether the model is confident or guessing.</figcaption>
+        </figure>
+        <div>
+          <p style="color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 52ch;">Feed a model twelve settings and it returns one number: 42.7. Two predictions can read the same and mean opposite things. One sits inside the data the model has already seen. One lands far outside it. The bare number hides the difference.</p>
+          <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 52ch;">A single value implies a precision that is not there. A forecast that gives a 70 percent chance of rain is more useful than a flat yes. Uncertainty quantification opens the box the same way: every prediction arrives with a measure of how far to trust it.</p>
+        </div>
       </div>
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding: 48px 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-        <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">02</span>
-        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">How STOCHOS does it</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">STOCHOS is probabilistic at its core. The DIM-GP model returns a predicted value together with confidence, separating reliable interpolation from risky extrapolation and flagging regions where data is sparse or noisy. The same uncertainty drives Bayesian optimization, which uses it to choose the next experiment that reduces doubt the most.</p><a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 16px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How the DIM-GP algorithm works →</a></div>
-      </div>
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding-top: 48px;">
-        <span style="font: 500 13px / 1.4 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">03</span>
-        <div><h2 style="font: 700 clamp(24px, 3.2vw, 34px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">When to use it, and what goes in and out</h2><p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Use uncertainty quantification whenever a prediction informs a costly or risky decision, or whenever data is limited.</p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px;">
-            <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 22px; opacity: 1; transform: none;"><div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 10px;">Inputs</div><p style="color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.55;">The same as any surrogate: parameters, geometries, or conditions.</p></div>
-            <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 22px; opacity: 1; transform: none;"><div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 10px;">Outputs</div><p style="color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.55;">A confidence measure on each prediction: where to act directly, and where to validate first.</p></div>
+      <div style="margin-top: clamp(40px, 5vw, 64px);">
+        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 18px;">The same estimate, two ways to report it</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 18px; align-items: stretch;">
+          <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 28px 26px; background: rgba(255, 255, 255, 0.02); display: flex; flex-direction: column;">
+            <span style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(156, 156, 150);">Bare number</span>
+            <div style="font: 700 clamp(40px, 6vw, 58px) / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin: 18px 0px 0px;">42.7</div>
+            <p style="margin-top: auto; padding-top: 18px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6;">One value, no measure of trust. It reads the same whether the model is confident or guessing.</p>
+          </div>
+          <div style="border: 1px solid rgba(255, 176, 6, 0.35); border-radius: 6px; padding: 28px 26px; background: rgba(255, 176, 6, 0.04); display: flex; flex-direction: column;">
+            <span style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(255, 176, 6);">Number with a range</span>
+            <div style="display: flex; align-items: baseline; gap: 10px; margin: 18px 0px 0px;"><span style="font: 700 clamp(40px, 6vw, 58px) / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">42.7</span><span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150);">mean</span></div>
+            <div style="position: relative; height: 8px; margin: 22px 0px 0px; border-radius: 4px; background: rgba(255, 255, 255, 0.08);">
+              <div style="position: absolute; left: 15%; right: 15%; top: 0px; bottom: 0px; border-radius: 4px; background: rgba(255, 176, 6, 0.35);"></div>
+              <div style="position: absolute; left: 50%; top: -4px; bottom: -4px; width: 2px; background: rgb(255, 176, 6); transform: translateX(-1px);"></div>
+            </div>
+            <div style="position: relative; height: 15px; margin-top: 8px; font: 400 11px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150);"><span style="position: absolute; left: 15%; transform: translateX(-50%);">39.1</span><span style="position: absolute; left: 50%; transform: translateX(-50%); color: rgb(255, 176, 6);">42.7</span><span style="position: absolute; left: 85%; transform: translateX(-50%);">46.3</span></div>
+            <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 14.5px; line-height: 1.6;">The true value lies between 39.1 and 46.3 with 90 percent confidence. The same estimate, plus how far to trust it.</p>
           </div>
         </div>
+        <p style="margin-top: 14px; font: 400 12px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Illustrative numbers, shown to contrast output formats. Not a STOCHOS performance claim.</p>
       </div>
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+  <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">A concrete example</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">What happens without it</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 68ch;">A standard model fits one curve and trusts a noisy measurement blindly, with no signal of where to doubt it. STOCHOS returns confidence bounds on every prediction, so engineers use the confidence map to decide which variants still need a full solve, instead of validating every candidate or trusting all of them.</p>
-      <figure style="margin: 40px auto 0px; max-width: 760px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; padding: 14px; background: rgb(0, 0, 0);">
-        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/uncertainty-standard-model.webp" width="1149" height="1149" alt="A standard model with no confidence bounds warps toward an outlier and trusts a noisy measurement blindly, with no indication of how much to trust the prediction." style="display: block; width: 100%; height: auto; border-radius: 2px;">
-        <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 10px; padding: 0px 4px;">Without uncertainty, a model warps toward outliers and trusts noisy data blindly.</figcaption>
-      </figure>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(28px, 4vw, 52px); align-items: center;">
+        <div>
+          <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">What goes wrong</div>
+          <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Trusting the box blindly</h2>
+          <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 52ch;">STOCHOS returns confidence bounds on every prediction. Engineers read that confidence map to decide which variants still need a full solve, instead of validating every candidate or trusting them all.</p>
+        </div>
+        <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; padding: 14px; background: rgb(0, 0, 0);">
+          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/uncertainty-standard-model.webp" width="1149" height="1149" alt="A standard model with no confidence bounds warps toward an outlier and trusts a noisy measurement blindly, with no indication of how much to trust the prediction." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 10px; padding: 0px 4px;">Without uncertainty, a model warps toward outliers and trusts noisy data blindly.</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
   
 
-  <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
-    <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See the method on your data</h2>
-      <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 50ch;">Request a demo and we will show STOCHOS and STOCHOS Flow on a problem close to yours.</p>
-      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
-        <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-        <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
+  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1100px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Two kinds of uncertainty</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Why a prediction needs a range</h2>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 60ch;">Not all uncertainty is the same. Splitting it in two tells you what to do next.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 34px;">
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 26px; background: rgba(255, 255, 255, 0.02);">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px;">
+            <span style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6);">Aleatoric</span>
+            <span style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(156, 156, 150); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 5px 8px;">Irreducible</span>
+          </div>
+          <p style="color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.7;">Run the same experiment twice and results still scatter: material batches, sensor error, process drift. This noise lives in the system itself. More data will not remove it, so you plan around it.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 26px; background: rgba(255, 255, 255, 0.02);">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px;">
+            <span style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6);">Epistemic</span>
+            <span style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(156, 156, 150); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 5px 8px;">Reducible</span>
+          </div>
+          <p style="color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.7;">The model is least sure where it has seen little data. Confidence stays tight inside the tested range and widens as the model extrapolates past it. That gap is the line between a safe interpolation and a risky guess, and more data shrinks it.</p>
+        </div>
       </div>
+      <p style="margin-top: 26px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.7; max-width: 66ch;">STOCHOS is probabilistic at its core. The DIM-GP model returns a predicted value together with confidence, separating reliable interpolation from risky extrapolation and flagging where data is sparse. <a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">How the DIM-GP algorithm works &rarr;</a></p>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1100px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Why it matters in industry</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a range buys you</h2>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Quantified uncertainty is not statistical tidiness. It changes the decision in front of you.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1px; background: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; margin-top: 34px;">
+        <div style="background: rgb(6, 6, 7); padding: 30px 26px;">
+          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">01</span>
+          <h3 style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">Decisions under risk</h3>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">See whether a design clears its limit comfortably or only under optimistic assumptions. The question moves from what is the value to how likely it is to pass.</p>
+        </div>
+        <div style="background: rgb(6, 6, 7); padding: 30px 26px;">
+          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">02</span>
+          <h3 style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">Fewer physical tests</h3>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Validate where the model is unsure. Where confidence is high, skip the extra bench test or full solve and move on.</p>
+        </div>
+        <div style="background: rgb(6, 6, 7); padding: 30px 26px;">
+          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">03</span>
+          <h3 style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">When to trust, when not</h3>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Act on a confident prediction inside the data. A low-confidence one flags itself for a check before it drives a decision.</p>
+        </div>
+        <div style="background: rgb(6, 6, 7); padding: 30px 26px;">
+          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">04</span>
+          <h3 style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">Honest safety margins</h3>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Separate a real design margin from an unresolved prediction, so a margin guards against physics, not against not knowing.</p>
+        </div>
+      </div>
+      <p style="margin-top: 26px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.7; max-width: 66ch;">Uncertainty is also what powers <a href="/probaligence-site-preview/bayesian-optimization/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">Bayesian optimization</a>, and it turns a <a href="/probaligence-site-preview/surrogate-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">surrogate model</a> into a decision you can defend.</p>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div aria-hidden="true" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(820px, 120vw); height: 520px; background: radial-gradient(closest-side, rgba(255, 176, 6, 0.12), transparent 62%); pointer-events: none;"></div>
+    <span class="uqcta-tick uqcta-tl" aria-hidden="true"></span><span class="uqcta-tick uqcta-tr" aria-hidden="true"></span><span class="uqcta-tick uqcta-bl" aria-hidden="true"></span><span class="uqcta-tick uqcta-br" aria-hidden="true"></span>
+    <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
+      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Know when to trust a prediction, and when not.</h2>
+      <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring one dataset. We put a calibrated range on predictions with STOCHOS and STOCHOS Flow, on a problem close to yours.</p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
+        <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
+        <a href="/probaligence-site-preview/how-stochos-works/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">How STOCHOS works</a>
+      </div>
+      <p style="margin-top: 24px; font: 500 11.5px / 1.7 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Local, probabilistic AI. Your data stays on your infrastructure.</p>
     </div>
   </section>
 
@@ -201,8 +287,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div class="fqq-wrap">
       <h2 class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
-        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Accuracy versus uncertainty?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Accuracy is how close a prediction is to the truth on cases you can check. Uncertainty is the model's own estimate of how far to trust a prediction, including on new cases you have not checked. A useful model reports both, so you know not just the answer but how much to rely on it.</p></div></div></details>
-        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Does it slow the model down?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. With STOCHOS, confidence is part of the probabilistic prediction rather than a separate, costly step. You get the value and its reliability together, in seconds, which is what makes selective validation practical.</p></div></div></details>
+        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What is the difference between aleatoric and epistemic uncertainty?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Aleatoric uncertainty is noise in the system itself, like batch-to-batch variation or sensor error. More data will not remove it, so you plan around it. Epistemic uncertainty is the model's own lack of knowledge, largest where it has seen little data. More data or a better model can reduce it.</p></div></div></details>
+        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Does a 90 percent range mean a 90 percent chance the truth is inside it?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Only if the range is calibrated. Calibration means that over many predictions, the true value really falls inside the stated range about that often. A range that is never checked can be overconfident, so calibration should be validated on held-out data.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Accuracy versus uncertainty?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Accuracy is how close a prediction is to the truth on cases you can check. Uncertainty is the model's own estimate of how far to trust a prediction, including on new cases you have not checked. A useful model reports both, so you know not just the answer but how much to rely on it.</p></div></div></details>
+        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Does it slow the model down?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. With STOCHOS, confidence is part of the probabilistic prediction rather than a separate, costly step. You get the value and its reliability together, in seconds, which is what makes selective validation practical.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -244,7 +332,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       </div>
       <div>
         <div class="f-h">Science</div>
-        <ul><li><a href="/probaligence-site-preview/science/">Science overview</a></li><li><a href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a></li><li><a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/science/">Science overview</a></li><li><a href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a></li><li><a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/probaligence-site-preview/generative-design/">Generative Design</a></li></ul>
       </div>
       <div>
         <div class="f-h">Company</div>

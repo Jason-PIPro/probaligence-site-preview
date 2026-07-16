@@ -411,9 +411,21 @@ const DASH = '';  // size/value placeholder; no em or en dashes per the studio s
 const PICK_MARK = {
   paint: `<svg viewBox="0 0 28 28" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="15" height="7" rx="2"/><line x1="11.5" y1="13" x2="11.5" y2="18"/><line x1="11.5" y1="18" x2="20" y2="24"/></svg>`,
   chemistry: `<svg viewBox="0 0 28 28" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4h6"/><path d="M12 4v7l-6.2 10.8c-.9 1.6.2 3.6 2 3.6h10.4c1.8 0 2.9-2 2-3.6L14 11V4"/><path d="M9.2 17.5h9.6"/></svg>`,
-  // studio's "engineering" case is the pin-fin heat sink (cooling), not the
-  // challenge's bottle: fins over a baseplate.
+  // the pressure-test bottle, same mark as the challenge picker's engineering
+  // card (the two pickers offer the SAME three cases since 2026-07-14).
+  bottle: `<svg viewBox="0 0 28 28" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3h6v4l2 3v13a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2V10l2-3V3z"/><line x1="2.5" y1="8" x2="7.5" y2="8"/><polyline points="5.5,5.7 7.7,8 5.5,10.3"/><line x1="25.5" y1="8" x2="20.5" y2="8"/><polyline points="22.3,5.7 20.1,8 22.3,10.3"/></svg>`,
+  // the retired standalone heat-sink case (STORIES.engineering, no longer in
+  // the picker order): fins over a baseplate. Kept so a stray route renders.
   engineering: `<svg viewBox="0 0 28 28" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="4" x2="6" y2="16"/><line x1="11" y1="4" x2="11" y2="16"/><line x1="16" y1="4" x2="16" y2="16"/><line x1="21" y1="4" x2="21" y2="16"/><rect x="4" y="16" width="19" height="5" rx="1"/></svg>`,
+};
+
+// Full-bleed still headers (Jason's brand stills, 2026-07-14), the same three
+// the challenge picker uses so the two pickers stay siblings. A case without a
+// still falls back to its PICK_MARK corner line art.
+const PICK_IMG = {
+  paint: 'assets/cases/paint-roller.webp',
+  chemistry: 'assets/cases/chemistry-flask.webp',
+  bottle: 'assets/cases/bottle-rig.webp',
 };
 
 export async function mountStudio(root) {
@@ -440,7 +452,7 @@ export async function mountStudio(root) {
       <div class="pick-head">
         <button class="studio-pick-back" id="studioPickBack">&#8592; Use cases</button>
         <h1>Build it yourself</h1>
-        <div class="lead">Pick an industry. You will assemble the real Stochos Flow workflow by dragging nodes and wiring their ports, make two real decisions, and chat with the agent as you go.</div>
+        <div class="lead">Pick a use case, the same three the challenge plays. Assemble the real Stochos Flow workflow by dragging nodes and wiring their ports, with the agent explaining every step.</div>
       </div>
       <div class="pick-cards" id="pickcards"></div>
     </div>
@@ -457,7 +469,11 @@ export async function mountStudio(root) {
     pickBackBtn.onclick = () => { location.hash = '#/challenge'; };
   }
 
-  const order = ['paint', 'chemistry', 'engineering'];
+  // the SAME three cases the challenge plays (Jason 2026-07-14: "those examples
+  // should fit the ones from the challenge"). The old standalone heat-sink case
+  // (STORIES.engineering + data/engineering.json) stays in the codebase but is
+  // no longer offered.
+  const order = ['paint', 'chemistry', 'bottle'];
   for (const key of order) {
     const s = STORIES[key];
     if (!s) continue;
@@ -465,7 +481,9 @@ export async function mountStudio(root) {
     card.className = 'pick-card';
     card.dataset.domain = key;
     card.innerHTML = `
-      <span class="mark" aria-hidden="true">${PICK_MARK[key] || ''}</span>
+      ${PICK_IMG[key]
+        ? `<img class="pick-card-img" src="${PICK_IMG[key]}" alt="" loading="lazy" aria-hidden="true">`
+        : `<span class="mark" aria-hidden="true">${PICK_MARK[key] || ''}</span>`}
       <span class="tag">${s.tag || key}</span>
       <h3>${s.outcome || ''}</h3>
       <p>${s.pitch || ''}</p>
@@ -500,7 +518,9 @@ export async function mountStudio(root) {
     try {
       sessionStorage.setItem('challengeShowdown', JSON.stringify({
         domain: challengeCtx.domain, userBest: challengeCtx.userBest,
-        stochos: { score: r.score, params: r.params, outputs: r.outputs },
+        // V4: carry the per-term spec/cost breakdown too, or the showdown's
+        // compliance chips silently drop on this path (QA 2026-07-14 finding).
+        stochos: { score: r.score, params: r.params, outputs: r.outputs, breakdown: r.breakdown },
       }));
       sessionStorage.removeItem('challengeCtx');
     } catch (e) { /* noop */ }
@@ -513,6 +533,17 @@ export async function mountStudio(root) {
     b.innerHTML = `<span>Challenge: the workflow is built.</span><button class="sf-ch-return" id="chReturn">See the showdown</button>`;
     root.appendChild(b);
     b.querySelector('#chReturn').onclick = () => finishChallenge(surrogate);
+  }
+
+  // Part 2 funnel: on the standalone "build a workflow yourself" path (no
+  // challenge context, so no showdown to return to), the completed build is the
+  // hand-off moment. Offer the contact form the same way the challenge banner
+  // offers the showdown.
+  function addStudioCtaBanner() {
+    const b = document.createElement('div');
+    b.className = 'sf-challenge-banner';
+    b.innerHTML = '<span>You built the workflow end to end.</span><a class="sf-ch-return" href="/contact/" style="text-decoration:none">Talk to us about your data</a>';
+    root.appendChild(b);
   }
 
   if (challengeCtx && STORIES[challengeCtx.dataDomain]) pickDomain(challengeCtx.dataDomain);
@@ -1000,6 +1031,7 @@ export async function mountStudio(root) {
     let placing = false;     // a drag/auto-build animation is in flight
     let optimizing = false;  // an acquisition run is in flight
     let bannerShown = false; // challenge banner gate (fires once, on completion)
+    let studioCtaShown = false; // standalone-studio contact CTA gate (fires once, on completion)
 
     // Enhanced Python Console: timestamped lines, Flow-style. A leading check-mark
     // token in the message renders with its own accent (design-polish styles them).
@@ -1179,6 +1211,7 @@ export async function mountStudio(root) {
         await runGroupPayoff(phaseId);
       }
       maybeShowChallengeBanner();
+      maybeShowStudioCta();
       armIdle();
     }
 
@@ -1447,6 +1480,13 @@ export async function mountStudio(root) {
       if (!challengeCtx || bannerShown || !buildComplete()) return;
       bannerShown = true;
       addChallengeBanner(surrogate);
+    }
+
+    // Standalone studio only (challenge mode gets the showdown banner instead).
+    function maybeShowStudioCta() {
+      if (challengeCtx || studioCtaShown || !buildComplete()) return;
+      studioCtaShown = true;
+      addStudioCtaBanner();
     }
 
     // --------------------------------------------------------- idle nudge ----

@@ -27,7 +27,7 @@
 // Contract: mountInstrument(host, surrogate, opts) -> controller
 //   { getState(), run(), onAttempt(cb), reset(), resize(), destroy() }.
 
-import { scoreOf } from './score.js';
+import { scoreOf, constraintCfg } from './score.js';
 
 const NS = 'rx';
 const ACCENT = '#ffb006';
@@ -47,6 +47,13 @@ export function mountInstrument(host, surrogate, opts = {}) {
     out.find((o) => o.name === 'selectivity'),
     out.find((o) => o.name === 'cost'),
   ].filter(Boolean);
+
+  // V4: spec bands (selectivity's purity floor), keyed by output name, so the
+  // readout can mark it in/out of spec. cost is a MINIMIZE term (no band), so it
+  // gets no marker below. Empty on a legacy (non-constrained) domain.
+  const specCfg = constraintCfg(surrogate);
+  const specByOut = {};
+  for (const s of (specCfg && specCfg.spec) || []) specByOut[s.out] = s;
 
   // group inputs: formulation (left) vs process (centre bench).
   const formulation = surrogate.inputs.filter((i) => i.group === 'formulation');
@@ -75,7 +82,7 @@ export function mountInstrument(host, surrogate, opts = {}) {
       <div class="${NS}-panel ${NS}-stage">
         <div class="${NS}-eyebrow">Reactor bench &middot; process</div>
         <div class="${NS}-bench">
-          <canvas class="${NS}-canvas" data-role="canvas"></canvas>
+          <canvas class="${NS}-canvas" data-role="canvas" role="img" aria-label="Animated illustration of the reactor flask heating and reacting"></canvas>
         </div>
         <div class="${NS}-knobs" data-role="knobs"></div>
         <button class="${NS}-go" data-role="go">
@@ -126,14 +133,18 @@ export function mountInstrument(host, surrogate, opts = {}) {
   }
 
   // ---- RIGHT: output rows --------------------------------------------------
+  // Outputs with a spec band (selectivity) get an extra mark cell that fills in
+  // with a tick/warning after each run.
   const outRows = {};
   for (const o of reveal) {
+    const band = specByOut[o.name];
     const row = document.createElement('div');
     row.className = `${NS}-outrow`;
     row.innerHTML = `
       <span class="${NS}-out-label">${o.label}</span>
       <span class="${NS}-out-val" data-out="${o.name}">--</span>
-      <span class="${NS}-out-unit">${o.unit || ''}</span>`;
+      <span class="${NS}-out-unit">${o.unit || ''}</span>
+      ${band ? `<span class="${NS}-spec-mark" data-spec-mark="${o.name}" title="in band ${band.lo}-${band.hi}" aria-hidden="true"></span>` : ''}`;
     outsEl.appendChild(row);
     outRows[o.name] = row.querySelector(`[data-out="${o.name}"]`);
   }
@@ -156,6 +167,30 @@ export function mountInstrument(host, surrogate, opts = {}) {
     return clamp100(score);
   }
 
+  // V4: mark the spec-banded readout (selectivity) in or out of spec, from the
+  // SAME terms array score.js computed for this run's score. No marker on
+  // minimize terms (cost) or on a legacy (non-constrained) domain (terms null).
+  function markSpecRows(terms) {
+    if (!terms) return;
+    for (const t of terms) {
+      if (t.kind !== 'spec') continue;
+      const mark = host.querySelector(`[data-spec-mark="${t.out}"]`);
+      if (!mark) continue;
+      const ok = t.inSpec !== false;
+      mark.textContent = ok ? '✓' : '⚠';
+      mark.setAttribute('aria-hidden', 'true'); // decorative: the run's live-region announcement already states in/out of spec
+      mark.classList.toggle(`${NS}-spec-mark--ok`, ok);
+      mark.classList.toggle(`${NS}-spec-mark--bad`, !ok);
+      mark.title = ok ? `in band ${t.lo}-${t.hi}` : `out of spec (band ${t.lo}-${t.hi})`;
+    }
+  }
+  function clearSpecMark(outName) {
+    const mark = host.querySelector(`[data-spec-mark="${outName}"]`);
+    if (!mark) return;
+    mark.textContent = '';
+    mark.classList.remove(`${NS}-spec-mark--ok`, `${NS}-spec-mark--bad`);
+  }
+
   const flask = new Flask(canvas, accent, host);
 
   // map the live process params onto the flask animation.
@@ -174,7 +209,10 @@ export function mountInstrument(host, surrogate, opts = {}) {
     goBtn.classList.add(`${NS}-go--busy`);
     hintEl.textContent = 'Heating and reacting...';
     scoreEl.classList.remove(`${NS}-score--in`);
-    for (const o of reveal) outRows[o.name].textContent = '...';
+    for (const o of reveal) {
+      outRows[o.name].textContent = '...';
+      clearSpecMark(o.name);
+    }
 
     return flask.play(1200).then(() => {
       const outputs = {};
@@ -182,7 +220,10 @@ export function mountInstrument(host, surrogate, opts = {}) {
         const { mean } = surrogate.predictFull(o.name, params);
         outputs[o.name] = Number.isFinite(mean) ? mean : 0;
       }
-      const score = currentScore();
+      // V4: the canonical composite result (score.js scoreOf), so the readout can
+      // mark selectivity in/out of spec from the SAME terms the showdown uses.
+      const scoreResult = scoreOf(surrogate, params, primary.name, goal);
+      const score = clamp100(scoreResult.score);
       lastState = { params: { ...params }, outputs, score };
 
       animateNumber(scoreEl, score, 600, (v) => Math.round(v).toString());
@@ -191,13 +232,14 @@ export function mountInstrument(host, surrogate, opts = {}) {
         const dec = decimalsFor(o);
         animateNumber(outRows[o.name], outputs[o.name], 600, (v) => v.toFixed(dec));
       }
+      markSpecRows(scoreResult.terms);
       if (score > bestScore) {
         bestScore = score;
         bestEl.textContent = `best so far ${Math.round(score)}`;
         bestEl.classList.add(`${NS}-best--up`);
         setTimeout(() => bestEl.classList.remove(`${NS}-best--up`), 700);
       }
-      hintEl.textContent = 'Yield is the score. Goal: as high as it goes.';
+      hintEl.textContent = 'The score rewards the highest yield, keeping selectivity in spec and cost down.';
       flask.settle(score / 100);
 
       goBtn.disabled = false;
@@ -226,17 +268,28 @@ export function mountInstrument(host, surrogate, opts = {}) {
       bestEl.textContent = 'best so far --';
       scoreEl.textContent = '--';
       scoreEl.classList.remove(`${NS}-score--in`);
-      for (const o of reveal) outRows[o.name].textContent = '--';
+      for (const o of reveal) { outRows[o.name].textContent = '--'; clearSpecMark(o.name); }
       hintEl.textContent = 'Set the recipe and the process, then run.';
       flask.settle(0);
     },
     resize() { flask.resize(); },
     destroy() {
+      if (ro) { ro.disconnect(); ro = null; }
       flask.destroy();
       host.classList.remove(`${NS}-root`);
       host.innerHTML = '';
     },
   };
+
+  // Self-heal the canvas backing store on layout changes (same pattern as the
+  // bottle instrument's ResizeObserver): without it the buffer is sized once at
+  // mount and blurs/stretches after a window resize, since nothing calls the
+  // controller's resize().
+  let ro = null;
+  if (typeof ResizeObserver !== 'undefined') {
+    ro = new ResizeObserver(() => { if (flask._alive) flask.resize(); });
+    ro.observe(flask.cv);
+  }
 
   if (typeof opts.onAttempt === 'function') controller.onAttempt(opts.onAttempt);
   return controller;
@@ -265,6 +318,18 @@ class Flask {
     this.bubbles = [];
     this._anim = null;
     this._alive = true;
+    // prefers-reduced-motion: freeze the idle ambient motion (continuous bubble
+    // spawning/rising, surface drift) so the flask settles on a static frame; a
+    // run() still plays through (a brief, user-triggered action, not a
+    // continuous loop). Live-updates if the OS setting changes mid-session,
+    // matching the pattern in studio-field.js.
+    this._reducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    this._mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    this._onReducedMotionChange = (e) => { this._reducedMotion = e.matches; };
+    if (this._mq) {
+      if (this._mq.addEventListener) this._mq.addEventListener('change', this._onReducedMotionChange);
+      else if (this._mq.addListener) this._mq.addListener(this._onReducedMotionChange);
+    }
     this.resize();
     this._loop = this._loop.bind(this);
     requestAnimationFrame(this._loop);
@@ -298,13 +363,24 @@ class Flask {
     this.heat = Math.max(this.heat, 0.25 + 0.4 * clamp01(safe(scoreN, 0)));
   }
 
-  destroy() { this._alive = false; }
+  destroy() {
+    this._alive = false;
+    if (this._mq) {
+      if (this._mq.removeEventListener) this._mq.removeEventListener('change', this._onReducedMotionChange);
+      else if (this._mq.removeListener) this._mq.removeListener(this._onReducedMotionChange);
+    }
+  }
 
   _loop(ts) {
     if (!this.host.isConnected || !this._alive) return; // stop on disconnect/destroy
     const dt = Math.min(0.05, (ts - (this._last || ts)) / 1000 || 0);
     this._last = ts;
-    this.t = ts * 0.001;
+    // idle ambient motion (continuous bubbling + surface drift) is the
+    // "continuous canvas loop" prefers-reduced-motion targets; frozen only
+    // while idle, so a run's own brief reaction animation still plays through
+    // and the post-run boil decay still settles (never gets stuck mid-boil).
+    const idleFrozen = this._reducedMotion && !this._anim;
+    if (!idleFrozen) this.t = ts * 0.001;
 
     if (this._anim) {
       const p = clamp01((ts - this._anim.start) / this._anim.ms);
@@ -314,16 +390,18 @@ class Flask {
       this.boil *= 0.94; // decay
     }
 
-    // bubble spawning: rate scales with heat + addition rate + boil; catalyst adds vigor.
-    const rate = (0.25 + this.heat * 0.7 + this.addRate * 1.6 + this.boil * 3) * dt * 60;
-    if (Math.random() < rate * 0.12) this._spawnBubble();
-    const stir = 3 + this.residence * 4;     // residence time -> stir speed
-    for (const b of this.bubbles) {
-      b.y -= b.v * dt * 60;
-      b.life -= dt;
-      b.x += Math.sin(this.t * stir + b.seed) * 0.4;
+    if (!idleFrozen) {
+      // bubble spawning: rate scales with heat + addition rate + boil; catalyst adds vigor.
+      const rate = (0.25 + this.heat * 0.7 + this.addRate * 1.6 + this.boil * 3) * dt * 60;
+      if (Math.random() < rate * 0.12) this._spawnBubble();
+      const stir = 3 + this.residence * 4;     // residence time -> stir speed
+      for (const b of this.bubbles) {
+        b.y -= b.v * dt * 60;
+        b.life -= dt;
+        b.x += Math.sin(this.t * stir + b.seed) * 0.4;
+      }
+      this.bubbles = this.bubbles.filter((b) => b.life > 0 && b.y > 0);
     }
-    this.bubbles = this.bubbles.filter((b) => b.life > 0 && b.y > 0);
 
     this._draw();
     requestAnimationFrame(this._loop);
@@ -533,6 +611,12 @@ function buildStepper(parent, input, params, onChange) {
     btn.addEventListener('pointerup', stop);
     btn.addEventListener('pointerleave', stop);
     btn.addEventListener('pointercancel', stop);
+    // Keyboard activation (Enter/Space) fires a native click with no preceding
+    // pointer event, so the pointer-only wiring above never ran bump() for a
+    // keyboard user (a11y pass fix). e.detail === 0 identifies a keyboard-
+    // triggered click (a real mouse/touch click always has detail >= 1), so
+    // this cannot double-fire against the pointerdown/up hold-to-repeat above.
+    btn.addEventListener('click', (e) => { if (e.detail === 0) bump(dir); });
   });
   parent.appendChild(wrap);
 }
@@ -666,12 +750,17 @@ function shade(hex, f) {
   return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
 }
 function stepOf(input) {
+  // the schema-declared step is the fairness contract: STOCHOS, beatRate, and
+  // this control all snap to the SAME grid (see snapInput in surrogate.js).
+  // The span heuristic below is only the fallback for inputs without one.
+  if (input.step > 0) return input.step;
   const span = input.max - input.min;
   if (span <= 6) return 0.05;
   if (span <= 30) return 0.5;
   return 1;
 }
 function stepperStep(input) {
+  if (input.step > 0) return input.step;   // schema grid wins (fairness contract)
   const span = input.max - input.min;
   if (span <= 6) return 0.1;
   if (span <= 30) return 1;
@@ -819,10 +908,15 @@ function injectStyle(accent) {
 .${NS}-best { font-size:11px; color:#aaa49a; margin-top:8px; font-family:ui-monospace,monospace; }
 .${NS}-best--up { color:${accent}; }
 .${NS}-outs { display:flex; flex-direction:column; gap:10px; }
-.${NS}-outrow { display:grid; grid-template-columns: 1fr auto auto; align-items:baseline; gap:6px; font-size:13px; }
+.${NS}-outrow { display:grid; grid-template-columns: 1fr auto auto auto; align-items:baseline; gap:6px; font-size:13px; }
 .${NS}-out-label { color:#aaa49a; }
 .${NS}-out-val { font-family:ui-monospace,monospace; font-size:17px; color:#f5f2ec; text-align:right; }
 .${NS}-out-unit { color:#8a847a; font-size:11px; }
+/* V4: in/out-of-spec mark for selectivity (the keep-in-band spec term). Empty
+   (no glyph) until the first run, and on outputs with no spec band. */
+.${NS}-spec-mark { width:14px; text-align:center; font-size:12px; line-height:1; }
+.${NS}-spec-mark--ok { color:${accent}; }
+.${NS}-spec-mark--bad { color:#ff6b6b; }
 .${NS}-hint { margin-bottom:auto; padding-top:14px; font-size:11px; color:#8a847a; line-height:1.5; }
 `;
   const tag = document.createElement('style');

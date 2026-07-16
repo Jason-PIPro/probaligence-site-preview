@@ -32,7 +32,7 @@
 // Contract: mountInstrument(host, surrogate, opts) -> controller
 //   { getState(), run(), onAttempt(cb), reset(), resize(), destroy() }.
 
-import { scoreOf } from './score.js';
+import { scoreOf, constraintCfg } from './score.js';
 
 const NS = 'pl';                       // scope class prefix
 const ACCENT = '#ffb006';
@@ -57,6 +57,13 @@ export function mountInstrument(host, surrogate, opts = {}) {
     out.find((o) => o.name === 'viscosity'),
     out.find((o) => o.name === 'cost'),
   ].filter(Boolean);
+
+  // V4: spec bands (viscosity/gloss keep-in-band), keyed by output name, so the
+  // readout can mark each in/out of spec. cost is a MINIMIZE term (no band), so
+  // it gets no marker below. Empty on a legacy (non-constrained) domain.
+  const specCfg = constraintCfg(surrogate);
+  const specByOut = {};
+  for (const s of (specCfg && specCfg.spec) || []) specByOut[s.out] = s;
 
   // every input starts at its default; ALL of them are live controls below and
   // ALL of them feed predictFull (the N-D score). No held/inert inputs anymore.
@@ -93,7 +100,7 @@ export function mountInstrument(host, surrogate, opts = {}) {
 
       <div class="${NS}-panel ${NS}-bench">
         <div class="${NS}-eyebrow">Lab bench</div>
-        <canvas class="${NS}-canvas" data-role="canvas"></canvas>
+        <canvas class="${NS}-canvas" data-role="canvas" role="img" aria-label="Animated illustration of the paint being mixed and measured on the lab bench"></canvas>
         <button class="${NS}-go" data-role="go">
           <span class="${NS}-go-label">Mix &amp; measure</span>
         </button>
@@ -136,15 +143,18 @@ export function mountInstrument(host, surrogate, opts = {}) {
     }
   }
 
-  // readout rows (one per revealed output)
+  // readout rows (one per revealed output). Outputs with a spec band (viscosity,
+  // gloss) get an extra mark cell that fills in with a tick/warning after each run.
   const outRows = {};
   for (const o of reveal) {
+    const band = specByOut[o.name];
     const row = document.createElement('div');
     row.className = `${NS}-outrow`;
     row.innerHTML = `
       <span class="${NS}-out-label">${o.label}</span>
       <span class="${NS}-out-val" data-out="${o.name}">--</span>
-      <span class="${NS}-out-unit">${o.unit || ''}</span>`;
+      <span class="${NS}-out-unit">${o.unit || ''}</span>
+      ${band ? `<span class="${NS}-spec-mark" data-spec-mark="${o.name}" title="in band ${band.lo}-${band.hi}" aria-hidden="true"></span>` : ''}`;
     outsEl.appendChild(row);
     outRows[o.name] = row.querySelector(`[data-out="${o.name}"]`);
   }
@@ -165,6 +175,30 @@ export function mountInstrument(host, surrogate, opts = {}) {
   function currentScore() {
     const { score } = scoreOf(surrogate, params, primary.name, goal);
     return clamp100(score);
+  }
+
+  // V4: mark each spec-banded readout (viscosity, gloss) in or out of spec, from
+  // the SAME terms array score.js computed for this run's score. No marker on
+  // minimize terms (cost) or on a legacy (non-constrained) domain (terms null).
+  function markSpecRows(terms) {
+    if (!terms) return;
+    for (const t of terms) {
+      if (t.kind !== 'spec') continue;
+      const mark = host.querySelector(`[data-spec-mark="${t.out}"]`);
+      if (!mark) continue;
+      const ok = t.inSpec !== false;
+      mark.textContent = ok ? '✓' : '⚠';
+      mark.setAttribute('aria-hidden', 'true'); // decorative: the run's live-region announcement already states in/out of spec
+      mark.classList.toggle(`${NS}-spec-mark--ok`, ok);
+      mark.classList.toggle(`${NS}-spec-mark--bad`, !ok);
+      mark.title = ok ? `in band ${t.lo}-${t.hi}` : `out of spec (band ${t.lo}-${t.hi})`;
+    }
+  }
+  function clearSpecMark(outName) {
+    const mark = host.querySelector(`[data-spec-mark="${outName}"]`);
+    if (!mark) return;
+    mark.textContent = '';
+    mark.classList.remove(`${NS}-spec-mark--ok`, `${NS}-spec-mark--bad`);
   }
 
   // illustrative-only: a process input gently tints the swatch coverage so the
@@ -198,7 +232,10 @@ export function mountInstrument(host, surrogate, opts = {}) {
     hintEl.textContent = 'Mixing and measuring...';
     // reset readouts to a measuring state
     scoreEl.classList.remove(`${NS}-score--in`);
-    for (const o of reveal) outRows[o.name].textContent = '...';
+    for (const o of reveal) {
+      outRows[o.name].textContent = '...';
+      clearSpecMark(o.name);
+    }
 
     return bench.play(1200).then(() => {
       // compute REAL outputs from the surrogate over ALL inputs (N-D predictFull)
@@ -207,7 +244,11 @@ export function mountInstrument(host, surrogate, opts = {}) {
         const { mean } = surrogate.predictFull(o.name, params);
         outputs[o.name] = Number.isFinite(mean) ? mean : 0;
       }
-      const score = currentScore();
+      // V4: the canonical composite result (score.js scoreOf), so the readout can
+      // mark viscosity/gloss in/out of spec from the SAME terms the showdown uses,
+      // not a re-derived approximation.
+      const scoreResult = scoreOf(surrogate, params, primary.name, goal);
+      const score = clamp100(scoreResult.score);
 
       // emit the FULL params (all nine inputs) so challenge.js scores identically.
       lastState = { params: { ...params }, outputs, score };
@@ -220,13 +261,14 @@ export function mountInstrument(host, surrogate, opts = {}) {
         const dec = decimalsFor(o);
         animateNumber(el, outputs[o.name], 600, (v) => v.toFixed(dec));
       }
+      markSpecRows(scoreResult.terms);
       if (score > bestScore) {
         bestScore = score;
         bestEl.textContent = `best so far ${Math.round(score)}`;
         bestEl.classList.add(`${NS}-best--up`);
         setTimeout(() => bestEl.classList.remove(`${NS}-best--up`), 700);
       }
-      hintEl.textContent = 'Contrast is the score. Every knob counts. Goal: as high as it goes.';
+      hintEl.textContent = 'The score rewards the highest contrast, keeping viscosity and gloss in spec and cost down.';
       bench.settle(score / 100);
 
       goBtn.disabled = false;
@@ -258,18 +300,29 @@ export function mountInstrument(host, surrogate, opts = {}) {
       bestEl.textContent = 'best so far --';
       scoreEl.textContent = '--';
       scoreEl.classList.remove(`${NS}-score--in`);
-      for (const o of reveal) outRows[o.name].textContent = '--';
+      for (const o of reveal) { outRows[o.name].textContent = '--'; clearSpecMark(o.name); }
       hintEl.textContent = 'Set the recipe and the process, then mix.';
       bench.setMix(0);
       processVisual();
     },
     resize() { bench.resize(); },
     destroy() {
+      if (ro) { ro.disconnect(); ro = null; }
       bench.destroy();
       host.classList.remove(`${NS}-root`);
       host.innerHTML = '';
     },
   };
+
+  // Self-heal the canvas backing store on layout changes (same pattern as the
+  // bottle instrument's ResizeObserver): without it the buffer is sized once at
+  // mount and blurs/stretches after a window resize, since nothing calls the
+  // controller's resize().
+  let ro = null;
+  if (typeof ResizeObserver !== 'undefined') {
+    ro = new ResizeObserver(() => { if (bench._alive) bench.resize(); });
+    ro.observe(bench.cv);
+  }
 
   if (typeof opts.onAttempt === 'function') controller.onAttempt(opts.onAttempt);
   return controller;
@@ -299,6 +352,18 @@ class Bench {
     this.coats = 2;        // illustrative: number of coats (1..3) -> swatch stripe count
     this._anim = null;     // active play tween
     this._alive = true;
+    // prefers-reduced-motion: freeze the idle ambient motion (stir-blade drift +
+    // surface ripple, both driven by this.t/this.spin below) so the bench settles
+    // on a static frame; a run() still plays through (a brief, user-triggered
+    // action, not a continuous loop). Live-updates if the OS setting changes
+    // mid-session, matching the pattern in studio-field.js.
+    this._reducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    this._mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    this._onReducedMotionChange = (e) => { this._reducedMotion = e.matches; };
+    if (this._mq) {
+      if (this._mq.addEventListener) this._mq.addEventListener('change', this._onReducedMotionChange);
+      else if (this._mq.addListener) this._mq.addListener(this._onReducedMotionChange);
+    }
     this.resize();
     this._loop = this._loop.bind(this);
     requestAnimationFrame(this._loop);
@@ -347,13 +412,23 @@ class Bench {
     this.sweep = -1;
   }
 
-  destroy() { this._alive = false; }
+  destroy() {
+    this._alive = false;
+    if (this._mq) {
+      if (this._mq.removeEventListener) this._mq.removeEventListener('change', this._onReducedMotionChange);
+      else if (this._mq.removeListener) this._mq.removeListener(this._onReducedMotionChange);
+    }
+  }
 
   _loop(ts) {
     if (!this.host.isConnected || !this._alive) return; // stop on disconnect/destroy
     const dt = Math.min(0.05, (ts - (this._last || ts)) / 1000 || 0);
     this._last = ts;
-    this.t = ts * 0.001;
+    // idle ambient motion (stir-blade drift + surface ripple) is the "continuous
+    // canvas loop" prefers-reduced-motion targets; frozen only while idle, so a
+    // run's own brief mix/measure animation below still plays through.
+    const idleFrozen = this._reducedMotion && !this._anim;
+    if (!idleFrozen) this.t = ts * 0.001;
 
     // advance the play tween
     if (this._anim) {
@@ -367,7 +442,7 @@ class Bench {
         if (r) r();
       }
     }
-    this.spin += dt * (3 + this.stir * 22);
+    if (!idleFrozen) this.spin += dt * (3 + this.stir * 22);
 
     this._draw();
     requestAnimationFrame(this._loop);
@@ -547,7 +622,7 @@ function buildStepper(parent, input, params, onChange) {
     </span>
     <div class="${NS}-step-row">
       <button type="button" class="${NS}-step-btn" data-step="-1" aria-label="decrease">&minus;</button>
-      <div class="${NS}-step-track" data-track></div>
+      <div class="${NS}-step-track" data-track role="group" aria-label="Set ${input.label} directly"></div>
       <button type="button" class="${NS}-step-btn" data-step="1" aria-label="increase">+</button>
     </div>
   `;
@@ -556,19 +631,29 @@ function buildStepper(parent, input, params, onChange) {
   const minus = wrap.querySelector('[data-step="-1"]');
   const plus = wrap.querySelector('[data-step="1"]');
 
-  // discrete pips, one per integer value, the active one lit
+  // discrete pips, one per integer value, the active one lit. Real <button>s (not
+  // plain spans) so they are keyboard-reachable and activatable; aria-pressed
+  // marks the exact current value (the visual fill below it is cumulative, a
+  // decorative "how full" cue, but the pressed state names the one true value).
   const pips = [];
   for (let v = min; v <= max; v++) {
-    const pip = document.createElement('span');
+    const pip = document.createElement('button');
+    pip.type = 'button';
     pip.className = `${NS}-pip`;
     pip.dataset.val = String(v);
+    pip.setAttribute('aria-label', `Set ${input.label} to ${v}`);
+    pip.setAttribute('aria-pressed', 'false');
     trackEl.appendChild(pip);
     pips.push(pip);
   }
   function render() {
     const v = params[input.name];
     valEl.textContent = String(Math.round(v));
-    for (const p of pips) p.classList.toggle(`${NS}-pip--on`, +p.dataset.val <= v);
+    for (const p of pips) {
+      const val = +p.dataset.val;
+      p.classList.toggle(`${NS}-pip--on`, val <= v);
+      p.setAttribute('aria-pressed', String(val === v));
+    }
     minus.disabled = v <= min;
     plus.disabled = v >= max;
   }
@@ -623,6 +708,10 @@ function hexA(hex, a) {
   return `rgba(${r},${g},${b},${a})`;
 }
 function stepOf(input) {
+  // the schema-declared step is the fairness contract: STOCHOS, beatRate, and
+  // this control all snap to the SAME grid (see snapInput in surrogate.js).
+  // The span heuristic below is only the fallback for inputs without one.
+  if (input.step > 0) return input.step;
   const span = input.max - input.min;
   if (span <= 2) return 0.01;
   if (span <= 4) return 0.05;
@@ -701,7 +790,7 @@ function injectStyle(accent) {
 .${NS}-step-btn:active:not(:disabled){ transform:translateY(1px); }
 .${NS}-step-btn:disabled{ opacity:.35; cursor:default; }
 .${NS}-step-track { display:flex; gap:7px; flex:1; align-items:center; justify-content:center; }
-.${NS}-pip { width:100%; max-width:46px; height:7px; border-radius:4px; background:rgba(255,255,255,0.10); cursor:pointer; transition:background .15s ease, box-shadow .15s ease; }
+.${NS}-pip { appearance:none; -webkit-appearance:none; display:block; width:100%; max-width:46px; height:7px; padding:0; margin:0; border:none; font:inherit; border-radius:4px; background:rgba(255,255,255,0.10); cursor:pointer; transition:background .15s ease, box-shadow .15s ease; }
 .${NS}-pip--on { background:${accent}; box-shadow:0 0 0 3px ${hexA(accent,0.16)}; }
 .${NS}-formnote { margin-top:14px; padding-top:13px; border-top:1px solid rgba(255,255,255,0.07); font-size:11px; color:#8a8a82; line-height:1.5; }
 .${NS}-bench { position:relative; }
@@ -722,10 +811,15 @@ function injectStyle(accent) {
 .${NS}-best { font-size:11px; color:#b0b0a8; margin-top:8px; font-family:ui-monospace,monospace; }
 .${NS}-best--up { color:${accent}; }
 .${NS}-outs { display:flex; flex-direction:column; gap:9px; }
-.${NS}-outrow { display:grid; grid-template-columns: 1fr auto auto; align-items:baseline; gap:6px; font-size:13px; }
+.${NS}-outrow { display:grid; grid-template-columns: 1fr auto auto auto; align-items:baseline; gap:6px; font-size:13px; }
 .${NS}-out-label { color:#b0b0a8; }
 .${NS}-out-val { font-family:ui-monospace,monospace; font-size:17px; color:#f5f5f7; text-align:right; }
 .${NS}-out-unit { color:#8a8a82; font-size:11px; }
+/* V4: in/out-of-spec mark for viscosity + gloss (the keep-in-band spec terms).
+   Empty (no glyph) until the first run, and on outputs with no spec band. */
+.${NS}-spec-mark { width:14px; text-align:center; font-size:12px; line-height:1; }
+.${NS}-spec-mark--ok { color:${accent}; }
+.${NS}-spec-mark--bad { color:#ff6b6b; }
 .${NS}-hint { margin-bottom:auto; padding-top:14px; font-size:11px; color:#8a8a82; line-height:1.5; }
 `;
   const tag = document.createElement('style');

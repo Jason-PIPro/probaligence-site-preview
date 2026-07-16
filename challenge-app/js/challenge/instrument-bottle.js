@@ -23,7 +23,7 @@
 // Contract: mountInstrument(host, surrogate, opts) -> controller
 //   { getState(), run(), onAttempt(cb), reset(), resize(), destroy() }.
 import * as THREE from '../../vendor/three.module.min.js';
-import { scoreOf } from './score.js';
+import { scoreOf, constraintCfg } from './score.js';
 
 const NS = 'bt';                       // scope class prefix
 const ACCENT = '#ffb006';              // single brand amber (was an off-brand deeper orange)
@@ -70,10 +70,17 @@ export function mountInstrument(host, surrogate, opts = {}) {
   for (const i of surrogate.inputs) params[i.name] = i.default;
 
   // RATED test pressure the bottle is loaded against (illustrative spec, in bar).
-  // Placed low in the N-D burst range so the verdict is meaningful: a decent design
-  // survives, a weak one bursts on the rig.
+  // V4: when the domain scores against a target band (CONSTRAINTS.bottle.primary
+  // .scoreRange, the B1 objective: hit the target, then lightest wins), the rated
+  // test IS that target, so the verdict and the score agree about what "enough"
+  // means. Legacy fallback: placed low in the N-D burst range so the verdict is
+  // meaningful (a decent design survives, a weak one bursts on the rig).
   const fullStats = surrogate.predictFullStats(primary.name);   // {mn,mx} over N-D
-  const TEST_PRESSURE = round1(fullStats.mn + 0.34 * (fullStats.mx - fullStats.mn));
+  const _ccfg = constraintCfg(surrogate);
+  const _target = _ccfg && _ccfg.primary && _ccfg.primary.out === primary.name && _ccfg.primary.scoreRange;
+  const TEST_PRESSURE = _target
+    ? round1(_target[1])
+    : round1(fullStats.mn + 0.34 * (fullStats.mx - fullStats.mn));
   // gauge sweep: a bit above the realistic N-D max so the needle keeps headroom.
   const GAUGE_MAX = Math.max(round1(fullStats.mx * 1.12), TEST_PRESSURE * 1.4) || 50;
 
@@ -101,7 +108,7 @@ export function mountInstrument(host, surrogate, opts = {}) {
              cut a translucent rectangle across the 3D rig). Matches the reactor's
              canvas + instrument-panel layout. -->
         <div class="${NS}-gauge" data-role="gauge">
-          <canvas class="${NS}-gauge-dial" data-role="gaugecv"></canvas>
+          <canvas class="${NS}-gauge-dial" data-role="gaugecv" aria-hidden="true"></canvas>
           <div class="${NS}-gauge-side">
             <div class="${NS}-gauge-title">Pressure gauge</div>
             <div class="${NS}-gauge-read"><span class="${NS}-gauge-read-cap">measured</span><b data-role="gaugeval">0.0</b><span class="${NS}-gauge-read-unit">bar</span></div>
@@ -368,6 +375,12 @@ export function mountInstrument(host, surrogate, opts = {}) {
   // Stochos path: a 2 s spinner labelled "Prediction time: 2 s", then play the
   // load test animation and reveal the real outputs.
   function runStochos() {
+    // V4.1 (adversarial audit fix): snapshot the design at run start. The
+    // controls stay live during the ~4.6 s test, so without this a slider moved
+    // mid-run made the verdict/gauge describe the launched design while the
+    // readouts and score described the mutated one (PASS stamp next to a
+    // failing burst readout). Every artifact of this run now reads `snap`.
+    const snap = { ...params };
     gagSlot.innerHTML = `
       <div class="${NS}-spin">
         <div class="${NS}-spin-ring"></div>
@@ -377,10 +390,10 @@ export function mountInstrument(host, surrogate, opts = {}) {
     return wait(2000).then(() => {
       gagSlot.innerHTML = '';
       // burst pressure is the REAL surrogate prediction; everything else is theatre.
-      const burst = surrogate.predictFull(primary.name, params).mean;
+      const burst = surrogate.predictFull(primary.name, snap).mean;
       const burstBar = Number.isFinite(burst) ? Math.max(0, burst) : 0;
       const holds = burstBar >= TEST_PRESSURE;
-      return playLoadTest(burstBar, holds).then(() => reveal_(burstBar, holds));
+      return playLoadTest(burstBar, holds, snap).then(() => reveal_(burstBar, holds, snap));
     });
   }
 
@@ -392,8 +405,9 @@ export function mountInstrument(host, surrogate, opts = {}) {
   //      It HOLDS (survives) when the real burst >= the rated test, else it BURSTS
   //      (crack + particle puff). The needle's final resting value equals the real
   //      burst pressure in both cases, so the gauge reflects the actual result.
-  function playLoadTest(burstBar, holds) {
-    const targetFill = fillInput ? frac(params[fillInput.name], fillInput) : 0.8;
+  function playLoadTest(burstBar, holds, snap) {
+    const p0 = snap || params;
+    const targetFill = fillInput ? frac(p0[fillInput.name], fillInput) : 0.8;
     // the needle climbs to the REAL burst value (clamped to the dial range), in both
     // the hold and the burst case. This is the user-requested fix: the needle must
     // land where the design actually scores, not stop at the fixed rated test.
@@ -437,14 +451,17 @@ export function mountInstrument(host, surrogate, opts = {}) {
 
   // Compute REAL outputs from the surrogate (N-D predictFull), reveal, score,
   // verdict, callbacks. burstBar/holds are already computed for the animation.
-  function reveal_(burstBar, holds) {
+  function reveal_(burstBar, holds, snap) {
+    const p0 = snap || params;
     const outputs = {};
     for (const o of reveal) {
-      const { mean } = surrogate.predictFull(o.name, params);
+      const { mean } = surrogate.predictFull(o.name, p0);
       outputs[o.name] = Number.isFinite(mean) ? mean : 0;
     }
-    const score = currentScore();    // canonical scoreOf(...).score
-    lastState = { params: { ...params }, outputs, score };
+    // canonical scoreOf(...).score, computed from the SNAPSHOT the verdict and
+    // gauge describe, never from controls mutated mid-animation.
+    const score = scoreOf(surrogate, p0, primary.name, GOAL).score;
+    lastState = { params: { ...p0 }, outputs, score };
 
     animateNumber(scoreEl, score, 600, (v) => Math.round(v).toString());
     scoreEl.classList.add(`${NS}-score--in`);
@@ -467,7 +484,11 @@ export function mountInstrument(host, surrogate, opts = {}) {
       bestEl.classList.add(`${NS}-best--up`);
       setTimeout(() => bestEl.classList.remove(`${NS}-best--up`), 700);
     }
-    hintEl.innerHTML = `Burst pressure is the score, goal: as high as it goes. Rated test: ${TEST_PRESSURE} bar.<br><span class="${NS}-hint-pitch">Predicted by the trained STOCHOS model in ~2 s, not a ~4 h solver run.</span>`;
+    // V4: the score rewards hitting the rated test, then the lightest, cheapest
+    // design that does (bottle's objective is a TARGET BAND on burst pressure,
+    // not "higher is always better", plus weight/cost held down; see score.js
+    // CONSTRAINTS.bottle).
+    hintEl.innerHTML = `The score rewards hitting the ${TEST_PRESSURE} bar rated test, then the lightest, cheapest bottle that holds it.<br><span class="${NS}-hint-pitch">Predicted by the trained STOCHOS model in ~2 s, not a ~4 h solver run.</span>`;
 
     for (const cb of cbs) { try { cb(lastState); } catch (e) { /* noop */ } }
     return lastState;
@@ -574,6 +595,8 @@ class BottleView {
     this.renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
     this.el.appendChild(this.renderer.domElement);
     this.renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;';
+    this.renderer.domElement.setAttribute('role', 'img');
+    this.renderer.domElement.setAttribute('aria-label', '3D animated load-test rig showing the bottle shape, its fill level, and the pressure test');
 
     this.scene = new THREE.Scene();
     // generous near/far (terrain.js pattern). FOV 40.
@@ -628,6 +651,18 @@ class BottleView {
     this._bind(); this.resize();
     this._ro = new ResizeObserver(() => this.resize()); this._ro.observe(this.el);
     this._alive = true;
+    // prefers-reduced-motion: stop the AUTOMATIC idle auto-rotate only (see
+    // _loop below); the render loop itself keeps running, since direct-drag
+    // orbit and wheel-zoom on this canvas must stay responsive, and the brief
+    // load-test / burst sequence is a bounded, user-triggered action, not a
+    // continuous ambient loop. Live-updates if the OS setting changes mid-session.
+    this._reducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    this._mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    this._onReducedMotionChange = (e) => { this._reducedMotion = e.matches; };
+    if (this._mq) {
+      if (this._mq.addEventListener) this._mq.addEventListener('change', this._onReducedMotionChange);
+      else if (this._mq.addListener) this._mq.addListener(this._onReducedMotionChange);
+    }
     this._loop = this._loop.bind(this);
     this.rebuild();
     requestAnimationFrame(this._loop);
@@ -841,7 +876,7 @@ class BottleView {
     if (!this.el.isConnected || !this._alive) { this._ro.disconnect(); return; }
     const dt = this.t ? Math.min(0.05, ts * 0.001 - this.t) : 0.016;
     this.t = ts * 0.001;
-    if (this.t - this.lastInput > 2.5) this.azimuth += 0.0022;   // gentle auto-rotate
+    if (!this._reducedMotion && this.t - this.lastInput > 2.5) this.azimuth += 0.0022;   // gentle auto-rotate
 
     // guard the camera math against NaN
     if (!Number.isFinite(this.azimuth)) this.azimuth = -0.5;
@@ -893,6 +928,10 @@ class BottleView {
     this._alive = false;
     if (this._ro) this._ro.disconnect();
     if (this._up) window.removeEventListener('pointerup', this._up);
+    if (this._mq) {
+      if (this._mq.removeEventListener) this._mq.removeEventListener('change', this._onReducedMotionChange);
+      else if (this._mq.removeListener) this._mq.removeListener(this._onReducedMotionChange);
+    }
     try {
       this.outer.geometry.dispose(); this.inner.geometry.dispose();
       this.fillMesh.geometry.dispose(); this.pad.geometry.dispose();
@@ -934,18 +973,26 @@ function buildSlider(parent, input, params, onChange) {
 }
 
 function buildSwatches(parent, materials, getIdx, onPick) {
+  parent.setAttribute('role', 'group');
+  parent.setAttribute('aria-label', 'Material');
   materials.forEach((m, i) => {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = `${NS}-swatch`;
+    b.setAttribute('aria-pressed', 'false');
     b.innerHTML = `
       <span class="${NS}-swatch-dot" style="background:${m.swatch}"></span>
-      <span class="${NS}-swatch-name">${m.name}</span>`;
+      <span class="${NS}-swatch-name">${m.name}</span>
+      <span class="${NS}-swatch-check" aria-hidden="true">&#10003;</span>`;
     b.addEventListener('click', () => onPick(i));
     parent.appendChild(b);
   });
   const cur = Math.round(getIdx());
-  parent.querySelectorAll(`.${NS}-swatch`).forEach((el, i) => el.classList.toggle(`${NS}-swatch--on`, i === cur));
+  parent.querySelectorAll(`.${NS}-swatch`).forEach((el, i) => {
+    const on = i === cur;
+    el.classList.toggle(`${NS}-swatch--on`, on);
+    el.setAttribute('aria-pressed', String(on));
+  });
 }
 
 // ===========================================================================
@@ -968,6 +1015,10 @@ function hexA(hex, a) {
   return `rgba(${r},${g},${b},${a})`;
 }
 function stepOf(input) {
+  // the schema-declared step is the fairness contract: STOCHOS, beatRate, and
+  // this control all snap to the SAME grid (see snapInput in surrogate.js).
+  // The span heuristic below is only the fallback for inputs without one.
+  if (input.step > 0) return input.step;
   const span = input.max - input.min;
   if (span <= 2.2) return 0.05;
   if (span <= 20) return 0.5;
@@ -1020,11 +1071,17 @@ function injectStyle(accent) {
 .${NS}-matblock-head { font-size:11px; color:#b0b0a8; margin-bottom:12px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
 .${NS}-illus { font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:#8a8a82; border:1px solid rgba(255,255,255,0.16); border-radius:999px; padding:1px 7px; }
 .${NS}-swatches { display:flex; gap:10px; }
-.${NS}-swatch { flex:1; appearance:none; cursor:pointer; background:#121214; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:10px 6px; display:flex; flex-direction:column; align-items:center; gap:7px; color:#b0b0a8; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+.${NS}-swatch { position:relative; flex:1; appearance:none; cursor:pointer; background:#121214; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:10px 6px; display:flex; flex-direction:column; align-items:center; gap:7px; color:#b0b0a8; transition:border-color .15s ease, background .15s ease, color .15s ease; }
 .${NS}-swatch:hover { border-color:rgba(255,255,255,0.28); }
 .${NS}-swatch--on { border-color:${accent}; background:${hexA(accent, 0.10)}; color:#f5f5f7; box-shadow:0 0 0 1px ${hexA(accent, 0.4)} inset; }
 .${NS}-swatch-dot { width:26px; height:26px; border-radius:50%; border:1px solid rgba(0,0,0,0.4); box-shadow:inset 0 2px 5px rgba(255,255,255,0.45), inset 0 -3px 6px rgba(0,0,0,0.4); }
 .${NS}-swatch-name { font-size:11px; }
+/* selected-state marker that is not color-only (a11y pass): a small badge that
+   appears/disappears, on top of the existing border+fill+glow treatment. */
+.${NS}-swatch-check { position:absolute; top:6px; right:6px; width:14px; height:14px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:9px; line-height:1; color:#1a0d05;
+  background:${accent}; opacity:0; transform:scale(0.6); transition:opacity .15s ease, transform .15s ease; }
+.${NS}-swatch--on .${NS}-swatch-check { opacity:1; transform:scale(1); }
 .${NS}-stage { position:relative; }
 .${NS}-canvaswrap { position:relative; flex:1; min-height:250px; }
 /* ---- pressure gauge: a panel BELOW the bottle (dial + digital read + rated tick),
