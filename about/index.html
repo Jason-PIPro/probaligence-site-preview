@@ -54,6 +54,19 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
+<style id="team-cloud-css">
+.team-cloud{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:52px}
+.tc-tile{margin:0;position:relative;aspect-ratio:3/4;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:4px;background:#0E0D0C;transition:transform .35s cubic-bezier(.22,1,.3,1),border-color .35s}
+.tc-tile img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.02);transition:filter .4s}
+.tc-tile:hover{transform:translateY(-6px);border-color:rgba(255,176,6,.45)}
+.tc-tile:hover img{filter:grayscale(0)}
+.team-cloud.fx .tc-tile{clip-path:inset(0 100% 0 0)}
+.team-cloud.fx .tc-tile.in{clip-path:inset(0 0 0 0);transition:clip-path .7s cubic-bezier(.22,1,.3,1),transform .35s cubic-bezier(.22,1,.3,1),border-color .35s}
+@media (min-width:761px){.tc-tile:nth-child(2n){margin-top:26px}.tc-tile:nth-child(3n){margin-top:12px}}
+@media (max-width:760px){.team-cloud{grid-template-columns:repeat(3,1fr);gap:10px}}
+@media (max-width:480px){.team-cloud{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){.team-cloud.fx .tc-tile{clip-path:none}.tc-tile,.tc-tile img{transition:none}}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where is PI Probaligence based?","acceptedAnswer":{"@type":"Answer","text":"PI Probaligence is based in Grafing bei Munich, Germany. It was founded in 2018 as a spin-off of the Institute for Modeling and High Performance Computing at Niederrhein University of Applied Sciences, and works with engineering and R&D teams internationally."}},{"@type":"Question","name":"Is PI part of CADFEM?","acceptedAnswer":{"@type":"Answer","text":"Yes. The CADFEM Group acquired a stake in PI Probaligence, and PI has been part of the CADFEM Group since 2024. PI continues to develop STOCHOS and STOCHOS Flow as its own products for engineering and R&D."}},{"@type":"Question","name":"Is PI an Ansys partner?","acceptedAnswer":{"@type":"Answer","text":"Yes. PI Probaligence is an official Ansys Technology Partner. STOCHOS Flow connects to Ansys workflows, reading Ansys Workbench parameters and calling the Ansys Solver node for selective validation, so the solver stays the source of truth."}},{"@type":"Question","name":"How do I request a demo?","acceptedAnswer":{"@type":"Answer","text":"Use the Request a Demo button or the contact page. Bring one use case, bottleneck, or dataset, and we can outline where STOCHOS fits and what a realistic proof of concept could look like. PI often works with teams that have no in-house machine learning team."}}]}</script>
 </head>
 <body>
@@ -141,12 +154,12 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="opacity: 1; transform: none;">
         <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">What we do</div>
         <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">Two layers, one system</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">STOCHOS is the probabilistic intelligence layer: prediction, optimization, and design exploration for small, noisy engineering data, built on DIM-GP. STOCHOS Flow is the visual workflow layer: a local-first, AI-assisted environment to build, automate, and export technical workflows. Together they shorten development cycles and support more reliable decisions.</p>
+        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">STOCHOS is the predictive engine: DIM-GP models that turn small, noisy datasets into fast predictions with quantified uncertainty. <a href="/probaligence-site-preview/stochos-flow/" style="color: rgb(255, 176, 6); text-decoration: none;">STOCHOS Flow</a> is the visual workflow layer around it. The method itself is public, explained on <a href="/probaligence-site-preview/how-stochos-works/" style="color: rgb(255, 176, 6); text-decoration: none;">How STOCHOS works</a>.</p>
       </div>
       <div style="opacity: 1; transform: none;">
         <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Our approach</div>
         <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Built for the data teams actually have</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Limited, noisy, and expensive to produce. The work centers on three things skeptical technical buyers value, and accuracy and honest scope come before marketing claims.</p>
+        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Engineering data is limited, noisy, and expensive to produce. STOCHOS is built for exactly that data. And when a prediction moves beyond it, the model says so instead of guessing quietly.</p>
         <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 22px;">
           <div style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span>Predictions that come with quantified uncertainty.</div>
           <div style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span>Models that learn from small datasets.</div>
@@ -160,7 +173,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">From research to engineering tool</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">A spin-off, grown up</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">PI Probaligence was founded in 2018 as a spin-off of the Institute for Modeling and High Performance Computing at Niederrhein University of Applied Sciences, based in Grafing bei Munich. Its core method, DIM-GP, came out of that research and is now a mature engineering tool.</p>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">PI grew out of the Institute for Modeling and High Performance Computing at Niederrhein University of Applied Sciences. DIM-GP started as research there; today it runs in production.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; margin-top: 50px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
         <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">2018</div><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 14px;">Founded</h3><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">University spin-off researching probabilistic modeling for small, noisy data.</p></div>
         <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">2024</div><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 14px;">Part of CADFEM Group</h3><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">The CADFEM Group acquired a stake; PI continues to develop STOCHOS and STOCHOS Flow.</p></div>
@@ -181,7 +194,23 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
-  
+  <section data-reveal="" id="team" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1100px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The team</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">The people behind STOCHOS</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">A small team of engineers and researchers, building and supporting STOCHOS from Grafing bei Munich.</p>
+      <!-- Placeholder tiles: swap each /assets/team/team-0X.svg for a real photo (3:4, at least 600x800) and set the alt to the person's name. -->
+      <div class="team-cloud" id="teamCloud" aria-label="The PI Probaligence team">
+        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-01.svg" alt="" loading="lazy" width="600" height="800"></figure>
+        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-02.svg" alt="" loading="lazy" width="600" height="800"></figure>
+        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-03.svg" alt="" loading="lazy" width="600" height="800"></figure>
+        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-04.svg" alt="" loading="lazy" width="600" height="800"></figure>
+        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-05.svg" alt="" loading="lazy" width="600" height="800"></figure>
+        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-06.svg" alt="" loading="lazy" width="600" height="800"></figure>
+      </div>
+    </div>
+    <script>(function(){var c=document.getElementById('teamCloud');if(!c)return;var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion:reduce)').matches&&!window.__PIFX_FORCE}catch(e){}if(reduce||!('IntersectionObserver' in window))return;var tiles=c.querySelectorAll('.tc-tile');c.className+=' fx';var io=new IntersectionObserver(function(es){es.forEach(function(en){if(!en.isIntersecting)return;io.disconnect();for(var i=0;i<tiles.length;i++){(function(t,i){t.style.transitionDelay=(i*90)+'ms';t.className+=' in';setTimeout(function(){t.style.transitionDelay='0ms'},i*90+750)})(tiles[i],i)}})},{threshold:0.25});io.observe(c)})();</script>
+  </section>
 
   <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>

@@ -24,11 +24,19 @@ body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-
 h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style><noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript><style>
-@keyframes nbDrift{0%,100%{transform:scale(1.16) translate(0%,0%)}50%{transform:scale(1.26) translate(-2.5%,-1.6%)}}
+@keyframes nbDrift{0%,100%{transform:scale(1.1) translate(0%,0%)}50%{transform:scale(1.13) translate(-0.8%,-0.5%)}}
 @media (prefers-reduced-motion:reduce){[data-bg-img]{animation:none!important}}
 </style><style>
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
+</style><style>
+.sci-btn{font:500 13px/1 'IBM Plex Mono',monospace;padding:11px 16px;border-radius:2px;cursor:pointer;transition:all .15s}
+.sci-btn-p{background:#FFB006;border:1px solid #FFB006;color:#08070A}
+.sci-btn-p:hover{filter:brightness(1.08)}
+.sci-btn-s{background:transparent;border:1px solid rgba(255,255,255,.2);color:#B8B8B2}
+.sci-btn-s:hover{border-color:rgba(255,176,6,.6);color:#F4F3EF}
+.sci-card canvas{opacity:.55;transition:opacity .25s}
+.sci-card:hover canvas{opacity:1}
 </style>
 <link rel="stylesheet" href="/probaligence-site-preview/site.css">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
@@ -109,15 +117,15 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-hero-in style="position: relative; padding: 150px 24px 110px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
     <div class="" data-sc-name="NodeBackdrop"><div data-bg-root="" aria-hidden="true" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; z-index: 0; opacity: 1;">
   <div data-bg-parallax="" style="position: absolute; inset: -10% 0px; will-change: transform; transform: translate3d(0px, 0px, 0px);">
-    <div data-bg-img="" style="position: absolute; inset: 0px; background: url(&quot;/probaligence-site-preview/assets/media/bg-network-nodes.webp&quot;) center center / cover no-repeat; opacity: 0.5; animation: 28s ease-in-out 0s infinite normal none running nbDrift;"></div>
+    <div data-bg-img="" style="position: absolute; inset: 0px; background: url(&quot;/probaligence-site-preview/assets/media/bg-science-generative.webp&quot;) center center / cover no-repeat; opacity: 0.9;"></div>
   </div>
   <div style="position: absolute; inset: 0px; background: radial-gradient(at 50% 8%, rgba(255, 176, 6, 0.1), transparent 55%);"></div>
-  <div style="position: absolute; inset: 0px; background: linear-gradient(rgba(6, 6, 7, 0.5), rgba(6, 6, 7, 0.86));"></div></div></div>
+  <div style="position: absolute; inset: 0px; background: linear-gradient(rgba(6, 6, 7, 0.32), rgba(6, 6, 7, 0.72));"></div></div></div>
     <div style="max-width: 980px; margin: 0px auto; position: relative; z-index: 1; text-align: center;">
       <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 34px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(156, 156, 150); text-decoration: none;">Home</a> <span style="color: rgb(130, 130, 124);">/</span> <span style="color: rgb(200, 200, 194);">Science</span></nav>
       <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Science</div>
       <h1 style="font: 700 clamp(40px, 6vw, 76px) / 1.04 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; margin: 0px auto; max-width: 16ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">The</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">science</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">behind</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">STOCHOS.</span></span></h1>
-      <p data-hero="" style="margin: 26px auto 0px; color: rgb(200, 200, 194); font-size: clamp(16px, 1.5vw, 18.5px); line-height: 1.65; max-width: 64ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS is built on probabilistic machine learning made for engineering data: small, noisy, and expensive to produce. Start with the core algorithm, DIM-GP, and the methods built on it: surrogate modeling, uncertainty quantification, Bayesian optimization, multi-fidelity modeling, sensitivity analysis, and generative design.</p>
+      <p data-hero="" style="margin: 26px auto 0px; color: rgb(200, 200, 194); font-size: clamp(16px, 1.5vw, 18.5px); line-height: 1.65; max-width: 64ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS is built on probabilistic machine learning made for engineering data: small, noisy, and expensive to produce. One algorithm, DIM-GP, powers six methods: surrogate modeling, uncertainty quantification, Bayesian optimization, multi-fidelity modeling, sensitivity analysis, and generative design.</p>
       <div data-hero="" style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
         <a href="/probaligence-site-preview/how-stochos-works/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">How STOCHOS works</a>
         <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.24); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
@@ -130,7 +138,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="opacity: 1; transform: none;">
         <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The algorithm</div>
         <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 14ch;">Start with the algorithm</h2>
-        <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 52ch;">Everything in STOCHOS rests on one algorithm, DIM-GP, a Deep Infinite Mixture of Gaussian Processes. It joins deep learning with calibrated Gaussian-process uncertainty in a single model built for small, noisy, expensive data, and it returns every prediction with a measure of confidence.</p>
+        <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 52ch;">Everything in STOCHOS rests on DIM-GP, a Deep Infinite Mixture of Gaussian Processes: deep learning capacity with calibrated Gaussian process uncertainty, in one model built for small, noisy, expensive data.</p>
         <a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 24px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Read how STOCHOS works: the DIM-GP algorithm →</a>
       </div>
       <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 16px; background: rgb(0, 0, 0); opacity: 1; transform: none;">
@@ -140,40 +148,65 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   </section>
 
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 880px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Live math</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">Click to train a model</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">This is a live Gaussian process, the building block DIM-GP extends, running in your browser. Click anywhere in the plot to add a measurement. The model refits, and the amber band shows its confidence: tight where data exists, wide where it is guessing.</p>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-top: 34px; margin-bottom: 12px;">
+        <span style="font: 500 11px / 1.5 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(156, 156, 150);">Real Gaussian process: RBF kernel, Cholesky solve</span>
+        <span id="sci-gp-count" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150);">4 measurements</span>
+      </div>
+      <div style="position: relative; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; background: rgb(0, 0, 0); height: 340px; overflow: hidden;">
+        <canvas id="sci-gp" role="img" aria-label="Interactive Gaussian process plot. Click to add measurements and watch the confidence band tighten around them." style="position: absolute; inset: 0px; width: 100%; height: 100%;"></canvas>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap;">
+        <button class="sci-btn sci-btn-p" type="button" id="sci-gp-add">+ Random measurement</button>
+        <button class="sci-btn sci-btn-s" type="button" id="sci-gp-reset">Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The methods</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">The methods STOCHOS uses</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">The methods build on DIM-GP and work together: surrogate modeling for fast prediction, uncertainty quantification to show where to trust it, Bayesian optimization to choose the next run, multi-fidelity modeling to cut cost, and sensitivity analysis to explain what drives the result. Generative design expands the search beyond fixed variants.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 50px;">
-        <a href="/probaligence-site-preview/surrogate-modeling/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 26 C10 12 16 12 22 20 C26 25 29 22 32 10"></path><circle cx="4" cy="26" r="1.7" fill="#FFB006" stroke="none"></circle><circle cx="22" cy="20" r="1.7" fill="#FFB006" stroke="none"></circle><circle cx="32" cy="10" r="1.7" fill="#FFB006" stroke="none"></circle></svg>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Six methods, one loop</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Each method is a stage of one loop around the model: model, trust, decide, cut cost, explain, expand. Every card opens a plain-language guide showing how STOCHOS runs that stage.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; margin-top: 50px;">
+        <a href="/probaligence-site-preview/surrogate-modeling/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">01</span>
+          <canvas data-spark="band" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Surrogate Modeling</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Predict new variants in seconds from existing data.</p>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Model it: predict new variants in seconds from the runs you already have.</p>
         </a>
-        <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13 C12 7 20 19 32 11" opacity="0.4"></path><path d="M4 25 C12 19 20 31 32 23" opacity="0.4"></path><path d="M4 19 C12 13 20 25 32 17"></path></svg>
+        <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">02</span>
+          <canvas data-spark="acq" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Uncertainty Quantification</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">See where the model is reliable and where more data would help.</p>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Trust it: see where predictions are reliable and where more data would help.</p>
         </a>
-        <a href="/probaligence-site-preview/bayesian-optimization/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="12"></circle><circle cx="18" cy="18" r="6"></circle><circle cx="18" cy="18" r="1.6" fill="#FFB006" stroke="none"></circle></svg>
+        <a href="/probaligence-site-preview/bayesian-optimization/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">03</span>
+          <canvas data-spark="contour" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Bayesian Optimization</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Choose the next best experiment or simulation.</p>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Decide: choose the next best experiment or simulation.</p>
         </a>
-        <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12 L18 7 L30 12 L18 17 Z"></path><path d="M6 18 L18 13 L30 18 L18 23 Z" opacity="0.65"></path><path d="M6 24 L18 19 L30 24 L18 29 Z" opacity="0.4"></path></svg>
+        <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">04</span>
+          <canvas data-spark="lattice" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Multi-Fidelity Modeling</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Combine cheap screening data with expensive high-quality results.</p>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Cut the cost: combine cheap screening data with expensive high-quality results.</p>
         </a>
-        <a href="/probaligence-site-preview/sensitivity-analysis/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="28" x2="9" y2="16"></line><line x1="18" y1="28" x2="18" y2="9"></line><line x1="27" y1="28" x2="27" y2="20"></line><line x1="4" y1="30" x2="32" y2="30" stroke-width="1.4" opacity="0.45"></line></svg>
+        <a href="/probaligence-site-preview/sensitivity-analysis/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">05</span>
+          <canvas data-spark="bars" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Sensitivity Analysis</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Identify which inputs actually drive the outcome.</p>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Explain it: identify which inputs actually drive the outcome.</p>
         </a>
-        <a href="/probaligence-site-preview/generative-design/" class="scp3" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <svg width="34" height="34" viewBox="0 0 36 36" fill="none" stroke="#FFB006" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 5 L29 11 L29 23 L18 29 L7 23 L7 11 Z"></path><path d="M18 14 L18 22 M14 18 L22 18"></path></svg>
+        <a href="/probaligence-site-preview/generative-design/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
+          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">06</span>
+          <canvas data-spark="hex" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
           <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Generative Design</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Explore new geometries and optimize beyond fixed variants with GEN-BO.</p>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Expand it: explore new geometries beyond fixed variants with GEN-BO.</p>
         </a>
       </div>
     </div>
@@ -182,14 +215,291 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See the science on your own data</h2>
-      <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 50ch;">Request a demo and we will show STOCHOS and STOCHOS Flow on a problem close to yours.</p>
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Go deeper</div>
+      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Put the science to the test</h2>
+      <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring a problem you know well and your hardest questions. We will show STOCHOS on data close to yours, with the confidence behind every prediction visible. Or try beating it yourself first.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-        <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
+        <a href="/probaligence-site-preview/challenge/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Try to beat STOCHOS</a>
       </div>
     </div>
-  </section></main>
+  </section>
+
+<script>
+(function () {
+  'use strict';
+  var AMBER = '#FFB006', AMBER_LT = '#FFCA4D';
+  var reduce = function () { return matchMedia('(prefers-reduced-motion: reduce)').matches; };
+  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+
+  function fitCanvas(cv) {
+    var dpr = Math.min(devicePixelRatio || 1, 2);
+    var r = cv.getBoundingClientRect();
+    var w = Math.max(2, r.width), h = Math.max(2, r.height);
+    if (cv.width !== (w * dpr | 0) || cv.height !== (h * dpr | 0)) { cv.width = w * dpr; cv.height = h * dpr; }
+    var ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: w, h: h };
+  }
+  function viewLoop(el, draw) {
+    var on = false, raf = 0, t0 = performance.now();
+    var tick = function (now) { if (!on) return; draw((now - t0) / 1000); raf = requestAnimationFrame(tick); };
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !on) { on = true; raf = requestAnimationFrame(tick); }
+        else if (!e.isIntersecting && on) { on = false; cancelAnimationFrame(raf); }
+      });
+    }, { threshold: 0.05 });
+    io.observe(el);
+    return { stop: function () { on = false; cancelAnimationFrame(raf); io.disconnect(); } };
+  }
+
+  function gp1d(canvas, opts) {
+    opts = opts || {};
+    var state = {
+      pts: (opts.points || [[0.14, 0.36], [0.34, 0.62], [0.58, 0.44], [0.82, 0.71]]).map(function (p) { return { x: p[0], y: p[1] }; }),
+      ell: opts.lengthScale || 0.14,
+      sn: opts.noise != null ? opts.noise : 0.035,
+      sf: opts.signal || 0.32,
+      interactive: opts.interactive !== false,
+      maxPts: opts.maxPoints || 14,
+    };
+    var updCb = null;
+    var kern = function (a, b) { return state.sf * state.sf * Math.exp(-((a - b) * (a - b)) / (2 * state.ell * state.ell)); };
+
+    function chol(A, n) {
+      for (var i = 0; i < n; i++) {
+        for (var j = 0; j <= i; j++) {
+          var s = A[i * n + j];
+          for (var k = 0; k < j; k++) s -= A[i * n + k] * A[j * n + k];
+          A[i * n + j] = i === j ? Math.sqrt(Math.max(s, 1e-10)) : s / A[j * n + j];
+        }
+        for (var j2 = i + 1; j2 < n; j2++) A[i * n + j2] = 0;
+      }
+      return A;
+    }
+    function solveL(L, b, n) { var y = new Float64Array(n); for (var i = 0; i < n; i++) { var s = b[i]; for (var k = 0; k < i; k++) s -= L[i * n + k] * y[k]; y[i] = s / L[i * n + i]; } return y; }
+    function solveLT(L, b, n) { var x = new Float64Array(n); for (var i = n - 1; i >= 0; i--) { var s = b[i]; for (var k = i + 1; k < n; k++) s -= L[k * n + i] * x[k]; x[i] = s / L[i * n + i]; } return x; }
+
+    function posterior(xs) {
+      var n = state.pts.length, m = xs.length;
+      var mu = new Float64Array(m), sd = new Float64Array(m);
+      if (!n) { for (var q0 = 0; q0 < m; q0++) { mu[q0] = 0.5; sd[q0] = state.sf; } return { mu: mu, sd: sd }; }
+      var K = new Float64Array(n * n);
+      for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) K[i * n + j] = kern(state.pts[i].x, state.pts[j].x) + (i === j ? state.sn * state.sn + 1e-8 : 0);
+      var L = chol(K, n);
+      var ymean = state.pts.reduce(function (s, p) { return s + p.y; }, 0) / n;
+      var yv = new Float64Array(n);
+      for (var i2 = 0; i2 < n; i2++) yv[i2] = state.pts[i2].y - ymean;
+      var alpha = solveLT(L, solveL(L, yv, n), n);
+      var ks = new Float64Array(n);
+      for (var q = 0; q < m; q++) {
+        for (var i3 = 0; i3 < n; i3++) ks[i3] = kern(xs[q], state.pts[i3].x);
+        var mval = ymean;
+        for (var i4 = 0; i4 < n; i4++) mval += ks[i4] * alpha[i4];
+        var v = solveL(L, ks, n);
+        var kss = state.sf * state.sf;
+        for (var i5 = 0; i5 < n; i5++) kss -= v[i5] * v[i5];
+        mu[q] = mval; sd[q] = Math.sqrt(Math.max(kss, 0));
+      }
+      return { mu: mu, sd: sd };
+    }
+
+    var N = 120;
+    var xs = new Float64Array(N);
+    for (var i = 0; i < N; i++) xs[i] = i / (N - 1);
+    var cur = posterior(xs), tgt = cur, morph = 1, flashPt = null;
+
+    function draw() {
+      var f = fitCanvas(canvas), ctx = f.ctx, w = f.w, h = f.h;
+      var px = function (x) { return x * w; }, py = function (y) { return h - y * h; };
+      ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = 'rgba(255,255,255,.05)'; ctx.lineWidth = 1;
+      for (var gx = 0.25; gx < 1; gx += 0.25) { ctx.beginPath(); ctx.moveTo(px(gx), 0); ctx.lineTo(px(gx), h); ctx.stroke(); }
+      for (var gy = 0.25; gy < 1; gy += 0.25) { ctx.beginPath(); ctx.moveTo(0, py(gy)); ctx.lineTo(w, py(gy)); ctx.stroke(); }
+      var mix = function (a, b) { return a + (b - a) * morph; };
+      [[2, 'rgba(255,176,6,.07)'], [1, 'rgba(255,176,6,.16)']].forEach(function (band) {
+        ctx.beginPath();
+        for (var i = 0; i < N; i++) { var y = mix(cur.mu[i], tgt.mu[i]) + band[0] * mix(cur.sd[i], tgt.sd[i]); i ? ctx.lineTo(px(xs[i]), py(y)) : ctx.moveTo(px(xs[i]), py(y)); }
+        for (var j = N - 1; j >= 0; j--) ctx.lineTo(px(xs[j]), py(mix(cur.mu[j], tgt.mu[j]) - band[0] * mix(cur.sd[j], tgt.sd[j])));
+        ctx.closePath(); ctx.fillStyle = band[1]; ctx.fill();
+      });
+      ctx.beginPath();
+      for (var i6 = 0; i6 < N; i6++) { var ym = mix(cur.mu[i6], tgt.mu[i6]); i6 ? ctx.lineTo(px(xs[i6]), py(ym)) : ctx.moveTo(px(xs[i6]), py(ym)); }
+      ctx.strokeStyle = AMBER; ctx.lineWidth = 2.2; ctx.lineJoin = 'round';
+      ctx.shadowColor = 'rgba(255,176,6,.5)'; ctx.shadowBlur = 8; ctx.stroke(); ctx.shadowBlur = 0;
+      state.pts.forEach(function (p) {
+        ctx.beginPath(); ctx.arc(px(p.x), py(p.y), 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#060607'; ctx.fill();
+        ctx.strokeStyle = AMBER_LT; ctx.lineWidth = 2; ctx.stroke();
+      });
+      if (flashPt) {
+        var age = (performance.now() - flashPt.t0) / 700;
+        if (age < 1) {
+          ctx.beginPath(); ctx.arc(px(flashPt.x), py(flashPt.y), 5 + age * 22, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(255,176,6,' + (1 - age) * 0.8 + ')'; ctx.lineWidth = 1.6; ctx.stroke();
+        } else flashPt = null;
+      }
+    }
+
+    var loop = viewLoop(canvas, function () {
+      if (morph < 1) morph = Math.min(1, morph + (reduce() ? 1 : 0.075));
+      draw();
+    });
+
+    function retrain() {
+      var frozen = { mu: new Float64Array(N), sd: new Float64Array(N) };
+      for (var i = 0; i < N; i++) { frozen.mu[i] = cur.mu[i] + (tgt.mu[i] - cur.mu[i]) * morph; frozen.sd[i] = cur.sd[i] + (tgt.sd[i] - cur.sd[i]) * morph; }
+      cur = frozen; tgt = posterior(xs); morph = 0;
+      if (updCb) updCb(state.pts.length);
+    }
+    function addPoint(x, y) {
+      if (state.pts.length >= state.maxPts) state.pts.shift();
+      state.pts.push({ x: clamp(x, 0.02, 0.98), y: clamp(y, 0.06, 0.94) });
+      flashPt = { x: clamp(x, 0.02, 0.98), y: clamp(y, 0.06, 0.94), t0: performance.now() };
+      retrain();
+    }
+    if (state.interactive) {
+      canvas.style.cursor = 'crosshair';
+      canvas.addEventListener('pointerdown', function (e) {
+        var r = canvas.getBoundingClientRect();
+        addPoint((e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height);
+      });
+    }
+    return {
+      addPoint: addPoint,
+      addRandom: function () { addPoint(0.05 + Math.random() * 0.9, 0.15 + Math.random() * 0.7); },
+      reset: function (pts) { state.pts = (pts || []).map(function (p) { return { x: p[0], y: p[1] }; }); retrain(); },
+      onUpdate: function (cb) { updCb = cb; },
+      count: function () { return state.pts.length; },
+      destroy: function () { loop.stop(); },
+    };
+  }
+
+  var SPARKS = {
+    band: function (ctx, w, h, t) {
+      var N = 70;
+      ctx.clearRect(0, 0, w, h);
+      var mu = function (x) { return h * (0.55 - 0.16 * Math.sin(x * 4.4 + t * 0.5) - 0.1 * Math.sin(x * 9 + 1.2)); };
+      var sd = function (x) { return h * (0.06 + 0.05 * (0.5 + 0.5 * Math.sin(x * 6 - t * 0.7)) + 0.09 * Math.pow(Math.abs(x - 0.5) * 2, 2)); };
+      ctx.beginPath();
+      for (var i = 0; i <= N; i++) { var x = i / N, y = mu(x) - sd(x); i ? ctx.lineTo(x * w, y) : ctx.moveTo(x * w, y); }
+      for (var j = N; j >= 0; j--) { var x2 = j / N; ctx.lineTo(x2 * w, mu(x2) + sd(x2)); }
+      ctx.closePath(); ctx.fillStyle = 'rgba(255,176,6,.14)'; ctx.fill();
+      ctx.beginPath();
+      for (var k = 0; k <= N; k++) { var x3 = k / N; k ? ctx.lineTo(x3 * w, mu(x3)) : ctx.moveTo(x3 * w, mu(x3)); }
+      ctx.strokeStyle = AMBER; ctx.lineWidth = 1.8; ctx.stroke();
+    },
+    acq: function (ctx, w, h, t) {
+      ctx.clearRect(0, 0, w, h);
+      var f = function (x) { return 0.3 + 0.22 * Math.sin(x * 5 + 1) + 0.24 * Math.exp(-Math.pow((x - (0.5 + 0.34 * Math.sin(t * 0.4))) * 5, 2)); };
+      var peak = 0, peakX = 0, N = 80;
+      ctx.beginPath();
+      for (var i = 0; i <= N; i++) {
+        var x = i / N, v = f(x);
+        if (v > peak) { peak = v; peakX = x; }
+        i ? ctx.lineTo(x * w, h - v * h) : ctx.moveTo(x * w, h - v * h);
+      }
+      ctx.strokeStyle = 'rgba(255,176,6,.75)'; ctx.lineWidth = 1.6; ctx.stroke();
+      ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath();
+      ctx.fillStyle = 'rgba(255,176,6,.08)'; ctx.fill();
+      var yv = h - f(peakX) * h;
+      ctx.setLineDash([3, 3]); ctx.strokeStyle = 'rgba(255,176,6,.5)';
+      ctx.beginPath(); ctx.moveTo(peakX * w, yv); ctx.lineTo(peakX * w, h); ctx.stroke(); ctx.setLineDash([]);
+      ctx.beginPath(); ctx.arc(peakX * w, yv, 4, 0, Math.PI * 2); ctx.fillStyle = AMBER; ctx.fill();
+    },
+    bars: function (ctx, w, h, t) {
+      ctx.clearRect(0, 0, w, h);
+      var vals = [0.92, 0.62, 0.4, 0.22, 0.11];
+      var bh = h / (vals.length * 1.6);
+      vals.forEach(function (v, i) {
+        var vv = v * (0.9 + 0.1 * Math.sin(t * 0.9 + i));
+        ctx.fillStyle = 'rgba(255,176,6,' + (0.28 + 0.72 * v) + ')';
+        ctx.fillRect(0, i * (bh * 1.6) + bh * 0.3, vv * w * 0.94, bh);
+      });
+    },
+    contour: function (ctx, w, h, t) {
+      ctx.clearRect(0, 0, w, h);
+      var cx = w * 0.62, cy = h * 0.42;
+      for (var i = 4; i >= 1; i--) {
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, i * w * 0.11, i * h * 0.13, -0.3, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(255,176,6,' + (0.1 + (4 - i) * 0.12) + ')';
+        ctx.lineWidth = 1.2; ctx.stroke();
+      }
+      var k = (t * 0.35) % 1;
+      var trail = [[0.1, 0.85], [0.3, 0.6], [0.48, 0.7], [0.55, 0.45], [0.62, 0.42]];
+      var n = Math.min(trail.length, 1 + Math.floor(k * (trail.length + 1)));
+      ctx.strokeStyle = 'rgba(255,176,6,.4)'; ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (var j = 0; j < n; j++) { var p = trail[j]; j ? ctx.lineTo(p[0] * w, p[1] * h) : ctx.moveTo(p[0] * w, p[1] * h); }
+      ctx.stroke();
+      for (var m = 0; m < n; m++) {
+        var p2 = trail[m], last = m === n - 1;
+        ctx.beginPath(); ctx.arc(p2[0] * w, p2[1] * h, last ? 4 : 2.6, 0, Math.PI * 2);
+        ctx.fillStyle = last ? AMBER : 'rgba(255,176,6,.55)'; ctx.fill();
+      }
+    },
+    lattice: function (ctx, w, h, t) {
+      ctx.clearRect(0, 0, w, h);
+      var f1 = function (x) { return h * (0.62 - 0.18 * Math.sin(x * 3.4 + t * 0.3)); };
+      var f2 = function (x) { return h * (0.5 - 0.2 * Math.sin(x * 3.4 + t * 0.3) - 0.05 * Math.sin(x * 9)); };
+      ctx.setLineDash([5, 4]); ctx.strokeStyle = 'rgba(255,255,255,.28)'; ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      for (var i = 0; i <= 60; i++) { var x = i / 60; i ? ctx.lineTo(x * w, f1(x)) : ctx.moveTo(x * w, f1(x)); }
+      ctx.stroke(); ctx.setLineDash([]);
+      ctx.strokeStyle = AMBER; ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (var j = 0; j <= 60; j++) { var x2 = j / 60; j ? ctx.lineTo(x2 * w, f2(x2)) : ctx.moveTo(x2 * w, f2(x2)); }
+      ctx.stroke();
+      [0.22, 0.55, 0.85].forEach(function (x) {
+        ctx.beginPath(); ctx.arc(x * w, f2(x), 3.6, 0, Math.PI * 2); ctx.fillStyle = AMBER; ctx.fill();
+      });
+    },
+    hex: function (ctx, w, h, t) {
+      ctx.clearRect(0, 0, w, h);
+      var cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.34;
+      for (var ring = 2; ring >= 0; ring--) {
+        ctx.beginPath();
+        for (var i = 0; i <= 6; i++) {
+          var a = (i / 6) * Math.PI * 2 - Math.PI / 2;
+          var wob = 1 + 0.12 * Math.sin(t * 0.8 + i * 2.1 + ring) * (ring ? 1 : 0.4);
+          var r = R * (1 - ring * 0.26) * wob;
+          i ? ctx.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r) : ctx.moveTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
+        }
+        ctx.closePath();
+        ctx.strokeStyle = ring ? 'rgba(255,176,6,' + (0.2 + ring * 0.12) + ')' : AMBER;
+        ctx.lineWidth = ring ? 1.2 : 2;
+        ctx.stroke();
+      }
+      ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.fillStyle = AMBER; ctx.fill();
+    },
+  };
+
+  function spark(canvas, kind) {
+    var fn = SPARKS[kind] || SPARKS.band;
+    if (reduce()) { var f = fitCanvas(canvas); fn(f.ctx, f.w, f.h, 2.2); return { stop: function () {} }; }
+    return viewLoop(canvas, function (t) {
+      var f = fitCanvas(canvas);
+      fn(f.ctx, f.w, f.h, t);
+    });
+  }
+
+  var DEFAULT = [[0.14, 0.36], [0.34, 0.62], [0.58, 0.44], [0.82, 0.71]];
+  var gpCv = document.getElementById('sci-gp');
+  if (gpCv) {
+    var gp = gp1d(gpCv, { points: DEFAULT });
+    var cnt = document.getElementById('sci-gp-count');
+    gp.onUpdate(function (n) { if (cnt) cnt.textContent = n + ' measurement' + (n === 1 ? '' : 's'); });
+    var addBtn = document.getElementById('sci-gp-add');
+    var resetBtn = document.getElementById('sci-gp-reset');
+    if (addBtn) addBtn.addEventListener('click', function () { gp.addRandom(); });
+    if (resetBtn) resetBtn.addEventListener('click', function () { gp.reset(DEFAULT); });
+  }
+  document.querySelectorAll('canvas[data-spark]').forEach(function (cv) { spark(cv, cv.getAttribute('data-spark')); });
+})();
+</script>
+</main>
 <section class="logo-marquee" aria-label="Partners, customers and research collaborators">
   <div class="label">Partners, customers, and research collaborators</div>
   <div class="marquee-mask">
