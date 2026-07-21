@@ -56,7 +56,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is DIM-GP?","acceptedAnswer":{"@type":"Answer","text":"DIM-GP, a Deep Infinite Mixture of Gaussian Processes, is the core STOCHOS algorithm. It combines neural networks and Gaussian processes into a non-stationary, probabilistic model designed for small, noisy datasets, changing geometries and meshes, and multi-fidelity data, without manual hyperparameter tuning."}},{"@type":"Question","name":"Why combine deep learning and Gaussian processes?","acceptedAnswer":{"@type":"Answer","text":"Deep learning brings capacity to model complex, high-dimensional relationships. Gaussian processes bring calibrated uncertainty. Engineering needs both: a flexible model that also reports how far to trust each prediction. DIM-GP is built to deliver capacity and uncertainty in one model, tuned for small, expensive datasets."}},{"@type":"Question","name":"Can STOCHOS run on-premise?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is DIM-GP?","acceptedAnswer":{"@type":"Answer","text":"DIM-GP, a Deep Infinite Mixture of Gaussian Processes, is the core STOCHOS algorithm. It combines neural networks and Gaussian processes into a non-stationary, probabilistic model designed for small, noisy datasets, changing geometries and meshes, and multi-fidelity data, without manual hyperparameter tuning."}},{"@type":"Question","name":"Why combine deep learning and Gaussian processes?","acceptedAnswer":{"@type":"Answer","text":"Deep learning brings capacity to model complex, high-dimensional relationships. Gaussian processes bring calibrated uncertainty. Engineering needs both: a flexible model that also reports how far to trust each prediction. DIM-GP is built to deliver capacity and uncertainty in one model, tuned for small, expensive datasets."}},{"@type":"Question","name":"Can STOCHOS run on-premise?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, as a Python 3.12 package built on PyTorch, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control."}}]}</script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -94,7 +94,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">Resources</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -118,7 +118,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">Resources</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -148,363 +148,14 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
-  <style id="gps-css">
-  .gps{position:relative;height:380vh;border-top:1px solid rgba(255,255,255,.07)}
-  .gps-sticky{position:sticky;top:0;height:100svh;display:flex;align-items:center;overflow:hidden}
-  .gps-grid{max-width:1100px;margin:0 auto;width:100%;padding:0 24px;display:grid;grid-template-columns:250px 1fr;gap:36px;align-items:center}
-  .gps-step{cursor:pointer;padding:9px 0}
-  .gps-step .n{font:500 11px/1 'IBM Plex Mono',monospace;color:#6A6A64;margin-right:10px}
-  .gps-step .t{font:600 14.5px/1.25 'Space Grotesk',sans-serif;color:#9C9C96}
-  .gps-stage{position:relative;height:min(62vh,540px);border:1px solid rgba(255,255,255,.1);border-radius:4px;background:#000;overflow:hidden}
-  .gps-stage canvas{position:absolute;inset:0;width:100%;height:100%}
-  .gps-hud{position:absolute;top:12px;left:14px;font:500 10px/1.5 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#6A6A64}
-  .gps-readout{position:absolute;top:30px;right:14px;text-align:right;font:400 11.5px/1.7 'IBM Plex Mono',monospace;color:#9C9C96;pointer-events:none}
-  .gps-play{position:absolute;bottom:12px;right:12px;display:flex;gap:8px;opacity:0;pointer-events:none;transition:opacity .3s}
-  .gps-play.on{opacity:1;pointer-events:auto}
-  .gps-play button{font:500 11.5px/1 'IBM Plex Mono',monospace;padding:9px 12px;border-radius:2px;cursor:pointer;transition:all .15s}
-  .gps-play [data-play-add]{background:#FFB006;border:1px solid #FFB006;color:#08070A}
-  .gps-play [data-play-reset]{background:rgba(6,6,7,.8);border:1px solid rgba(255,255,255,.2);color:#B8B8B2}
-  @media (max-width:820px){.gps-grid{grid-template-columns:1fr;gap:14px}.gps-rail{display:flex;flex-wrap:wrap;gap:2px 18px}.gps-step{padding:4px 0}.gps-stage{height:min(52vh,420px)}}
-  @media (prefers-reduced-motion:reduce){.gps-play{transition:none}}
-  </style>
-  <section class="gps" id="gp-story" aria-label="Scroll-driven scene: how a probabilistic model learns, predicts, and chooses its next experiment">
-    <div class="gps-sticky"><div class="gps-grid">
-      <div class="gps-rail" data-story-rail>
-        <div class="gps-step" data-step><span class="n">01</span><span class="t">Your data</span></div>
-        <div class="gps-step" data-step><span class="n">02</span><span class="t">The model learns</span></div>
-        <div class="gps-step" data-step><span class="n">03</span><span class="t">Predictions in seconds</span></div>
-        <div class="gps-step" data-step><span class="n">04</span><span class="t">Honest confidence</span></div>
-        <div class="gps-step" data-step><span class="n">05</span><span class="t">The next run, chosen</span></div>
-        <div class="gps-step" data-step><span class="n">06</span><span class="t">Your turn</span></div>
-      </div>
-      <div class="gps-stage">
-        <canvas data-story-canvas></canvas>
-        <div class="gps-hud" data-story-hud>Live math &middot; GP posterior &middot; in-browser</div>
-        <div class="gps-readout" data-story-readout></div>
-        <div class="gps-play" data-play-ui>
-          <button type="button" data-play-add>+ random measurement</button>
-          <button type="button" data-play-reset>reset</button>
-        </div>
-      </div>
-    </div></div>
-  </section>
-  <script>
-  (function () {
-  'use strict';
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
-  var ph = function (p, a, b) { return clamp((p - a) / (b - a), 0, 1); };
-  var easeS = function (t) { return t * t * (3 - 2 * t); };
-  var easeO = function (t) { return 1 - Math.pow(1 - t, 3); };
-  var scrollTopNow = function () { return window.scrollY || (document.scrollingElement && document.scrollingElement.scrollTop) || document.body.scrollTop || 0; };
-
-  function gpPosterior(pts, xs, ell, sf, sn) {
-    var n = pts.length, m = xs.length;
-    var mu = new Float64Array(m), sd = new Float64Array(m);
-    var kern = function (a, b) { return sf * sf * Math.exp(-((a - b) * (a - b)) / (2 * ell * ell)); };
-    if (!n) { for (var q0 = 0; q0 < m; q0++) { mu[q0] = 0.5; sd[q0] = sf; } return { mu: mu, sd: sd }; }
-    var K = new Float64Array(n * n);
-    for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) K[i * n + j] = kern(pts[i].x, pts[j].x) + (i === j ? sn * sn + 1e-8 : 0);
-    for (var ii = 0; ii < n; ii++) {
-      for (var jj = 0; jj <= ii; jj++) {
-        var s = K[ii * n + jj];
-        for (var k = 0; k < jj; k++) s -= K[ii * n + k] * K[jj * n + k];
-        K[ii * n + jj] = ii === jj ? Math.sqrt(Math.max(s, 1e-10)) : s / K[jj * n + jj];
-      }
-      for (var j2 = ii + 1; j2 < n; j2++) K[ii * n + j2] = 0;
-    }
-    var solveL = function (b) { var y = new Float64Array(n); for (var i = 0; i < n; i++) { var s = b[i]; for (var k = 0; k < i; k++) s -= K[i * n + k] * y[k]; y[i] = s / K[i * n + i]; } return y; };
-    var solveLT = function (b) { var x = new Float64Array(n); for (var i = n - 1; i >= 0; i--) { var s = b[i]; for (var k = i + 1; k < n; k++) s -= K[k * n + i] * x[k]; x[i] = s / K[i * n + i]; } return x; };
-    var ymean = pts.reduce(function (s, p) { return s + p.y; }, 0) / n;
-    var yv = new Float64Array(n);
-    for (var i3 = 0; i3 < n; i3++) yv[i3] = pts[i3].y - ymean;
-    var alpha = solveLT(solveL(yv));
-    var ks = new Float64Array(n);
-    for (var q = 0; q < m; q++) {
-      for (var i4 = 0; i4 < n; i4++) ks[i4] = kern(xs[q], pts[i4].x);
-      var mv = ymean;
-      for (var i5 = 0; i5 < n; i5++) mv += ks[i5] * alpha[i5];
-      var v = solveL(ks);
-      var kss = sf * sf;
-      for (var i6 = 0; i6 < n; i6++) kss -= v[i6] * v[i6];
-      mu[q] = mv; sd[q] = Math.sqrt(Math.max(kss, 0));
-    }
-    return { mu: mu, sd: sd };
-  }
-
-  function initPinnedStory(sec) {
-    var cv = sec.querySelector('[data-story-canvas]');
-    var readout = sec.querySelector('[data-story-readout]');
-    var stepEls = Array.prototype.slice.call(sec.querySelectorAll('[data-step]'));
-    var ctx = cv.getContext('2d');
-
-    var N = 150, xs = new Float64Array(N);
-    for (var i = 0; i < N; i++) xs[i] = i / (N - 1);
-    var pts4 = [{ x: 0.07, y: 0.42 }, { x: 0.24, y: 0.63 }, { x: 0.46, y: 0.5 }, { x: 0.93, y: 0.3 }];
-    var P4 = gpPosterior(pts4, xs, 0.17, 0.16, 0.035);
-    var bi = 10;
-    for (var b = 10; b < N - 10; b++) if (P4.sd[b] > P4.sd[bi]) bi = b;
-    var x5 = xs[bi], y5 = clamp(P4.mu[bi] + 0.11, 0.08, 0.92);
-    var P5 = gpPosterior(pts4.concat([{ x: x5, y: y5 }]), xs, 0.17, 0.16, 0.035);
-    var sdMax4 = Math.max.apply(null, Array.prototype.slice.call(P4.sd));
-    var sdMax5 = Math.max.apply(null, Array.prototype.slice.call(P5.sd));
-    var sdDrop = Math.round((1 - sdMax5 / sdMax4) * 100);
-    var at = function (M, S, x) {
-      var f = clamp(x, 0, 1) * (N - 1), i0 = Math.floor(f), i1 = Math.min(N - 1, i0 + 1), t = f - i0;
-      return { mu: M[i0] + (M[i1] - M[i0]) * t, sd: S[i0] + (S[i1] - S[i0]) * t };
-    };
-
-    var STEPS = [0.03, 0.24, 0.44, 0.62, 0.8, 0.985], lastStep = -1;
-    var setStep = function (idx) {
-      if (idx === lastStep) return; lastStep = idx;
-      stepEls.forEach(function (el, i) {
-        var on = i === idx;
-        el.querySelector('.n').style.color = on ? '#FFB006' : i < idx ? '#9C9C96' : '#6A6A64';
-        el.querySelector('.t').style.color = on ? '#F4F3EF' : i < idx ? '#B8B8B2' : '#9C9C96';
-      });
-    };
-    var setReadout = function (lines) {
-      readout.innerHTML = lines.map(function (l, i) {
-        return '<div style="color:' + (i === 0 ? '#FFB006' : i === 1 ? '#C8C8C2' : '#6A6A64') + '">' + l + '</div>';
-      }).join('');
-    };
-    var fit = function () {
-      var dpr = Math.min(devicePixelRatio || 1, 2);
-      var r = cv.getBoundingClientRect();
-      var w = Math.max(2, r.width), h = Math.max(2, r.height);
-      if (cv.width !== (w * dpr | 0) || cv.height !== (h * dpr | 0)) { cv.width = w * dpr; cv.height = h * dpr; }
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      return { w: w, h: h };
-    };
-
-    function draw(p, t) {
-      var f = fit(), w = f.w, h = f.h;
-      var padL = 48, padR = 20, padT = 42, padB = 38;
-      var X = function (x) { return padL + x * (w - padL - padR); };
-      var Y = function (y) { return padT + (1 - y) * (h - padT - padB); };
-      ctx.clearRect(0, 0, w, h);
-      var p1 = ph(p, 0.03, 0.22), p2 = ph(p, 0.24, 0.42), p3 = ph(p, 0.44, 0.6), p4 = ph(p, 0.62, 0.78), p5 = ph(p, 0.8, 0.97);
-      var hlA = easeS(ph(p5, 0, 0.28)) * (1 - ph(p5, 0.55, 0.75));
-      var dropA = ph(p5, 0.3, 0.55);
-      var morph = easeS(ph(p5, 0.55, 1));
-      var gridA = easeS(ph(p, 0, 0.03));
-
-      ctx.strokeStyle = 'rgba(255,255,255,' + 0.055 * gridA + ')'; ctx.lineWidth = 1;
-      for (var g = 0; g <= 4; g++) {
-        var gx = X(g / 4), gy = Y(g / 4);
-        ctx.beginPath(); ctx.moveTo(gx, padT); ctx.lineTo(gx, h - padB); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(padL, gy); ctx.lineTo(w - padR, gy); ctx.stroke();
-      }
-      ctx.fillStyle = 'rgba(156,156,150,' + 0.85 * gridA + ')';
-      ctx.font = '400 10px "IBM Plex Mono",monospace'; ctx.textAlign = 'center';
-      ctx.fillText('input x', padL + (w - padL - padR) / 2, h - 12);
-      ctx.save(); ctx.translate(16, padT + (h - padT - padB) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText('response ŷ', 0, 0); ctx.restore();
-
-      var mu = function (i) { return P4.mu[i] + (P5.mu[i] - P4.mu[i]) * morph; };
-      var sd = function (i) { return P4.sd[i] + (P5.sd[i] - P4.sd[i]) * morph; };
-
-      if (p4 > 0) {
-        var bs = easeS(p4);
-        [[2, 0.08], [1, 0.17]].forEach(function (band) {
-          ctx.beginPath();
-          for (var i = 0; i < N; i++) { var y = mu(i) + band[0] * sd(i) * bs; i ? ctx.lineTo(X(xs[i]), Y(y)) : ctx.moveTo(X(xs[i]), Y(y)); }
-          for (var j = N - 1; j >= 0; j--) ctx.lineTo(X(xs[j]), Y(mu(j) - band[0] * sd(j) * bs));
-          ctx.closePath(); ctx.fillStyle = 'rgba(255,176,6,' + band[1] + ')'; ctx.fill();
-        });
-      }
-      if (p2 > 0) {
-        var upto = Math.max(2, Math.round(N * easeS(p2)));
-        ctx.beginPath();
-        for (var m = 0; m < upto; m++) { m ? ctx.lineTo(X(xs[m]), Y(mu(m))) : ctx.moveTo(X(xs[m]), Y(mu(m))); }
-        ctx.strokeStyle = '#FFB006'; ctx.lineWidth = 2.2; ctx.lineJoin = 'round';
-        ctx.shadowColor = 'rgba(255,176,6,.5)'; ctx.shadowBlur = 9; ctx.stroke(); ctx.shadowBlur = 0;
-      }
-      for (var q = 0; q < 4; q++) {
-        var e = easeO(clamp(p1 * 4.6 - q * 1.1, 0, 1));
-        if (e <= 0) continue;
-        var pxq = X(pts4[q].x), pyq = Y(pts4[q].y) - (1 - e) * 60;
-        ctx.globalAlpha = e;
-        ctx.beginPath(); ctx.arc(pxq, pyq, 4.5, 0, 7);
-        ctx.fillStyle = '#060607'; ctx.fill();
-        ctx.strokeStyle = '#FFCA4D'; ctx.lineWidth = 2; ctx.stroke();
-        ctx.globalAlpha = 1;
-      }
-      var swA = ph(p, 0.44, 0.46) * (1 - ph(p, 0.61, 0.66));
-      if (swA > 0) {
-        var sx = 0.03 + 0.94 * easeS(p3);
-        var qq = at(P4.mu, P4.sd, sx);
-        ctx.save(); ctx.globalAlpha = swA;
-        ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.setLineDash([4, 5]); ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(X(sx), padT); ctx.lineTo(X(sx), h - padB); ctx.stroke(); ctx.setLineDash([]);
-        ctx.beginPath(); ctx.arc(X(sx), Y(qq.mu), 5, 0, 7); ctx.fillStyle = '#fff'; ctx.fill();
-        ctx.font = '500 11px "IBM Plex Mono",monospace';
-        ctx.textAlign = sx > 0.72 ? 'right' : 'left';
-        ctx.fillStyle = '#F4F3EF';
-        ctx.fillText('ŷ = ' + qq.mu.toFixed(3) + ' ± ' + (2 * qq.sd).toFixed(3), X(sx) + (sx > 0.72 ? -10 : 10), Y(qq.mu) - 12);
-        ctx.restore();
-      }
-      if (hlA > 0) {
-        ctx.save(); ctx.globalAlpha = hlA;
-        var hx = X(x5);
-        var grad = ctx.createLinearGradient(hx - 32, 0, hx + 32, 0);
-        grad.addColorStop(0, 'rgba(255,176,6,0)'); grad.addColorStop(0.5, 'rgba(255,176,6,.13)'); grad.addColorStop(1, 'rgba(255,176,6,0)');
-        ctx.fillStyle = grad; ctx.fillRect(hx - 32, padT, 64, h - padT - padB);
-        var ry = Y(at(P4.mu, P4.sd, x5).mu);
-        var rr = 10 + Math.sin(t * 3.2) * 2.5;
-        ctx.strokeStyle = 'rgba(255,176,6,.9)'; ctx.lineWidth = 1.6;
-        ctx.beginPath(); ctx.arc(hx, ry, rr, 0, 7); ctx.stroke();
-        ctx.font = '500 10.5px "IBM Plex Mono",monospace'; ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(255,202,77,.95)';
-        ctx.fillText('argmax σ', hx, padT + 14);
-        ctx.restore();
-      }
-      if (dropA > 0) {
-        var e5 = easeO(dropA);
-        ctx.globalAlpha = Math.min(1, dropA * 2);
-        ctx.beginPath(); ctx.arc(X(x5), Y(y5) - (1 - e5) * 66, 4.5, 0, 7);
-        ctx.fillStyle = '#060607'; ctx.fill();
-        ctx.strokeStyle = '#FFB006'; ctx.lineWidth = 2; ctx.stroke();
-        ctx.globalAlpha = 1;
-      }
-
-      var idx = 0;
-      for (var si = 0; si < STEPS.length; si++) if (p >= STEPS[si]) idx = si;
-      setStep(idx);
-      if (p < 0.24) setReadout(['n = ' + Math.min(4, Math.ceil(p1 * 4.6 / 1.1 + 0.001)) + ' training runs', 'each one expensive', '']);
-      else if (p < 0.44) setReadout(['fitting posterior', 'μ(x) drawn ' + Math.round(easeS(p2) * 100) + '%', 'RBF · Cholesky']);
-      else if (p < 0.62) { var sx2 = 0.03 + 0.94 * easeS(p3); var q2 = at(P4.mu, P4.sd, sx2); setReadout(['ŷ(' + sx2.toFixed(2) + ') = ' + q2.mu.toFixed(3) + ' ± ' + (2 * q2.sd).toFixed(3), '< 1 ms', '2σ · 95%']); }
-      else if (p < 0.8) setReadout(['max σ = ' + (sdMax4 * easeS(p4)).toFixed(3), 'wide where data is thin', '']);
-      else if (morph < 0.98) setReadout(['next run → x = ' + x5.toFixed(2), 'argmax σ', '']);
-      else setReadout(['max σ ' + sdMax4.toFixed(3) + ' → ' + sdMax5.toFixed(3), '−' + sdDrop + '% with one run', 'confidence, earned']);
-    }
-
-    /* ---- your-turn play mode ---- */
-    var hud = sec.querySelector('[data-story-hud]');
-    var playUi = sec.querySelector('[data-play-ui]');
-    var userPts = null, pCur = null, pTgt = null, pMorph = 1, playOn = false, maxPts = 14;
-    function retrainPlay() {
-      var frozen = { mu: new Float64Array(N), sd: new Float64Array(N) };
-      for (var i = 0; i < N; i++) { frozen.mu[i] = pCur.mu[i] + (pTgt.mu[i] - pCur.mu[i]) * pMorph; frozen.sd[i] = pCur.sd[i] + (pTgt.sd[i] - pCur.sd[i]) * pMorph; }
-      pCur = frozen; pTgt = gpPosterior(userPts, xs, 0.17, 0.16, 0.035); pMorph = 0;
-    }
-    function resetPlay() {
-      userPts = pts4.concat([{ x: x5, y: y5 }]);
-      if (pCur) { retrainPlay(); } else { pCur = P5; pTgt = P5; pMorph = 1; }
-    }
-    function enterPlay() {
-      if (!userPts) resetPlay();
-      if (playOn) return; playOn = true;
-      playUi.classList.add('on');
-      cv.style.cursor = 'crosshair';
-      hud.textContent = 'Your turn · click the plot to add a measurement';
-    }
-    function exitPlay() {
-      if (!playOn) return; playOn = false;
-      playUi.classList.remove('on');
-      cv.style.cursor = '';
-      hud.textContent = 'Live math · GP posterior · in-browser';
-    }
-    function addUserPoint(x, y) {
-      if (userPts.length >= maxPts) userPts.splice(5, 1);
-      userPts.push({ x: clamp(x, 0.02, 0.98), y: clamp(y, 0.05, 0.95) });
-      retrainPlay();
-    }
-    function playDraw() {
-      var f = fit(), w = f.w, h = f.h;
-      var padL = 48, padR = 20, padT = 42, padB = 38;
-      var X = function (x) { return padL + x * (w - padL - padR); };
-      var Y = function (y) { return padT + (1 - y) * (h - padT - padB); };
-      ctx.clearRect(0, 0, w, h);
-      if (pMorph < 1) pMorph = Math.min(1, pMorph + 0.075);
-      var mix = function (a, b, i) { return a[i] + (b[i] - a[i]) * pMorph; };
-      ctx.strokeStyle = 'rgba(255,255,255,.055)'; ctx.lineWidth = 1;
-      for (var g = 0; g <= 4; g++) {
-        var gx = X(g / 4), gy = Y(g / 4);
-        ctx.beginPath(); ctx.moveTo(gx, padT); ctx.lineTo(gx, h - padB); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(padL, gy); ctx.lineTo(w - padR, gy); ctx.stroke();
-      }
-      ctx.fillStyle = 'rgba(156,156,150,.85)'; ctx.font = '400 10px "IBM Plex Mono",monospace'; ctx.textAlign = 'center';
-      ctx.fillText('input x', padL + (w - padL - padR) / 2, h - 12);
-      ctx.save(); ctx.translate(16, padT + (h - padT - padB) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText('response ŷ', 0, 0); ctx.restore();
-      [[2, 0.08], [1, 0.17]].forEach(function (band) {
-        ctx.beginPath();
-        for (var i = 0; i < N; i++) { var y = mix(pCur.mu, pTgt.mu, i) + band[0] * mix(pCur.sd, pTgt.sd, i); i ? ctx.lineTo(X(xs[i]), Y(y)) : ctx.moveTo(X(xs[i]), Y(y)); }
-        for (var j = N - 1; j >= 0; j--) ctx.lineTo(X(xs[j]), Y(mix(pCur.mu, pTgt.mu, j) - band[0] * mix(pCur.sd, pTgt.sd, j)));
-        ctx.closePath(); ctx.fillStyle = 'rgba(255,176,6,' + band[1] + ')'; ctx.fill();
-      });
-      ctx.beginPath();
-      for (var m = 0; m < N; m++) { var ym = mix(pCur.mu, pTgt.mu, m); m ? ctx.lineTo(X(xs[m]), Y(ym)) : ctx.moveTo(X(xs[m]), Y(ym)); }
-      ctx.strokeStyle = '#FFB006'; ctx.lineWidth = 2.2; ctx.lineJoin = 'round';
-      ctx.shadowColor = 'rgba(255,176,6,.5)'; ctx.shadowBlur = 9; ctx.stroke(); ctx.shadowBlur = 0;
-      userPts.forEach(function (p) {
-        ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), 4.5, 0, 7);
-        ctx.fillStyle = '#060607'; ctx.fill();
-        ctx.strokeStyle = '#FFCA4D'; ctx.lineWidth = 2; ctx.stroke();
-      });
-      setStep(5);
-      setReadout(['n = ' + userPts.length + ' measurements', 'click to add your own', 'bands refit live']);
-    }
-    cv.addEventListener('pointerdown', function (e) {
-      if (!playOn) return;
-      var r = cv.getBoundingClientRect();
-      var padL = 48, padR = 20, padT = 42, padB = 38;
-      addUserPoint((e.clientX - r.left - padL) / (r.width - padL - padR), 1 - (e.clientY - r.top - padT) / (r.height - padT - padB));
-    });
-    playUi.querySelector('[data-play-add]').addEventListener('click', function () { if (playOn) addUserPoint(0.03 + Math.random() * 0.94, 0.1 + Math.random() * 0.8); });
-    playUi.querySelector('[data-play-reset]').addEventListener('click', function () { if (playOn) resetPlay(); });
-    /* ---- /play mode ---- */
-
-    var prog = function () {
-      var r = sec.getBoundingClientRect();
-      var total = r.height - innerHeight;
-      return total > 4 ? clamp(-r.top / total, 0, 1) : 1;
-    };
-
-    if (reduce) {
-      draw(1, 0);
-      addEventListener('resize', function () { draw(1, 0); });
-      return;
-    }
-    var cur = prog(), on = false, raf = 0;
-    var loop = function (now) {
-      if (!on) return;
-      var tgt = prog();
-      cur += (tgt - cur) * 0.16;
-      if (Math.abs(tgt - cur) < 0.0004) cur = tgt;
-      if (tgt >= 0.985) { enterPlay(); playDraw(); }
-      else { exitPlay(); draw(cur, now * 0.001); }
-      raf = requestAnimationFrame(loop);
-    };
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (e.isIntersecting && !on) { on = true; raf = requestAnimationFrame(loop); }
-        else if (!e.isIntersecting && on) { on = false; cancelAnimationFrame(raf); }
-      });
-    }, { threshold: 0.01 });
-    io.observe(sec);
-    draw(cur, 0);
-
-    stepEls.forEach(function (el, i) {
-      el.addEventListener('click', function () {
-        var r = sec.getBoundingClientRect();
-        var target = scrollTopNow() + r.top + (STEPS[i] + 0.015) * (r.height - innerHeight);
-        (document.scrollingElement || document.body).scrollTo({ top: target, behavior: 'smooth' });
-      });
-    });
-  }
-  initPinnedStory(document.getElementById('gp-story'));
-  })();
-  </script>
-
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The gap</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Why standard models fall short here</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Classical Gaussian processes give calibrated uncertainty but struggle with large, high-dimensional, or non-stationary data. Deep networks scale but usually return a single number with no confidence. DIM-GP combines the two.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 50px;">
         <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 14px;">Classical GP</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Calibrated uncertainty, but struggles with large, high-dimensional, or non-stationary data.</p></div>
         <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 14px;">Deep networks</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Scale to complex, high-dimensional relationships, but usually return one number with no confidence.</p></div>
-        <div style="border: 1px solid rgba(255, 176, 6, 0.4); background: rgba(255, 176, 6, 0.05); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 14px;">DIM-GP</div><p style="color: rgb(244, 243, 239); font-size: 15px; line-height: 1.6;">A deep architecture for capacity, a Gaussian-process treatment for uncertainty, reliable when data is scarce.</p></div>
+        <div style="border: 1px solid rgba(255, 176, 6, 0.4); background: rgba(255, 176, 6, 0.05); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 14px;">DIM-GP</div><p style="color: rgb(244, 243, 239); font-size: 15px; line-height: 1.6;">Both at once: deep-architecture capacity with Gaussian-process uncertainty, on the small, expensive datasets engineering actually has.</p></div>
       </div>
     </div>
   </section>
@@ -531,7 +182,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">One family</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">One model family, many data shapes</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">DIM-GP is a family, not a single model. The same probabilistic core runs across all of them, for both regression and classification, plus multi-fidelity versions, so a team learns one approach instead of a new tool per problem.</p>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">DIM-GP is a family, not a single model. The same probabilistic core runs across every data shape below, so a team learns one approach instead of a new tool per problem.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px;">
         <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 10px 16px; font-size: 14px; color: rgb(200, 200, 194);">Scalar and tabular</span>
         <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 10px 16px; font-size: 14px; color: rgb(200, 200, 194);">Images</span>
@@ -545,24 +196,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   </section>
 
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 48px;">
-      <div style="opacity: 1; transform: none;">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">From model to decision</div>
-        <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Optimization that uses the uncertainty</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">STOCHOS pairs DIM-GP with Bayesian optimization that adapts after each result. It handles single and multi-objective goals, constraints, and data sources of different cost, and returns a Pareto front when objectives compete. Noise-robust variants find stable optima when measurements are noisy.</p>
-      </div>
-      <div style="opacity: 1; transform: none;">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Runs where your data is</div>
-        <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Built for secure, on-premise environments</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">It can be installed on machines without an internet connection by providing the packages directly. Sensitive simulation, test, and formulation data stays on your infrastructure.</p>
-        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px;">
-          <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 8px 13px; font: 500 12.5px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(200, 200, 194);">Windows / Linux</span>
-          <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 8px 13px; font: 500 12.5px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(200, 200, 194);">CPU / GPU</span>
-          <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 8px 13px; font: 500 12.5px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(200, 200, 194);">Python 3.12</span>
-          <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 8px 13px; font: 500 12.5px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(200, 200, 194);">PyTorch</span>
-          <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 8px 13px; font: 500 12.5px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(200, 200, 194);">Air-gapped install</span>
-        </div>
-      </div>
+    <div style="max-width: 1100px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">From model to decision</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Optimization that uses the uncertainty</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">The confidence interval is not just a readout. STOCHOS feeds it to a Bayesian optimizer that adapts after each result, and returns a Pareto front when objectives compete. <a href="/probaligence-site-preview/bayesian-optimization/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255, 176, 6, 0.35);">How Bayesian optimization works</a></p>
     </div>
   </section>
 
@@ -586,7 +223,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What is DIM-GP?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>DIM-GP, a Deep Infinite Mixture of Gaussian Processes, is the core STOCHOS algorithm. It combines neural networks and Gaussian processes into a non-stationary, probabilistic model designed for small, noisy datasets, changing geometries and meshes, and multi-fidelity data, without manual hyperparameter tuning.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Why combine deep learning and Gaussian processes?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Deep learning brings capacity to model complex, high-dimensional relationships. Gaussian processes bring calibrated uncertainty. Engineering needs both: a flexible model that also reports how far to trust each prediction. DIM-GP is built to deliver capacity and uncertainty in one model, tuned for small, expensive datasets.</p></div></div></details>
-        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Can STOCHOS run on-premise?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Can STOCHOS run on-premise?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, as a Python 3.12 package built on PyTorch, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>

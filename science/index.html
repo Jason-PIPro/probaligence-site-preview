@@ -35,8 +35,12 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .sci-btn-p:hover{filter:brightness(1.08)}
 .sci-btn-s{background:transparent;border:1px solid rgba(255,255,255,.2);color:#B8B8B2}
 .sci-btn-s:hover{border-color:rgba(255,176,6,.6);color:#F4F3EF}
-.sci-card canvas{opacity:.55;transition:opacity .25s}
-.sci-card:hover canvas{opacity:1}
+.sci-row{display:grid;grid-template-columns:250px 1fr;gap:28px;align-items:center;padding:24px 2px;border-top:1px solid rgba(255,255,255,.1);transition:background .2s ease}
+.sci-row:last-of-type{border-bottom:1px solid rgba(255,255,255,.1)}
+.sci-row:hover{background:rgba(255,255,255,.03)}
+.sci-row img{opacity:.62;transition:opacity .25s}
+.sci-row:hover img{opacity:1}
+@media (max-width:640px){.sci-row{grid-template-columns:1fr;gap:14px}}
 </style>
 <link rel="stylesheet" href="/probaligence-site-preview/site.css">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
@@ -81,7 +85,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">Resources</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -105,7 +109,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">Resources</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -125,11 +129,16 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 34px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(156, 156, 150); text-decoration: none;">Home</a> <span style="color: rgb(130, 130, 124);">/</span> <span style="color: rgb(200, 200, 194);">Science</span></nav>
       <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Science</div>
       <h1 style="font: 700 clamp(40px, 6vw, 76px) / 1.04 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; margin: 0px auto; max-width: 16ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">The</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">science</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">behind</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">STOCHOS.</span></span></h1>
-      <p data-hero="" style="margin: 26px auto 0px; color: rgb(200, 200, 194); font-size: clamp(16px, 1.5vw, 18.5px); line-height: 1.65; max-width: 64ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS is built on probabilistic machine learning made for engineering data: small, noisy, and expensive to produce. One algorithm, DIM-GP, powers six methods: surrogate modeling, uncertainty quantification, Bayesian optimization, multi-fidelity modeling, sensitivity analysis, and generative design.</p>
-      <div data-hero="" style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
+      <div data-hero="" style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 40px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
         <a href="/probaligence-site-preview/how-stochos-works/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">How STOCHOS works</a>
         <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.24); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
       </div>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(32px, 4.5vw, 56px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 820px; margin: 0px auto; text-align: center;">
+      <p style="color: rgb(200, 200, 194); font-size: clamp(17px, 1.9vw, 21px); line-height: 1.6; max-width: 54ch; margin: 0px auto;">STOCHOS is built on probabilistic machine learning made for engineering data: small, noisy, and expensive to produce. One algorithm, DIM-GP, powers all six methods, from surrogate modeling to generative design.</p>
     </div>
   </section>
 
@@ -171,42 +180,54 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The methods</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Six methods, one loop</h2>
       <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Each method is a stage of one loop around the model: model, trust, decide, cut cost, explain, expand. Every card opens a plain-language guide showing how STOCHOS runs that stage.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; margin-top: 50px;">
-        <a href="/probaligence-site-preview/surrogate-modeling/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">01</span>
-          <canvas data-spark="band" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
-          <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Surrogate Modeling</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Model it: predict new variants in seconds from the runs you already have.</p>
+      <div style="margin-top: 44px;">
+        <a href="/probaligence-site-preview/surrogate-modeling/" class="scp3 sci-row" style="text-decoration: none;">
+          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/surrogate-crash-poster.webp" width="640" height="480" alt="Crash simulation and the STOCHOS surrogate prediction side by side" style="display: block; width: 100%; height: 150px; object-fit: cover; object-position: 50% 54%; background: rgb(0, 0, 0); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px;">
+          <div>
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">01</span>
+            <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 10px;">Surrogate Modeling</h3>
+            <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Model it: predict new variants in seconds from the runs you already have.</p>
+          </div>
         </a>
-        <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">02</span>
-          <canvas data-spark="acq" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
-          <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Uncertainty Quantification</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Trust it: see where predictions are reliable and where more data would help.</p>
+        <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp3 sci-row" style="text-decoration: none;">
+          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/uncertainty-black-box.webp" width="1600" height="932" alt="A black-box model returning one bare prediction with no indication of how far to trust it" style="display: block; width: 100%; height: 150px; object-fit: cover; background: rgb(0, 0, 0); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px;">
+          <div>
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">02</span>
+            <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 10px;">Uncertainty Quantification</h3>
+            <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Trust it: see where predictions are reliable and where more data would help.</p>
+          </div>
         </a>
-        <a href="/probaligence-site-preview/bayesian-optimization/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">03</span>
-          <canvas data-spark="contour" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
-          <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Bayesian Optimization</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Decide: choose the next best experiment or simulation.</p>
+        <a href="/probaligence-site-preview/bayesian-optimization/" class="scp3 sci-row" style="text-decoration: none;">
+          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/bo-loop-diagram.webp" width="1400" height="933" alt="The Bayesian optimization loop: model, choose the next experiment, observe, repeat" style="display: block; width: 100%; height: 150px; object-fit: cover; background: rgb(0, 0, 0); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px;">
+          <div>
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">03</span>
+            <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 10px;">Bayesian Optimization</h3>
+            <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Decide: choose the next best experiment or simulation.</p>
+          </div>
         </a>
-        <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">04</span>
-          <canvas data-spark="lattice" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
-          <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Multi-Fidelity Modeling</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Cut the cost: combine cheap screening data with expensive high-quality results.</p>
+        <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp3 sci-row" style="text-decoration: none;">
+          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/multi-fidelity-clean.webp" width="1467" height="652" alt="Cheap simulation data and expensive lab points fused into one model" style="display: block; width: 100%; height: 150px; object-fit: contain; background: rgb(0, 0, 0); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px;">
+          <div>
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">04</span>
+            <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 10px;">Multi-Fidelity Modeling</h3>
+            <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Cut the cost: combine cheap screening data with expensive high-quality results.</p>
+          </div>
         </a>
-        <a href="/probaligence-site-preview/sensitivity-analysis/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">05</span>
-          <canvas data-spark="bars" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
-          <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Sensitivity Analysis</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Explain it: identify which inputs actually drive the outcome.</p>
+        <a href="/probaligence-site-preview/sensitivity-analysis/" class="scp3 sci-row" style="text-decoration: none;">
+          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/sensitivity-global-sobol.webp" width="1080" height="965" alt="Sobol sensitivity bar chart ranking input importance" style="display: block; width: 100%; height: 150px; object-fit: cover; object-position: 50% 0%; background: rgb(0, 0, 0); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px;">
+          <div>
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">05</span>
+            <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 10px;">Sensitivity Analysis</h3>
+            <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Explain it: identify which inputs actually drive the outcome.</p>
+          </div>
         </a>
-        <a href="/probaligence-site-preview/generative-design/" class="scp3 sci-card" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; text-decoration: none; transition-behavior: normal, normal; transition-duration: 0.2s, 0.2s; transition-timing-function: ease, ease; transition-property: border-color, transform; opacity: 1; transform: none;">
-          <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">06</span>
-          <canvas data-spark="hex" aria-hidden="true" style="display: block; width: 100%; height: 64px; margin-top: 16px;"></canvas>
-          <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Generative Design</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Expand it: explore new geometries beyond fixed variants with GEN-BO.</p>
+        <a href="/probaligence-site-preview/generative-design/" class="scp3 sci-row" style="text-decoration: none;">
+          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/gen-ai-loop-poster.webp" width="640" height="480" alt="Generated bracket variants with their predicted stress fields" style="display: block; width: 100%; height: 150px; object-fit: cover; background: rgb(0, 0, 0); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px;">
+          <div>
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">06</span>
+            <h3 style="font: 600 18px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 10px;">Generative Design</h3>
+            <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Expand it: explore new geometries beyond fixed variants with GEN-BO.</p>
+          </div>
         </a>
       </div>
     </div>
@@ -376,115 +397,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     };
   }
 
-  var SPARKS = {
-    band: function (ctx, w, h, t) {
-      var N = 70;
-      ctx.clearRect(0, 0, w, h);
-      var mu = function (x) { return h * (0.55 - 0.16 * Math.sin(x * 4.4 + t * 0.5) - 0.1 * Math.sin(x * 9 + 1.2)); };
-      var sd = function (x) { return h * (0.06 + 0.05 * (0.5 + 0.5 * Math.sin(x * 6 - t * 0.7)) + 0.09 * Math.pow(Math.abs(x - 0.5) * 2, 2)); };
-      ctx.beginPath();
-      for (var i = 0; i <= N; i++) { var x = i / N, y = mu(x) - sd(x); i ? ctx.lineTo(x * w, y) : ctx.moveTo(x * w, y); }
-      for (var j = N; j >= 0; j--) { var x2 = j / N; ctx.lineTo(x2 * w, mu(x2) + sd(x2)); }
-      ctx.closePath(); ctx.fillStyle = 'rgba(255,176,6,.14)'; ctx.fill();
-      ctx.beginPath();
-      for (var k = 0; k <= N; k++) { var x3 = k / N; k ? ctx.lineTo(x3 * w, mu(x3)) : ctx.moveTo(x3 * w, mu(x3)); }
-      ctx.strokeStyle = AMBER; ctx.lineWidth = 1.8; ctx.stroke();
-    },
-    acq: function (ctx, w, h, t) {
-      ctx.clearRect(0, 0, w, h);
-      var f = function (x) { return 0.3 + 0.22 * Math.sin(x * 5 + 1) + 0.24 * Math.exp(-Math.pow((x - (0.5 + 0.34 * Math.sin(t * 0.4))) * 5, 2)); };
-      var peak = 0, peakX = 0, N = 80;
-      ctx.beginPath();
-      for (var i = 0; i <= N; i++) {
-        var x = i / N, v = f(x);
-        if (v > peak) { peak = v; peakX = x; }
-        i ? ctx.lineTo(x * w, h - v * h) : ctx.moveTo(x * w, h - v * h);
-      }
-      ctx.strokeStyle = 'rgba(255,176,6,.75)'; ctx.lineWidth = 1.6; ctx.stroke();
-      ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath();
-      ctx.fillStyle = 'rgba(255,176,6,.08)'; ctx.fill();
-      var yv = h - f(peakX) * h;
-      ctx.setLineDash([3, 3]); ctx.strokeStyle = 'rgba(255,176,6,.5)';
-      ctx.beginPath(); ctx.moveTo(peakX * w, yv); ctx.lineTo(peakX * w, h); ctx.stroke(); ctx.setLineDash([]);
-      ctx.beginPath(); ctx.arc(peakX * w, yv, 4, 0, Math.PI * 2); ctx.fillStyle = AMBER; ctx.fill();
-    },
-    bars: function (ctx, w, h, t) {
-      ctx.clearRect(0, 0, w, h);
-      var vals = [0.92, 0.62, 0.4, 0.22, 0.11];
-      var bh = h / (vals.length * 1.6);
-      vals.forEach(function (v, i) {
-        var vv = v * (0.9 + 0.1 * Math.sin(t * 0.9 + i));
-        ctx.fillStyle = 'rgba(255,176,6,' + (0.28 + 0.72 * v) + ')';
-        ctx.fillRect(0, i * (bh * 1.6) + bh * 0.3, vv * w * 0.94, bh);
-      });
-    },
-    contour: function (ctx, w, h, t) {
-      ctx.clearRect(0, 0, w, h);
-      var cx = w * 0.62, cy = h * 0.42;
-      for (var i = 4; i >= 1; i--) {
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, i * w * 0.11, i * h * 0.13, -0.3, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(255,176,6,' + (0.1 + (4 - i) * 0.12) + ')';
-        ctx.lineWidth = 1.2; ctx.stroke();
-      }
-      var k = (t * 0.35) % 1;
-      var trail = [[0.1, 0.85], [0.3, 0.6], [0.48, 0.7], [0.55, 0.45], [0.62, 0.42]];
-      var n = Math.min(trail.length, 1 + Math.floor(k * (trail.length + 1)));
-      ctx.strokeStyle = 'rgba(255,176,6,.4)'; ctx.lineWidth = 1;
-      ctx.beginPath();
-      for (var j = 0; j < n; j++) { var p = trail[j]; j ? ctx.lineTo(p[0] * w, p[1] * h) : ctx.moveTo(p[0] * w, p[1] * h); }
-      ctx.stroke();
-      for (var m = 0; m < n; m++) {
-        var p2 = trail[m], last = m === n - 1;
-        ctx.beginPath(); ctx.arc(p2[0] * w, p2[1] * h, last ? 4 : 2.6, 0, Math.PI * 2);
-        ctx.fillStyle = last ? AMBER : 'rgba(255,176,6,.55)'; ctx.fill();
-      }
-    },
-    lattice: function (ctx, w, h, t) {
-      ctx.clearRect(0, 0, w, h);
-      var f1 = function (x) { return h * (0.62 - 0.18 * Math.sin(x * 3.4 + t * 0.3)); };
-      var f2 = function (x) { return h * (0.5 - 0.2 * Math.sin(x * 3.4 + t * 0.3) - 0.05 * Math.sin(x * 9)); };
-      ctx.setLineDash([5, 4]); ctx.strokeStyle = 'rgba(255,255,255,.28)'; ctx.lineWidth = 1.4;
-      ctx.beginPath();
-      for (var i = 0; i <= 60; i++) { var x = i / 60; i ? ctx.lineTo(x * w, f1(x)) : ctx.moveTo(x * w, f1(x)); }
-      ctx.stroke(); ctx.setLineDash([]);
-      ctx.strokeStyle = AMBER; ctx.lineWidth = 2;
-      ctx.beginPath();
-      for (var j = 0; j <= 60; j++) { var x2 = j / 60; j ? ctx.lineTo(x2 * w, f2(x2)) : ctx.moveTo(x2 * w, f2(x2)); }
-      ctx.stroke();
-      [0.22, 0.55, 0.85].forEach(function (x) {
-        ctx.beginPath(); ctx.arc(x * w, f2(x), 3.6, 0, Math.PI * 2); ctx.fillStyle = AMBER; ctx.fill();
-      });
-    },
-    hex: function (ctx, w, h, t) {
-      ctx.clearRect(0, 0, w, h);
-      var cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.34;
-      for (var ring = 2; ring >= 0; ring--) {
-        ctx.beginPath();
-        for (var i = 0; i <= 6; i++) {
-          var a = (i / 6) * Math.PI * 2 - Math.PI / 2;
-          var wob = 1 + 0.12 * Math.sin(t * 0.8 + i * 2.1 + ring) * (ring ? 1 : 0.4);
-          var r = R * (1 - ring * 0.26) * wob;
-          i ? ctx.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r) : ctx.moveTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
-        }
-        ctx.closePath();
-        ctx.strokeStyle = ring ? 'rgba(255,176,6,' + (0.2 + ring * 0.12) + ')' : AMBER;
-        ctx.lineWidth = ring ? 1.2 : 2;
-        ctx.stroke();
-      }
-      ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.fillStyle = AMBER; ctx.fill();
-    },
-  };
-
-  function spark(canvas, kind) {
-    var fn = SPARKS[kind] || SPARKS.band;
-    if (reduce()) { var f = fitCanvas(canvas); fn(f.ctx, f.w, f.h, 2.2); return { stop: function () {} }; }
-    return viewLoop(canvas, function (t) {
-      var f = fitCanvas(canvas);
-      fn(f.ctx, f.w, f.h, t);
-    });
-  }
-
   var DEFAULT = [[0.14, 0.36], [0.34, 0.62], [0.58, 0.44], [0.82, 0.71]];
   var gpCv = document.getElementById('sci-gp');
   if (gpCv) {
@@ -496,7 +408,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     if (addBtn) addBtn.addEventListener('click', function () { gp.addRandom(); });
     if (resetBtn) resetBtn.addEventListener('click', function () { gp.reset(DEFAULT); });
   }
-  document.querySelectorAll('canvas[data-spark]').forEach(function (cv) { spark(cv, cv.getAttribute('data-spark')); });
 })();
 </script>
 </main>

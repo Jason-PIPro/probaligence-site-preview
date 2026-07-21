@@ -54,18 +54,103 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<style id="team-cloud-css">
-.team-cloud{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:52px}
-.tc-tile{margin:0;position:relative;aspect-ratio:3/4;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:4px;background:#0E0D0C;transition:transform .35s cubic-bezier(.22,1,.3,1),border-color .35s}
-.tc-tile img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.02);transition:filter .4s}
-.tc-tile:hover{transform:translateY(-6px);border-color:rgba(255,176,6,.45)}
-.tc-tile:hover img{filter:grayscale(0)}
-.team-cloud.fx .tc-tile{clip-path:inset(0 100% 0 0)}
-.team-cloud.fx .tc-tile.in{clip-path:inset(0 0 0 0);transition:clip-path .7s cubic-bezier(.22,1,.3,1),transform .35s cubic-bezier(.22,1,.3,1),border-color .35s}
-@media (min-width:761px){.tc-tile:nth-child(2n){margin-top:26px}.tc-tile:nth-child(3n){margin-top:12px}}
-@media (max-width:760px){.team-cloud{grid-template-columns:repeat(3,1fr);gap:10px}}
-@media (max-width:480px){.team-cloud{grid-template-columns:repeat(2,1fr)}}
-@media (prefers-reduced-motion:reduce){.team-cloud.fx .tc-tile{clip-path:none}.tc-tile,.tc-tile img{transition:none}}
+<style id="about-visual-css">
+/* Partner lockup */
+.plock{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:52px}
+.plock-card{position:relative;border:1px solid rgba(255,255,255,.1);border-radius:4px;background:linear-gradient(160deg,rgba(255,176,6,.05),transparent 62%);padding:clamp(30px,4vw,52px);overflow:hidden;transition:border-color .3s}
+.plock-card:hover{border-color:rgba(255,176,6,.4)}
+.plock-logo{height:clamp(48px,5vw,64px);width:auto;max-width:80%;object-fit:contain;display:block}
+.plock-logo--cadfem{height:clamp(28px,2.9vw,37px)}
+.plock-card h3{font:600 clamp(17px,1.9vw,21px)/1.25 'Space Grotesk',sans-serif;color:#F4F3EF;margin-top:28px}
+.plock-card p{color:#9C9C96;font-size:14.5px;line-height:1.6;margin-top:10px;max-width:44ch}
+.plock-card a{color:#FFB006;text-decoration:none}
+@media (max-width:760px){.plock{grid-template-columns:1fr}}
+/* Proof row */
+.proof-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;margin-top:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.07)}
+.proof-row>div{background:#060607;padding:24px 26px}
+.proof-row h4{font:600 15px/1.3 'Space Grotesk',sans-serif;color:#FFB006}
+.proof-row p{color:#9C9C96;font-size:13.5px;line-height:1.55;margin-top:8px}
+/* Event photo cloud (masonry) */
+.ecloud{column-count:4;column-gap:14px;margin-top:52px}
+.ec-tile{display:block;text-decoration:none;margin:0 0 14px;position:relative;break-inside:avoid;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:4px;background:#0E0D0C;transition:transform .35s cubic-bezier(.22,1,.3,1),border-color .35s}
+.ec-tile img{width:100%;height:auto;display:block;filter:grayscale(1) contrast(1.03) brightness(.92);transition:filter .45s,transform .5s cubic-bezier(.22,1,.3,1)}
+.ec-tile:hover{border-color:rgba(255,176,6,.45)}
+.ec-tile:hover img{filter:none;transform:scale(1.035)}
+.ec-cap{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;background:linear-gradient(transparent,rgba(6,6,7,.88));font:400 11.5px/1.35 'IBM Plex Mono',monospace;color:#C8C8C2;opacity:0;transition:opacity .3s}
+.ec-tile:hover .ec-cap{opacity:1}
+.ecloud.fx .ec-tile{opacity:0;transform:translateY(18px)}
+.ecloud.fx .ec-tile.in{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.22,1,.3,1),transform .7s cubic-bezier(.22,1,.3,1),border-color .35s}
+@media (max-width:1000px){.ecloud{column-count:3}}
+@media (max-width:700px){.ecloud{column-count:2;column-gap:10px}.ec-tile{margin-bottom:10px}.ec-cap{opacity:1}}
+@media (prefers-reduced-motion:reduce){.ecloud.fx .ec-tile{opacity:1;transform:none}.ec-tile,.ec-tile img{transition:none}}
+
+/* Hero: event photos as a warm welcome behind the name */
+.hero-cloud{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-cloud .hc-row{display:flex;gap:14px;width:max-content;margin-bottom:14px;will-change:transform}
+.hero-cloud .hc-row img{height:clamp(120px,15vw,190px);width:auto;border-radius:4px;object-fit:cover;filter:grayscale(1) brightness(.72) contrast(1.06);display:block}
+.hero-cloud .hc-a{animation:hcDriftA 78s linear infinite}
+.hero-cloud .hc-b{animation:hcDriftB 96s linear infinite}
+@keyframes hcDriftA{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes hcDriftB{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.hero-scrim{position:absolute;inset:0;pointer-events:none;background:radial-gradient(at 50% 45%,rgba(6,6,7,.74),rgba(6,6,7,.9) 58%,#060607 84%),linear-gradient(#060607,transparent 22%,transparent 74%,#060607)}
+@media (prefers-reduced-motion:reduce){.hero-cloud .hc-row{animation:none!important}}
+/* PI wordmark reveal */
+.piword{display:flex;gap:.42em;flex-wrap:wrap;justify-content:center;margin-top:30px}
+.piword b{font:500 clamp(13px,1.5vw,16px)/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#82827C;font-weight:500}
+.piword .lead{color:#FFB006}
+.piword .rest{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;max-width:14em;opacity:1}
+html.anim .piword .rest{animation:piReveal .85s cubic-bezier(.22,1,.3,1) both}
+html.anim .piword b:nth-child(2) .rest{animation-delay:1.25s}
+html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
+@keyframes piReveal{from{max-width:0;opacity:0}to{max-width:14em;opacity:1}}
+@media (prefers-reduced-motion:reduce){html.anim .piword .rest{animation:none}}
+/* Milestone news cards */
+.mstone{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:44px}
+.ms-card{display:flex;flex-direction:column;text-decoration:none;border:1px solid rgba(255,255,255,.1);border-radius:4px;overflow:hidden;background:#0E0D0C;transition:border-color .3s,transform .35s cubic-bezier(.22,1,.3,1)}
+.ms-card:hover{border-color:rgba(255,176,6,.45);transform:translateY(-4px)}
+.ms-card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;filter:grayscale(1) brightness(.85);transition:filter .4s}
+.ms-card:hover img{filter:none}
+.ms-plate{display:flex;align-items:center;justify-content:center;aspect-ratio:16/10;background:linear-gradient(150deg,rgba(255,176,6,.16),rgba(255,176,6,.03) 62%),#0B0A09;border-bottom:1px solid rgba(255,255,255,.07)}
+.ms-plate img{width:auto;height:auto;max-width:64%;max-height:44%;object-fit:contain;filter:none}
+.ms-card:hover .ms-plate img{filter:none}
+.ms-plate--light{background:#F6F5F2}
+.ms-plate--light img{max-width:58%;max-height:34%}
+.ms-body{display:block;padding:20px 22px 22px}
+.ms-date{font:400 11.5px/1 'IBM Plex Mono',monospace;color:#FFB006;letter-spacing:.08em}
+.ms-card h3{font:600 15.5px/1.35 'Space Grotesk',sans-serif;color:#F4F3EF;margin-top:11px}
+.ms-card p{color:#9C9C96;font-size:13.5px;line-height:1.6;margin-top:9px}
+/* Find us */
+.fu-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:clamp(30px,4vw,64px);align-items:start;margin-top:52px}
+@media (max-width:900px){.fu-grid{grid-template-columns:1fr;gap:36px}}
+.fu-rail dl{margin:0}
+.fu-row{padding:18px 0;border-top:1px solid rgba(255,255,255,.09)}
+.fu-row:first-child{border-top:0;padding-top:0}
+.fu-row dt{font:500 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#82827C}
+.fu-row dd{margin:10px 0 0;color:#C8C8C2;font-size:15.5px;line-height:1.6}
+.fu-row dd a{color:#FFB006;text-decoration:none}
+.fu-row dd a:hover{text-decoration:underline}
+.fu-office{display:flex;gap:8px;margin-top:14px}
+.fu-office img{width:33.33%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;filter:grayscale(1) brightness(.8);transition:filter .35s}
+.fu-office:hover img{filter:none}
+/* the globe stage */
+.globe-wrap{--fade:0;position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:4px;
+  background:radial-gradient(at 50% 46%,rgba(255,176,6,.10),transparent 58%),radial-gradient(1px 1px at 18% 22%,rgba(255,255,255,.5),transparent),radial-gradient(1px 1px at 72% 16%,rgba(255,255,255,.38),transparent),radial-gradient(1px 1px at 33% 74%,rgba(255,255,255,.42),transparent),radial-gradient(1px 1px at 86% 62%,rgba(255,255,255,.3),transparent),radial-gradient(1px 1px at 58% 88%,rgba(255,255,255,.34),transparent),radial-gradient(1px 1px at 8% 58%,rgba(255,255,255,.28),transparent),#07070A}
+.globe-wrap canvas{width:min(82%,430px);height:auto;aspect-ratio:1;opacity:calc(1 - var(--fade));transition:opacity .45s linear}
+.globe-map{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:var(--fade);transition:opacity .7s ease}
+.globe-pin,.globe-label{position:absolute;left:50%;opacity:var(--fade);transition:opacity .5s ease .15s;pointer-events:none}
+.globe-pin{top:50%;width:13px;height:13px;margin:-6.5px 0 0 -6.5px;border-radius:50%;background:#FFB006;box-shadow:0 0 0 5px rgba(255,176,6,.2),0 0 0 13px rgba(255,176,6,.08)}
+.globe-label{top:calc(50% + 18px);transform:translateX(-50%);font:400 12px/1 'IBM Plex Mono',monospace;color:#F4F3EF;background:rgba(6,6,7,.75);padding:6px 11px;border-radius:2px;white-space:nowrap}
+.globe-bar{position:absolute;left:0;right:0;bottom:0;display:flex;gap:14px;align-items:baseline;justify-content:space-between;flex-wrap:wrap;
+  padding:30px 18px 14px;background:linear-gradient(transparent,rgba(6,6,7,.9));opacity:var(--fade);transition:opacity .5s ease .2s}
+.globe-bar .addr{font:400 12.5px/1.5 'IBM Plex Mono',monospace;color:#C8C8C2}
+.globe-bar a{font:600 13px/1.5 'IBM Plex Sans',sans-serif;color:#FFB006;text-decoration:none}
+.globe-bar a:hover{text-decoration:underline}
+.globe-replay{position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:7px;padding:8px 13px;border:1px solid rgba(255,255,255,.16);border-radius:2px;background:rgba(6,6,7,.6);
+  color:#C8C8C2;font:500 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.06em;cursor:pointer;opacity:0;transition:opacity .4s ease,border-color .25s,color .25s}
+.globe-wrap.done .globe-replay{opacity:1}
+.globe-replay:hover{border-color:rgba(255,176,6,.5);color:#FFB006}
+.globe-wrap:not(.done) .globe-bar{pointer-events:none}
+@media (prefers-reduced-motion:reduce){.globe-wrap canvas,.globe-map,.globe-pin,.globe-label,.globe-bar,.globe-replay{transition:none}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where is PI Probaligence based?","acceptedAnswer":{"@type":"Answer","text":"PI Probaligence is based in Grafing bei Munich, Germany. It was founded in 2018 as a spin-off of the Institute for Modeling and High Performance Computing at Niederrhein University of Applied Sciences, and works with engineering and R&D teams internationally."}},{"@type":"Question","name":"Is PI part of CADFEM?","acceptedAnswer":{"@type":"Answer","text":"Yes. The CADFEM Group acquired a stake in PI Probaligence, and PI has been part of the CADFEM Group since 2024. PI continues to develop STOCHOS and STOCHOS Flow as its own products for engineering and R&D."}},{"@type":"Question","name":"Is PI an Ansys partner?","acceptedAnswer":{"@type":"Answer","text":"Yes. PI Probaligence is an official Ansys Technology Partner. STOCHOS Flow connects to Ansys workflows, reading Ansys Workbench parameters and calling the Ansys Solver node for selective validation, so the solver stays the source of truth."}},{"@type":"Question","name":"How do I request a demo?","acceptedAnswer":{"@type":"Answer","text":"Use the Request a Demo button or the contact page. Bring one use case, bottleneck, or dataset, and we can outline where STOCHOS fits and what a realistic proof of concept could look like. PI often works with teams that have no in-house machine learning team."}}]}</script>
 </head>
@@ -105,7 +190,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">Resources</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -129,7 +214,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">Resources</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -139,89 +224,239 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <main id="main" style="display: block;">
 
   <section data-hero-in style="position: relative; padding: 150px 24px 90px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
-    <div aria-hidden="true" style="position: absolute; top: -10%; left: 50%; transform: translateX(-50%); width: 980px; height: 560px; max-width: 120vw; background: radial-gradient(rgba(255, 176, 6, 0.09), transparent 62%); pointer-events: none;"></div>
+    <div class="hero-cloud" aria-hidden="true">
+      <div class="hc-row hc-a"><img src="/probaligence-site-preview/assets/news/cadfem-conference-rapperswil-2026/cadfem-rapperswil-2026-pi-probaligence-booth.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/ai-coatings-ecs-2025/20250327-ecs-1.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-conference-2024-austria/20241107-cadfem-conference-2.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-konferenz-2025-rapperswil/20250912-cadfem-conference-rapperswill-2025-2.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/ai-coatings-ecs-2025/20250327-esc-blog.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-sea-singapore-visit/20251103-pi-at-cadfem-sea.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-conference-rapperswil-2026/cadfem-rapperswil-2026-pi-probaligence-booth.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/ai-coatings-ecs-2025/20250327-ecs-1.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-conference-2024-austria/20241107-cadfem-conference-2.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-konferenz-2025-rapperswil/20250912-cadfem-conference-rapperswill-2025-2.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/ai-coatings-ecs-2025/20250327-esc-blog.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-sea-singapore-visit/20251103-pi-at-cadfem-sea.webp" alt="" loading="lazy"></div>
+      <div class="hc-row hc-b"><img src="/probaligence-site-preview/assets/news/lacktagung-2025-aachen/20250922lacktagung_2025_pi_stand-e1764581009248.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/ai-coatings-ecs-2025/20250327-ecs-2.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-conference-2024-austria/20241107-cadfem-conference-1.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-conference-rapperswil-2026/cadfem-rapperswil-2026-stochos-flow-presentation.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/new-office-cadfem-building/20250701-new-office-3.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-ai-conference-singapore-2026/img_5892.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/lacktagung-2025-aachen/20250922lacktagung_2025_pi_stand-e1764581009248.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/ai-coatings-ecs-2025/20250327-ecs-2.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-conference-2024-austria/20241107-cadfem-conference-1.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-conference-rapperswil-2026/cadfem-rapperswil-2026-stochos-flow-presentation.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/new-office-cadfem-building/20250701-new-office-3.webp" alt="" loading="lazy"><img src="/probaligence-site-preview/assets/news/cadfem-ai-conference-singapore-2026/img_5892.webp" alt="" loading="lazy"></div>
+    </div>
+    <div class="hero-scrim" aria-hidden="true"></div>
     <div style="max-width: 1000px; margin: 0px auto; position: relative; text-align: center;">
       <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-bottom: 34px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">About</span></nav>
       <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Company</div>
-      <h1 style="font: 700 clamp(36px, 5.4vw, 68px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; margin: 0px auto; max-width: 16ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Local,</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">probabilistic</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">AI</span></span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">for</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">engineering</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">and</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">R&amp;D.</span></h1>
-      <p data-hero="" style="margin: 26px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18.5px); line-height: 1.65; max-width: 62ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">PI Probaligence is an AI and machine learning company for engineering, simulation, chemistry, and R&amp;D. It turns existing simulation, experimental, and process data into fast surrogate models with quantified uncertainty. Founded in 2018, part of the CADFEM Group, and an official Ansys Technology Partner.</p>
+      <h1 style="font: 700 clamp(40px, 7vw, 92px) / 1.02 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.03em; margin: 0px auto; max-width: 14ch;"><span style="display: inline-block;">PI</span> <span style="display: inline-block; color: rgb(255, 176, 6);">Probaligence</span></h1>
+      <p class="piword" id="piword"><b><span class="lead">P</span><span class="rest">robabilistic</span></b><b><span class="lead">I</span><span class="rest">ntelligence</span></b></p>
+      <p data-hero="" style="margin: 26px auto 0px; color: rgb(200, 200, 194); font-size: clamp(18px, 2vw, 24px); line-height: 1.5; max-width: 26ch; font-family: &quot;Space Grotesk&quot;, sans-serif; font-weight: 500; letter-spacing: -0.01em; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Local, probabilistic AI for engineering and R&amp;D.</p>
       <p data-hero="" style="margin: 20px auto 0px; color: rgb(130, 130, 124); font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Founded 2018 &nbsp;·&nbsp; Part of the CADFEM Group since 2024 &nbsp;·&nbsp; Ansys Technology Partner</p>
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 48px;">
-      <div style="opacity: 1; transform: none;">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">What we do</div>
-        <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">Two layers, one system</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">STOCHOS is the predictive engine: DIM-GP models that turn small, noisy datasets into fast predictions with quantified uncertainty. <a href="/probaligence-site-preview/stochos-flow/" style="color: rgb(255, 176, 6); text-decoration: none;">STOCHOS Flow</a> is the visual workflow layer around it. The method itself is public, explained on <a href="/probaligence-site-preview/how-stochos-works/" style="color: rgb(255, 176, 6); text-decoration: none;">How STOCHOS works</a>.</p>
+
+  <section data-reveal="" style="padding: clamp(72px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1000px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 "IBM Plex Mono", monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">What we do</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Predictions you can put a number on</h2>
+      <p style="margin-top: 24px; color: rgb(200, 200, 194); font-size: clamp(18px, 1.9vw, 22px); line-height: 1.55; max-width: 46ch;">Simulations and lab tests are slow and expensive. We learn from the results you already have, then predict the next one in seconds.</p>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; max-width: 56ch;">Every prediction comes with a range, so you can see how sure the model is. Move past what it has seen and it tells you, instead of guessing quietly.</p>
+      <p style="margin-top: 26px; font: 400 13px / 1.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);"><a href="/probaligence-site-preview/stochos/" style="color: rgb(255, 176, 6); text-decoration: none;">STOCHOS</a>, the engine &nbsp;&middot;&nbsp; <a href="/probaligence-site-preview/stochos-flow/" style="color: rgb(255, 176, 6); text-decoration: none;">STOCHOS Flow</a>, the workflows &nbsp;&middot;&nbsp; <a href="/probaligence-site-preview/how-stochos-works/" style="color: rgb(255, 176, 6); text-decoration: none;">How it works</a></p>
+    </div>
+  </section>
+
+  <section data-reveal="" id="partners" style="padding: clamp(84px, 10vw, 150px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div aria-hidden="true" style="position: absolute; top: -20%; left: 50%; transform: translateX(-50%); width: 1100px; height: 620px; max-width: 130vw; background: radial-gradient(rgba(255, 176, 6, 0.08), transparent 62%); pointer-events: none;"></div>
+    <div style="max-width: 1100px; margin: 0px auto; position: relative;">
+      <div style="font: 500 12px / 1 "IBM Plex Mono", monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Who we build with</div>
+      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 20ch;">Backed by the CADFEM Group, partnered with Ansys</h2>
+      <div class="plock">
+        <div class="plock-card">
+          <img class="plock-logo" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner" loading="lazy">
+          <h3>Official Ansys Technology Partner</h3>
+          <p>STOCHOS Flow connects to Ansys workflows: it reads Ansys Workbench parameters and calls the Ansys Solver node for selective validation, so the solver stays the source of truth. <a href="/probaligence-site-preview/stochos-flow/">See the integration</a></p>
+        </div>
+        <div class="plock-card">
+          <img class="plock-logo plock-logo--cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group" loading="lazy">
+          <h3>Part of the CADFEM Group since 2024</h3>
+          <p>The CADFEM Group acquired a stake in PI Probaligence. PI continues to develop STOCHOS and STOCHOS Flow as its own products, with the reach of a simulation group behind it.</p>
+        </div>
       </div>
-      <div style="opacity: 1; transform: none;">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Our approach</div>
-        <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Built for the data teams actually have</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Engineering data is limited, noisy, and expensive to produce. STOCHOS is built for exactly that data. And when a prediction moves beyond it, the model says so instead of guessing quietly.</p>
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 22px;">
-          <div style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span>Predictions that come with quantified uncertainty.</div>
-          <div style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span>Models that learn from small datasets.</div>
-          <div style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span>Software that runs on your own infrastructure.</div>
+      <p style="margin-top: 26px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; max-width: 62ch;">Together with our partners and a global channel network, we bring probabilistic AI to engineering and R&amp;D workflows around the world.</p>
+    </div>
+  </section>
+
+  <section data-reveal="" id="milestones" style="padding: clamp(72px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1200px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Milestones</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What got us here</h2>
+      <div class="mstone">
+        <a class="ms-card" href="/probaligence-site-preview/news/robert-bosch-health-award/"><img src="/probaligence-site-preview/assets/news/robert-bosch-health-award/20260227-preistraeger-foto.webp" alt="" loading="lazy"><span class="ms-body"><span class="ms-date">February 2026</span><h3>First prize at the Robert Bosch Foundation Health Award</h3><p>For AI-supported prevention of diabetic foot syndrome, with Niederrhein University of Applied Sciences and CID GmbH.</p></span></a>
+        <a class="ms-card" href="/probaligence-site-preview/news/introducing-stochos-flow/"><img src="/probaligence-site-preview/assets/news/introducing-stochos-flow/20260112-stochos-flow.webp" alt="" loading="lazy"><span class="ms-body"><span class="ms-date">January 2026</span><h3>Introducing STOCHOS Flow</h3><p>A visual workflow editor that runs locally, with an AI assistant that builds and wires the node graph.</p></span></a>
+        <a class="ms-card" href="/probaligence-site-preview/news/ansys-technology-partner/"><span class="ms-plate"><img src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Ansys Technology Partner" loading="lazy"></span><span class="ms-body"><span class="ms-date">November 2025</span><h3>Official Ansys Technology Partner</h3><p>Formal partner status, on a collaboration that had been running since 2022.</p></span></a>
+        <a class="ms-card" href="/probaligence-site-preview/news/automated-verification-gemu-stochos/"><span class="ms-plate ms-plate--light"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="GEM&Uuml;" loading="lazy"></span><span class="ms-body"><span class="ms-date">November 2025</span><h3>Automated verification processes at GEM&Uuml;</h3><p>Konstruktionspraxis on GEM&Uuml; automating the strength verification of metallic valve bodies.</p></span></a>
+        <a class="ms-card" href="/probaligence-site-preview/news/from-ai-startup-to-global-player/"><img src="/probaligence-site-preview/assets/news/from-ai-startup-to-global-player/20240930-cadfem-joural.webp" alt="" loading="lazy"><span class="ms-body"><span class="ms-date">September 2024</span><h3>From AI startup to global player</h3><p>Our managing director's account of the path from first research projects into the CADFEM Group.</p></span></a>
+        <a class="ms-card" href="/probaligence-site-preview/news/pi-probaligence-cadfem-group/"><img src="/probaligence-site-preview/assets/news/pi-probaligence-cadfem-group/20240131-solutiuon-partner.webp" alt="" loading="lazy"><span class="ms-body"><span class="ms-date">January 2024</span><h3>PI Probaligence becomes part of the CADFEM Group</h3><p>CADFEM acquired a stake and made PI its network partner for AI in simulation.</p></span></a>
+      </div>
+      <p style="margin-top: 30px; font: 400 13.5px / 1 &quot;IBM Plex Mono&quot;, monospace;"><a href="/probaligence-site-preview/news/" style="color: rgb(255, 176, 6); text-decoration: none;">All news and guides &rarr;</a></p>
+    </div>
+  </section>
+
+  <section data-reveal="" id="team" style="padding: clamp(72px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); background: rgb(10, 9, 8); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1240px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 "IBM Plex Mono", monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The team</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 "Space Grotesk", sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Where you will meet us</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Conferences, trade fairs, and customer floors across Europe and Asia. Based in Grafing bei Munich.</p>
+      <div class="ecloud" id="ecloud">
+        <a class="ec-tile" href="/probaligence-site-preview/news/cadfem-conference-rapperswil-2026/"><img src="/probaligence-site-preview/assets/news/cadfem-conference-rapperswil-2026/cadfem-rapperswil-2026-pi-probaligence-booth.webp" alt="PI stand at the CADFEM Conference in Rapperswil, 2026" loading="lazy" width="1000" height="1333"><span class="ec-cap">PI stand at the CADFEM Conference in Rapperswil, 2026</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/ai-coatings-ecs-2025/"><img src="/probaligence-site-preview/assets/news/ai-coatings-ecs-2025/20250327-ecs-1.webp" alt="PI booth at the European Coatings Show, 2025" loading="lazy" width="1024" height="659"><span class="ec-cap">PI booth at the European Coatings Show, 2025</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/cadfem-conference-2024-austria/"><img src="/probaligence-site-preview/assets/news/cadfem-conference-2024-austria/20241107-cadfem-conference-2.webp" alt="CADFEM Conference in Austria, 2024" loading="lazy" width="1024" height="852"><span class="ec-cap">CADFEM Conference in Austria, 2024</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/cadfem-konferenz-2025-rapperswil/"><img src="/probaligence-site-preview/assets/news/cadfem-konferenz-2025-rapperswil/20250912-cadfem-conference-rapperswill-2025-2.webp" alt="CADFEM Konferenz Rapperswil, 2025" loading="lazy" width="1024" height="768"><span class="ec-cap">CADFEM Konferenz Rapperswil, 2025</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/ai-coatings-ecs-2025/"><img src="/probaligence-site-preview/assets/news/ai-coatings-ecs-2025/20250327-esc-blog.webp" alt="Talking chemistry at the European Coatings Show, 2025" loading="lazy" width="600" height="450"><span class="ec-cap">Talking chemistry at the European Coatings Show, 2025</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/cadfem-conference-rapperswil-2026/"><img src="/probaligence-site-preview/assets/news/cadfem-conference-rapperswil-2026/cadfem-rapperswil-2026-stochos-flow-presentation.webp" alt="STOCHOS Flow on stage in Rapperswil, 2026" loading="lazy" width="1400" height="1867"><span class="ec-cap">STOCHOS Flow on stage in Rapperswil, 2026</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/cadfem-sea-singapore-visit/"><img src="/probaligence-site-preview/assets/news/cadfem-sea-singapore-visit/20251103-pi-at-cadfem-sea.webp" alt="Visiting CADFEM SEA in Singapore, 2025" loading="lazy" width="600" height="450"><span class="ec-cap">Visiting CADFEM SEA in Singapore, 2025</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/lacktagung-2025-aachen/"><img src="/probaligence-site-preview/assets/news/lacktagung-2025-aachen/20250922lacktagung_2025_pi_stand-e1764581009248.webp" alt="PI stand at the Lacktagung in Aachen, 2025" loading="lazy" width="1024" height="707"><span class="ec-cap">PI stand at the Lacktagung in Aachen, 2025</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/ai-coatings-ecs-2025/"><img src="/probaligence-site-preview/assets/news/ai-coatings-ecs-2025/20250327-ecs-2.webp" alt="The team at the European Coatings Show, 2025" loading="lazy" width="1024" height="660"><span class="ec-cap">The team at the European Coatings Show, 2025</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/cadfem-conference-2024-austria/"><img src="/probaligence-site-preview/assets/news/cadfem-conference-2024-austria/20241107-cadfem-conference-1.webp" alt="Exhibition floor, CADFEM Conference 2024" loading="lazy" width="1024" height="615"><span class="ec-cap">Exhibition floor, CADFEM Conference 2024</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/cadfem-ai-conference-singapore-2026/"><img src="/probaligence-site-preview/assets/news/cadfem-ai-conference-singapore-2026/img_5892.webp" alt="STOCHOS at the CADFEM AI Conference Singapore, 2026" loading="lazy" width="768" height="1024"><span class="ec-cap">STOCHOS at the CADFEM AI Conference Singapore, 2026</span></a>
+        <a class="ec-tile" href="/probaligence-site-preview/news/new-office-cadfem-building/"><img src="/probaligence-site-preview/assets/news/new-office-cadfem-building/20250701-new-office-3.webp" alt="The office in the CADFEM building, Grafing" loading="lazy" width="1024" height="662"><span class="ec-cap">The office in the CADFEM building, Grafing</span></a>
+      </div>
+      <p style="margin-top: 34px; font: 400 13.5px / 1 &quot;IBM Plex Mono&quot;, monospace;"><a href="/probaligence-site-preview/news/" style="color: rgb(255, 176, 6); text-decoration: none;">Where we are next, and what we published &rarr;</a></p>
+    </div>
+    <script>(function(){var c=document.getElementById('ecloud');if(!c)return;var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion:reduce)').matches&&!window.__PIFX_FORCE}catch(e){}if(reduce||!('IntersectionObserver' in window))return;var tiles=c.querySelectorAll('.ec-tile');c.className+=' fx';var io=new IntersectionObserver(function(es){es.forEach(function(en){if(!en.isIntersecting)return;io.disconnect();for(var i=0;i<tiles.length;i++){(function(t,i){t.style.transitionDelay=(i*70)+'ms';t.className+=' in';setTimeout(function(){t.style.transitionDelay='0ms'},i*70+800)})(tiles[i],i)}})},{threshold:0.12});io.observe(c)})();</script>
+  </section>
+
+  <section data-reveal="" id="find-us" style="padding: clamp(84px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1140px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Find us</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">One office, in the CADFEM building</h2>
+
+      <div class="fu-grid">
+        <div class="fu-rail">
+          <dl>
+            <div class="fu-row">
+              <dt>Address</dt>
+              <dd>PI Probaligence GmbH<br>Am Schammacher Feld 37<br>85567 Grafing bei M&uuml;nchen, Germany</dd>
+            </div>
+            <div class="fu-row">
+              <dt>Getting here</dt>
+              <dd>About 30 minutes by train from Munich East Station. We moved into the CADFEM building in July 2025. <a href="/probaligence-site-preview/news/new-office-cadfem-building/">Read the story</a></dd>
+              <a class="fu-office" href="/probaligence-site-preview/news/new-office-cadfem-building/" aria-label="Photos of the office in the CADFEM building">
+                <img src="/probaligence-site-preview/assets/news/new-office-cadfem-building/20250701-new-office.webp" alt="" loading="lazy">
+                <img src="/probaligence-site-preview/assets/news/new-office-cadfem-building/20250701-new-office-3.webp" alt="" loading="lazy">
+                <img src="/probaligence-site-preview/assets/news/new-office-cadfem-building/20250701-new-office-1.webp" alt="" loading="lazy">
+              </a>
+            </div>
+            <div class="fu-row">
+              <dt>Talk to us</dt>
+              <dd><a href="mailto:info@probaligence.com">info@probaligence.com</a></dd>
+            </div>
+          </dl>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
+            <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
+            <a href="/probaligence-site-preview/news/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">News and events</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="globe-wrap" id="globeWrap">
+            <canvas id="globe" width="600" height="600" role="img" aria-label="Globe rotating to the PI Probaligence office in Grafing bei Muenchen, Germany"></canvas>
+            <img class="globe-map" id="globeMap" src="/probaligence-site-preview/assets/media/aerial-grafing-office.webp" alt="Aerial view of the CADFEM building at Am Schammacher Feld 37, Grafing" loading="lazy" width="1400" height="875">
+            <span class="globe-pin" aria-hidden="true"></span>
+            <span class="globe-label" aria-hidden="true">PI Probaligence, in the CADFEM building</span>
+            <span class="globe-bar"><span class="addr">85567 Grafing bei M&uuml;nchen</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Am+Schammacher+Feld+37%2C+85567+Grafing+bei+M%C3%BCnchen" target="_blank" rel="noopener">Open in Google Maps &rarr;</a></span>
+            <button type="button" class="globe-replay" id="globeReplay">Replay</button>
+          </div>
+          <p style="margin-top: 12px; font: 400 11.5px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(110, 109, 104);">Globe: NASA Blue Marble (public domain). Aerial: Digitales Orthophoto, <a href="https://geodaten.bayern.de/opengeodata/" target="_blank" rel="noopener" style="color: rgb(130, 130, 124);">Bayerische Vermessungsverwaltung</a>, CC BY 4.0. Both hosted locally, so this page calls no external service.</p>
         </div>
       </div>
     </div>
-  </section>
+      <script>
+      (function(){
+        var wrap=document.getElementById('globeWrap'),cv=document.getElementById('globe');
+        if(!wrap||!cv||!cv.getContext)return;
+        var ctx=cv.getContext('2d',{alpha:true}),map=document.getElementById('globeMap'),
+            pin=document.getElementById('globePin'),label=document.getElementById('globeLabel');
+        var LAT=48.03397*Math.PI/180, LON=11.94061*Math.PI/180;  // Am Schammacher Feld 37, Grafing
+        var R=cv.width/2, tex=null, texData=null, TW=0, TH=0, raf=0, guard=0, started=false;
+        var reduce=false; try{reduce=matchMedia('(prefers-reduced-motion:reduce)').matches&&!window.__PIFX_FORCE}catch(e){}
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">From research to engineering tool</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">A spin-off, grown up</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">PI grew out of the Institute for Modeling and High Performance Computing at Niederrhein University of Applied Sciences. DIM-GP started as research there; today it runs in production.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; margin-top: 50px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">2018</div><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 14px;">Founded</h3><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">University spin-off researching probabilistic modeling for small, noisy data.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">2024</div><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 14px;">Part of CADFEM Group</h3><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">The CADFEM Group acquired a stake; PI continues to develop STOCHOS and STOCHOS Flow.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">Today</div><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 14px;">Ansys Technology Partner</h3><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.5; margin-top: 8px;">Used in real engineering and R&amp;D across simulation, chemistry, and product development.</p></div>
-      </div>
-    </div>
-  </section>
+        function project(lat0,lon0,zoom){
+          // orthographic sphere, camera centred on (lat0,lon0)
+          var img=ctx.createImageData(cv.width,cv.height), d=img.data;
+          var cosLat0=Math.cos(lat0), sinLat0=Math.sin(lat0), r=R*zoom;
+          for(var y=0;y<cv.height;y++){
+            var dy=(y-R)/r;
+            for(var x=0;x<cv.width;x++){
+              var dx=(x-R)/r, p=dx*dx+dy*dy, i=(y*cv.width+x)*4;
+              if(p>1) continue;                       // outside the sphere: transparent
+              var dz=Math.sqrt(1-p);
+              // rotate the view vector into geographic coords
+              var lat=Math.asin(dy*cosLat0*-1+dz*sinLat0);
+              var lon=lon0+Math.atan2(dx, dz*cosLat0+dy*sinLat0);
+              var u=((lon/(2*Math.PI)+0.5)%1+1)%1, v=0.5-lat/Math.PI;
+              var tx=(u*TW)|0, ty=(v*TH)|0; if(ty<0)ty=0; if(ty>=TH)ty=TH-1;
+              var ti=(ty*TW+tx)*4;
+              // simple lambert shade so the limb falls away
+              var sh=0.34+0.66*dz;
+              d[i]=texData[ti]*sh; d[i+1]=texData[ti+1]*sh; d[i+2]=texData[ti+2]*sh; d[i+3]=255;
+            }
+          }
+          ctx.clearRect(0,0,cv.width,cv.height);
+          ctx.putImageData(img,0,0);
+        }
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Recognition</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">External validation</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 46px;">
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Ansys Technology Partner</h3><p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin-top: 12px;">Official partner status, with STOCHOS Flow connecting to Ansys solver workflows.</p></div>
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Robert Bosch Foundation Health Award</h3><p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin-top: 12px;">First prize for the work behind STOCHOS.</p></div>
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">In production at GEMÜ</h3><p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin-top: 12px;">STOCHOS supports automated verification processes in production.</p></div>
-      </div>
-    </div>
-  </section>
+        function finish(){
+          if(/(^|\s)done(\s|$)/.test(wrap.className))return;
+          clearTimeout(guard); cancelAnimationFrame(raf);
+          try{ project(LAT,LON,3.1); }catch(e){}
+          wrap.style.setProperty('--fade',1);
+          wrap.className+=' done';
+        }
 
-  <section data-reveal="" id="team" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The team</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">The people behind STOCHOS</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">A small team of engineers and researchers, building and supporting STOCHOS from Grafing bei Munich.</p>
-      <!-- Placeholder tiles: swap each /assets/team/team-0X.svg for a real photo (3:4, at least 600x800) and set the alt to the person's name. -->
-      <div class="team-cloud" id="teamCloud" aria-label="The PI Probaligence team">
-        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-01.svg" alt="" loading="lazy" width="600" height="800"></figure>
-        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-02.svg" alt="" loading="lazy" width="600" height="800"></figure>
-        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-03.svg" alt="" loading="lazy" width="600" height="800"></figure>
-        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-04.svg" alt="" loading="lazy" width="600" height="800"></figure>
-        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-05.svg" alt="" loading="lazy" width="600" height="800"></figure>
-        <figure class="tc-tile"><img src="/probaligence-site-preview/assets/team/team-06.svg" alt="" loading="lazy" width="600" height="800"></figure>
-      </div>
-    </div>
-    <script>(function(){var c=document.getElementById('teamCloud');if(!c)return;var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion:reduce)').matches&&!window.__PIFX_FORCE}catch(e){}if(reduce||!('IntersectionObserver' in window))return;var tiles=c.querySelectorAll('.tc-tile');c.className+=' fx';var io=new IntersectionObserver(function(es){es.forEach(function(en){if(!en.isIntersecting)return;io.disconnect();for(var i=0;i<tiles.length;i++){(function(t,i){t.style.transitionDelay=(i*90)+'ms';t.className+=' in';setTimeout(function(){t.style.transitionDelay='0ms'},i*90+750)})(tiles[i],i)}})},{threshold:0.25});io.observe(c)})();</script>
-  </section>
+        function run(){
+          var T0=null, HOLD=700, SPIN=3400, ZOOM=1900, startLon=LON-Math.PI*1.35, startLat=0.30;
+          function ease(t){return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+          function frame(ts){
+            if(T0===null)T0=ts;
+            var e=ts-T0;
+            if(e<HOLD){                                  // sit still a moment first
+              project(startLat,startLon,1);
+              raf=requestAnimationFrame(frame); return;
+            }
+            e-=HOLD;
+            if(e<SPIN){                                  // rotate Grafing into view
+              var k=ease(Math.min(1,e/SPIN));
+              project(startLat+(LAT-startLat)*k, startLon+(LON-startLon)*k, 1);
+              raf=requestAnimationFrame(frame);
+            }else if(e<SPIN+ZOOM){                       // push in, then hand over to the map
+              var k=ease(Math.min(1,(e-SPIN)/ZOOM));
+              project(LAT,LON,1+k*2.1);
+              wrap.style.setProperty('--fade', k<0.72?0:(k-0.72)/0.28);
+              raf=requestAnimationFrame(frame);
+            }else{ finish(); }
+          }
+          clearTimeout(guard);
+          guard=setTimeout(finish, HOLD+SPIN+ZOOM+1200);   // rAF throttled or stalled: land it anyway
+          raf=requestAnimationFrame(frame);
+        }
 
-  <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
-    <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Talk to the team</h2>
-      <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 50ch;">Based in Grafing bei Munich. Request a demo, or email <a href="mailto:info@probaligence.com" style="color: rgb(255, 176, 6); text-decoration: none;">info@probaligence.com</a>.</p>
-      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
-        <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-        <a href="/probaligence-site-preview/contact/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Contact</a>
-      </div>
-    </div>
+        function boot(){
+          if(started)return; started=true;
+          var img=new Image();
+          img.onload=function(){
+            TW=img.naturalWidth; TH=img.naturalHeight;
+            var off=document.createElement('canvas'); off.width=TW; off.height=TH;
+            var octx=off.getContext('2d'); octx.drawImage(img,0,0);
+            try{ texData=octx.getImageData(0,0,TW,TH).data; }catch(e){ wrap.className+=' done'; return; }
+            tex=img;
+            if(reduce){ project(LAT,LON,1); wrap.style.setProperty('--fade',0); return; }
+            run();
+          };
+          img.onerror=function(){ wrap.className+=' done'; };   // fall back to the flat map
+          img.src='/probaligence-site-preview/assets/media/earth-equirect.webp';
+        }
+
+        if('IntersectionObserver' in window){
+          var io=new IntersectionObserver(function(es){
+            es.forEach(function(en){ if(en.isIntersecting){ io.disconnect(); boot(); } });
+          },{threshold:0.3});
+          io.observe(wrap);
+        } else { boot(); }
+        var rb=document.getElementById('globeReplay');
+        if(rb)rb.addEventListener('click',function(){
+          if(!texData)return;
+          wrap.className=wrap.className.replace(/\s*done/,'');
+          wrap.style.setProperty('--fade',0);
+          cancelAnimationFrame(raf); run();
+        });
+      })();
+      </script>
   </section>
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">

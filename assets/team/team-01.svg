@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="Team photo placeholder">
-  <rect width="600" height="800" fill="#0E0D0C"/>
-  <rect x="1" y="1" width="598" height="798" fill="none" stroke="#232220" stroke-width="2"/>
-  <circle cx="300" cy="330" r="110" fill="#1A1918"/>
-  <path d="M120 690 C120 560 210 500 300 500 C390 500 480 560 480 690 L480 800 L120 800 Z" fill="#1A1918"/>
-  <path d="M80 250 C160 200 220 300 300 250 C380 200 440 300 520 250" fill="none" stroke="#FFB006" stroke-width="2" opacity="0.28"/>
-  <text x="300" y="756" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="22" letter-spacing="4" fill="#6E6D68">PHOTO PENDING</text>
-  <text x="48" y="72" font-family="IBM Plex Mono, monospace" font-size="24" fill="#FFB006" opacity="0.75">01</text>
-</svg>
