@@ -135,7 +135,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div>
           <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Science / the algorithm</div>
           <h1 style="font: 700 clamp(38px, 5.4vw, 68px) / 1.04 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 13ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">How</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">STOCHOS</span></span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">works.</span></h1>
-          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS is built on DIM-GP, a Deep Infinite Mixture of Gaussian Processes. The deep network does not make the prediction. It learns how your data behaves at every point, how smooth, how noisy, and hands that to a Gaussian process, which returns every prediction with a confidence range.</p>
+          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS is built on DIM-GP, a Deep Infinite Mixture of Gaussian Processes. The deep network does not make the prediction. It learns how your data behaves at each point and hands that to a Gaussian process, which answers with a confidence range.</p>
           <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
             <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
             <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
@@ -148,36 +148,24 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+  <section data-reveal="" style="padding: clamp(52px, 6vw, 80px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The gap</div>
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 16px;">The gap</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">One smoothness does not fit a real design space</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Real responses change character across a design space: smooth in one region, sharp in another, densely tested here, barely sampled there. A standard model picks one smoothness for everything. DIM-GP adapts locally, so the dense region and the sparse region both get an honest fit.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 50px;">
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 14px;">Classical GP</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Assumes one smoothness everywhere, and slows sharply as data grows.</p></div>
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 14px;">Deep networks</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Scale to complex relationships, but return one number with no confidence.</p></div>
-        <div style="border: 1px solid rgba(255, 176, 6, 0.4); background: rgba(255, 176, 6, 0.05); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 14px;">DIM-GP</div><p style="color: rgb(244, 243, 239); font-size: 15px; line-height: 1.6;">Learns smoothness and noise locally, and puts a confidence range on every prediction.</p></div>
+      <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Real responses change character: smooth in one region, sharp in another, densely tested here, barely sampled there. A standard model picks one smoothness for all of it. DIM-GP adapts locally.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 30px;">
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 24px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 14px;">Classical GP</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Assumes one smoothness everywhere, and slows sharply as data grows.</p></div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 24px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 14px;">Deep networks</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Scale to complex relationships, but return one number with no confidence.</p></div>
+        <div style="border: 1px solid rgba(255, 176, 6, 0.4); background: rgba(255, 176, 6, 0.05); border-radius: 4px; padding: 24px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 14px;">DIM-GP</div><p style="color: rgb(244, 243, 239); font-size: 15px; line-height: 1.6;">Learns smoothness and noise locally, and puts a confidence range on every prediction.</p></div>
       </div>
     </div>
   </section>
 
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Small data</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Built for data that is expensive</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Crash simulations, lab batches, pilot runs: when every data point costs hours or money, big-data methods starve. DIM-GP extracts the trend a small set of runs supports, and the confidence interval shows when the data is enough and where the next run should go, so every additional simulation or experiment counts.</p>
-      <div style="border: 1px solid rgba(255, 176, 6, 0.28); border-radius: 4px; padding: 24px 28px; margin-top: 40px; max-width: 760px; background: rgb(0, 0, 0);">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 12px;">Example &middot; LS-DYNA crash</div>
-        <p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.65;">In a published LS-DYNA crash example, 32 simulation runs were enough: training took 21 seconds on a CPU, and the model predicts a new variant across more than 50 time steps in about 20 seconds, with error below 5 percent.</p>
-      </div>
-    </div>
-  </section>
-
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Noisy data</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">It does not chase outliers</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Measurements scatter, batches vary, solvers leave numerical noise. DIM-GP learns the noise level point by point, together with the model itself, so it separates trend from scatter, handles different noise levels inside one dataset, and does not bend the fit toward an outlier.</p>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Measurements scatter, batches vary, solvers leave numerical noise. DIM-GP learns the noise level point by point, so it separates trend from scatter and does not bend the fit toward an outlier.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 18px; margin-top: 50px;">
         <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 14px; background: rgb(0, 0, 0); opacity: 1; transform: none;">
           <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/uncertainty-standard-model.webp" width="1149" height="1149" alt="A standard model fits a single curve through noisy data with no confidence bounds; it warps toward an outlier and gives no indication of how much to trust the prediction." style="display: block; width: 100%; height: auto; border-radius: 2px;">
@@ -191,7 +179,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <style id="fpb-css">
       .fpb-row{display:grid;grid-template-columns:210px 240px 1fr;gap:28px;padding:28px 4px;border-bottom:1px solid rgba(255,255,255,.09);align-items:baseline;transition:background .2s}
@@ -208,23 +196,37 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div class="fpb-row">
           <div class="fpb-l"><span class="fpb-ix">01</span>Uncertainty</div>
           <h3 class="fpb-h">Built in, not bolted on</h3>
-          <p class="fpb-p">Every prediction carries a confidence interval. A single accuracy score hides the weak spots; the interval is local, showing where the model is solid and where it is guessing.</p>
+          <p class="fpb-p">Every prediction carries a confidence interval, local to that point. A single accuracy score hides the weak spots.</p>
         </div>
         <div class="fpb-row">
-          <div class="fpb-l"><span class="fpb-ix">02</span>Data shapes</div>
+          <div class="fpb-l"><span class="fpb-ix">02</span>Small data</div>
+          <h3 class="fpb-h">Built for data that is expensive</h3>
+          <p class="fpb-p">When a data point costs hours or money, big-data methods starve. DIM-GP takes the trend a small set of runs supports, and the interval says where the next run should go.</p>
+        </div>
+        <div class="fpb-row">
+          <div class="fpb-l"><span class="fpb-ix">03</span>Data shapes</div>
           <h3 class="fpb-h">One approach, every data shape</h3>
-          <p class="fpb-p">The same probabilistic core covers scalars, signals, images, 3D fields, meshes, and point clouds, with multi-fidelity variants that fuse cheap and expensive data. 14 DIM-GP models ship in STOCHOS Flow.</p>
+          <p class="fpb-p">One probabilistic core for scalars, signals, images, 3D fields, meshes, and point clouds, plus multi-fidelity variants. 14 DIM-GP models ship in STOCHOS Flow.</p>
         </div>
         <div class="fpb-row">
-          <div class="fpb-l"><span class="fpb-ix">03</span>Optimization</div>
+          <div class="fpb-l"><span class="fpb-ix">04</span>Optimization</div>
           <h3 class="fpb-h">From model to decision</h3>
           <p class="fpb-p">STOCHOS feeds the interval to a Bayesian optimizer that adapts after each result and returns a Pareto front when objectives compete. <a href="/probaligence-site-preview/bayesian-optimization/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255, 176, 6, 0.35);">How Bayesian optimization works</a></p>
         </div>
         <div class="fpb-row">
-          <div class="fpb-l"><span class="fpb-ix">04</span>Ongoing research</div>
+          <div class="fpb-l"><span class="fpb-ix">05</span>Ongoing research</div>
           <h3 class="fpb-h">The algorithm is not standing still</h3>
-          <p class="fpb-p">Developed in-house and evolving: new model families, faster training, new data types in regular releases. The team that develops the algorithm is the team you talk to.</p>
+          <p class="fpb-p">New model families, faster training, new data types in regular releases. The team that develops the algorithm is the team you talk to.</p>
         </div>
+      </div>
+
+      <div style="margin-top: 44px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 22px;">
+        <span style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(106, 106, 100);">Methods</span>
+        <a href="/probaligence-site-preview/surrogate-modeling/" class="scp0" style="font: 400 13.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(156, 156, 150); text-decoration: none; border-bottom: 1px solid rgba(255, 176, 6, 0.28);">Surrogate modeling</a>
+        <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp0" style="font: 400 13.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(156, 156, 150); text-decoration: none; border-bottom: 1px solid rgba(255, 176, 6, 0.28);">Uncertainty quantification</a>
+        <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp0" style="font: 400 13.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(156, 156, 150); text-decoration: none; border-bottom: 1px solid rgba(255, 176, 6, 0.28);">Multi-fidelity modeling</a>
+        <a href="/probaligence-site-preview/sensitivity-analysis/" class="scp0" style="font: 400 13.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(156, 156, 150); text-decoration: none; border-bottom: 1px solid rgba(255, 176, 6, 0.28);">Sensitivity analysis</a>
+        <a href="/probaligence-site-preview/generative-design/" class="scp0" style="font: 400 13.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(156, 156, 150); text-decoration: none; border-bottom: 1px solid rgba(255, 176, 6, 0.28);">Generative design</a>
       </div>
     </div>
   </section>

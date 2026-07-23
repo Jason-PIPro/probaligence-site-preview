@@ -238,6 +238,41 @@ figure:has(> img[src*="/assets/media/insights/"]){max-width:500px;margin-left:au
 .marquee-pause:hover{color:var(--text);border-color:rgba(255,255,255,.3)}
 @media (prefers-reduced-motion:reduce){.marquee-pause{display:none}}
 
+/* ---------- article body patterns ----------
+   News and guide bodies were pure paragraph stacks, which read as a wall of text. These give an
+   article three ways to break a run of prose without changing the page template: a point list, a
+   key-figure strip, and a pull quote. Static CSS only, no motion, no JS. */
+
+/* point list: replaces a paragraph that enumerates three or four things */
+.na-points{list-style:none;margin:26px 0 0;padding:0;max-width:68ch}
+.na-points > li{position:relative;padding:14px 0 14px 26px;border-top:1px solid var(--hairline);
+  color:#B8B8B2;font-size:16px;line-height:1.65}
+.na-points > li:last-child{border-bottom:1px solid var(--hairline)}
+.na-points > li::before{content:"";position:absolute;left:2px;top:23px;width:7px;height:1px;background:var(--amber)}
+.na-points > li b{color:var(--text);font-weight:600}
+
+/* key figures: 2 to 4 real numbers lifted out of the prose, each with its unit and what it counts */
+.na-figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;margin:38px 0 0;
+  background:var(--hairline);border:1px solid var(--hairline);border-radius:4px;overflow:hidden}
+.na-figs > div{background:#0A0908;padding:24px 22px}
+.na-figs .na-n{font:700 clamp(26px,3.4vw,34px)/1.05 'Space Grotesk',sans-serif;letter-spacing:-.02em;color:var(--amber)}
+.na-figs .na-u{font:500 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);margin-top:12px}
+.na-figs .na-c{color:#9C9C96;font-size:14px;line-height:1.6;margin-top:10px}
+
+/* pull quote: one attributable quote per article, lifted out of the paragraph flow */
+.na-quote{margin:40px 0 0;padding:4px 0 4px 26px;border-left:2px solid var(--amber);max-width:64ch}
+.na-quote p{font:400 clamp(18px,2.1vw,22px)/1.5 'Space Grotesk',sans-serif;color:var(--text);letter-spacing:-.01em;margin:0}
+.na-quote cite{display:block;font:500 12px/1.5 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--faint);font-style:normal;margin-top:16px}
+
+/* aside: a short bordered note for context that would otherwise pad a paragraph */
+.na-note{border:1px solid rgba(255,176,6,.28);border-radius:4px;padding:22px 26px;margin:38px 0 0;
+  background:#000;max-width:68ch}
+.na-note .na-k{font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:12px}
+.na-note p{color:#C8C8C2;font-size:15px;line-height:1.65;margin:0}
+
 /* News hub lean previews: collapse insights/news to a few items with a Show all toggle (JS-injected). */
 .xpd-collapsed > .xpd-extra{display:none!important}
 .xpd-more-wrap{margin-top:28px;text-align:center}

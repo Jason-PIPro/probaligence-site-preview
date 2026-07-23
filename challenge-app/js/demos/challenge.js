@@ -257,6 +257,16 @@ export async function mountChallenge(root) {
       return;
     } catch (e) { /* fall through to the picker */ }
   }
+  // deep link from a solution page: /challenge-app/?case=engineering#/challenge opens
+  // that use case directly instead of the picker. Unknown values fall through to the
+  // picker. The param is consumed once (stripped from the URL) so the back-to-picker
+  // affordance and a reload land on the picker rather than bouncing back in.
+  let preset = null;
+  try { preset = new URLSearchParams(location.search).get('case'); } catch (e) { preset = null; }
+  if (preset && CH[preset]) {
+    try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) { /* noop */ }
+    return startDomain(stage, preset);
+  }
   renderPick(stage);
 }
 

@@ -135,9 +135,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(32px, 4.5vw, 56px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+  <section data-reveal="" style="padding: clamp(10px, 1.5vw, 20px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 820px; margin: 0px auto; text-align: center;">
-      <p style="color: rgb(200, 200, 194); font-size: clamp(17px, 1.9vw, 21px); line-height: 1.6; max-width: 54ch; margin: 0px auto;">STOCHOS is built on probabilistic machine learning made for engineering data: small, noisy, and expensive to produce. One algorithm, DIM-GP, powers all six methods, from surrogate modeling to generative design.</p>
+      <p style="color: rgb(200, 200, 194); font-size: clamp(15px, 1.4vw, 17.5px); line-height: 1.65; max-width: 72ch; margin: 0px auto;">STOCHOS is built on probabilistic machine learning for engineering data: small, noisy, expensive. One algorithm, DIM-GP, powers all six methods.</p>
     </div>
   </section>
 
@@ -157,44 +157,19 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 880px; margin: 0px auto;">
-      <!-- DIM-GP widget. Replaced the in-page stationary GP ("Click to train a model", RBF kernel,
-           Cholesky solve) on 2026-07-23: this section now plots real precomputed STOCHOS output
-           instead of a browser stand-in, which is what the page distinguishes DIM-GP from.
-           Styles are scoped to #dg-widget; markup, script and data are the only additions.
-           Data: /assets/dimgp-data (29.1 MB, ~9.5 MB on the wire, GitHub Pages auto-gzips it). -->
-      <style>
-      #dg-widget .dg-srctag{font:500 11px/1.5 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
-      #dg-widget .dg-real{color:#FFB006}
-      #dg-widget .dg-wait{color:#9C9C96}
-      #dg-widget .dg-err{color:#E06B4A}
-      #dg-widget .dg-stage{position:relative;border:1px solid rgba(255,255,255,.1);border-radius:4px;background:#000;height:400px;overflow:hidden}
-      #dg-widget .dg-stage canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:none}
-      #dg-widget .dg-stage canvas:focus-visible{outline:1px solid rgba(255,176,6,.7);outline-offset:-1px}
-      #dg-widget .dg-hint{position:absolute;top:12px;left:14px;font:500 10.5px/1.5 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#6A6A64;pointer-events:none;transition:opacity .3s}
-      #dg-widget .dg-cap{margin-top:16px;color:#9C9C96;font-size:14px;line-height:1.6;max-width:62ch;min-height:44px}
-      #dg-widget .dg-cap b{color:#F4F3EF;font-weight:600}
-      #dg-widget .dg-note{margin-top:10px;color:#6A6A64;font:400 12.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;max-width:62ch}
-      #dg-widget .dg-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-      </style>
-      <div id="dg-widget">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Try the model</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">Measure it yourself</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Six places you could run a measurement. You set what each one reads, and DIM-GP refits: the amber line is its prediction, the shaded band its 95% interval. The band pinches shut where you have data and opens where you have none.</p>
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Live math</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">Click to train a model</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">This is a live Gaussian process, the building block DIM-GP extends, running in your browser. Click anywhere in the plot to add a measurement. The model refits, and the amber band shows its confidence: tight where data exists, wide where it is guessing.</p>
       <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-top: 34px; margin-bottom: 12px;">
-        <span class="dg-srctag dg-wait" id="dg-srctag">Engine: loading model output</span>
-        <span id="dg-count" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150);">0 of 6 measured</span>
+        <span style="font: 500 11px / 1.5 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(156, 156, 150);">Real Gaussian process: RBF kernel, Cholesky solve</span>
+        <span id="sci-gp-count" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150);">4 measurements</span>
       </div>
-      <div class="dg-stage">
-        <canvas id="dg-cv" tabindex="0" role="application" aria-label="Interactive plot with six measurement locations. Use left and right arrows to select a location, up and down arrows to set its value, and space to add or remove it. The predicted curve and its confidence band update with each change."></canvas>
-        <span class="dg-hint" id="dg-hint">Drag a point to set its value. Click a tick to add or remove one.</span>
+      <div style="position: relative; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; background: rgb(0, 0, 0); height: 340px; overflow: hidden;">
+        <canvas id="sci-gp" role="img" aria-label="Interactive Gaussian process plot. Click to add measurements and watch the confidence band tighten around them." style="position: absolute; inset: 0px; width: 100%; height: 100%;"></canvas>
       </div>
       <div style="display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap;">
-        <button class="sci-btn sci-btn-p" type="button" id="dg-all">Measure all six</button>
-        <button class="sci-btn sci-btn-s" type="button" id="dg-reset">Reset</button>
-      </div>
-      <p class="dg-cap" id="dg-cap"></p>
-      <p class="dg-sr" aria-live="polite" id="dg-live"></p>
-      <p class="dg-note" id="dg-prov"></p>
+        <button class="sci-btn sci-btn-p" type="button" id="sci-gp-add">+ Random measurement</button>
+        <button class="sci-btn sci-btn-s" type="button" id="sci-gp-reset">Reset</button>
       </div>
     </div>
   </section>
@@ -270,6 +245,170 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
+<script>
+(function () {
+  'use strict';
+  var AMBER = '#FFB006', AMBER_LT = '#FFCA4D';
+  var reduce = function () { return matchMedia('(prefers-reduced-motion: reduce)').matches; };
+  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+
+  function fitCanvas(cv) {
+    var dpr = Math.min(devicePixelRatio || 1, 2);
+    var r = cv.getBoundingClientRect();
+    var w = Math.max(2, r.width), h = Math.max(2, r.height);
+    if (cv.width !== (w * dpr | 0) || cv.height !== (h * dpr | 0)) { cv.width = w * dpr; cv.height = h * dpr; }
+    var ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: w, h: h };
+  }
+  function viewLoop(el, draw) {
+    var on = false, raf = 0, t0 = performance.now();
+    var tick = function (now) { if (!on) return; draw((now - t0) / 1000); raf = requestAnimationFrame(tick); };
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !on) { on = true; raf = requestAnimationFrame(tick); }
+        else if (!e.isIntersecting && on) { on = false; cancelAnimationFrame(raf); }
+      });
+    }, { threshold: 0.05 });
+    io.observe(el);
+    return { stop: function () { on = false; cancelAnimationFrame(raf); io.disconnect(); } };
+  }
+
+  function gp1d(canvas, opts) {
+    opts = opts || {};
+    var state = {
+      pts: (opts.points || [[0.14, 0.36], [0.34, 0.62], [0.58, 0.44], [0.82, 0.71]]).map(function (p) { return { x: p[0], y: p[1] }; }),
+      ell: opts.lengthScale || 0.14,
+      sn: opts.noise != null ? opts.noise : 0.035,
+      sf: opts.signal || 0.32,
+      interactive: opts.interactive !== false,
+      maxPts: opts.maxPoints || 14,
+    };
+    var updCb = null;
+    var kern = function (a, b) { return state.sf * state.sf * Math.exp(-((a - b) * (a - b)) / (2 * state.ell * state.ell)); };
+
+    function chol(A, n) {
+      for (var i = 0; i < n; i++) {
+        for (var j = 0; j <= i; j++) {
+          var s = A[i * n + j];
+          for (var k = 0; k < j; k++) s -= A[i * n + k] * A[j * n + k];
+          A[i * n + j] = i === j ? Math.sqrt(Math.max(s, 1e-10)) : s / A[j * n + j];
+        }
+        for (var j2 = i + 1; j2 < n; j2++) A[i * n + j2] = 0;
+      }
+      return A;
+    }
+    function solveL(L, b, n) { var y = new Float64Array(n); for (var i = 0; i < n; i++) { var s = b[i]; for (var k = 0; k < i; k++) s -= L[i * n + k] * y[k]; y[i] = s / L[i * n + i]; } return y; }
+    function solveLT(L, b, n) { var x = new Float64Array(n); for (var i = n - 1; i >= 0; i--) { var s = b[i]; for (var k = i + 1; k < n; k++) s -= L[k * n + i] * x[k]; x[i] = s / L[i * n + i]; } return x; }
+
+    function posterior(xs) {
+      var n = state.pts.length, m = xs.length;
+      var mu = new Float64Array(m), sd = new Float64Array(m);
+      if (!n) { for (var q0 = 0; q0 < m; q0++) { mu[q0] = 0.5; sd[q0] = state.sf; } return { mu: mu, sd: sd }; }
+      var K = new Float64Array(n * n);
+      for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) K[i * n + j] = kern(state.pts[i].x, state.pts[j].x) + (i === j ? state.sn * state.sn + 1e-8 : 0);
+      var L = chol(K, n);
+      var ymean = state.pts.reduce(function (s, p) { return s + p.y; }, 0) / n;
+      var yv = new Float64Array(n);
+      for (var i2 = 0; i2 < n; i2++) yv[i2] = state.pts[i2].y - ymean;
+      var alpha = solveLT(L, solveL(L, yv, n), n);
+      var ks = new Float64Array(n);
+      for (var q = 0; q < m; q++) {
+        for (var i3 = 0; i3 < n; i3++) ks[i3] = kern(xs[q], state.pts[i3].x);
+        var mval = ymean;
+        for (var i4 = 0; i4 < n; i4++) mval += ks[i4] * alpha[i4];
+        var v = solveL(L, ks, n);
+        var kss = state.sf * state.sf;
+        for (var i5 = 0; i5 < n; i5++) kss -= v[i5] * v[i5];
+        mu[q] = mval; sd[q] = Math.sqrt(Math.max(kss, 0));
+      }
+      return { mu: mu, sd: sd };
+    }
+
+    var N = 120;
+    var xs = new Float64Array(N);
+    for (var i = 0; i < N; i++) xs[i] = i / (N - 1);
+    var cur = posterior(xs), tgt = cur, morph = 1, flashPt = null;
+
+    function draw() {
+      var f = fitCanvas(canvas), ctx = f.ctx, w = f.w, h = f.h;
+      var px = function (x) { return x * w; }, py = function (y) { return h - y * h; };
+      ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = 'rgba(255,255,255,.05)'; ctx.lineWidth = 1;
+      for (var gx = 0.25; gx < 1; gx += 0.25) { ctx.beginPath(); ctx.moveTo(px(gx), 0); ctx.lineTo(px(gx), h); ctx.stroke(); }
+      for (var gy = 0.25; gy < 1; gy += 0.25) { ctx.beginPath(); ctx.moveTo(0, py(gy)); ctx.lineTo(w, py(gy)); ctx.stroke(); }
+      var mix = function (a, b) { return a + (b - a) * morph; };
+      [[2, 'rgba(255,176,6,.07)'], [1, 'rgba(255,176,6,.16)']].forEach(function (band) {
+        ctx.beginPath();
+        for (var i = 0; i < N; i++) { var y = mix(cur.mu[i], tgt.mu[i]) + band[0] * mix(cur.sd[i], tgt.sd[i]); i ? ctx.lineTo(px(xs[i]), py(y)) : ctx.moveTo(px(xs[i]), py(y)); }
+        for (var j = N - 1; j >= 0; j--) ctx.lineTo(px(xs[j]), py(mix(cur.mu[j], tgt.mu[j]) - band[0] * mix(cur.sd[j], tgt.sd[j])));
+        ctx.closePath(); ctx.fillStyle = band[1]; ctx.fill();
+      });
+      ctx.beginPath();
+      for (var i6 = 0; i6 < N; i6++) { var ym = mix(cur.mu[i6], tgt.mu[i6]); i6 ? ctx.lineTo(px(xs[i6]), py(ym)) : ctx.moveTo(px(xs[i6]), py(ym)); }
+      ctx.strokeStyle = AMBER; ctx.lineWidth = 2.2; ctx.lineJoin = 'round';
+      ctx.shadowColor = 'rgba(255,176,6,.5)'; ctx.shadowBlur = 8; ctx.stroke(); ctx.shadowBlur = 0;
+      state.pts.forEach(function (p) {
+        ctx.beginPath(); ctx.arc(px(p.x), py(p.y), 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#060607'; ctx.fill();
+        ctx.strokeStyle = AMBER_LT; ctx.lineWidth = 2; ctx.stroke();
+      });
+      if (flashPt) {
+        var age = (performance.now() - flashPt.t0) / 700;
+        if (age < 1) {
+          ctx.beginPath(); ctx.arc(px(flashPt.x), py(flashPt.y), 5 + age * 22, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(255,176,6,' + (1 - age) * 0.8 + ')'; ctx.lineWidth = 1.6; ctx.stroke();
+        } else flashPt = null;
+      }
+    }
+
+    var loop = viewLoop(canvas, function () {
+      if (morph < 1) morph = Math.min(1, morph + (reduce() ? 1 : 0.075));
+      draw();
+    });
+
+    function retrain() {
+      var frozen = { mu: new Float64Array(N), sd: new Float64Array(N) };
+      for (var i = 0; i < N; i++) { frozen.mu[i] = cur.mu[i] + (tgt.mu[i] - cur.mu[i]) * morph; frozen.sd[i] = cur.sd[i] + (tgt.sd[i] - cur.sd[i]) * morph; }
+      cur = frozen; tgt = posterior(xs); morph = 0;
+      if (updCb) updCb(state.pts.length);
+    }
+    function addPoint(x, y) {
+      if (state.pts.length >= state.maxPts) state.pts.shift();
+      state.pts.push({ x: clamp(x, 0.02, 0.98), y: clamp(y, 0.06, 0.94) });
+      flashPt = { x: clamp(x, 0.02, 0.98), y: clamp(y, 0.06, 0.94), t0: performance.now() };
+      retrain();
+    }
+    if (state.interactive) {
+      canvas.style.cursor = 'crosshair';
+      canvas.addEventListener('pointerdown', function (e) {
+        var r = canvas.getBoundingClientRect();
+        addPoint((e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height);
+      });
+    }
+    return {
+      addPoint: addPoint,
+      addRandom: function () { addPoint(0.05 + Math.random() * 0.9, 0.15 + Math.random() * 0.7); },
+      reset: function (pts) { state.pts = (pts || []).map(function (p) { return { x: p[0], y: p[1] }; }); retrain(); },
+      onUpdate: function (cb) { updCb = cb; },
+      count: function () { return state.pts.length; },
+      destroy: function () { loop.stop(); },
+    };
+  }
+
+  var DEFAULT = [[0.14, 0.36], [0.34, 0.62], [0.58, 0.44], [0.82, 0.71]];
+  var gpCv = document.getElementById('sci-gp');
+  if (gpCv) {
+    var gp = gp1d(gpCv, { points: DEFAULT });
+    var cnt = document.getElementById('sci-gp-count');
+    gp.onUpdate(function (n) { if (cnt) cnt.textContent = n + ' measurement' + (n === 1 ? '' : 's'); });
+    var addBtn = document.getElementById('sci-gp-add');
+    var resetBtn = document.getElementById('sci-gp-reset');
+    if (addBtn) addBtn.addEventListener('click', function () { gp.addRandom(); });
+    if (resetBtn) resetBtn.addEventListener('click', function () { gp.reset(DEFAULT); });
+  }
+})();
+</script>
 </main>
 <section class="logo-marquee" aria-label="Partners, customers and research collaborators">
   <div class="label">Partners, customers, and research collaborators</div>
@@ -326,9 +465,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 </footer>
 <script src="/probaligence-site-preview/scrollfx.js" defer></script>
 <script src="/probaligence-site-preview/site.js" defer></script>
-<!-- deferred and in this order: dimgp-widget.js needs the DimgpClient global from the file above it -->
-<script src="/probaligence-site-preview/assets/js/dimgp-client.js" defer></script>
-<script src="/probaligence-site-preview/assets/js/dimgp-widget.js" defer></script>
 <a href="../feedback/?page=Science%20overview" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 <div id="pi-wip" role="dialog" aria-modal="true" aria-labelledby="pi-wip-h" style="position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(4,4,5,.80);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)">
   <div style="max-width:460px;width:100%;background:#0A0908;border:1px solid rgba(255,176,6,.45);border-top:3px solid #FFB006;border-radius:12px;padding:34px 32px;box-shadow:0 30px 90px rgba(0,0,0,.65);text-align:center">

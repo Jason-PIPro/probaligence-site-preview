@@ -74,7 +74,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (prefers-reduced-motion:reduce){.tor-in .tor-st,.tor-in .tor-s1{transition:none}}
 </style>
 <style id="cta-close-css">
-.cta-close{position:relative;min-height:0;display:flex;align-items:center;justify-content:center;padding:clamp(110px,14vw,180px) 26px;overflow:hidden}
+.cta-close{position:relative;display:flex;align-items:center;justify-content:center;padding:clamp(56px,7vw,86px) 26px;overflow:hidden}
 .cta-close .glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(820px,120vw);height:520px;background:radial-gradient(closest-side,rgba(255,176,6,.1),transparent 62%);pointer-events:none}
 .cta-close .frame{position:absolute;inset:22px;pointer-events:none}
 .cta-close .tick{position:absolute;width:14px;height:14px}
@@ -172,37 +172,60 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 </header>
 <main id="main" style="display: block;">
 
-  <section data-hero-in style="position: relative; padding: 124px 24px 80px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
-    <div aria-hidden="true" style="position: absolute; top: -15%; left: -8%; width: 720px; height: 560px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.1), transparent 64%); pointer-events: none;"></div>
+  <style id="chh-css">
+/* Chemical hero background. Same still as the Chemical R&D card on the landing page,
+   rebuilt at 2560x1160 from the master so it holds up full bleed. Class names match the
+   paint-coating page on purpose: the two solution pages share one idiom. */
+.pc-hero-img{position:absolute;inset:0;background:url(/assets/media/bg-chemical-dosing-vials.webp) center/cover no-repeat;opacity:.95;pointer-events:none}
+.pc-hero-scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(6,6,7,.94) 0%,rgba(6,6,7,.78) 30%,rgba(6,6,7,.3) 58%,transparent 82%),
+  linear-gradient(180deg,rgba(6,6,7,.45) 0%,transparent 32%,rgba(6,6,7,.6) 100%)}
+@media (max-width:700px){.pc-hero-img{opacity:.6;background-position:52% 58%}.pc-hero-scrim{background:linear-gradient(180deg,rgba(6,6,7,.8) 0%,rgba(6,6,7,.62) 40%,rgba(6,6,7,.35) 100%)}}
+
+/* The bottleneck, stated as three flush hairline items instead of three bordered cards.
+   Same hairline idiom as the use-case stack below, so the page reads as one system. */
+.pcb{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 clamp(24px,4vw,52px);margin-top:40px;max-width:1000px}
+.pcb>div{border-top:1px solid rgba(255,255,255,.12);padding:16px 0 0}
+.pcb span{display:block;font:500 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#FFB006}
+.pcb p{margin:11px 0 0;color:#a9a9a3;font-size:14.5px;line-height:1.55}
+
+/* The DoE loop figure. The diagram is one wide row of four boxes, so below 760px it keeps a
+   minimum width and the figure scrolls rather than shrinking its baked-in labels to nothing. */
+.pcl{margin:38px 0 0;max-width:900px}
+.pcl .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid rgba(255,255,255,.09);border-radius:4px;background:#000;padding:20px}
+.pcl img{display:block;width:100%;height:auto;min-width:520px}
+.pcl figcaption{margin-top:14px;color:#a9a9a3;font-size:14.5px;line-height:1.6;max-width:62ch}
+.pcl .hint{display:none}
+@media (max-width:760px){.pcl .hint{display:block;margin-top:9px;font:400 11px/1.4 'IBM Plex Mono',monospace;color:#6A6A64}}
+
+/* Small news and guides row at the foot of the page. Hairline rows borrowed from the
+   toolbox element redesign-news-editorial, kept to one line each. */
+.pcm{max-width:1100px;margin:0 auto}
+.pcm .hd{margin:0 0 26px;font:700 clamp(22px,2.6vw,30px)/1.15 'Space Grotesk',sans-serif;letter-spacing:-.02em;color:#f4f3ef}
+.pcm ul{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.1)}
+.pcm li{border-bottom:1px solid rgba(255,255,255,.1)}
+.pcm a{display:flex;align-items:baseline;gap:16px;padding:19px 4px;text-decoration:none;color:#d6d6d0;font-size:17px;line-height:1.4;transition:color .2s ease,transform .2s ease}
+.pcm a:hover{color:#f4f3ef;transform:translateX(8px)}
+.pcm .kind{flex:0 0 auto;font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#FFB006;min-width:58px}
+.pcm a .arw{margin-left:auto;color:#6A6A64;transition:color .2s ease}
+.pcm a:hover .arw{color:#FFB006}
+@media (prefers-reduced-motion:reduce){.pcm a,.pcm a .arw{transition:none}}
+  </style>
+  <section data-hero-in style="position: relative; padding: 124px 24px 88px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
+    <div class="pc-hero-img" aria-hidden="true"></div>
+    <div class="pc-hero-scrim" aria-hidden="true"></div>
+    <div aria-hidden="true" style="position: absolute; top: -15%; right: -8%; width: 720px; height: 560px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.09), transparent 64%); pointer-events: none;"></div>
     <div style="max-width: 1280px; margin: 0px auto; position: relative;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: clamp(40px, 6vw, 72px); align-items: center;">
-        <div>
+      <div>
+        <div style="max-width: 880px;">
           <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Solution / Chemical R&amp;D</div>
           <h1 style="font: 700 clamp(36px, 5.2vw, 62px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 15ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Plan</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">smarter</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">experiments.</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Reduce</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">scale-up</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">risk.</span></span></h1>
-          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS learns from the results your chemical R&amp;D team already has, predicts outcomes for untested conditions with quantified uncertainty, and proposes the next experiment to run toward yield, quality, or cost targets. Multi-fidelity modeling links small-scale and full-scale data to cut the number of expensive runs.</p>
+          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS learns from the runs your team has already logged, then proposes the next experiment to run toward a yield, quality, or cost target.</p>
           <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
             <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
             <a href="#loop" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">See the experiment loop</a>
           </div>
         </div>
-        <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 24px; background: rgb(10, 9, 8); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-          <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Multi-fidelity scale-up</div>
-          <svg viewBox="0 0 520 320" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;">
-            <text x="20" y="48" fill="#9C9C96" font-family="'IBM Plex Mono',monospace" font-size="12">LAB</text>
-            <line x1="20" y1="60" x2="500" y2="60" stroke="rgba(255,255,255,.08)"></line>
-            <circle cx="60" cy="60" r="3" fill="#6A6A64"></circle><circle cx="98" cy="60" r="3" fill="#6A6A64"></circle><circle cx="136" cy="60" r="3" fill="#6A6A64"></circle><circle cx="174" cy="60" r="3" fill="#6A6A64"></circle><circle cx="212" cy="60" r="3" fill="#6A6A64"></circle><circle cx="250" cy="60" r="3" fill="#6A6A64"></circle><circle cx="288" cy="60" r="3" fill="#6A6A64"></circle><circle cx="326" cy="60" r="3" fill="#6A6A64"></circle><circle cx="364" cy="60" r="3" fill="#6A6A64"></circle><circle cx="402" cy="60" r="3" fill="#6A6A64"></circle><circle cx="440" cy="60" r="3" fill="#6A6A64"></circle><circle cx="478" cy="60" r="3" fill="#6A6A64"></circle>
-            <text x="20" y="130" fill="#9C9C96" font-family="'IBM Plex Mono',monospace" font-size="12">PILOT</text>
-            <line x1="20" y1="142" x2="500" y2="142" stroke="rgba(255,255,255,.08)"></line>
-            <circle cx="90" cy="142" r="4.5" fill="rgba(255,176,6,.55)"></circle><circle cx="190" cy="142" r="4.5" fill="rgba(255,176,6,.55)"></circle><circle cx="290" cy="142" r="4.5" fill="rgba(255,176,6,.55)"></circle><circle cx="390" cy="142" r="4.5" fill="rgba(255,176,6,.55)"></circle><circle cx="470" cy="142" r="4.5" fill="rgba(255,176,6,.55)"></circle>
-            <text x="20" y="212" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="12">PRODUCTION</text>
-            <line x1="20" y1="224" x2="500" y2="224" stroke="rgba(255,255,255,.08)"></line>
-            <circle cx="150" cy="224" r="6" fill="#FFB006" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="300" cy="224" r="6" fill="#FFB006" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="450" cy="224" r="6" fill="#FFB006" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle>
-            <path d="M60 70 L 260 270 M 478 70 L 300 214" stroke="rgba(255,176,6,.18)" stroke-width="1"></path>
-            <rect x="150" y="262" width="220" height="40" rx="3" fill="rgba(255,176,6,.08)" stroke="rgba(255,176,6,.4)" style="transform-origin: left center; transform: none;"></rect>
-            <text x="260" y="287" text-anchor="middle" fill="#F4F3EF" font-family="'Space Grotesk',sans-serif" font-size="14" font-weight="600">One DIM-GP model</text>
-          </svg>
-          <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 8px;">Cheap lab data fills the space; sparse production data anchors accuracy.</figcaption>
-        </figure>
       </div>
     </div>
   </section>
@@ -211,11 +234,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The bottleneck</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Too many variables, too few runs you can afford</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Reagents, concentrations, temperature, pressure, time, and equipment interact, and every run is expensive, so teams test a fraction of the space and carry the rest into scale-up as risk.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 18px; margin-top: 50px;">
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 16px;">Large parameter spaces</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Many inputs interact, and full factorial testing is not realistic.</p></div>
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 16px;">Expensive runs</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Each experiment, batch, or pilot consumes time, material, and equipment.</p></div>
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 16px;">Scale-up risk</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Lab results do not always transfer cleanly to pilot and production.</p></div>
+      <div class="pcb">
+        <div><span>Large parameter spaces</span><p>Reagents, concentrations, temperature, pressure and time interact.</p></div>
+        <div><span>Expensive runs</span><p>Every experiment, batch and pilot costs time, material and equipment.</p></div>
+        <div><span>Scale-up risk</span><p>Lab results do not always transfer cleanly to pilot and production.</p></div>
       </div>
     </div>
   </section>
@@ -224,22 +246,15 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Experiment planning</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Choose the next run that teaches the most</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">A classical test matrix is set once, before the first run. STOCHOS chooses each experiment from everything measured so far.</p>
-      <a href="/probaligence-site-preview/bayesian-optimization/" style="display: inline-block; margin-top: 18px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How Bayesian optimization works →</a>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1px; margin-top: 54px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.55);">01</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Existing data</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Start from your experiment tables, process records, and mixed lab and pilot data.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.55);">02</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Predict outcomes</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Estimate yield, quality, or property targets for untested conditions, with confidence.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.55);">03</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Next-best experiment</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Bayesian optimization picks the run that moves fastest toward the target.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">04</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Re-plan</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">The model tightens with each run, and the next proposal shifts to match.</p></div>
-      </div>
-      <figure data-sc-name="DoeSamplerVisualizer" style="margin: 34px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px;">
-          <span style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124);">Where the first runs go</span>
-          <span style="font: 400 11px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100);">Click to replay</span>
+      <figure class="pcl">
+        <div class="scroller">
+          <img src="/probaligence-site-preview/assets/media/loop-doe-active-learning.webp" width="1600" height="605" loading="lazy" decoding="async"
+               alt="Loop diagram: an initial design of experiments feeds a probabilistic model, the model suggests the point of maximum information gain, that sample is run, and the new data returns to the model.">
         </div>
-        <canvas id="doeCanvas" aria-hidden="true" style="width: 100%; height: clamp(240px, 34vw, 340px); display: block; cursor: pointer;"></canvas>
-        <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 12px;">Three plans for the same 12 runs: a fixed grid collapses to four levels per axis; Latin hypercube keeps all 12. From there, the loop adapts run by run.</figcaption>
+        <figcaption>A classical test matrix is set once, before the first run. STOCHOS updates it after every result, so each measurement changes which experiment is worth running next.</figcaption>
+        <div class="hint">Swipe the diagram to see the full loop.</div>
       </figure>
+      <a href="/probaligence-site-preview/bayesian-optimization/" style="display: inline-block; margin-top: 20px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How Bayesian optimization works →</a>
     </div>
   </section>
 
@@ -285,146 +300,339 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
-  <section id="use-cases" data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1280px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Results · Selected use cases</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 24ch;">Use cases across chemical R&amp;D</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">Open a card for the problem, how STOCHOS fits, and the example result.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 18px; margin-top: 54px; align-items: start;">
+  <style id="ucs-css">
+  /* ============ CORE START: use-case stack (lean) ============
+     Still on the left, one lean headline, one paragraph of one or two
+     sentences, one method or guide reference. No figure numbers: the example
+     figures were removed on 2026-07-23 (Jason), so nothing in this section
+     asserts a result and there is no proof surface to keep in step with
+     brand-facts.md.
 
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="11" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><path d="M6.4 2h3.2M7 2v4.2L3.6 12.4a1 1 0 0 0 .9 1.5h7a1 1 0 0 0 .9-1.5L9 6.2V2M5.3 10h5.4"></path></svg><span>Chemical R&amp;D <span style="color: rgb(92, 92, 86);">·</span> Process</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Reaction Yield Optimization</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">More yield from a tight run budget, with selectivity held.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
-          </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">+6.2<span style="font-size: 0.4em; color: rgb(156, 156, 150);"> pts</span></div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">yield over the incumbent process, in about 23 runs instead of roughly 150.</div>
-              </div>
-              <div style="margin-top: 14px; font: 500 11.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Demo scenario, a representative example.</div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Best-so-far yield against runs</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="44" x2="442" y2="44" stroke="#FFB006" stroke-dasharray="6 5" opacity=".5"></line><text x="438" y="38" text-anchor="end" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">target</text><path d="M44 178 C160 120 320 90 436 82" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.4" stroke-dasharray="5 4"></path><path d="M44 178 C100 100 150 60 250 52 C320 48 380 48 436 48" fill="none" stroke="#FFB006" stroke-width="2.2" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><circle cx="232" cy="52" r="4.5" fill="#000" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="196" y="44" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">adaptive</text><text x="320" y="106" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">grid</text><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">yield</text><text x="440" y="214" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">runs</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Many interacting parameters, few runs you can afford. A fixed plan wastes runs, and a yield number alone does not tell you which parameter was responsible.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS predicts yield, selectivity, and cost with confidence, chooses the next run adaptively, and ranks the drivers, so the campaign produces understanding, not just a recipe.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 60ch; margin: 0px;">If you have a handful of runs and a process worth improving, bring them.</p>
-              </div>
-            </div>
-          </div>
-        </article>
+     Rows 6 to 10 sit behind one disclosure. The expand idiom (max-height
+     transition, amber rotating plus) is borrowed from
+     06_website-build/design-toolbox/toolbox/elements/accordion-cards.html;
+     the whole element was not ported because what is needed here is a single
+     show-more control, not a per-row accordion.
 
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="11" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><path d="M6.4 2h3.2M7 2v4.2L3.6 12.4a1 1 0 0 0 .9 1.5h7a1 1 0 0 0 .9-1.5L9 6.2V2M5.3 10h5.4"></path></svg><span>Chemical R&amp;D <span style="color: rgb(92, 92, 86);">·</span> Scale-up</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Scale-Up Prediction</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Predict plant behavior from lab and pilot data with confidence.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
-          </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">~1.8%</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">of the first qualified plant batch, predicted before it ran</div>
-              </div>
-              <div style="margin-top: 14px; font: 500 11.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Demo scenario, a representative example.</div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Lab, pilot, plant, fused</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><path d="M44 150 C150 112 280 82 436 60 L436 86 C280 108 150 138 44 176 Z" fill="rgba(255,176,6,.12)" style="transform-origin: center center; transform: none;"></path><path d="M44 164 C150 124 280 84 436 73" fill="none" stroke="#FFB006" stroke-width="2" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><circle cx="78" cy="158" r="2" fill="#6A6A64"></circle><circle cx="110" cy="150" r="2" fill="#6A6A64"></circle><circle cx="140" cy="146" r="2" fill="#6A6A64"></circle><circle cx="172" cy="138" r="2" fill="#6A6A64"></circle><circle cx="206" cy="130" r="2" fill="#6A6A64"></circle><circle cx="120" cy="138" r="4" fill="rgba(255,176,6,.55)"></circle><circle cx="240" cy="116" r="4" fill="rgba(255,176,6,.55)"></circle><circle cx="320" cy="100" r="4" fill="rgba(255,176,6,.55)"></circle><circle cx="300" cy="92" r="4.6" fill="#000" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="412" cy="74" r="4.6" fill="#FFB006" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="78" y="190" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="10.5">lab</text><text x="232" y="138" fill="#9C9C96" font-family="'IBM Plex Mono',monospace" font-size="10.5">pilot</text><text x="372" y="70" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="10.5">plant</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Lab optima do not transfer cleanly, and the effects that move with scale (mixing, heat transfer, residence time) are exactly the ones a flask cannot show. More plant batches is what the budget cannot absorb.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Multi-fidelity fuses lab, pilot, and plant data, predicts plant-scale yield with uncertainty, picks the few pilot runs worth doing, and flags windows too risky to commit a batch.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 60ch; margin: 0px;">If scale-up keeps surprising you at the plant, bring your lab, pilot, and plant data.</p>
-              </div>
-            </div>
-          </div>
-        </article>
+     The reveal hook is data-ucs-rv, NOT data-reveal: on this page
+     [data-reveal] already belongs to five other sections and to site.js. ==== */
+  .ucs{padding:clamp(72px,8vw,120px) 24px;border-top:1px solid rgba(255,255,255,.07)}
+  .ucs-in{max-width:1280px;margin:0 auto}
 
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="11" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><path d="M6.4 2h3.2M7 2v4.2L3.6 12.4a1 1 0 0 0 .9 1.5h7a1 1 0 0 0 .9-1.5L9 6.2V2M5.3 10h5.4"></path></svg><span>Chemical R&amp;D <span style="color: rgb(92, 92, 86);">·</span> Screening</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Self-Driving Screening</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Active learning plans each plate at the speed of the line.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
-          </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">~120<span style="font-size: 0.4em; color: rgb(156, 156, 150);"> /day</span></div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">informative samples, up from about 40, with planning time roughly halved.</div>
-              </div>
-              <div style="margin-top: 14px; font: 500 11.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Demo scenario, a representative example.</div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Informative samples per day</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="160" x2="442" y2="160" stroke="rgba(255,255,255,.08)"></line><text x="48" y="156" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="10.5">40</text><path d="M44 160 H124 V134 H204 V104 H284 V68 H364 V40 H442 V196 H44 Z" fill="rgba(255,176,6,.13)" style="transform-origin: center center; transform: none;"></path><polyline points="44,160 124,160 124,134 204,134 204,104 284,104 284,68 364,68 364,40 442,40" fill="none" stroke="#FFB006" stroke-width="2.2"></polyline><text x="438" y="34" text-anchor="end" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">120</text><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">samples/day</text><text x="440" y="214" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">weeks</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Automation removed the pipetting bottleneck and exposed experiment planning. The expensive line idles while a person designs the next plate, and reagent goes into samples that teach nothing.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">A surrogate predicts the property across the space and proposes each plate, the line doses, and results feed back, looping at hardware speed with expert-level accuracy, run as a small local web app.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 60ch; margin: 0px;">If your screening line waits on manual planning, bring your assay and a slice of past plates.</p>
-              </div>
-            </div>
-          </div>
-        </article>
+  .ucs-eyebrow{font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#FFB006;margin-bottom:22px}
+  .ucs-h2{font:700 clamp(28px,4.2vw,46px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-.02em;max-width:24ch;margin:0}
+  .ucs-lead{margin-top:20px;color:#b8b8b2;font-size:17px;line-height:1.6;max-width:62ch}
 
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="11" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><path d="M6.4 2h3.2M7 2v4.2L3.6 12.4a1 1 0 0 0 .9 1.5h7a1 1 0 0 0 .9-1.5L9 6.2V2M5.3 10h5.4"></path></svg><span>Chemical R&amp;D <span style="color: rgb(92, 92, 86);">·</span> Mixtures</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Formulation and Mixture Optimization</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Balance composition across competing property targets, trade-offs in view.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
-          </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(34px, 4vw, 48px) / 0.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">mapped</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">the cost and quality frontier mapped, not a single fixed recipe</div>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Trade-off frontier</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><path d="M70 60 Q 150 96 230 132 T 430 196" fill="none" stroke="#FFB006" stroke-width="2.2" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><g fill="#5C5C56"><circle cx="160" cy="80" r="3"></circle><circle cx="240" cy="96" r="3"></circle><circle cx="320" cy="120" r="3"></circle><circle cx="300" cy="86" r="3"></circle><circle cx="380" cy="150" r="3"></circle><circle cx="360" cy="110" r="3"></circle></g><circle cx="230" cy="132" r="5" fill="rgba(255,176,6,.2)" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="238" y="128" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">chosen</text><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">quality</text><text x="440" y="210" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">cost</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Mixture and additive problems pull properties against each other and against cost, and a single recommended recipe hides the choices a formulator actually needs to see.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS predicts every property of a composition at once and uses multi-objective optimization to map the trade-off frontier, so the team picks a point knowing exactly what each option costs the others.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 60ch; margin: 0px;">If a mixture has to satisfy competing targets, bring the components, the targets, and your data.</p>
-                <a href="/probaligence-site-preview/paint-coating/" style="display: inline-block; margin-top: 16px; color: rgb(255, 176, 6); text-decoration: none; font: 500 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Formulation for paint and coatings →</a>
-              </div>
-            </div>
-          </div>
-        </article>
+  .ucs-list{margin-top:44px;max-width:900px;border-top:1px solid rgba(255,255,255,.09)}
+
+  /* the still leads the row. align-items:center keeps a short row tidy
+     instead of stranding the picture against a two-line body. */
+  .ucs-row{
+    display:grid;
+    grid-template-columns:minmax(0,272px) minmax(0,1fr);
+    gap:0 38px;align-items:center;
+    padding:22px 12px 22px 4px;
+    border-bottom:1px solid rgba(255,255,255,.09);
+    transition:background .3s ease;
+  }
+  .ucs-row:hover{background:rgba(255,176,6,.028)}
+  .ucs-still{display:block;width:100%;height:auto;opacity:.8;transition:opacity .3s ease}
+  .ucs-row:hover .ucs-still{opacity:1}
+
+  .ucs-meta{display:flex;align-items:baseline;gap:11px}
+  .ucs-idx{font:500 11px/1 'IBM Plex Mono',monospace;color:#5c5c56;letter-spacing:.08em;transition:color .3s ease}
+  .ucs-row:hover .ucs-idx{color:#FFB006}
+  .ucs-tag{font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#FFB006}
+  .ucs-h3{margin:9px 0 0;font:600 clamp(19px,2vw,25px)/1.18 'Space Grotesk',sans-serif;letter-spacing:-.018em;color:#f4f3ef;text-wrap:pretty}
+  /* no measure cap: the row column is already 590px, about 66ch, so a cap
+     here would only reopen the dead gap on the right */
+  .ucs-p{margin:9px 0 0;color:#a9a9a3;font-size:14.5px;line-height:1.55}
+  .ucs-link{display:inline-block;margin-top:11px;color:#FFB006;text-decoration:none;font:500 13.5px/1 'IBM Plex Sans',sans-serif}
+  .ucs-link:hover{text-decoration:underline}
+
+  /* the other five. Present in the DOM always, so they are crawlable and the
+     noscript rule can simply show them. */
+  .ucs-more{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.2,.7,.2,1)}
+  .ucs-more.is-open{max-height:none}
+  .ucs-toggle{
+    display:flex;align-items:center;gap:11px;width:100%;
+    background:none;border:0;border-bottom:1px solid rgba(255,255,255,.09);
+    padding:20px 4px;cursor:pointer;text-align:left;
+    font:500 13px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#FFB006;
+    transition:background .3s ease;
+  }
+  .ucs-toggle:hover{background:rgba(255,176,6,.028)}
+  .ucs-toggle-ind{font:400 19px/1 'Space Grotesk',sans-serif;display:inline-block;transition:transform .3s ease}
+  .ucs-toggle[aria-expanded="true"] .ucs-toggle-ind{transform:rotate(45deg)}
+
+  @media (max-width:820px){
+    .ucs-row{grid-template-columns:minmax(0,1fr);gap:16px 0;padding:26px 0}
+    .ucs-fig{max-width:420px}
+  }
+
+  [data-ucs-rv]{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+  [data-ucs-rv].is-in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    [data-ucs-rv]{opacity:1;transform:none;transition:none}
+    .ucs-row,.ucs-still,.ucs-idx,.ucs-more,.ucs-toggle-ind{transition:none}
+  }
+  /* ============ CORE END ============ */
+  </style>
+  <noscript><style>[data-ucs-rv]{opacity:1!important;transform:none!important}.ucs-more{max-height:none!important}.ucs-toggle{display:none!important}</style></noscript>
+
+<section class="ucs" id="use-cases">
+  <div class="ucs-in">
+    <div class="ucs-eyebrow" data-ucs-rv>Where it fits</div>
+    <h2 class="ucs-h2" data-ucs-rv style="--d:60ms">The work this actually gets used for</h2>
+    <p class="ucs-lead" data-ucs-rv style="--d:120ms">Ten problems in chemical R&amp;D and production that share one shape: few runs, each expensive, several targets pulling against each other.</p>
+
+    <div class="ucs-list">
+
+      <article class="ucs-row" data-ucs-rv>
+        <div class="ucs-fig">
+          <img class="ucs-still" src="/probaligence-site-preview/assets/media/usecase-stills/chem-01-reaction-yield-selectivity.webp" width="1000" height="500"
+               alt="Three round-bottom flasks receding into the dark, the nearest one lit from within" loading="lazy" decoding="async">
+        </div>
+        <div class="ucs-body">
+          <div class="ucs-meta"><span class="ucs-idx">01</span><span class="ucs-tag">Bayesian optimization</span></div>
+          <h3 class="ucs-h3">Reaction yield and selectivity</h3>
+          <p class="ucs-p">Yield, selectivity and cost pull against each other, so STOCHOS proposes the conditions worth booking next from the runs you already have.</p>
+          <a class="ucs-link" href="/probaligence-site-preview/bayesian-optimization/">How Bayesian optimization works &rarr;</a>
+        </div>
+      </article>
+
+      <article class="ucs-row" data-ucs-rv style="--d:60ms">
+        <div class="ucs-fig">
+          <img class="ucs-still" src="/probaligence-site-preview/assets/media/usecase-stills/chem-02-scale-up-lab-pilot-plant.webp" width="1000" height="500"
+               alt="A line of flasks of increasing size fading into haze along a workbench" loading="lazy" decoding="async">
+        </div>
+        <div class="ucs-body">
+          <div class="ucs-meta"><span class="ucs-idx">02</span><span class="ucs-tag">Multi-fidelity</span></div>
+          <h3 class="ucs-h3">Scale-up, lab to pilot to plant</h3>
+          <p class="ucs-p">Each scale costs an order of magnitude more than the one below, so the cheap runs are used to inform the expensive ones.</p>
+          <a class="ucs-link" href="/probaligence-site-preview/guides/lab-to-production-scale-up/">Guide: lab to production scale-up &rarr;</a>
+        </div>
+      </article>
+
+      <article class="ucs-row" data-ucs-rv style="--d:120ms">
+        <div class="ucs-fig">
+          <img class="ucs-still" src="/probaligence-site-preview/assets/media/usecase-stills/chem-03-high-throughput-screening.webp" width="1000" height="500"
+               alt="A 96-well plate with a multichannel pipette head lowered above it, one block of wells filled" loading="lazy" decoding="async">
+        </div>
+        <div class="ucs-body">
+          <div class="ucs-meta"><span class="ucs-idx">03</span><span class="ucs-tag">Adaptive sampling</span></div>
+          <h3 class="ucs-h3">High-throughput and self-driving screening</h3>
+          <p class="ucs-p">The platform runs more samples than a fixed plan can use, so each batch is chosen from what the last one taught.</p>
+          <a class="ucs-link" href="/probaligence-site-preview/guides/high-throughput-experimentation-planning/">Guide: planning high-throughput experiments &rarr;</a>
+        </div>
+      </article>
+
+      <article class="ucs-row" data-ucs-rv style="--d:180ms">
+        <div class="ucs-fig">
+          <img class="ucs-still" src="/probaligence-site-preview/assets/media/usecase-stills/chem-04-bioprocess-media-feed.webp" width="1000" height="500"
+               alt="A glass stirred bioreactor with a steel headplate and a feed line entering the top" loading="lazy" decoding="async">
+        </div>
+        <div class="ucs-body">
+          <div class="ucs-meta"><span class="ucs-idx">04</span><span class="ucs-tag">Constrained search</span></div>
+          <h3 class="ucs-h3">Bioprocess media and feed optimization</h3>
+          <p class="ucs-p">Few runs, each costing days of cultivation, so every prediction carries an interval you can judge before booking the next one.</p>
+          <a class="ucs-link" href="/probaligence-site-preview/guides/run-fewer-experiments/">Guide: run fewer experiments &rarr;</a>
+        </div>
+      </article>
+
+      <article class="ucs-row" data-ucs-rv style="--d:240ms">
+        <div class="ucs-fig">
+          <img class="ucs-still" src="/probaligence-site-preview/assets/media/usecase-stills/chem-05-catalyst-screening.webp" width="1000" height="500"
+               alt="Catalyst pellets spilled across a pool of light with a single capped vial standing among them" loading="lazy" decoding="async">
+        </div>
+        <div class="ucs-body">
+          <div class="ucs-meta"><span class="ucs-idx">05</span><span class="ucs-tag">Sensitivity</span></div>
+          <h3 class="ucs-h3">Catalyst screening and reaction windows</h3>
+          <p class="ucs-p">The factor list is long and most of it does not matter, so sensitivity ranking decides where the campaign is spent.</p>
+          <a class="ucs-link" href="/probaligence-site-preview/sensitivity-analysis/">How sensitivity analysis works &rarr;</a>
+        </div>
+      </article>
+
+      <div class="ucs-more" id="ucsMore">
+
+      <article class="ucs-row">
+        <div class="ucs-fig">
+          <img class="ucs-still" src="/probaligence-site-preview/assets/media/usecase-stills/chem-06-formulation-mixture.webp" width="1000" height="500"
+               alt="Five graduated cylinders side by side, each filled to a different level" loading="lazy" decoding="async">
+        </div>
+        <div class="ucs-body">
+          <div class="ucs-meta"><span class="ucs-idx">06</span><span class="ucs-tag">Mixture constraints</span></div>
+          <h3 class="ucs-h3">Formulation and mixture optimization</h3>
+          <p class="ucs-p">Fractions have to sum to a fixed total and some groups have to be zero, so those rules enter the search as constraints.</p>
+          <a class="ucs-link" href="/probaligence-site-preview/guides/design-variants-that-respect-constraints/">Guide: variants that respect constraints &rarr;</a>
+        </div>
+      </article>
+
+      <article class="ucs-row">
+        <div class="ucs-fig">
+          <img class="ucs-still" src="/probaligence-site-preview/assets/media/usecase-stills/chem-07-battery-electrolyte.webp" width="1000" height="500"
+               alt="A glass pipette lowering a single drop onto a coin cell" loading="lazy" decoding="async">
+        </div>
+        <div class="ucs-body">
+          <div class="ucs-meta"><span class="ucs-idx">07</span><span class="ucs-tag">Small data</span></div>
+          <h3 class="ucs-h3">Battery electrolyte formulation</h3>
+          <p class="ucs-p">Four or five components and cells that take days to cycle, the few-expensive-runs regime this engine is built for.</p>
+          <a class="ucs-link" href="/probaligence-site-preview/uncertainty-quantification/">How uncertainty is quantified &rarr;</a>
+        </div>
+      </article>
+
+      <article class="ucs-row">
+        <div class="ucs-fig">
+          <img class="ucs-still" src="/probaligence-site-preview/assets/media/usecase-stills/chem-08-process-parameter-optimization.webp" width="1000" height="500"
+               alt="An industrial gate valve on lagged pipework with vapour rising from the joint" loading="lazy" decoding="async">
+        </div>
+        <div class="ucs-body">
+          <div class="ucs-meta"><span class="ucs-idx">08</span><span class="ucs-tag">Response surface</span></div>
+          <h3 class="ucs-h3">Process parameter optimization</h3>
+          <p class="ucs-p">Temperature, residence time and mixing decide the outcome, so a few deliberate trials map the response surface. Parameter work, not plant control.</p>
+          <a class="ucs-link" href="/probaligence-site-preview/surrogate-modeling/">How surrogate models work &rarr;</a>
+        </div>
+      </article>
+
+      <article class="ucs-row">
+        <div class="ucs-fig">
+          <img class="ucs-still" src="/probaligence-site-preview/assets/media/usecase-stills/chem-09-soft-sensors.webp" width="1000" height="500"
+               alt="An inline glass flow cell set into a steel pipe run, sensor cable entering at the far side" loading="lazy" decoding="async">
+        </div>
+        <div class="ucs-body">
+          <div class="ucs-meta"><span class="ucs-idx">09</span><span class="ucs-tag">Inference</span></div>
+          <h3 class="ucs-h3">Soft sensors for slow measurements</h3>
+          <p class="ucs-p">The number you need is slow or destructive to measure, so a model predicts it from the ones you already log.</p>
+          <a class="ucs-link" href="/probaligence-site-preview/guides/when-to-trust-an-ai-prediction/">Guide: when to trust a prediction &rarr;</a>
+        </div>
+      </article>
+
+      <article class="ucs-row">
+        <div class="ucs-fig">
+          <img class="ucs-still" src="/probaligence-site-preview/assets/media/usecase-stills/chem-10-predictive-maintenance.webp" width="1000" height="500"
+               alt="A worn metal component, pitted and corroded through in places, on a dark bench" loading="lazy" decoding="async">
+        </div>
+        <div class="ucs-body">
+          <div class="ucs-meta"><span class="ucs-idx">10</span><span class="ucs-tag">Time to limit</span></div>
+          <h3 class="ucs-h3">Predictive maintenance</h3>
+          <p class="ucs-p">Fouling and wear are read from few inspections, so the trend is predicted with an interval that widens the further out it runs.</p>
+          <a class="ucs-link" href="/probaligence-site-preview/guides/know-when-your-model-is-guessing/">Guide: know when a model is guessing &rarr;</a>
+        </div>
+      </article>
 
       </div>
-      <div style="display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; margin-top: 44px;">
-        <a href="/probaligence-site-preview/stochos/" style="color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Explore STOCHOS →</a>
-        <a href="/probaligence-site-preview/stochos-flow/" style="color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">See STOCHOS Flow →</a>
-      </div>
+
+      <button type="button" class="ucs-toggle" aria-expanded="false" aria-controls="ucsMore"
+              data-more="Show five more chemical use cases" data-less="Show fewer">
+        <span class="ucs-toggle-ind">+</span><span class="ucs-toggle-label">Show five more chemical use cases</span>
+      </button>
+
     </div>
-  </section>
+  </div>
+</section>
+
+<script>
+(function(){
+  'use strict';
+  var sec = document.getElementById('use-cases');
+  if (!sec) return;
+  function reduce(){ return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  // entrance reveal, per design-toolbox/toolbox/elements/scroll-reveal-group.html.
+  // Only the first five rows carry the hook: the rest arrive on a click, where an
+  // entrance animation would fight the expand.
+  var rev = sec.querySelectorAll('[data-ucs-rv]');
+  if (reduce() || !('IntersectionObserver' in window)) {
+    [].forEach.call(rev, function (el) { el.classList.add('is-in'); });
+  } else {
+    var ro = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); ro.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    [].forEach.call(rev, function (el) { ro.observe(el); });
+  }
+
+  // the disclosure. max-height is animated from a measured pixel value and then
+  // released to none, so a later reflow (font swap, resize, image load) cannot
+  // clip the last row.
+  var more = sec.querySelector('.ucs-more'), btn = sec.querySelector('.ucs-toggle');
+  if (!more || !btn) return;
+  var lbl = btn.querySelector('.ucs-toggle-label'), open = false, t = null;
+  btn.addEventListener('click', function () {
+    open = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    lbl.textContent = open ? btn.getAttribute('data-less') : btn.getAttribute('data-more');
+    clearTimeout(t);
+    if (reduce()) { more.classList.toggle('is-open', open); more.style.maxHeight = ''; return; }
+    if (open) {
+      more.style.maxHeight = more.scrollHeight + 'px';
+      t = setTimeout(function () { more.classList.add('is-open'); more.style.maxHeight = ''; }, 560);
+    } else {
+      more.style.maxHeight = more.scrollHeight + 'px';
+      more.classList.remove('is-open');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { more.style.maxHeight = '0px'; });
+      });
+    }
+  });
+})();
+</script>
 
   
+
+<style>
+.chz{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(28px,3.4vw,48px);align-items:center;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:clamp(28px,3.4vw,44px);position:relative;overflow:hidden;background:#0A0908}
+.chz::before{content:"";position:absolute;inset:0;background:radial-gradient(520px 220px at 88% 12%,rgba(255,176,6,.10),transparent 70%);pointer-events:none}
+.chz>*{position:relative}
+.chz .eb{font:500 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#FFB006}
+.chz h2{margin:16px 0 0;font:700 clamp(24px,2.9vw,34px)/1.15 'Space Grotesk',sans-serif;letter-spacing:-.02em;color:#F4F3EF;max-width:22ch}
+.chz p{margin:14px 0 0;color:#B8B8B2;font-size:16px;line-height:1.65;max-width:58ch}
+.chz .row{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.chz .btn-p{background:#FFB006;color:#08070A;font:600 15px/1 'IBM Plex Sans',sans-serif;padding:15px 26px;border-radius:2px;text-decoration:none;transition:filter .15s ease}
+.chz .btn-p:hover{filter:brightness(1.08)}
+.chz .btn-p:focus-visible{outline:2px solid #FFCA4D;outline-offset:3px}
+.chz .btn-s{border:1px solid rgba(255,255,255,.2);color:#F4F3EF;font:600 15px/1 'IBM Plex Sans',sans-serif;padding:15px 26px;border-radius:2px;text-decoration:none;transition:border-color .15s ease,background .15s ease}
+.chz .btn-s:hover{border-color:rgba(255,255,255,.46);background:rgba(255,255,255,.05)}
+.chz .foot{margin-top:20px;font:400 12px/1.6 'IBM Plex Mono',monospace;color:#6A6A64;max-width:60ch}
+.chz .mark{display:block;margin:0;border:1px solid rgba(255,255,255,.1);border-radius:6px;overflow:hidden;background:#060607}
+.chz .mark img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+.chz .steps{margin-top:14px;display:flex;gap:9px;flex-wrap:wrap;justify-content:center;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#6A6A64}
+@media (max-width:820px){.chz{grid-template-columns:1fr}.chz .side{order:-1}}
+@media (prefers-reduced-motion:reduce){.chz .btn-p,.chz .btn-s{transition:none}}
+</style>
+<section id="challenge" data-reveal="" style="padding: clamp(60px, 7vw, 100px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
+  <div class="chz">
+    <div>
+      <div class="eb">Interactive demo</div>
+      <h2>Try to beat STOCHOS on a process problem</h2>
+      <p>You get a few tries to tune temperature, catalyst loading, residence time and solvent for the highest yield, keeping selectivity in spec and cost down. Then STOCHOS takes the same reaction, on the same score, and you see both answers side by side.</p>
+      <div class="row">
+        <a class="btn-p" href="/probaligence-site-preview/challenge-app/?case=chemistry#/challenge">Take the challenge <span aria-hidden="true">&rarr;</span></a>
+        <a class="btn-s" href="/probaligence-site-preview/challenge/">All three use cases</a>
+      </div>
+      <p class="foot">About 2 minutes &middot; illustrative demo, synthetic data, response surfaces fitted offline from DIM-GP models</p>
+    </div>
+    <div class="side">
+      <figure class="mark">
+        <img src="/probaligence-site-preview/assets/media/challenge-chemistry-instrument.webp" alt="The chemistry challenge screen: process and formulation sliders, a reactor view, and the measured result panel" width="1600" height="1000" loading="lazy" decoding="async">
+      </figure>
+      <div class="steps"><span>01 Set</span><span>&middot;</span><span>02 Run</span><span>&middot;</span><span>03 Lock</span><span>&middot;</span><span>04 Compare</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="more" style="padding: clamp(56px, 6.5vw, 88px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
+  <div class="pcm">
+    <h2 class="hd">More on chemical R&amp;D</h2>
+    <ul>
+      <li><a href="/probaligence-site-preview/guides/combine-cheap-and-expensive-data/"><span class="kind">Guide</span><span>Combine cheap and expensive data</span><span class="arw" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="/probaligence-site-preview/guides/clean-lab-data-for-ml/"><span class="kind">Guide</span><span>Clean lab data for machine learning</span><span class="arw" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="/probaligence-site-preview/news/ai-beyond-the-buzz/"><span class="kind">News</span><span>AI beyond the buzz, how engineers apply AI in real projects</span><span class="arw" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="/probaligence-site-preview/news/multifidelity-induction-hardening/"><span class="kind">News</span><span>Case study: multi-fidelity analysis of an induction hardening device</span><span class="arw" aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+  </div>
+</section>
 
   <section class="cta-close" id="cta" data-sc-name="CtaClosingSection" style="border-top: 1px solid rgba(255, 255, 255, 0.07); background: rgb(10, 9, 8);">
     <div class="glow" aria-hidden="true"></div>
@@ -509,164 +717,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </div>
 </footer>
-<script>
-(function () {
-  'use strict';
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function doeVis(canvas, opts) {
-    var o = opts || {};
-    var N = o.n || 12, STEP_MS = o.stepMs || 300;
-    var ctx = canvas.getContext('2d');
-    var W = 2, H = 2, raf = 0, running = false, t0 = 0, panels;
-    function shuffle(a) {
-      for (var i = a.length - 1; i > 0; i--) {
-        var j = (Math.random() * (i + 1)) | 0, tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-      }
-      return a;
-    }
-    function makeSets() {
-      var grid = [];
-      for (var gy = 0; gy < 3; gy++) for (var gxx = 0; gxx < 4; gxx++)
-        grid.push([(gxx + 0.5) / 4, (gy + 0.5) / 3]);
-      var rand = [];
-      for (var r = 0; r < N; r++) rand.push([Math.random(), Math.random()]);
-      var px = shuffle([0,1,2,3,4,5,6,7,8,9,10,11].slice(0, N));
-      var py = shuffle([0,1,2,3,4,5,6,7,8,9,10,11].slice(0, N));
-      var lhs = [];
-      for (var k = 0; k < N; k++)
-        lhs.push([(px[k] + 0.2 + Math.random() * 0.6) / N, (py[k] + 0.2 + Math.random() * 0.6) / N]);
-      return [
-        { id: 'grid', label: 'GRID 4×3', pts: grid },
-        { id: 'rand', label: 'RANDOM', pts: rand },
-        { id: 'lhs', label: 'LATIN HYPERCUBE', pts: lhs }
-      ];
-    }
-    function metrics(pts, n) {
-      if (!n) return { gap: 1, lx: 0, ly: 0 };
-      var P = 24, sum = 0, bx = {}, by = {};
-      for (var j = 0; j < P; j++) for (var i = 0; i < P; i++) {
-        var qx = (i + 0.5) / P, qy = (j + 0.5) / P, d = Infinity;
-        for (var k = 0; k < n; k++) {
-          var dx = qx - pts[k][0], dy = qy - pts[k][1];
-          var dd = dx * dx + dy * dy;
-          if (dd < d) d = dd;
-        }
-        sum += Math.sqrt(d);
-      }
-      for (var m = 0; m < n; m++) {
-        bx[(pts[m][0] * P) | 0] = 1; by[(pts[m][1] * P) | 0] = 1;
-      }
-      return { gap: sum / (P * P), lx: Object.keys(bx).length, ly: Object.keys(by).length };
-    }
-    function resize() {
-      var dpr = Math.min(devicePixelRatio || 1, 2);
-      var r = canvas.getBoundingClientRect();
-      canvas.width = Math.max(2, r.width * dpr); canvas.height = Math.max(2, r.height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      W = r.width; H = r.height;
-    }
-    function eob(u) { var c = 1.7; u = Math.min(1, Math.max(0, u)); return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); }
-    function draw(now) {
-      ctx.clearRect(0, 0, W, H);
-      var t = reduce ? 1e9 : now - t0;
-      var placed = Math.min(N, Math.floor(t / STEP_MS));
-      var M = 18, GAP = 16, top = 52, botText = 66;
-      var pw = (W - M * 2 - GAP * 2) / 3;
-      var ph = Math.min(pw, H - top - botText);
-      var done = placed >= N;
-      var win = -1;
-      if (done) {
-        var bestGap = Infinity;
-        panels.forEach(function (p, pi) {
-          var mm = metrics(p.pts, N);
-          p.m = mm;
-          if (mm.gap < bestGap) { bestGap = mm.gap; win = pi; }
-        });
-      }
-      panels.forEach(function (p, pi) {
-        var x0 = M + pi * (pw + GAP), y0 = top;
-        var n = Math.min(placed, p.pts.length);
-        var mm = done ? p.m : metrics(p.pts, n);
-        ctx.font = '500 10.5px "IBM Plex Mono",monospace'; ctx.textAlign = 'left';
-        ctx.fillStyle = p.id === 'lhs' ? '#FFB006' : '#9C9C96';
-        ctx.fillText(p.label, x0, y0 - 10);
-        var isWin = done && pi === win;
-        ctx.strokeStyle = isWin ? 'rgba(255,176,6,.6)' : 'rgba(255,255,255,.12)';
-        if (isWin) { ctx.shadowColor = 'rgba(255,176,6,.35)'; ctx.shadowBlur = 12; }
-        ctx.strokeRect(x0 + 0.5, y0 + 0.5, pw - 1, ph - 1);
-        ctx.shadowBlur = 0;
-        if (p.id === 'lhs' && !done) {
-          ctx.strokeStyle = 'rgba(255,176,6,.12)'; ctx.lineWidth = 1;
-          for (var s = 1; s < N; s++) {
-            ctx.beginPath(); ctx.moveTo(x0 + s / N * pw, y0); ctx.lineTo(x0 + s / N * pw, y0 + ph); ctx.stroke();
-            ctx.beginPath(); ctx.moveTo(x0, y0 + s / N * ph); ctx.lineTo(x0 + pw, y0 + s / N * ph); ctx.stroke();
-          }
-        }
-        for (var k = 0; k < n; k++) {
-          var age = reduce ? 1 : (t - k * STEP_MS) / 260;
-          var sc = eob(age);
-          if (sc <= 0) continue;
-          ctx.fillStyle = '#FFB006';
-          ctx.beginPath();
-          ctx.arc(x0 + p.pts[k][0] * pw, y0 + p.pts[k][1] * ph, 3 * Math.min(1.15, sc), 0, 6.284);
-          ctx.fill();
-        }
-        ctx.strokeStyle = '#FFCA4D'; ctx.lineWidth = 1;
-        for (var q = 0; q < n; q++) {
-          var tx = x0 + p.pts[q][0] * pw;
-          ctx.beginPath(); ctx.moveTo(tx, y0 + ph + 3); ctx.lineTo(tx, y0 + ph + 9); ctx.stroke();
-        }
-        ctx.font = '400 10px "IBM Plex Mono",monospace';
-        ctx.fillStyle = '#B8B8B2';
-        ctx.fillText('mean gap ' + mm.gap.toFixed(3), x0, y0 + ph + 24);
-        ctx.fillStyle = mm.lx < n ? '#6A6A64' : '#FFCA4D';
-        ctx.fillText(mm.lx + '/' + n + ' x-levels', x0, y0 + ph + 38);
-        if (isWin) {
-          ctx.fillStyle = '#FFCA4D';
-          ctx.textAlign = 'right';
-          ctx.fillText('✓ most uniform', x0 + pw, y0 + ph + 24);
-          ctx.textAlign = 'left';
-        }
-      });
-      if (done) {
-        ctx.font = '500 11px "IBM Plex Mono",monospace'; ctx.textAlign = 'center';
-        ctx.fillStyle = '#FFB006';
-        ctx.fillText('same ' + N + ' runs: LHS covers the space and keeps every 1D level distinct', W / 2, H - 10);
-        ctx.textAlign = 'left';
-      }
-      return done;
-    }
-    function tick(now) {
-      var done = draw(now);
-      if (running && !done) raf = requestAnimationFrame(tick);
-      else running = false;
-    }
-    function start() { if (running || reduce) return; running = true; raf = requestAnimationFrame(tick); }
-    function stop() { running = false; cancelAnimationFrame(raf); }
-    function replay() {
-      panels = makeSets(); t0 = performance.now();
-      if (reduce) draw(0); else { stop(); start(); }
-    }
-    panels = makeSets(); t0 = performance.now();
-    resize();
-    if (reduce) draw(0);
-    else {
-      draw(performance.now());
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (en) {
-          if (en.isIntersecting) { t0 = performance.now(); start(); } else stop();
-        });
-      }, { threshold: 0.2 });
-      io.observe(canvas);
-    }
-    if ('ResizeObserver' in window) new ResizeObserver(function () { resize(); draw(performance.now()); }).observe(canvas);
-    canvas.addEventListener('click', replay);
-    return { replay: replay, destroy: function () { stop(); } };
-  }
-  var c = document.getElementById('doeCanvas');
-  if (c) doeVis(c, { n: 12, stepMs: 300 });
-})();
-</script>
 <script>
 (function () {
   'use strict';

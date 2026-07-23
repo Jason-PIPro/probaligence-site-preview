@@ -700,6 +700,46 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       </div>
     </div>
   </section>
+  <style>
+  .chz{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(28px,3.4vw,48px);align-items:center;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:clamp(28px,3.4vw,44px);position:relative;overflow:hidden;background:#0A0908}
+  .chz::before{content:"";position:absolute;inset:0;background:radial-gradient(520px 220px at 88% 12%,rgba(255,176,6,.10),transparent 70%);pointer-events:none}
+  .chz>*{position:relative}
+  .chz .eb{font:500 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#FFB006}
+  .chz h2{margin:16px 0 0;font:700 clamp(24px,2.9vw,34px)/1.15 'Space Grotesk',sans-serif;letter-spacing:-.02em;color:#F4F3EF;max-width:22ch}
+  .chz p{margin:14px 0 0;color:#B8B8B2;font-size:16px;line-height:1.65;max-width:58ch}
+  .chz .row{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+  .chz .btn-p{background:#FFB006;color:#08070A;font:600 15px/1 'IBM Plex Sans',sans-serif;padding:15px 26px;border-radius:2px;text-decoration:none;transition:filter .15s ease}
+  .chz .btn-p:hover{filter:brightness(1.08)}
+  .chz .btn-p:focus-visible{outline:2px solid #FFCA4D;outline-offset:3px}
+  .chz .btn-s{border:1px solid rgba(255,255,255,.2);color:#F4F3EF;font:600 15px/1 'IBM Plex Sans',sans-serif;padding:15px 26px;border-radius:2px;text-decoration:none;transition:border-color .15s ease,background .15s ease}
+  .chz .btn-s:hover{border-color:rgba(255,255,255,.46);background:rgba(255,255,255,.05)}
+  .chz .foot{margin-top:20px;font:400 12px/1.6 'IBM Plex Mono',monospace;color:#6A6A64;max-width:60ch}
+  .chz .mark{display:block;margin:0;border:1px solid rgba(255,255,255,.1);border-radius:6px;overflow:hidden;background:#060607}
+  .chz .mark img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+  .chz .steps{margin-top:14px;display:flex;gap:9px;flex-wrap:wrap;justify-content:center;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#6A6A64}
+  @media (max-width:820px){.chz{grid-template-columns:1fr}.chz .side{order:-1}}
+  @media (prefers-reduced-motion:reduce){.chz .btn-p,.chz .btn-s{transition:none}}
+  </style>
+  <section id="challenge" data-reveal="" style="padding: clamp(60px, 7vw, 100px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
+    <div class="chz">
+      <div>
+        <div class="eb">Interactive demo</div>
+        <h2>Try to beat STOCHOS on an engineering problem</h2>
+        <p>You get a few tries to shape a plastic bottle that passes a 26 bar pressure test at the lowest weight and cost. Then STOCHOS takes the same problem, on the same score, and you see both answers side by side.</p>
+        <div class="row">
+          <a class="btn-p" href="/probaligence-site-preview/challenge-app/?case=engineering#/challenge">Take the challenge <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn-s" href="/probaligence-site-preview/challenge/">All three use cases</a>
+        </div>
+        <p class="foot">About 2 minutes &middot; illustrative demo, synthetic data, response surfaces fitted offline from DIM-GP models</p>
+      </div>
+      <div class="side">
+        <figure class="mark">
+          <img src="/probaligence-site-preview/assets/media/challenge-engineering-instrument.webp" alt="The engineering challenge screen: bottle design sliders, a load-test rig with a pressure gauge, and the predicted result panel" width="1600" height="1000" loading="lazy" decoding="async">
+        </figure>
+        <div class="steps"><span>01 Set</span><span>&middot;</span><span>02 Run</span><span>&middot;</span><span>03 Lock</span><span>&middot;</span><span>04 Compare</span></div>
+      </div>
+    </div>
+  </section>
   <section id="proof" class="afe-plate" data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Proof</div>

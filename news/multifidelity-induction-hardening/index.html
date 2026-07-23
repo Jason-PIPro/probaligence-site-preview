@@ -123,12 +123,31 @@ h1,h2,h3,h4,p{margin:0}
       </figure>
       <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">To model the maximum temperature at three points of interest (POIs) during an inductive process, we faced a classic challenge: achieving high-fidelity accuracy (fine grid and temporal resolution) while minimizing computational effort. Each simulation depends on three parameters across three segments (current, inductor y-offset, and velocity), leading to a complex, high-dimensional design space.</p>
       <h2 style="font: 700 clamp(22px, 2.6vw, 28px) / 1.25 'Space Grotesk', sans-serif; letter-spacing: -0.015em; margin-top: 44px; color: rgb(244, 243, 239);">The challenge</h2>
-      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">A fully high-fidelity model would require a large number of expensive simulations. A purely low-fidelity model, while faster, leads to inaccurate and unreliable predictions. High-fidelity simulations are roughly 7 times more computationally expensive than their low-fidelity counterparts, and a direct comparison showed that using only low-fidelity data could lead to temperature prediction errors of up to 40%.</p>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">A fully high-fidelity model would need a large number of expensive simulations. A purely low-fidelity model is faster and unreliable. Neither one is a real option.</p>
+      <div class="na-figs">
+        <div>
+          <div class="na-n">7x</div>
+          <div class="na-u">Cost ratio</div>
+          <div class="na-c">A high-fidelity simulation is roughly seven times more expensive to compute than its low-fidelity counterpart.</div>
+        </div>
+        <div>
+          <div class="na-n">Up to 40%</div>
+          <div class="na-u">Error, low fidelity only</div>
+          <div class="na-c">Temperature prediction error a direct comparison showed when only low-fidelity data was used.</div>
+        </div>
+      </div>
       <h2 style="font: 700 clamp(22px, 2.6vw, 28px) / 1.25 'Space Grotesk', sans-serif; letter-spacing: -0.015em; margin-top: 44px; color: rgb(244, 243, 239);">The solution: multifidelity modeling</h2>
-      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">Using our multifidelity algorithm, we combined 20 high-fidelity and 69 low-fidelity simulations (89 samples in total) to train a global model capable of accurately predicting high-fidelity temperature outcomes at all POIs.</p>
-      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">The software uses an adaptive design of experiments (DoE) approach: it begins with a small, correlated batch of low- and high-fidelity samples, builds a data-driven surrogate model, and iteratively suggests new sampling points in the regions where high-fidelity insight is most valuable. This strategy ensures that only the most essential high-fidelity simulations are performed, dramatically reducing overall compute time while maintaining prediction quality.</p>
-      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">The results:</p>
-      <ul style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin: 18px 0 0; padding-left: 22px; max-width: 66ch;"><li style="margin-top: 8px;">The multifidelity metamodel accurately reproduces the high-fidelity system behavior with an acceptable error rate.</li><li style="margin-top: 8px;">A standard machine learning model trained on the same limited high-fidelity dataset performs significantly worse.</li><li style="margin-top: 8px;">This validates the approach: exploiting low-fidelity data to explore high-fidelity behavior efficiently and reliably.</li></ul>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">Our multifidelity algorithm combined 20 high-fidelity and 69 low-fidelity simulations, 89 samples in total, into one global model that predicts high-fidelity temperature outcomes at all POIs.</p>
+      <div class="na-note">
+        <div class="na-k">How the sampling works</div>
+        <p>An adaptive design of experiments: start from a small, correlated batch of low- and high-fidelity samples, build a data-driven surrogate, then keep proposing new points where high-fidelity insight is worth the most. Only the essential high-fidelity runs get made.</p>
+      </div>
+      <h3 style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 40px; color: rgb(244, 243, 239);">The results</h3>
+      <ul class="na-points">
+        <li>The multifidelity metamodel reproduces the high-fidelity system behavior at an acceptable error rate.</li>
+        <li>A standard machine learning model trained on the same limited high-fidelity dataset performs significantly worse.</li>
+        <li>The approach holds: low-fidelity data explores high-fidelity behavior efficiently and reliably.</li>
+      </ul>
       <figure style="margin: 34px 0 0;">
         <img src="/probaligence-site-preview/assets/news/multifidelity-induction-hardening/20250604-fine-grid.webp" alt="Fine finite element grid of the induction hardening model, with a densely meshed workpiece and surrounding domain" width="1024" height="394" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
         <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">Fine grid (high fidelity)</figcaption>
