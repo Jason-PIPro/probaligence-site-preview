@@ -116,8 +116,10 @@
 .footer-brand .brand img{height:32px}
 .footer-brand .brand span{font-size:16px}
 .footer-brand p{color:var(--muted);font-size:14px;line-height:1.6;max-width:300px;margin:0 0 18px}
-.footer-cred{display:flex;flex-direction:column;gap:7px}
-.footer-cred span{font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--faint);letter-spacing:.04em}
+.footer-cred{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.footer-cred img{display:block;width:auto}
+.footer-cred .cred-ansys{height:40px}
+.footer-cred .cred-cadfem{height:19px}
 .footer-grid .f-h{font:500 11.5px/1 'IBM Plex Mono',monospace;color:var(--faint);
   letter-spacing:.16em;text-transform:uppercase;margin:0 0 18px}
 .footer-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
@@ -223,8 +225,21 @@ html{overflow-x:clip}
   .marquee-track .logo-cell img,[data-marquee]>div>span img{height:26px!important;max-width:100px!important}
 }
 
+/* Insight-page episode figures: the source slides are fixed 720px social-carousel crops, so a
+   full-width figure renders them near 1:1 and they look soft. Cap the display width and centre the
+   frame so the 720px source downsamples (~1.5x) and reads sharper. Scoped to the insights images,
+   so nothing else on the site is touched; grid figures are already narrower than the cap so they
+   are unaffected. margin !important beats the inline left/right:0 while keeping the inline top gap. */
+figure:has(> img[src*="/assets/media/insights/"]){max-width:500px;margin-left:auto!important;margin-right:auto!important}
+
 /* marquee pause control (WCAG 2.2.2: moving content must be pausable, hover alone is not enough) */
 .marquee-pause{position:absolute;right:14px;bottom:10px;z-index:2;width:34px;height:34px;border:1px solid var(--hairline);
   border-radius:50%;background:rgba(16,16,18,.8);color:var(--muted);font-size:11px;line-height:1;cursor:pointer}
 .marquee-pause:hover{color:var(--text);border-color:rgba(255,255,255,.3)}
 @media (prefers-reduced-motion:reduce){.marquee-pause{display:none}}
+
+/* News hub lean previews: collapse insights/news to a few items with a Show all toggle (JS-injected). */
+.xpd-collapsed > .xpd-extra{display:none!important}
+.xpd-more-wrap{margin-top:28px;text-align:center}
+.xpd-more{font:500 12.5px/1 'IBM Plex Mono',monospace;letter-spacing:.04em;color:#FFB006;background:transparent;border:1px solid rgba(255,176,6,.4);border-radius:2px;padding:12px 20px;cursor:pointer;transition:border-color .15s,background .15s}
+.xpd-more:hover{background:rgba(255,176,6,.1);border-color:#FFB006}

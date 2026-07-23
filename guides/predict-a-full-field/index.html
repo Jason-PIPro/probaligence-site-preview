@@ -7,7 +7,7 @@
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<title>How to Predict a Full Field, Not One Number | PI Probaligence</title><meta name="description" content="Peak stress does not tell you where it is. See how field-capable surrogate models predict the whole distribution across the geometry in seconds, so you keep the spatial answer."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/guides/predict-a-full-field/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="How to Predict a Full Field, Not One Number | PI Probaligence"><meta property="og:description" content="Peak stress does not tell you where it is. See how field-capable surrogate models predict the whole distribution across the geometry in seconds, so you keep the spatial answer."><meta property="og:url" content="https://probaligence.com/guides/predict-a-full-field/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
+<title>How to Predict a Full Field, Not One Number | PI Probaligence</title><meta name="description" content="Peak stress does not tell you where it is. A field-capable surrogate model returns the whole distribution across the geometry in seconds, not a summary of it."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/guides/predict-a-full-field/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="How to Predict a Full Field, Not One Number | PI Probaligence"><meta property="og:description" content="Peak stress does not tell you where it is. See how field-capable surrogate models predict the whole distribution across the geometry in seconds, so you keep the spatial answer."><meta property="og:url" content="https://probaligence.com/guides/predict-a-full-field/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"Predict a full field, not a single number","description":"Peak stress does not tell you where it is. See how field-capable surrogate models predict the whole distribution across the geometry in seconds, so you keep the spatial answer.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-07-21","dateModified":"2026-07-21","mainEntityOfPage":"https://probaligence.com/guides/predict-a-full-field/"}
 </script><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"News and Guides","item":"https://probaligence.com/news/"},{"@type":"ListItem","position":3,"name":"Predict a full field, not a single number","item":"https://probaligence.com/guides/predict-a-full-field/"}]}
@@ -56,7 +56,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the mesh have to be identical across runs?","acceptedAnswer":{"@type":"Answer","text":"Consistency helps. The practical answer depends on your case setup, which is what a first look at your data settles."}},{"@type":"Question","name":"Do I get uncertainty on the field too?","acceptedAnswer":{"@type":"Answer","text":"Yes. The confidence range is spatial as well, so you can see where in the geometry the model is less sure."}},{"@type":"Question","name":"Does this replace CFD or FEA?","acceptedAnswer":{"@type":"Answer","text":"No. It predicts new variants fast from the solves you have already run, and the solver validates the shortlist."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does STOCHOS need identical meshes across runs?","acceptedAnswer":{"@type":"Answer","text":"Consistency helps. The practical answer depends on your case setup, which is what a first look at your data settles."}},{"@type":"Question","name":"Do I get uncertainty on the field too?","acceptedAnswer":{"@type":"Answer","text":"Yes. The confidence range is spatial as well, so you can see where in the geometry the model is less sure."}},{"@type":"Question","name":"Does field prediction replace CFD or FEA?","acceptedAnswer":{"@type":"Answer","text":"No. It predicts new variants fast from the solves you have already run, and the solver validates the shortlist."}}]}</script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -94,7 +94,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -118,7 +118,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -177,9 +177,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(90px, 10vw, 150px) 24px; background: rgb(4, 4, 5); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div aria-hidden="true" style="position: absolute; left: -8%; bottom: -30%; width: 760px; height: 620px; max-width: 100vw; background: radial-gradient(rgba(255, 176, 6, 0.08), transparent 66%); pointer-events: none;"></div>
     <div style="max-width: 980px; margin: 0px auto; position: relative;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Two examples</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What this looks like in practice</h2>
-      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">In an engineering scenario a full temperature field came out in about 4 seconds, from about six hours of CFD, and in a pin-fin cooling reference example STOCHOS predicted temperature and heat flux for a new design in under 5 seconds. Both are examples with their own setup, not a universal guarantee.</p>
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Two timings</div>
+      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">The map arrives in seconds</h2>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">In an engineering scenario a full temperature field came out in about 4 seconds, from about six hours of CFD, and in a pin-fin cooling reference example STOCHOS predicted temperature and heat flux for a new design in under 5 seconds. Each timing comes from its own case setup, so read neither as a general promise.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">The number worth taking from those two is not the exact second count, it is what the cost change does to the question you can ask. When a field costs seconds instead of an afternoon, you stop rationing which variants get one. You can look at the map for every candidate in a sweep rather than for the two the schedule allowed, and the ones that look wrong get thrown out before they reach the solver queue.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1px; margin-top: 36px; background: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.09);">
         <div style="background: rgb(10, 9, 8); padding: 26px 24px;"><div style="font: 700 clamp(28px, 4vw, 40px) / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); letter-spacing: -0.02em;">~4 s</div><p style="margin-top: 12px; color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55;">Full temperature field in an engineering scenario, from about six hours of CFD.</p></div>
@@ -198,7 +198,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         </figure>
         <div>
           <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">In your toolchain</div>
-          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Where it fits in your existing workflow</h2>
+          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Predicted fields land in your post-processor</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 58ch;">The field prediction goes into the same post-processing you already use, and the solver still validates the designs that matter.</p>
           <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 58ch;">Nothing about the toolchain has to change. You screen many variants against predicted fields, shortlist the few that hold up, and send those through the solver exactly as before. The <a href="/probaligence-site-preview/surrogate-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">surrogate model</a> is trained on solves you have already paid for, so it extends that spend instead of replacing it. Where the model is less certain the range widens, and that is your cue to spend a solve there first. More on the engineering side of this is on <a href="/probaligence-site-preview/ai-for-engineering/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">AI for Engineering</a>.</p>
         </div>
@@ -210,9 +210,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div class="fqq-wrap">
       <h2 class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
-        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Does the mesh have to be identical across runs?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Consistency helps. The practical answer depends on your case setup, which is what a first look at your data settles.</p></div></div></details>
+        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Does STOCHOS need identical meshes across runs?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Consistency helps. The practical answer depends on your case setup, which is what a first look at your data settles.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Do I get uncertainty on the field too?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. The confidence range is spatial as well, so you can see where in the geometry the model is less sure.</p></div></div></details>
-        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Does this replace CFD or FEA?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. It predicts new variants fast from the solves you have already run, and the solver validates the shortlist.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Does field prediction replace CFD or FEA?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. It predicts new variants fast from the solves you have already run, and the solver validates the shortlist.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -264,8 +264,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <span>Official Ansys Technology Partner</span>
-          <span>Part of the CADFEM Group</span>
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -299,7 +299,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <span class="legal">
         <a href="/probaligence-site-preview/impressum/">Impressum</a>
         <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
-        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>

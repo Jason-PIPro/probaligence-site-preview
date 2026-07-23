@@ -56,7 +56,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this the same as the generative AI that makes images?","acceptedAnswer":{"@type":"Answer","text":"No. Here, generative design means learning the space of engineering shapes, then producing new valid geometries that respect real constraints and ranking them by predicted performance. It works on parts, not pictures or text."}},{"@type":"Question","name":"Is generative design the same as topology optimization?","acceptedAnswer":{"@type":"Answer","text":"No. Topology optimization removes material inside a fixed design space to produce one shape that meets a physics goal. The generative geometry here learns from example shapes and proposes many new variants. The two can be combined, but they are different methods."}},{"@type":"Question","name":"How many designs do I need to start?","acceptedAnswer":{"@type":"Answer","text":"There is no fixed number. The demonstration on this page used three bracket designs. What you need depends on the geometry, how varied the shapes are, and how far you want the model to explore. Start with what you have, and add designs if the variants come out too narrow."}},{"@type":"Question","name":"How is GEN-BO different from normal optimization?","acceptedAnswer":{"@type":"Answer","text":"Classical optimization searches a fixed set of parameters you define up front. GEN-BO generates new geometries as it goes and uses uncertainty-aware Bayesian optimization to choose which to test next, so it explores shapes you did not list while spending few expensive evaluations."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this the same as the generative AI that makes images?","acceptedAnswer":{"@type":"Answer","text":"No. Here, generative design means learning the space of engineering shapes, then producing new valid geometries that respect real constraints and ranking them by predicted performance. It works on parts, not pictures or text."}},{"@type":"Question","name":"Is generative design the same as topology optimization?","acceptedAnswer":{"@type":"Answer","text":"No. Topology optimization removes material inside a fixed design space to produce one shape that meets a physics goal. The generative geometry here learns from example shapes and proposes many new variants. The two can be combined, but they are different methods."}},{"@type":"Question","name":"How many designs do I need to start?","acceptedAnswer":{"@type":"Answer","text":"There is no fixed number. The demonstration on this page used three bracket designs. What you need depends on the geometry, how varied the shapes are, and how far you want the model to explore. Start with what you have, and add designs if the variants come out too narrow."}},{"@type":"Question","name":"How is GEN-BO different from normal optimization?","acceptedAnswer":{"@type":"Answer","text":"Classical optimization searches a fixed set of parameters you define up front. GEN-BO generates new geometries as it goes and uses uncertainty-aware Bayesian optimization to choose which to test next, so it explores shapes you did not list while spending few expensive evaluations."}},{"@type":"Question","name":"What is generative design?","acceptedAnswer":{"@type":"Answer","text":"Generative design learns the shared structure of existing geometries and generates new, valid variants inside the constraints you set. Instead of improving one design at a time, you search a space of shapes. In STOCHOS, GEN-BO combines this generation with Bayesian optimization to steer the search toward a target."}}]}</script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -94,7 +94,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -118,7 +118,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -265,6 +265,22 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
+  <section data-reveal="" id="next-method" aria-label="Next method" style="padding: clamp(48px, 7vw, 88px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
+    <style>.mp-next{display:grid;grid-template-columns:1fr 250px;gap:28px;align-items:center;padding:26px 2px;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);text-decoration:none;transition:background .2s ease}.mp-next:hover{background:rgba(255,255,255,.03)}.mp-next img{opacity:.62;transition:opacity .25s}.mp-next:hover img{opacity:1}.mp-arrow{display:inline-block;transition:transform .2s ease}.mp-next:hover .mp-arrow{transform:translateX(6px)}@media (max-width:640px){.mp-next{grid-template-columns:1fr;gap:14px}}@media (prefers-reduced-motion:reduce){.mp-next,.mp-next img,.mp-arrow{transition:none}}</style>
+    <div style="max-width: 1200px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 18px;">The loop starts again</div>
+      <a class="mp-next" href="/probaligence-site-preview/surrogate-modeling/">
+        <div>
+          <span style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">01 / 06</span>
+          <div style="font: 700 clamp(24px, 3.2vw, 36px) / 1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; color: rgb(244, 243, 239); margin-top: 12px;">Surrogate Modeling</div>
+          <p style="color: rgb(156, 156, 150); font-size: 15px; line-height: 1.55; margin-top: 10px; max-width: 60ch;">Model it: predict new variants in seconds from the runs you already have.</p>
+          <span style="display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; font: 600 14px / 1 'IBM Plex Sans', sans-serif; color: rgb(255, 176, 6);">Keep reading<span class="mp-arrow" aria-hidden="true">&#8594;</span></span>
+        </div>
+        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/surrogate-crash-poster.webp" width="640" height="480" alt="" style="display: block; width: 100%; height: 150px; object-fit: cover; object-position: 50% 54%; background: rgb(0, 0, 0); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px;">
+      </a>
+    </div>
+  </section>
+
   <section data-reveal="" style="padding: clamp(90px, 12vw, 150px) 24px; background: rgb(6, 6, 7); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none;">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
@@ -286,6 +302,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Is generative design the same as topology optimization?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. Topology optimization removes material inside a fixed design space to produce one shape that meets a physics goal. The generative geometry here learns from example shapes and proposes many new variants. The two can be combined, but they are different methods.</p></div></div></details>
         <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">How many designs do I need to start?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>There is no fixed number. The demonstration on this page used three bracket designs. What you need depends on the geometry, how varied the shapes are, and how far you want the model to explore. Start with what you have, and add designs if the variants come out too narrow.</p></div></div></details>
         <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">How is GEN-BO different from normal optimization?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Classical optimization searches a fixed set of parameters you define up front. GEN-BO generates new geometries as it goes and uses uncertainty-aware Bayesian optimization to choose which to test next, so it explores shapes you did not list while spending few expensive evaluations.</p></div></div></details>
+        <details class="fq" id="faq-5"><summary><span class="ix">05</span><span class="q">What is generative design?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Generative design learns the shared structure of existing geometries and generates new, valid variants inside the constraints you set. Instead of improving one design at a time, you search a space of shapes. In STOCHOS, GEN-BO combines this generation with Bayesian optimization to steer the search toward a target.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -304,8 +321,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <span>Official Ansys Technology Partner</span>
-          <span>Part of the CADFEM Group</span>
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -339,7 +356,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <span class="legal">
         <a href="/probaligence-site-preview/impressum/">Impressum</a>
         <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
-        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>

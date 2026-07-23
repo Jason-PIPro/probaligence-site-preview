@@ -56,7 +56,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is DIM-GP?","acceptedAnswer":{"@type":"Answer","text":"DIM-GP, a Deep Infinite Mixture of Gaussian Processes, is the core STOCHOS algorithm. It combines neural networks and Gaussian processes into a non-stationary, probabilistic model designed for small, noisy datasets, changing geometries and meshes, and multi-fidelity data, without manual hyperparameter tuning."}},{"@type":"Question","name":"Why combine deep learning and Gaussian processes?","acceptedAnswer":{"@type":"Answer","text":"Deep learning brings capacity to model complex, high-dimensional relationships. Gaussian processes bring calibrated uncertainty. Engineering needs both: a flexible model that also reports how far to trust each prediction. DIM-GP is built to deliver capacity and uncertainty in one model, tuned for small, expensive datasets."}},{"@type":"Question","name":"Can STOCHOS run on-premise?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, as a Python 3.12 package built on PyTorch, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is DIM-GP?","acceptedAnswer":{"@type":"Answer","text":"DIM-GP, a Deep Infinite Mixture of Gaussian Processes, is the core STOCHOS algorithm. It combines neural networks and Gaussian processes into a non-stationary, probabilistic model designed for small, noisy datasets, changing geometries and meshes, and multi-fidelity data, without manual hyperparameter tuning."}},{"@type":"Question","name":"Why combine deep learning and Gaussian processes?","acceptedAnswer":{"@type":"Answer","text":"Deep learning brings capacity to model complex, high-dimensional relationships. Gaussian processes bring calibrated uncertainty. Engineering needs both: a flexible model that also reports how far to trust each prediction. DIM-GP delivers both in one model, and trains several covariance functions at once, letting the data decide which ones carry the model, so the tuning step that normally needs an expert disappears."}},{"@type":"Question","name":"How is DIM-GP different from a standard Gaussian process?","acceptedAnswer":{"@type":"Answer","text":"A standard Gaussian process assumes the same smoothness everywhere and becomes slow as datasets grow. In DIM-GP, a deep network sets the process parameters locally, so smoothness and noise adapt across the design space, and training runs in batches, which keeps large datasets practical."}},{"@type":"Question","name":"Can STOCHOS run on-premise?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, as a Python 3.12 package built on PyTorch, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control."}}]}</script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -94,7 +94,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -118,7 +118,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -135,7 +135,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div>
           <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Science / the algorithm</div>
           <h1 style="font: 700 clamp(38px, 5.4vw, 68px) / 1.04 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 13ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">How</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">STOCHOS</span></span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">works.</span></h1>
-          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS is built on DIM-GP, a Deep Infinite Mixture of Gaussian Processes. It joins the pattern recognition of deep learning with the calibrated uncertainty of Gaussian processes in one non-stationary, probabilistic model, and returns every prediction with a measure of confidence.</p>
+          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS is built on DIM-GP, a Deep Infinite Mixture of Gaussian Processes. The deep network does not make the prediction. It learns how your data behaves at every point, how smooth, how noisy, and hands that to a Gaussian process, which returns every prediction with a confidence range.</p>
           <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
             <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
             <a href="/probaligence-site-preview/stochos/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Explore STOCHOS</a>
@@ -151,20 +151,33 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The gap</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Why standard models fall short here</h2>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">One smoothness does not fit a real design space</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Real responses change character across a design space: smooth in one region, sharp in another, densely tested here, barely sampled there. A standard model picks one smoothness for everything. DIM-GP adapts locally, so the dense region and the sparse region both get an honest fit.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 50px;">
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 14px;">Classical GP</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Calibrated uncertainty, but struggles with large, high-dimensional, or non-stationary data.</p></div>
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 14px;">Deep networks</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Scale to complex, high-dimensional relationships, but usually return one number with no confidence.</p></div>
-        <div style="border: 1px solid rgba(255, 176, 6, 0.4); background: rgba(255, 176, 6, 0.05); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 14px;">DIM-GP</div><p style="color: rgb(244, 243, 239); font-size: 15px; line-height: 1.6;">Both at once: deep-architecture capacity with Gaussian-process uncertainty, on the small, expensive datasets engineering actually has.</p></div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 14px;">Classical GP</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Assumes one smoothness everywhere, and slows sharply as data grows.</p></div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(156, 156, 150); margin-bottom: 14px;">Deep networks</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Scale to complex relationships, but return one number with no confidence.</p></div>
+        <div style="border: 1px solid rgba(255, 176, 6, 0.4); background: rgba(255, 176, 6, 0.05); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 14px;">DIM-GP</div><p style="color: rgb(244, 243, 239); font-size: 15px; line-height: 1.6;">Learns smoothness and noise locally, and puts a confidence range on every prediction.</p></div>
       </div>
     </div>
   </section>
 
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1100px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Small data</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Built for data that is expensive</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Crash simulations, lab batches, pilot runs: when every data point costs hours or money, big-data methods starve. DIM-GP extracts the trend a small set of runs supports, and the confidence interval shows when the data is enough and where the next run should go, so every additional simulation or experiment counts.</p>
+      <div style="border: 1px solid rgba(255, 176, 6, 0.28); border-radius: 4px; padding: 24px 28px; margin-top: 40px; max-width: 760px; background: rgb(0, 0, 0);">
+        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 12px;">Example &middot; LS-DYNA crash</div>
+        <p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.65;">In a published LS-DYNA crash example, 32 simulation runs were enough: training took 21 seconds on a CPU, and the model predicts a new variant across more than 50 time steps in about 20 seconds, with error below 5 percent.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Uncertainty</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Built in, not bolted on</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Every DIM-GP prediction carries a confidence interval. STOCHOS uses those bounds directly when it optimizes, so the search accounts for what the model does not yet know. This is what separates reliable interpolation from risky extrapolation.</p>
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Noisy data</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">It does not chase outliers</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Measurements scatter, batches vary, solvers leave numerical noise. DIM-GP learns the noise level point by point, together with the model itself, so it separates trend from scatter, handles different noise levels inside one dataset, and does not bend the fit toward an outlier.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 18px; margin-top: 50px;">
         <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 14px; background: rgb(0, 0, 0); opacity: 1; transform: none;">
           <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/uncertainty-standard-model.webp" width="1149" height="1149" alt="A standard model fits a single curve through noisy data with no confidence bounds; it warps toward an outlier and gives no indication of how much to trust the prediction." style="display: block; width: 100%; height: auto; border-radius: 2px;">
@@ -178,28 +191,41 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">One family</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">One model family, many data shapes</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">DIM-GP is a family, not a single model. The same probabilistic core runs across every data shape below, so a team learns one approach instead of a new tool per problem.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px;">
-        <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 10px 16px; font-size: 14px; color: rgb(200, 200, 194);">Scalar and tabular</span>
-        <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 10px 16px; font-size: 14px; color: rgb(200, 200, 194);">Images</span>
-        <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 10px 16px; font-size: 14px; color: rgb(200, 200, 194);">Sequences and time series</span>
-        <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 10px 16px; font-size: 14px; color: rgb(200, 200, 194);">Graphs and meshes</span>
-        <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 10px 16px; font-size: 14px; color: rgb(200, 200, 194);">Point clouds</span>
-        <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 10px 16px; font-size: 14px; color: rgb(200, 200, 194);">Regression and classification</span>
-        <span style="border: 1px solid rgba(255, 176, 6, 0.4); background: rgba(255, 176, 6, 0.05); border-radius: 2px; padding: 10px 16px; font-size: 14px; color: rgb(255, 176, 6);">Multi-fidelity variants</span>
-      </div>
-    </div>
-  </section>
-
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">From model to decision</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Optimization that uses the uncertainty</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">The confidence interval is not just a readout. STOCHOS feeds it to a Bayesian optimizer that adapts after each result, and returns a Pareto front when objectives compete. <a href="/probaligence-site-preview/bayesian-optimization/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255, 176, 6, 0.35);">How Bayesian optimization works</a></p>
+    <div style="max-width: 1200px; margin: 0px auto;">
+      <style id="fpb-css">
+      .fpb-row{display:grid;grid-template-columns:210px 240px 1fr;gap:28px;padding:28px 4px;border-bottom:1px solid rgba(255,255,255,.09);align-items:baseline;transition:background .2s}
+      .fpb-row:hover{background:rgba(255,176,6,.03)}
+      .fpb-l{font:500 12px/1.5 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#FFB006}
+      .fpb-ix{color:#6A6A64;margin-right:12px}
+      .fpb-h{font:600 18px/1.3 'Space Grotesk',sans-serif;letter-spacing:-.012em;color:#F4F3EF}
+      .fpb-p{color:#9C9C96;font-size:14.5px;line-height:1.65;max-width:62ch}
+      @media (max-width:860px){.fpb-row{grid-template-columns:1fr;gap:8px;padding:22px 2px}}
+      </style>
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The full picture</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">What comes with the model</h2>
+      <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,.09);">
+        <div class="fpb-row">
+          <div class="fpb-l"><span class="fpb-ix">01</span>Uncertainty</div>
+          <h3 class="fpb-h">Built in, not bolted on</h3>
+          <p class="fpb-p">Every prediction carries a confidence interval. A single accuracy score hides the weak spots; the interval is local, showing where the model is solid and where it is guessing.</p>
+        </div>
+        <div class="fpb-row">
+          <div class="fpb-l"><span class="fpb-ix">02</span>Data shapes</div>
+          <h3 class="fpb-h">One approach, every data shape</h3>
+          <p class="fpb-p">The same probabilistic core covers scalars, signals, images, 3D fields, meshes, and point clouds, with multi-fidelity variants that fuse cheap and expensive data. 14 DIM-GP models ship in STOCHOS Flow.</p>
+        </div>
+        <div class="fpb-row">
+          <div class="fpb-l"><span class="fpb-ix">03</span>Optimization</div>
+          <h3 class="fpb-h">From model to decision</h3>
+          <p class="fpb-p">STOCHOS feeds the interval to a Bayesian optimizer that adapts after each result and returns a Pareto front when objectives compete. <a href="/probaligence-site-preview/bayesian-optimization/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255, 176, 6, 0.35);">How Bayesian optimization works</a></p>
+        </div>
+        <div class="fpb-row">
+          <div class="fpb-l"><span class="fpb-ix">04</span>Ongoing research</div>
+          <h3 class="fpb-h">The algorithm is not standing still</h3>
+          <p class="fpb-p">Developed in-house and evolving: new model families, faster training, new data types in regular releases. The team that develops the algorithm is the team you talk to.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -222,8 +248,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <h2 class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What is DIM-GP?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>DIM-GP, a Deep Infinite Mixture of Gaussian Processes, is the core STOCHOS algorithm. It combines neural networks and Gaussian processes into a non-stationary, probabilistic model designed for small, noisy datasets, changing geometries and meshes, and multi-fidelity data, without manual hyperparameter tuning.</p></div></div></details>
-        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Why combine deep learning and Gaussian processes?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Deep learning brings capacity to model complex, high-dimensional relationships. Gaussian processes bring calibrated uncertainty. Engineering needs both: a flexible model that also reports how far to trust each prediction. DIM-GP is built to deliver capacity and uncertainty in one model, tuned for small, expensive datasets.</p></div></div></details>
-        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Can STOCHOS run on-premise?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, as a Python 3.12 package built on PyTorch, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control.</p></div></div></details>
+        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Why combine deep learning and Gaussian processes?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Deep learning brings capacity to model complex, high-dimensional relationships. Gaussian processes bring calibrated uncertainty. Engineering needs both: a flexible model that also reports how far to trust each prediction. DIM-GP delivers both in one model, and trains several covariance functions at once, letting the data decide which ones carry the model, so the tuning step that normally needs an expert disappears.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">How is DIM-GP different from a standard Gaussian process?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>A standard Gaussian process assumes the same smoothness everywhere and becomes slow as datasets grow. In DIM-GP, a deep network sets the process parameters locally, so smoothness and noise adapt across the design space, and training runs in batches, which keeps large datasets practical.</p></div></div></details>
+        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Can STOCHOS run on-premise?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS runs on Windows and Linux, on CPU or GPU, as a Python 3.12 package built on PyTorch, and can be installed without an internet connection by providing the packages directly. Core modeling and optimization run on your own infrastructure, so sensitive simulation, test, and formulation data stays under your control.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -242,8 +269,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <span>Official Ansys Technology Partner</span>
-          <span>Part of the CADFEM Group</span>
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -277,7 +304,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <span class="legal">
         <a href="/probaligence-site-preview/impressum/">Impressum</a>
         <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
-        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>

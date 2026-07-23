@@ -132,25 +132,18 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
 .fu-office{display:flex;gap:8px;margin-top:14px}
 .fu-office img{width:33.33%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;filter:grayscale(1) brightness(.8);transition:filter .35s}
 .fu-office:hover img{filter:none}
-/* the globe stage */
-.globe-wrap{--fade:0;position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:4px;
-  background:radial-gradient(at 50% 46%,rgba(255,176,6,.10),transparent 58%),radial-gradient(1px 1px at 18% 22%,rgba(255,255,255,.5),transparent),radial-gradient(1px 1px at 72% 16%,rgba(255,255,255,.38),transparent),radial-gradient(1px 1px at 33% 74%,rgba(255,255,255,.42),transparent),radial-gradient(1px 1px at 86% 62%,rgba(255,255,255,.3),transparent),radial-gradient(1px 1px at 58% 88%,rgba(255,255,255,.34),transparent),radial-gradient(1px 1px at 8% 58%,rgba(255,255,255,.28),transparent),#07070A}
-.globe-wrap canvas{width:min(82%,430px);height:auto;aspect-ratio:1;opacity:calc(1 - var(--fade));transition:opacity .45s linear}
-.globe-map{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:var(--fade);transition:opacity .7s ease}
-.globe-pin,.globe-label{position:absolute;left:50%;opacity:var(--fade);transition:opacity .5s ease .15s;pointer-events:none}
-.globe-pin{top:50%;width:13px;height:13px;margin:-6.5px 0 0 -6.5px;border-radius:50%;background:#FFB006;box-shadow:0 0 0 5px rgba(255,176,6,.2),0 0 0 13px rgba(255,176,6,.08)}
-.globe-label{top:calc(50% + 18px);transform:translateX(-50%);font:400 12px/1 'IBM Plex Mono',monospace;color:#F4F3EF;background:rgba(6,6,7,.75);padding:6px 11px;border-radius:2px;white-space:nowrap}
-.globe-bar{position:absolute;left:0;right:0;bottom:0;display:flex;gap:14px;align-items:baseline;justify-content:space-between;flex-wrap:wrap;
-  padding:30px 18px 14px;background:linear-gradient(transparent,rgba(6,6,7,.9));opacity:var(--fade);transition:opacity .5s ease .2s}
-.globe-bar .addr{font:400 12.5px/1.5 'IBM Plex Mono',monospace;color:#C8C8C2}
-.globe-bar a{font:600 13px/1.5 'IBM Plex Sans',sans-serif;color:#FFB006;text-decoration:none}
-.globe-bar a:hover{text-decoration:underline}
-.globe-replay{position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:7px;padding:8px 13px;border:1px solid rgba(255,255,255,.16);border-radius:2px;background:rgba(6,6,7,.6);
-  color:#C8C8C2;font:500 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.06em;cursor:pointer;opacity:0;transition:opacity .4s ease,border-color .25s,color .25s}
-.globe-wrap.done .globe-replay{opacity:1}
-.globe-replay:hover{border-color:rgba(255,176,6,.5);color:#FFB006}
-.globe-wrap:not(.done) .globe-bar{pointer-events:none}
-@media (prefers-reduced-motion:reduce){.globe-wrap canvas,.globe-map,.globe-pin,.globe-label,.globe-bar,.globe-replay{transition:none}}
+/* the aerial card */
+.aerial-card{display:block;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:4px;background:#07070A;text-decoration:none;transition:border-color .3s}
+.aerial-card:hover{border-color:rgba(255,176,6,.45)}
+.aerial-card img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.22,1,.3,1)}
+.aerial-card:hover img{transform:scale(1.03)}
+.aerial-pin{position:absolute;top:50%;left:50%;width:13px;height:13px;margin:-6.5px 0 0 -6.5px;border-radius:50%;background:#FFB006;box-shadow:0 0 0 5px rgba(255,176,6,.22),0 0 0 13px rgba(255,176,6,.09)}
+.aerial-label{position:absolute;top:calc(50% + 18px);left:50%;transform:translateX(-50%);font:400 12px/1 'IBM Plex Mono',monospace;color:#F4F3EF;background:rgba(6,6,7,.78);padding:6px 11px;border-radius:2px;white-space:nowrap}
+.aerial-bar{position:absolute;left:0;right:0;bottom:0;display:flex;gap:14px;align-items:baseline;justify-content:space-between;flex-wrap:wrap;padding:32px 18px 14px;background:linear-gradient(transparent,rgba(6,6,7,.92))}
+.aerial-bar .addr{font:400 12.5px/1.5 'IBM Plex Mono',monospace;color:#C8C8C2}
+.aerial-bar .go{font:600 13px/1.5 'IBM Plex Sans',sans-serif;color:#FFB006}
+@media (max-width:560px){.aerial-label{display:none}}
+@media (prefers-reduced-motion:reduce){.aerial-card,.aerial-card img{transition:none}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where is PI Probaligence based?","acceptedAnswer":{"@type":"Answer","text":"PI Probaligence is based in Grafing bei Munich, Germany. It was founded in 2018 as a spin-off of the Institute for Modeling and High Performance Computing at Niederrhein University of Applied Sciences, and works with engineering and R&D teams internationally."}},{"@type":"Question","name":"Is PI part of CADFEM?","acceptedAnswer":{"@type":"Answer","text":"Yes. The CADFEM Group acquired a stake in PI Probaligence, and PI has been part of the CADFEM Group since 2024. PI continues to develop STOCHOS and STOCHOS Flow as its own products for engineering and R&D."}},{"@type":"Question","name":"Is PI an Ansys partner?","acceptedAnswer":{"@type":"Answer","text":"Yes. PI Probaligence is an official Ansys Technology Partner. STOCHOS Flow connects to Ansys workflows, reading Ansys Workbench parameters and calling the Ansys Solver node for selective validation, so the solver stays the source of truth."}},{"@type":"Question","name":"How do I request a demo?","acceptedAnswer":{"@type":"Answer","text":"Use the Request a Demo button or the contact page. Bring one use case, bottleneck, or dataset, and we can outline where STOCHOS fits and what a realistic proof of concept could look like. PI often works with teams that have no in-house machine learning team."}}]}</script>
 </head>
@@ -190,7 +183,7 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -214,7 +207,7 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -230,7 +223,6 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
     </div>
     <div class="hero-scrim" aria-hidden="true"></div>
     <div style="max-width: 1000px; margin: 0px auto; position: relative; text-align: center;">
-      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-bottom: 34px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">About</span></nav>
       <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Company</div>
       <h1 style="font: 700 clamp(40px, 7vw, 92px) / 1.02 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.03em; margin: 0px auto; max-width: 14ch;"><span style="display: inline-block;">PI</span> <span style="display: inline-block; color: rgb(255, 176, 6);">Probaligence</span></h1>
       <p class="piword" id="piword"><b><span class="lead">P</span><span class="rest">robabilistic</span></b><b><span class="lead">I</span><span class="rest">ntelligence</span></b></p>
@@ -334,7 +326,7 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
             </div>
             <div class="fu-row">
               <dt>Talk to us</dt>
-              <dd><a href="mailto:info@probaligence.com">info@probaligence.com</a></dd>
+              <dd><a href="mailto:info@probaligence.com">info@probaligence.com</a><br><a href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener">PI Probaligence on LinkedIn</a></dd>
             </div>
           </dl>
           <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
@@ -344,119 +336,16 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
         </div>
 
         <div>
-          <div class="globe-wrap" id="globeWrap">
-            <canvas id="globe" width="600" height="600" role="img" aria-label="Globe rotating to the PI Probaligence office in Grafing bei Muenchen, Germany"></canvas>
-            <img class="globe-map" id="globeMap" src="/probaligence-site-preview/assets/media/aerial-grafing-office.webp" alt="Aerial view of the CADFEM building at Am Schammacher Feld 37, Grafing" loading="lazy" width="1400" height="875">
-            <span class="globe-pin" aria-hidden="true"></span>
-            <span class="globe-label" aria-hidden="true">PI Probaligence, in the CADFEM building</span>
-            <span class="globe-bar"><span class="addr">85567 Grafing bei M&uuml;nchen</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Am+Schammacher+Feld+37%2C+85567+Grafing+bei+M%C3%BCnchen" target="_blank" rel="noopener">Open in Google Maps &rarr;</a></span>
-            <button type="button" class="globe-replay" id="globeReplay">Replay</button>
-          </div>
-          <p style="margin-top: 12px; font: 400 11.5px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(110, 109, 104);">Globe: NASA Blue Marble (public domain). Aerial: Digitales Orthophoto, <a href="https://geodaten.bayern.de/opengeodata/" target="_blank" rel="noopener" style="color: rgb(130, 130, 124);">Bayerische Vermessungsverwaltung</a>, CC BY 4.0. Both hosted locally, so this page calls no external service.</p>
+          <a class="aerial-card" href="https://www.google.com/maps/search/?api=1&amp;query=Am+Schammacher+Feld+37%2C+85567+Grafing+bei+M%C3%BCnchen" target="_blank" rel="noopener">
+            <img src="/probaligence-site-preview/assets/media/aerial-grafing-office.webp" alt="Aerial view of the CADFEM building at Am Schammacher Feld 37, Grafing bei Muenchen" loading="lazy" width="1400" height="875">
+            <span class="aerial-pin" aria-hidden="true"></span>
+            <span class="aerial-label" aria-hidden="true">PI Probaligence, in the CADFEM building</span>
+            <span class="aerial-bar"><span class="addr">Am Schammacher Feld 37 &middot; 85567 Grafing bei M&uuml;nchen</span><span class="go">Open in Google Maps &rarr;</span></span>
+          </a>
+          <p style="margin-top: 12px; font: 400 11.5px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(110, 109, 104);">Aerial: Digitales Orthophoto, <a href="https://geodaten.bayern.de/opengeodata/" target="_blank" rel="noopener" style="color: rgb(130, 130, 124);">Bayerische Vermessungsverwaltung</a>, CC BY 4.0. Hosted locally, so this page calls no external service.</p>
         </div>
       </div>
     </div>
-      <script>
-      (function(){
-        var wrap=document.getElementById('globeWrap'),cv=document.getElementById('globe');
-        if(!wrap||!cv||!cv.getContext)return;
-        var ctx=cv.getContext('2d',{alpha:true}),map=document.getElementById('globeMap'),
-            pin=document.getElementById('globePin'),label=document.getElementById('globeLabel');
-        var LAT=48.03397*Math.PI/180, LON=11.94061*Math.PI/180;  // Am Schammacher Feld 37, Grafing
-        var R=cv.width/2, tex=null, texData=null, TW=0, TH=0, raf=0, guard=0, started=false;
-        var reduce=false; try{reduce=matchMedia('(prefers-reduced-motion:reduce)').matches&&!window.__PIFX_FORCE}catch(e){}
-
-        function project(lat0,lon0,zoom){
-          // orthographic sphere, camera centred on (lat0,lon0)
-          var img=ctx.createImageData(cv.width,cv.height), d=img.data;
-          var cosLat0=Math.cos(lat0), sinLat0=Math.sin(lat0), r=R*zoom;
-          for(var y=0;y<cv.height;y++){
-            var dy=(y-R)/r;
-            for(var x=0;x<cv.width;x++){
-              var dx=(x-R)/r, p=dx*dx+dy*dy, i=(y*cv.width+x)*4;
-              if(p>1) continue;                       // outside the sphere: transparent
-              var dz=Math.sqrt(1-p);
-              // rotate the view vector into geographic coords
-              var lat=Math.asin(dy*cosLat0*-1+dz*sinLat0);
-              var lon=lon0+Math.atan2(dx, dz*cosLat0+dy*sinLat0);
-              var u=((lon/(2*Math.PI)+0.5)%1+1)%1, v=0.5-lat/Math.PI;
-              var tx=(u*TW)|0, ty=(v*TH)|0; if(ty<0)ty=0; if(ty>=TH)ty=TH-1;
-              var ti=(ty*TW+tx)*4;
-              // simple lambert shade so the limb falls away
-              var sh=0.34+0.66*dz;
-              d[i]=texData[ti]*sh; d[i+1]=texData[ti+1]*sh; d[i+2]=texData[ti+2]*sh; d[i+3]=255;
-            }
-          }
-          ctx.clearRect(0,0,cv.width,cv.height);
-          ctx.putImageData(img,0,0);
-        }
-
-        function finish(){
-          if(/(^|\s)done(\s|$)/.test(wrap.className))return;
-          clearTimeout(guard); cancelAnimationFrame(raf);
-          try{ project(LAT,LON,3.1); }catch(e){}
-          wrap.style.setProperty('--fade',1);
-          wrap.className+=' done';
-        }
-
-        function run(){
-          var T0=null, HOLD=700, SPIN=3400, ZOOM=1900, startLon=LON-Math.PI*1.35, startLat=0.30;
-          function ease(t){return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
-          function frame(ts){
-            if(T0===null)T0=ts;
-            var e=ts-T0;
-            if(e<HOLD){                                  // sit still a moment first
-              project(startLat,startLon,1);
-              raf=requestAnimationFrame(frame); return;
-            }
-            e-=HOLD;
-            if(e<SPIN){                                  // rotate Grafing into view
-              var k=ease(Math.min(1,e/SPIN));
-              project(startLat+(LAT-startLat)*k, startLon+(LON-startLon)*k, 1);
-              raf=requestAnimationFrame(frame);
-            }else if(e<SPIN+ZOOM){                       // push in, then hand over to the map
-              var k=ease(Math.min(1,(e-SPIN)/ZOOM));
-              project(LAT,LON,1+k*2.1);
-              wrap.style.setProperty('--fade', k<0.72?0:(k-0.72)/0.28);
-              raf=requestAnimationFrame(frame);
-            }else{ finish(); }
-          }
-          clearTimeout(guard);
-          guard=setTimeout(finish, HOLD+SPIN+ZOOM+1200);   // rAF throttled or stalled: land it anyway
-          raf=requestAnimationFrame(frame);
-        }
-
-        function boot(){
-          if(started)return; started=true;
-          var img=new Image();
-          img.onload=function(){
-            TW=img.naturalWidth; TH=img.naturalHeight;
-            var off=document.createElement('canvas'); off.width=TW; off.height=TH;
-            var octx=off.getContext('2d'); octx.drawImage(img,0,0);
-            try{ texData=octx.getImageData(0,0,TW,TH).data; }catch(e){ wrap.className+=' done'; return; }
-            tex=img;
-            if(reduce){ project(LAT,LON,1); wrap.style.setProperty('--fade',0); return; }
-            run();
-          };
-          img.onerror=function(){ wrap.className+=' done'; };   // fall back to the flat map
-          img.src='/probaligence-site-preview/assets/media/earth-equirect.webp';
-        }
-
-        if('IntersectionObserver' in window){
-          var io=new IntersectionObserver(function(es){
-            es.forEach(function(en){ if(en.isIntersecting){ io.disconnect(); boot(); } });
-          },{threshold:0.3});
-          io.observe(wrap);
-        } else { boot(); }
-        var rb=document.getElementById('globeReplay');
-        if(rb)rb.addEventListener('click',function(){
-          if(!texData)return;
-          wrap.className=wrap.className.replace(/\s*done/,'');
-          wrap.style.setProperty('--fade',0);
-          cancelAnimationFrame(raf); run();
-        });
-      })();
-      </script>
   </section>
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
@@ -485,8 +374,8 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
         <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <span>Official Ansys Technology Partner</span>
-          <span>Part of the CADFEM Group</span>
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -520,7 +409,6 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
       <span class="legal">
         <a href="/probaligence-site-preview/impressum/">Impressum</a>
         <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
-        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>

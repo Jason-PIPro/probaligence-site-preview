@@ -7,7 +7,7 @@
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<title>Bayesian Optimization for Engineers | PI Probaligence</title><meta name="description" content="Testing every combination is not an option. See how Bayesian optimization chooses each next experiment from the last result, so you reach a better design in tens of runs, not hundreds."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/guides/bayesian-optimization-for-engineers/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Bayesian Optimization for Engineers | PI Probaligence"><meta property="og:description" content="Testing every combination is not an option. See how Bayesian optimization chooses each next experiment from the last result, so you reach a better design in tens of runs, not hundreds."><meta property="og:url" content="https://probaligence.com/guides/bayesian-optimization-for-engineers/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
+<title>Bayesian Optimization for Engineers | PI Probaligence</title><meta name="description" content="Testing every combination is not an option. Bayesian optimization picks each next experiment from the last result and reaches a better design in tens of runs."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/guides/bayesian-optimization-for-engineers/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Bayesian Optimization for Engineers | PI Probaligence"><meta property="og:description" content="Testing every combination is not an option. See how Bayesian optimization chooses each next experiment from the last result, so you reach a better design in tens of runs, not hundreds."><meta property="og:url" content="https://probaligence.com/guides/bayesian-optimization-for-engineers/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"Bayesian optimization for engineers","description":"Testing every combination is not an option. See how Bayesian optimization chooses each next experiment from the last result, so you reach a better design in tens of runs, not hundreds.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-07-21","dateModified":"2026-07-21","mainEntityOfPage":"https://probaligence.com/guides/bayesian-optimization-for-engineers/"}
 </script><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"News and Guides","item":"https://probaligence.com/news/"},{"@type":"ListItem","position":3,"name":"Bayesian optimization for engineers","item":"https://probaligence.com/guides/bayesian-optimization-for-engineers/"}]}
@@ -65,7 +65,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does it replace design of experiments?","acceptedAnswer":{"@type":"Answer","text":"No. A small initial design still seeds the model. Bayesian optimization decides what to run after that, instead of committing the whole budget up front."}},{"@type":"Question","name":"How many runs before it helps?","acceptedAnswer":{"@type":"Answer","text":"It is built for limited, expensive data, so it starts proposing informative points early. The count depends on how many parameters you vary and how noisy the response is."}},{"@type":"Question","name":"What if my objectives conflict?","acceptedAnswer":{"@type":"Answer","text":"That is the normal case. Cost against performance, or yield against purity, are handled as a multi-objective problem that returns a trade-off set rather than one answer."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Bayesian optimization replace design of experiments?","acceptedAnswer":{"@type":"Answer","text":"No. A small initial design still seeds the model. Bayesian optimization decides what to run after that, instead of committing the whole budget up front."}},{"@type":"Question","name":"How many runs before Bayesian optimization helps?","acceptedAnswer":{"@type":"Answer","text":"It is built for limited, expensive data, so it starts proposing informative points early. The count depends on how many parameters you vary and how noisy the response is."}},{"@type":"Question","name":"What if my objectives conflict?","acceptedAnswer":{"@type":"Answer","text":"That is the normal case. Cost against performance, or yield against purity, are handled as a multi-objective problem: STOCHOS returns a trade-off set of best compromises, so you choose the balance instead of guessing it."}}]}</script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -103,7 +103,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -127,7 +127,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -146,7 +146,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Guide</div>
           <h1 style="font: 700 clamp(36px, 5.2vw, 62px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 15ch;">Bayesian optimization <span style="color: rgb(255, 176, 6);">for engineers</span></h1>
           <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Most optimization campaigns waste runs on designs that were never going to win. Bayesian optimization changes the order: it builds a model from the results you already have, predicts which untested design is most informative, and runs that one next. Each result sharpens the next choice, so you reach a better design in far fewer experiments.</p>
-          <p data-hero="" style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">What follows: why a fixed grid runs out of budget, how the next run gets chosen, what two example campaigns looked like, and where the optimizer sits in the workflow you already run.</p>
+          <p data-hero="" style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">First the budget problem with a fixed grid, then how the next run gets chosen, what two example campaigns looked like, and where the optimizer sits in the loop you already run.</p>
           <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
             <a href="/probaligence-site-preview/stochos/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Explore STOCHOS</a>
             <a href="/probaligence-site-preview/bayesian-optimization/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Read the method page</a>
@@ -195,8 +195,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" id="in-practice" style="padding: clamp(70px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Two examples</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">What this looks like in practice</h2>
-      <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 60ch;">In an engineering scenario STOCHOS found about 11 percent lower pressure drop in about 47 trials rather than about 600, and in a chemical scenario it reached plus 6.2 points of yield over the incumbent in about 23 runs rather than about 150. Both are examples with their own setup, not universal guarantees. In each case the solver, the rig, and the measurement stayed as they were, and only the order of the experiments changed.</p>
+      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">What two example campaigns took</h2>
+      <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 60ch;">In an engineering scenario STOCHOS found about 11 percent lower pressure drop in about 47 trials rather than about 600, and in a chemical scenario it reached plus 6.2 points of yield over the incumbent in about 23 runs rather than about 150. Both are examples, each with its own setup; neither is a universal guarantee. In each case the solver, the rig, and the measurement stayed as they were, and only the order of the experiments changed.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1px; margin-top: 40px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);" data-gd-stats>
         <div style="background: rgb(10, 9, 8); padding: 30px 28px;">
@@ -210,7 +210,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <p style="margin-top: 12px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.55;">Rather than about 150, for plus 6.2 points of yield over the incumbent.</p>
         </div>
       </div>
-      <p style="margin-top: 16px; font: 400 12.5px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 60ch;">Both are examples with their own setup, not universal guarantees.</p>
+      <p style="margin-top: 16px; font: 400 12.5px / 1.6 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 60ch;">Figures from two specific campaign setups, not a guarantee of what yours will do.</p>
       <script>(function(){var g=document.querySelector('[data-gd-stats]');if(!g)return;if(!('IntersectionObserver' in window))return;var red=false;try{red=matchMedia('(prefers-reduced-motion:reduce)').matches&&!window.__PIFX_FORCE}catch(e){}if(red)return;var ns=g.querySelectorAll('[data-gd-count]');var io=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++){if(!en[i].isIntersecting)continue;var el=en[i].target;io.unobserve(el);(function(n){var t=parseInt(n.getAttribute('data-gd-count'),10)||0,s=null;function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/900,1);n.textContent=String(Math.round(t*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(step);else n.textContent=String(t);}n.textContent='0';requestAnimationFrame(step);})(el);}},{threshold:0.5});for(var i=0;i<ns.length;i++)io.observe(ns[i]);})();</script>
     </div>
   </section>
@@ -223,8 +223,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 12px; padding: 0px 4px;">The star is the proposal: the setting where predicted value and remaining uncertainty are both high.</figcaption>
         </figure>
         <div>
-          <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Fitting it in</div>
-          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Where it fits in your existing workflow</h2>
+          <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">On top of your tools</div>
+          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">The plan stops being written in advance</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 58ch;">The optimizer sits on top of the tools you already run, taking each completed result as its next input, so nothing about how you simulate or test has to change. You keep your solver settings, your rig, and your acceptance criteria. What changes is that the campaign plan stops being written in advance.</p>
           <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 58ch;">Constraints and competing targets go in as part of the problem statement rather than as a filter afterwards, so proposals that cannot be built or cannot be run are not proposed. The method page on <a href="/probaligence-site-preview/bayesian-optimization/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Bayesian Optimization</a> covers the acquisition step in detail, and <a href="/probaligence-site-preview/ai-for-chemical-process-optimization/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Chemical R&amp;D</a> shows the same loop applied to formulation and scale-up.</p>
         </div>
@@ -236,9 +236,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div class="fqq-wrap">
       <h2 class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
-        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Does it replace design of experiments?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. A small initial design still seeds the model. Bayesian optimization decides what to run after that, instead of committing the whole budget up front.</p></div></div></details>
-        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">How many runs before it helps?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>It is built for limited, expensive data, so it starts proposing informative points early. The count depends on how many parameters you vary and how noisy the response is.</p></div></div></details>
-        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">What if my objectives conflict?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>That is the normal case. Cost against performance, or yield against purity, are handled as a multi-objective problem that returns a trade-off set rather than one answer.</p></div></div></details>
+        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Does Bayesian optimization replace design of experiments?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. A small initial design still seeds the model. Bayesian optimization decides what to run after that, instead of committing the whole budget up front.</p></div></div></details>
+        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">How many runs before Bayesian optimization helps?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>It is built for limited, expensive data, so it starts proposing informative points early. The count depends on how many parameters you vary and how noisy the response is.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">What if my objectives conflict?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>That is the normal case. Cost against performance, or yield against purity, are handled as a multi-objective problem: STOCHOS returns a trade-off set of best compromises, so you choose the balance instead of guessing it.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -289,8 +289,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <span>Official Ansys Technology Partner</span>
-          <span>Part of the CADFEM Group</span>
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -324,7 +324,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <span class="legal">
         <a href="/probaligence-site-preview/impressum/">Impressum</a>
         <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
-        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>

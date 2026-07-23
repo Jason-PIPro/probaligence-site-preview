@@ -67,7 +67,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.sb-row{grid-template-columns:90px 1fr 40px;gap:10px}.sb-name{font-size:11px}}
 @media (prefers-reduced-motion:reduce){[data-bars].sb-in .sb-fill{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Sobol indices versus SHAP?","acceptedAnswer":{"@type":"Answer","text":"Sobol indices attribute the variance of an output to inputs globally, across the whole space. SHAP explains a single prediction by sharing its value among the inputs. STOCHOS supports both: Sobol for \"what drives the result overall\" and SHAP for \"why did this specific case behave this way.\""}},{"@type":"Question","name":"Does it need extra experiments?","acceptedAnswer":{"@type":"Answer","text":"No. STOCHOS computes sensitivity on the trained surrogate model, so it reuses the data already gathered and adds no expensive runs. The analysis then guides where new experiments would be most useful."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between Sobol indices and SHAP?","acceptedAnswer":{"@type":"Answer","text":"Sobol indices attribute the variance of an output to inputs globally, across the whole space. SHAP explains a single prediction by sharing its value among the inputs. STOCHOS supports both: Sobol for \"what drives the result overall\" and SHAP for \"why did this specific case behave this way.\""}},{"@type":"Question","name":"Does sensitivity analysis need extra experiments?","acceptedAnswer":{"@type":"Answer","text":"No. STOCHOS computes sensitivity on the trained surrogate model, so it reuses the data already gathered and adds no expensive runs. The analysis then guides where new experiments would be most useful."}},{"@type":"Question","name":"What is sensitivity analysis?","acceptedAnswer":{"@type":"Answer","text":"Sensitivity analysis identifies which inputs drive an output and which barely matter. STOCHOS computes it from the trained model using methods such as Sobol indices, SHAP, DGSM, and correlation, so you focus testing and optimization on the parameters that actually move the result."}}]}</script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -105,7 +105,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -129,7 +129,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -236,6 +236,22 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
 
 
+  <section data-reveal="" id="next-method" aria-label="Next method" style="padding: clamp(48px, 7vw, 88px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
+    <style>.mp-next{display:grid;grid-template-columns:1fr 250px;gap:28px;align-items:center;padding:26px 2px;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);text-decoration:none;transition:background .2s ease}.mp-next:hover{background:rgba(255,255,255,.03)}.mp-next img{opacity:.62;transition:opacity .25s}.mp-next:hover img{opacity:1}.mp-arrow{display:inline-block;transition:transform .2s ease}.mp-next:hover .mp-arrow{transform:translateX(6px)}@media (max-width:640px){.mp-next{grid-template-columns:1fr;gap:14px}}@media (prefers-reduced-motion:reduce){.mp-next,.mp-next img,.mp-arrow{transition:none}}</style>
+    <div style="max-width: 1200px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 18px;">Next method</div>
+      <a class="mp-next" href="/probaligence-site-preview/generative-design/">
+        <div>
+          <span style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">06 / 06</span>
+          <div style="font: 700 clamp(24px, 3.2vw, 36px) / 1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; color: rgb(244, 243, 239); margin-top: 12px;">Generative Design</div>
+          <p style="color: rgb(156, 156, 150); font-size: 15px; line-height: 1.55; margin-top: 10px; max-width: 60ch;">Expand it: explore new geometries beyond fixed variants with GEN-BO.</p>
+          <span style="display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; font: 600 14px / 1 'IBM Plex Sans', sans-serif; color: rgb(255, 176, 6);">Keep reading<span class="mp-arrow" aria-hidden="true">&#8594;</span></span>
+        </div>
+        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/gen-ai-loop-poster.webp" width="640" height="480" alt="" style="display: block; width: 100%; height: 150px; object-fit: cover; background: rgb(0, 0, 0); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px;">
+      </a>
+    </div>
+  </section>
+
   <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden;">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
@@ -252,8 +268,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div class="fqq-wrap">
       <h2 class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
-        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Sobol indices versus SHAP?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Sobol indices attribute the variance of an output to inputs globally, across the whole space. SHAP explains a single prediction by sharing its value among the inputs. STOCHOS supports both: Sobol for "what drives the result overall" and SHAP for "why did this specific case behave this way."</p></div></div></details>
-        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Does it need extra experiments?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. STOCHOS computes sensitivity on the trained surrogate model, so it reuses the data already gathered and adds no expensive runs. The analysis then guides where new experiments would be most useful.</p></div></div></details>
+        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What is the difference between Sobol indices and SHAP?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Sobol indices attribute the variance of an output to inputs globally, across the whole space. SHAP explains a single prediction by sharing its value among the inputs. STOCHOS supports both: Sobol for "what drives the result overall" and SHAP for "why did this specific case behave this way."</p></div></div></details>
+        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Does sensitivity analysis need extra experiments?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. STOCHOS computes sensitivity on the trained surrogate model, so it reuses the data already gathered and adds no expensive runs. The analysis then guides where new experiments would be most useful.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">What is sensitivity analysis?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Sensitivity analysis identifies which inputs drive an output and which barely matter. STOCHOS computes it from the trained model using methods such as Sobol indices, SHAP, DGSM, and correlation, so you focus testing and optimization on the parameters that actually move the result.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -272,8 +289,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <span>Official Ansys Technology Partner</span>
-          <span>Part of the CADFEM Group</span>
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -307,7 +324,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <span class="legal">
         <a href="/probaligence-site-preview/impressum/">Impressum</a>
         <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
-        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>

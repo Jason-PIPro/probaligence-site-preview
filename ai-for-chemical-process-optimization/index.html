@@ -54,7 +54,54 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does AI reduce the number of experiments?","acceptedAnswer":{"@type":"Answer","text":"STOCHOS learns from your existing experiments, predicts outcomes for untested conditions with quantified uncertainty, and proposes the next run that teaches it the most. Each result updates the model, so the search adapts toward the target with fewer experiments than a fixed plan."}},{"@type":"Question","name":"Can it connect lab, pilot, and production data?","acceptedAnswer":{"@type":"Answer","text":"Yes. Multi-fidelity modeling combines data of different cost and accuracy in one model. Broad lab data covers the space and sparse production data anchors accuracy, which reduces the number of expensive large-scale runs needed to predict behavior at scale."}},{"@type":"Question","name":"Does the software run on-premise?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS and STOCHOS Flow are local-first. Core modeling and optimization run on your own infrastructure, and STOCHOS Flow can use a local language model through Ollama. Optional cloud models are available if you choose them. Sensitive process data stays on your systems."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does AI reduce the number of experiments?","acceptedAnswer":{"@type":"Answer","text":"STOCHOS learns from your existing experiments, estimates outcomes for conditions you have not run yet, with confidence bounds, and proposes the next run that teaches it the most. Each result updates the model, so the search adapts toward the target with fewer experiments than a fixed plan."}},{"@type":"Question","name":"Can STOCHOS connect lab, pilot, and production data?","acceptedAnswer":{"@type":"Answer","text":"Yes. Multi-fidelity modeling combines data of different cost and accuracy in one model. Broad lab data covers the space and sparse production data anchors accuracy, which reduces the number of expensive large-scale runs needed to predict behavior at scale. That is the typical chemical scale-up pattern, where plant batches are the scarcest data."}},{"@type":"Question","name":"Does STOCHOS run on-premise?","acceptedAnswer":{"@type":"Answer","text":"Yes. Core modeling and optimization run on your own infrastructure by default, and STOCHOS Flow can drive a local language model through Ollama, so a run does not depend on external services. Optional cloud models are available if you choose them. In a local setup, sensitive process data and recipes stay on your systems."}},{"@type":"Question","name":"Can STOCHOS use our historical experiment data?","acceptedAnswer":{"@type":"Answer","text":"Yes. Existing results seed the model: STOCHOS trains on your past experiments first, then the adaptive loop continues from there, so earlier work counts toward the target. It handles small datasets and mixed lab, pilot, and plant records. How many further runs you need depends on your system and targets, so there is no fixed sample count."}}]}</script>
+<style id="tor-css">
+[data-tornado]{position:relative}
+.tor-row{display:grid;grid-template-columns:112px 1fr;align-items:center;gap:14px;padding:7px 0;transition:opacity .2s}
+[data-tornado]:hover .tor-row:not(:hover){opacity:.4}
+.tor-name{font:500 12px/1.3 'IBM Plex Mono',monospace;color:#B8B8B2;text-align:right}
+.tor-track{position:relative;height:24px;background:rgba(255,255,255,.04)}
+.tor-st,.tor-s1{position:absolute;top:0;bottom:0;left:0;width:0}
+.tor-st{border:1px dashed rgba(255,176,6,.45)}
+.tor-s1{background:rgba(255,176,6,.85)}
+.tor-in .tor-st{width:var(--st);transition:width .9s cubic-bezier(.22,1,.3,1) var(--d)}
+.tor-in .tor-s1{width:var(--s1);transition:width .9s cubic-bezier(.22,1,.3,1) calc(var(--d) + .12s)}
+.tor-val{position:absolute;top:50%;left:calc(var(--st) + 10px);transform:translateY(-50%);white-space:nowrap;font:500 10.5px/1 'IBM Plex Mono',monospace;color:#FFCA4D;opacity:0;transition:opacity .2s}
+.tor-row:hover .tor-val{opacity:1}
+.tor-axis{position:relative;height:22px;margin-top:6px;margin-left:126px;border-top:1px solid rgba(255,255,255,.12)}
+.tor-tick{position:absolute;top:0;transform:translateX(-50%);padding-top:6px;font:400 10px/1 'IBM Plex Mono',monospace;color:#6A6A64}
+.tor-tick::before{content:'';position:absolute;top:-1px;left:50%;width:1px;height:4px;background:rgba(255,255,255,.25)}
+@media (prefers-reduced-motion:reduce){.tor-in .tor-st,.tor-in .tor-s1{transition:none}}
+</style>
+<style id="cta-close-css">
+.cta-close{position:relative;min-height:0;display:flex;align-items:center;justify-content:center;padding:clamp(110px,14vw,180px) 26px;overflow:hidden}
+.cta-close .glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(820px,120vw);height:520px;background:radial-gradient(closest-side,rgba(255,176,6,.1),transparent 62%);pointer-events:none}
+.cta-close .frame{position:absolute;inset:22px;pointer-events:none}
+.cta-close .tick{position:absolute;width:14px;height:14px}
+.cta-close .tick::before,.cta-close .tick::after{content:'';position:absolute;background:rgba(255,176,6,.5)}
+.cta-close .tick::before{width:100%;height:1px;top:50%}
+.cta-close .tick::after{height:100%;width:1px;left:50%}
+.cta-close .tick.tl{top:0;left:0}.cta-close .tick.tr{top:0;right:0}
+.cta-close .tick.bl{bottom:0;left:0}.cta-close .tick.br{bottom:0;right:0}
+.cta-close .inner{position:relative;text-align:center;max-width:760px}
+.cta-close .eyebrow{font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#FFB006;margin-bottom:20px}
+.cta-close h2{margin:0;font:700 clamp(30px,5.6vw,54px)/1.06 'Space Grotesk',sans-serif;letter-spacing:-.025em}
+.cta-close .sub{margin:18px auto 0;max-width:46ch;color:#9C9C96;font-size:15.5px;line-height:1.65}
+.cta-close .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.cta-close .btn-p{display:inline-flex;align-items:center;gap:10px;background:#FFB006;color:#08070A;font:600 15.5px/1 'IBM Plex Sans',sans-serif;padding:16px 26px;border-radius:2px;text-decoration:none;border:0;cursor:pointer;transition:filter .15s}
+.cta-close .btn-p:hover{filter:brightness(1.08)}
+.cta-close .btn-p:focus-visible{outline:2px solid #FFCA4D;outline-offset:3px}
+.cta-close .btn-s{border:1px solid rgba(255,255,255,.22);color:#F4F3EF;background:transparent;font:600 15.5px/1 'IBM Plex Sans',sans-serif;padding:16px 26px;border-radius:2px;text-decoration:none;cursor:pointer;transition:border-color .15s,background .15s}
+.cta-close .btn-s:hover{border-color:rgba(255,255,255,.46);background:rgba(255,255,255,.05)}
+.cta-close .foot{margin-top:26px;font:500 12px/1.7 'IBM Plex Mono',monospace;color:#82827C}
+.cta-close .foot em{font-style:normal;color:#9C9C96}
+.cta-close .rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.3,1)}
+.cta-close.in .rv{opacity:1;transform:none}
+.cta-close .rv:nth-child(2){transition-delay:.08s}.cta-close .rv:nth-child(3){transition-delay:.16s}
+.cta-close .rv:nth-child(4){transition-delay:.24s}.cta-close .rv:nth-child(5){transition-delay:.32s}
+@media (prefers-reduced-motion:reduce){.cta-close .rv{opacity:1;transform:none;transition:none}}
+</style>
+<noscript><style>.cta-close .rv{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -92,7 +139,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -116,7 +163,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -128,12 +175,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-hero-in style="position: relative; padding: 124px 24px 80px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
     <div aria-hidden="true" style="position: absolute; top: -15%; left: -8%; width: 720px; height: 560px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.1), transparent 64%); pointer-events: none;"></div>
     <div style="max-width: 1280px; margin: 0px auto; position: relative;">
-      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-bottom: 40px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">Chemical R&amp;D</span></nav>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: clamp(40px, 6vw, 72px); align-items: center;">
         <div>
           <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Solution / Chemical R&amp;D</div>
           <h1 style="font: 700 clamp(36px, 5.2vw, 62px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 15ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Plan</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">smarter</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">experiments.</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Reduce</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">scale-up</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">risk.</span></span></h1>
-          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS learns from the results you already have, predicts outcomes for untested conditions with quantified uncertainty, and proposes the next experiment to run. Multi-fidelity modeling links small-scale and full-scale data to cut the number of expensive runs.</p>
+          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS learns from the results your chemical R&amp;D team already has, predicts outcomes for untested conditions with quantified uncertainty, and proposes the next experiment to run toward yield, quality, or cost targets. Multi-fidelity modeling links small-scale and full-scale data to cut the number of expensive runs.</p>
           <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
             <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
             <a href="#loop" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">See the experiment loop</a>
@@ -165,8 +211,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The bottleneck</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Too many variables, too few runs you can afford</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Chemical R&amp;D works across many interacting factors: reagents, concentrations, temperature, pressure, time, and equipment. Each experiment or pilot run is expensive, so teams test a fraction of the space and carry uncertainty into scale-up. STOCHOS adds a probabilistic layer that gets more out of every run.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 50px;">
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Reagents, concentrations, temperature, pressure, time, and equipment interact, and every run is expensive, so teams test a fraction of the space and carry the rest into scale-up as risk.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 18px; margin-top: 50px;">
         <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 16px;">Large parameter spaces</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Many inputs interact, and full factorial testing is not realistic.</p></div>
         <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 16px;">Expensive runs</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Each experiment, batch, or pilot consumes time, material, and equipment.</p></div>
         <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 16px;">Scale-up risk</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Lab results do not always transfer cleanly to pilot and production.</p></div>
@@ -178,39 +224,64 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Experiment planning</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Choose the next run that teaches the most</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">Classical design of experiments fixes the plan upfront. STOCHOS updates after each result and proposes the next experiment from your objectives and constraints, adapting the search until the target is reached within fewer runs.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; margin-top: 54px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.5);">01</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Existing data</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Start with the experiments and process records you already have.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.5);">02</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Predict outcomes</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Estimate yield, quality, or property targets for untested conditions, with confidence.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.5);">03</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Next-best experiment</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Bayesian optimization proposes the run that learns the most toward the target.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">04</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Adapt</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Each result updates the model and refines the next recommendation.</p></div>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">A classical test matrix is set once, before the first run. STOCHOS chooses each experiment from everything measured so far.</p>
+      <a href="/probaligence-site-preview/bayesian-optimization/" style="display: inline-block; margin-top: 18px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How Bayesian optimization works →</a>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1px; margin-top: 54px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
+        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.55);">01</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Existing data</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Start from your experiment tables, process records, and mixed lab and pilot data.</p></div>
+        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.55);">02</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Predict outcomes</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Estimate yield, quality, or property targets for untested conditions, with confidence.</p></div>
+        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.55);">03</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Next-best experiment</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Bayesian optimization picks the run that moves fastest toward the target.</p></div>
+        <div style="background: rgb(10, 9, 8); padding: 32px 28px; opacity: 1; transform: none;"><div style="font: 500 28px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">04</div><h3 style="font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 18px;">Re-plan</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">The model tightens with each run, and the next proposal shifts to match.</p></div>
       </div>
-      <div style="display: flex; align-items: center; gap: 10px; margin-top: 18px; color: rgb(130, 130, 124); font: 400 12.5px / 1 &quot;IBM Plex Mono&quot;, monospace;"><span style="flex: 0 0 auto; color: rgb(255, 176, 6);">↶</span> Each result feeds back. The search adapts toward the target.</div>
+      <figure data-sc-name="DoeSamplerVisualizer" style="margin: 34px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px;">
+          <span style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124);">Where the first runs go</span>
+          <span style="font: 400 11px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100);">Click to replay</span>
+        </div>
+        <canvas id="doeCanvas" aria-hidden="true" style="width: 100%; height: clamp(240px, 34vw, 340px); display: block; cursor: pointer;"></canvas>
+        <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 12px;">Three plans for the same 12 runs: a fixed grid collapses to four levels per axis; Latin hypercube keeps all 12. From there, the loop adapts run by run.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 48px;">
+  <section id="optimize" data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(6, 6, 7); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 48px; align-items: center;">
       <div style="opacity: 1; transform: none;">
         <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Process optimization</div>
         <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Yield, quality, and cost together</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Process targets compete: higher yield can raise cost or affect quality. STOCHOS uses multi-objective Bayesian optimization to balance them and shows the trade-off rather than fixing one target at a time. Sensitivity analysis ranks which parameters drive each outcome.</p>
-        <a href="/probaligence-site-preview/sensitivity-analysis/" class="scp0" style="display: inline-block; margin-top: 20px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How sensitivity analysis works →</a>
+        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 60ch;">In chemical process optimization, higher yield can raise cost or push quality out of spec: multi-objective Bayesian optimization shows the trade-off, and sensitivity analysis ranks which parameters drive each outcome.</p>
+        <a href="/probaligence-site-preview/sensitivity-analysis/" style="display: inline-block; margin-top: 20px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How sensitivity analysis works →</a>
       </div>
       <div style="opacity: 1; transform: none;">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Scale-up</div>
-        <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Connect lab, pilot, and production data</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Lab, pilot, and plant data differ in cost and accuracy. Multi-fidelity modeling combines them in one model: cheap, broad lab data fills the space, and sparse, expensive production data anchors accuracy, reducing the number of large-scale runs.</p>
-        <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp0" style="display: inline-block; margin-top: 20px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How multi-fidelity modeling works →</a>
+        <div data-sc-name="SensitivityTornado" style="border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(10, 9, 8); padding: 24px;">
+          <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 14px;">Illustrative sensitivity ranking &middot; Sobol indices</div>
+          <div aria-hidden="true" style="display: flex; gap: 20px; margin-bottom: 16px; font: 400 10.5px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100);">
+            <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="width: 16px; height: 9px; background: rgba(255, 176, 6, 0.85);"></span>S&#8321; first-order</span>
+            <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="width: 16px; height: 9px; border: 1px dashed rgba(255, 176, 6, 0.55);"></span>S&#8348; total (incl. interactions)</span>
+          </div>
+          <div data-tornado="" id="chem-tor" aria-label="Illustrative sensitivity indices: temperature 0.46 first-order and 0.61 total; residence time 0.27 and 0.38; catalyst loading 0.14 and 0.22; feed ratio 0.07 and 0.12; pressure 0.03 and 0.06">
+            <div class="tor-row" data-name="temperature" data-s1="0.46" data-st="0.61"></div>
+            <div class="tor-row" data-name="residence time" data-s1="0.27" data-st="0.38"></div>
+            <div class="tor-row" data-name="catalyst loading" data-s1="0.14" data-st="0.22"></div>
+            <div class="tor-row" data-name="feed ratio" data-s1="0.07" data-st="0.12"></div>
+            <div class="tor-row" data-name="pressure" data-s1="0.03" data-st="0.06"></div>
+          </div>
+        </div>
+        <p style="margin-top: 16px; color: rgb(130, 130, 124); font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; max-width: 52ch;">An illustrative sensitivity ranking, not customer data. The gap between solid and dashed bars comes from interactions between parameters.</p>
       </div>
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(70px, 8vw, 110px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1000px; margin: 0px auto; text-align: center;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Local execution</div>
-      <p style="color: rgb(228, 228, 222); font-size: clamp(18px, 2.2vw, 24px); line-height: 1.5; font-family: &quot;Space Grotesk&quot;, sans-serif; font-weight: 500; max-width: 34ch; margin: 0px auto; letter-spacing: -0.01em;">Process recipes and conditions are sensitive IP. They stay on your own infrastructure.</p>
-      <p style="margin: 20px auto 0px; color: rgb(156, 156, 150); font-size: 15.5px; line-height: 1.6; max-width: 60ch;">STOCHOS and STOCHOS Flow are local-first. Core modeling and optimization run locally, with cloud services optional rather than required.</p>
+  <section id="scale-up" data-reveal="" style="padding: clamp(60px, 8vw, 100px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1100px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 40px; align-items: center;">
+      <div style="opacity: 1; transform: none;">
+        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Scale-up</div>
+        <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Connect lab, pilot, and production data</h2>
+      </div>
+      <div style="opacity: 1; transform: none;">
+        <p style="color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Multi-fidelity modeling ties lab, pilot, and plant data together, so a reliable plant-scale prediction takes fewer full-scale batches.</p>
+        <a href="/probaligence-site-preview/multi-fidelity-modeling/" style="display: inline-block; margin-top: 20px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How multi-fidelity modeling works →</a>
+        <a href="/probaligence-site-preview/guides/lab-to-production-scale-up/" style="display: block; margin-top: 12px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Guide: lab-to-production scale-up →</a>
+      </div>
     </div>
   </section>
 
@@ -218,7 +289,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 1280px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Results · Selected use cases</div>
       <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 24ch;">Use cases across chemical R&amp;D</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">Where a probabilistic model spends scarce runs where they teach the most. Open a card for the short version: the problem, how STOCHOS fits, and the kind of result.</p>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">Open a card for the problem, how STOCHOS fits, and the example result.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 18px; margin-top: 54px; align-items: start;">
 
         <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
@@ -232,8 +303,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <div style="padding: 2px 24px 30px;">
               <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
                 <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">+6.2<span style="font-size: 0.4em; color: rgb(156, 156, 150);"> pts</span></div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">yield over the incumbent, reached in about 23 runs not ~150</div>
+                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">yield over the incumbent process, in about 23 runs instead of roughly 150.</div>
               </div>
+              <div style="margin-top: 14px; font: 500 11.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Demo scenario, a representative example.</div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
                 <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
                   <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Best-so-far yield against runs</div>
@@ -244,10 +316,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
                   <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS predicts yield, selectivity, and cost with confidence, chooses the next run adaptively, and ranks the drivers, so the campaign produces understanding, not just a recipe.</p></div>
                 </div>
               </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">a real gain</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">in yield, in far fewer runs</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">selectivity</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">held in spec along the way</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">drivers ranked</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">for transfer to production</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If you have a handful of runs and a process worth improving, bring them.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
+              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 60ch; margin: 0px;">If you have a handful of runs and a process worth improving, bring them.</p>
               </div>
             </div>
           </div>
@@ -263,9 +333,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
             <div style="padding: 2px 24px 30px;">
               <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">1.8%</div>
+                <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">~1.8%</div>
                 <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">of the first qualified plant batch, predicted before it ran</div>
               </div>
+              <div style="margin-top: 14px; font: 500 11.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Demo scenario, a representative example.</div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
                 <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
                   <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Lab, pilot, plant, fused</div>
@@ -273,13 +344,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
                 </figure>
                 <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
                   <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Lab optima do not transfer cleanly, and the effects that move with scale (mixing, heat transfer, residence time) are exactly the ones a flask cannot show. More plant batches is what the budget cannot absorb.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Multi-fidelity combines lab, pilot, and plant data in one model, predicts plant-scale yield with uncertainty, picks the few pilot runs worth doing, and flags windows too risky to commit a batch.</p></div>
+                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Multi-fidelity fuses lab, pilot, and plant data, predicts plant-scale yield with uncertainty, picks the few pilot runs worth doing, and flags windows too risky to commit a batch.</p></div>
                 </div>
               </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">within a couple %</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">of the first qualified batch</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">half or fewer</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">pilot runs to get there</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">failures caught</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">before the batch runs</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If scale-up keeps surprising you at the plant, bring your lab, pilot, and plant data.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
+              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 60ch; margin: 0px;">If scale-up keeps surprising you at the plant, bring your lab, pilot, and plant data.</p>
               </div>
             </div>
           </div>
@@ -295,9 +364,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
             <div style="padding: 2px 24px 30px;">
               <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">120<span style="font-size: 0.4em; color: rgb(156, 156, 150);"> /day</span></div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">informative samples a day, up from about forty</div>
+                <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">~120<span style="font-size: 0.4em; color: rgb(156, 156, 150);"> /day</span></div>
+                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">informative samples, up from about 40, with planning time roughly halved.</div>
               </div>
+              <div style="margin-top: 14px; font: 500 11.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Demo scenario, a representative example.</div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
                 <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
                   <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Informative samples per day</div>
@@ -308,10 +378,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
                   <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">A surrogate predicts the property across the space and proposes each plate, the line doses, and results feed back, looping at hardware speed with expert-level accuracy, run as a small local web app.</p></div>
                 </div>
               </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">throughput up</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">sharply, without new hardware</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">planning hours</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">cut by about half</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">expert-level</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">accuracy held</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If your screening line waits on manual planning, bring your assay and a slice of past plates.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
+              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 60ch; margin: 0px;">If your screening line waits on manual planning, bring your assay and a slice of past plates.</p>
               </div>
             </div>
           </div>
@@ -320,7 +388,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
           <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="11" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><path d="M6.4 2h3.2M7 2v4.2L3.6 12.4a1 1 0 0 0 .9 1.5h7a1 1 0 0 0 .9-1.5L9 6.2V2M5.3 10h5.4"></path></svg><span>Chemical R&amp;D <span style="color: rgb(92, 92, 86);">·</span> Mixtures</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Formulation &amp; Mixture Optimization</h3>
+            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Formulation and Mixture Optimization</h3>
             <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Balance composition across competing property targets, trade-offs in view.</p>
             <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
           </div>
@@ -340,94 +408,38 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
                   <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS predicts every property of a composition at once and uses multi-objective optimization to map the trade-off frontier, so the team picks a point knowing exactly what each option costs the others.</p></div>
                 </div>
               </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">frontier mapped</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">not one take-it-or-leave-it recipe</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">all properties</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">predicted together</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">fewer trials</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">to a compliant mixture</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If a mixture has to satisfy competing targets, bring the components, the targets, and your data.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
+              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 60ch; margin: 0px;">If a mixture has to satisfy competing targets, bring the components, the targets, and your data.</p>
+                <a href="/probaligence-site-preview/paint-coating/" style="display: inline-block; margin-top: 16px; color: rgb(255, 176, 6); text-decoration: none; font: 500 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Formulation for paint and coatings →</a>
               </div>
             </div>
           </div>
         </article>
 
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><path d="M8 2l5.2 3v6L8 14l-5.2-3V5z"></path></svg><span>Every Industry <span style="color: rgb(92, 92, 86);">·</span> Reliability</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Predictive Maintenance</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Anticipate equipment failures from sensor signals before they cause downtime.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
-          </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(34px, 4vw, 48px) / 0.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">early</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">a warning ahead of failure, with the confidence to act on it</div>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Health signal toward threshold</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="50" x2="442" y2="50" stroke="#FFB006" stroke-dasharray="6 5" opacity=".6"></line><text x="438" y="44" text-anchor="end" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">failure threshold</text><polyline points="44,170 110,166 176,156 242,140 300,118" fill="none" stroke="#FFB006" stroke-width="2.2"></polyline><path d="M300 118 C340 96 380 70 430 54 L430 78 C384 92 344 116 300 134 Z" fill="rgba(255,176,6,.13)" style="transform-origin: center center; transform: none;"></path><path d="M300 118 C340 96 380 70 430 60" fill="none" stroke="#FFB006" stroke-width="1.6" stroke-dasharray="4 3" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><circle cx="424" cy="56" r="4.2" fill="#000" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="356" y="150" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">predicted</text><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">health</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Unplanned downtime on reactors and process equipment is expensive, and fixed maintenance schedules either replace healthy parts too early or miss the ones about to fail.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS models the equipment health signal and predicts how far it is from the failure threshold, with a confidence band, so maintenance is scheduled on condition rather than on the calendar.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">condition-based</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">maintenance, not calendar-based</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">confidence band</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">on time to threshold</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">downtime</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">and over-servicing both cut</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If unplanned downtime hurts, bring sensor histories and the failures you have on record.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><path d="M8 2l5.2 3v6L8 14l-5.2-3V5z"></path></svg><span>Every Industry <span style="color: rgb(92, 92, 86);">·</span> Quality</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Quality Control</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Flag off-spec batches and anomalies from process measurements automatically.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
-          </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(34px, 4vw, 48px) / 0.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">flagged</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">off-spec product caught early, with fewer false rejects</div>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Normal range and flagged outliers</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><ellipse cx="220" cy="112" rx="120" ry="74" fill="rgba(255,176,6,.05)" stroke="#FFB006" stroke-dasharray="6 5" stroke-opacity=".5"></ellipse><g fill="#5C5C56"><circle cx="180" cy="90" r="2.6"></circle><circle cx="220" cy="80" r="2.6"></circle><circle cx="250" cy="110" r="2.6"></circle><circle cx="200" cy="130" r="2.6"></circle><circle cx="240" cy="140" r="2.6"></circle><circle cx="170" cy="120" r="2.6"></circle><circle cx="270" cy="92" r="2.6"></circle><circle cx="210" cy="104" r="2.6"></circle><circle cx="235" cy="120" r="2.6"></circle></g><circle cx="372" cy="60" r="4.6" fill="rgba(255,176,6,.2)" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="396" cy="168" r="4.6" fill="rgba(255,176,6,.2)" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="150" y="200" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">normal range</text><text x="392" y="48" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">flagged</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Manual review is slow and inconsistent, and fixed pass/fail limits either let subtle problems through or reject good product when conditions shift.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS learns what normal looks like from process and measurement data and flags points that fall outside it, with a confidence on each call, so review focuses on the batches that actually need a look.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">anomalies</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">flagged from process data</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">fewer false rejects</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">than fixed limits</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">review</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">focused where it counts</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If batch release is a manual bottleneck, bring a slice of process measurements with known outcomes.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
+      </div>
+      <div style="display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; margin-top: 44px;">
+        <a href="/probaligence-site-preview/stochos/" style="color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Explore STOCHOS →</a>
+        <a href="/probaligence-site-preview/stochos-flow/" style="color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">See STOCHOS Flow →</a>
       </div>
     </div>
   </section>
 
   
 
-  <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
-    <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Bring one process or experiment plan</h2>
-      <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 56ch;">Share the targets, the variables you can change, the constraints, and the data you already have. We can outline where STOCHOS fits and what a first proof of concept could look like.</p>
-      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
-        <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-        <a href="/probaligence-site-preview/contact/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Discuss a use case</a>
+  <section class="cta-close" id="cta" data-sc-name="CtaClosingSection" style="border-top: 1px solid rgba(255, 255, 255, 0.07); background: rgb(10, 9, 8);">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="frame" aria-hidden="true">
+      <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    </div>
+    <div class="inner">
+      <div class="eyebrow rv">Get started</div>
+      <h2 class="rv">Bring one process or experiment plan</h2>
+      <p class="sub rv">Send us one process target, its variables, and the runs you have logged. We will sketch how STOCHOS would plan the next campaign and where a pilot could begin.</p>
+      <div class="row rv">
+        <a class="btn-p" href="/probaligence-site-preview/contact/" data-magnetic="0.3">Request a Demo <span aria-hidden="true">→</span></a>
+        <a class="btn-s" href="/probaligence-site-preview/contact/">Discuss a use case</a>
       </div>
+      <p class="foot rv">STOCHOS runs on your own infrastructure; process data stays local.</p>
     </div>
   </section>
 
@@ -435,9 +447,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div class="fqq-wrap">
       <h2 class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
-        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">How does AI reduce the number of experiments?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>STOCHOS learns from your existing experiments, predicts outcomes for untested conditions with quantified uncertainty, and proposes the next run that teaches it the most. Each result updates the model, so the search adapts toward the target with fewer experiments than a fixed plan.</p></div></div></details>
-        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Can it connect lab, pilot, and production data?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. Multi-fidelity modeling combines data of different cost and accuracy in one model. Broad lab data covers the space and sparse production data anchors accuracy, which reduces the number of expensive large-scale runs needed to predict behavior at scale.</p></div></div></details>
-        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Does the software run on-premise?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS and STOCHOS Flow are local-first. Core modeling and optimization run on your own infrastructure, and STOCHOS Flow can use a local language model through Ollama. Optional cloud models are available if you choose them. Sensitive process data stays on your systems.</p></div></div></details>
+        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">How does AI reduce the number of experiments?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>STOCHOS learns from your existing experiments, estimates outcomes for conditions you have not run yet, with confidence bounds, and proposes the next run that teaches it the most. Each result updates the model, so the search adapts toward the target with fewer experiments than a fixed plan.</p></div></div></details>
+        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Can STOCHOS connect lab, pilot, and production data?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. Multi-fidelity modeling combines data of different cost and accuracy in one model. Broad lab data covers the space and sparse production data anchors accuracy, which reduces the number of expensive large-scale runs needed to predict behavior at scale. That is the typical chemical scale-up pattern, where plant batches are the scarcest data.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Does STOCHOS run on-premise?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. Core modeling and optimization run on your own infrastructure by default, and STOCHOS Flow can drive a local language model through Ollama, so a run does not depend on external services. Optional cloud models are available if you choose them. In a local setup, sensitive process data and recipes stay on your systems.</p></div></div></details>
+        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Can STOCHOS use our historical experiment data?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. Existing results seed the model: STOCHOS trains on your past experiments first, then the adaptive loop continues from there, so earlier work counts toward the target. It handles small datasets and mixed lab, pilot, and plant records. How many further runs you need depends on your system and targets, so there is no fixed sample count.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -456,8 +469,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <span>Official Ansys Technology Partner</span>
-          <span>Part of the CADFEM Group</span>
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -491,12 +504,253 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <span class="legal">
         <a href="/probaligence-site-preview/impressum/">Impressum</a>
         <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
-        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>
   </div>
 </footer>
+<script>
+(function () {
+  'use strict';
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function doeVis(canvas, opts) {
+    var o = opts || {};
+    var N = o.n || 12, STEP_MS = o.stepMs || 300;
+    var ctx = canvas.getContext('2d');
+    var W = 2, H = 2, raf = 0, running = false, t0 = 0, panels;
+    function shuffle(a) {
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = (Math.random() * (i + 1)) | 0, tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+    function makeSets() {
+      var grid = [];
+      for (var gy = 0; gy < 3; gy++) for (var gxx = 0; gxx < 4; gxx++)
+        grid.push([(gxx + 0.5) / 4, (gy + 0.5) / 3]);
+      var rand = [];
+      for (var r = 0; r < N; r++) rand.push([Math.random(), Math.random()]);
+      var px = shuffle([0,1,2,3,4,5,6,7,8,9,10,11].slice(0, N));
+      var py = shuffle([0,1,2,3,4,5,6,7,8,9,10,11].slice(0, N));
+      var lhs = [];
+      for (var k = 0; k < N; k++)
+        lhs.push([(px[k] + 0.2 + Math.random() * 0.6) / N, (py[k] + 0.2 + Math.random() * 0.6) / N]);
+      return [
+        { id: 'grid', label: 'GRID 4×3', pts: grid },
+        { id: 'rand', label: 'RANDOM', pts: rand },
+        { id: 'lhs', label: 'LATIN HYPERCUBE', pts: lhs }
+      ];
+    }
+    function metrics(pts, n) {
+      if (!n) return { gap: 1, lx: 0, ly: 0 };
+      var P = 24, sum = 0, bx = {}, by = {};
+      for (var j = 0; j < P; j++) for (var i = 0; i < P; i++) {
+        var qx = (i + 0.5) / P, qy = (j + 0.5) / P, d = Infinity;
+        for (var k = 0; k < n; k++) {
+          var dx = qx - pts[k][0], dy = qy - pts[k][1];
+          var dd = dx * dx + dy * dy;
+          if (dd < d) d = dd;
+        }
+        sum += Math.sqrt(d);
+      }
+      for (var m = 0; m < n; m++) {
+        bx[(pts[m][0] * P) | 0] = 1; by[(pts[m][1] * P) | 0] = 1;
+      }
+      return { gap: sum / (P * P), lx: Object.keys(bx).length, ly: Object.keys(by).length };
+    }
+    function resize() {
+      var dpr = Math.min(devicePixelRatio || 1, 2);
+      var r = canvas.getBoundingClientRect();
+      canvas.width = Math.max(2, r.width * dpr); canvas.height = Math.max(2, r.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      W = r.width; H = r.height;
+    }
+    function eob(u) { var c = 1.7; u = Math.min(1, Math.max(0, u)); return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); }
+    function draw(now) {
+      ctx.clearRect(0, 0, W, H);
+      var t = reduce ? 1e9 : now - t0;
+      var placed = Math.min(N, Math.floor(t / STEP_MS));
+      var M = 18, GAP = 16, top = 52, botText = 66;
+      var pw = (W - M * 2 - GAP * 2) / 3;
+      var ph = Math.min(pw, H - top - botText);
+      var done = placed >= N;
+      var win = -1;
+      if (done) {
+        var bestGap = Infinity;
+        panels.forEach(function (p, pi) {
+          var mm = metrics(p.pts, N);
+          p.m = mm;
+          if (mm.gap < bestGap) { bestGap = mm.gap; win = pi; }
+        });
+      }
+      panels.forEach(function (p, pi) {
+        var x0 = M + pi * (pw + GAP), y0 = top;
+        var n = Math.min(placed, p.pts.length);
+        var mm = done ? p.m : metrics(p.pts, n);
+        ctx.font = '500 10.5px "IBM Plex Mono",monospace'; ctx.textAlign = 'left';
+        ctx.fillStyle = p.id === 'lhs' ? '#FFB006' : '#9C9C96';
+        ctx.fillText(p.label, x0, y0 - 10);
+        var isWin = done && pi === win;
+        ctx.strokeStyle = isWin ? 'rgba(255,176,6,.6)' : 'rgba(255,255,255,.12)';
+        if (isWin) { ctx.shadowColor = 'rgba(255,176,6,.35)'; ctx.shadowBlur = 12; }
+        ctx.strokeRect(x0 + 0.5, y0 + 0.5, pw - 1, ph - 1);
+        ctx.shadowBlur = 0;
+        if (p.id === 'lhs' && !done) {
+          ctx.strokeStyle = 'rgba(255,176,6,.12)'; ctx.lineWidth = 1;
+          for (var s = 1; s < N; s++) {
+            ctx.beginPath(); ctx.moveTo(x0 + s / N * pw, y0); ctx.lineTo(x0 + s / N * pw, y0 + ph); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(x0, y0 + s / N * ph); ctx.lineTo(x0 + pw, y0 + s / N * ph); ctx.stroke();
+          }
+        }
+        for (var k = 0; k < n; k++) {
+          var age = reduce ? 1 : (t - k * STEP_MS) / 260;
+          var sc = eob(age);
+          if (sc <= 0) continue;
+          ctx.fillStyle = '#FFB006';
+          ctx.beginPath();
+          ctx.arc(x0 + p.pts[k][0] * pw, y0 + p.pts[k][1] * ph, 3 * Math.min(1.15, sc), 0, 6.284);
+          ctx.fill();
+        }
+        ctx.strokeStyle = '#FFCA4D'; ctx.lineWidth = 1;
+        for (var q = 0; q < n; q++) {
+          var tx = x0 + p.pts[q][0] * pw;
+          ctx.beginPath(); ctx.moveTo(tx, y0 + ph + 3); ctx.lineTo(tx, y0 + ph + 9); ctx.stroke();
+        }
+        ctx.font = '400 10px "IBM Plex Mono",monospace';
+        ctx.fillStyle = '#B8B8B2';
+        ctx.fillText('mean gap ' + mm.gap.toFixed(3), x0, y0 + ph + 24);
+        ctx.fillStyle = mm.lx < n ? '#6A6A64' : '#FFCA4D';
+        ctx.fillText(mm.lx + '/' + n + ' x-levels', x0, y0 + ph + 38);
+        if (isWin) {
+          ctx.fillStyle = '#FFCA4D';
+          ctx.textAlign = 'right';
+          ctx.fillText('✓ most uniform', x0 + pw, y0 + ph + 24);
+          ctx.textAlign = 'left';
+        }
+      });
+      if (done) {
+        ctx.font = '500 11px "IBM Plex Mono",monospace'; ctx.textAlign = 'center';
+        ctx.fillStyle = '#FFB006';
+        ctx.fillText('same ' + N + ' runs: LHS covers the space and keeps every 1D level distinct', W / 2, H - 10);
+        ctx.textAlign = 'left';
+      }
+      return done;
+    }
+    function tick(now) {
+      var done = draw(now);
+      if (running && !done) raf = requestAnimationFrame(tick);
+      else running = false;
+    }
+    function start() { if (running || reduce) return; running = true; raf = requestAnimationFrame(tick); }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+    function replay() {
+      panels = makeSets(); t0 = performance.now();
+      if (reduce) draw(0); else { stop(); start(); }
+    }
+    panels = makeSets(); t0 = performance.now();
+    resize();
+    if (reduce) draw(0);
+    else {
+      draw(performance.now());
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (en) {
+          if (en.isIntersecting) { t0 = performance.now(); start(); } else stop();
+        });
+      }, { threshold: 0.2 });
+      io.observe(canvas);
+    }
+    if ('ResizeObserver' in window) new ResizeObserver(function () { resize(); draw(performance.now()); }).observe(canvas);
+    canvas.addEventListener('click', replay);
+    return { replay: replay, destroy: function () { stop(); } };
+  }
+  var c = document.getElementById('doeCanvas');
+  if (c) doeVis(c, { n: 12, stepMs: 300 });
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function tornado(el) {
+    if (el.__tor) return; el.__tor = 1;
+    var rows = Array.prototype.slice.call(el.querySelectorAll('.tor-row'));
+    var maxSt = rows.reduce(function (m, r) { return Math.max(m, parseFloat(r.getAttribute('data-st')) || 0); }, 0.0001);
+    var SPAN = 92;
+    rows.forEach(function (r, i) {
+      var s1 = parseFloat(r.getAttribute('data-s1')) || 0;
+      var st = parseFloat(r.getAttribute('data-st')) || 0;
+      r.style.setProperty('--s1', (s1 / maxSt * SPAN).toFixed(2) + '%');
+      r.style.setProperty('--st', (st / maxSt * SPAN).toFixed(2) + '%');
+      r.style.setProperty('--d', (i * 0.1).toFixed(2) + 's');
+      if (!r.children.length) {
+        var nm = document.createElement('span'); nm.className = 'tor-name';
+        nm.textContent = r.getAttribute('data-name') || '';
+        var tr = document.createElement('div'); tr.className = 'tor-track';
+        tr.innerHTML = '<div class="tor-st"></div><div class="tor-s1"></div><span class="tor-val"></span>';
+        tr.querySelector('.tor-val').textContent = 'S₁ ' + s1.toFixed(2) + ' · Sₜ ' + st.toFixed(2);
+        r.appendChild(nm); r.appendChild(tr);
+      }
+    });
+    var axis = document.createElement('div'); axis.className = 'tor-axis'; axis.setAttribute('aria-hidden', 'true');
+    [0, 0.2, 0.4, 0.6].forEach(function (v) {
+      if (v / maxSt * SPAN > 100) return;
+      var t = document.createElement('span'); t.className = 'tor-tick';
+      t.style.left = (v / maxSt * SPAN).toFixed(2) + '%';
+      t.textContent = v.toFixed(1);
+      axis.appendChild(t);
+    });
+    el.appendChild(axis);
+    var play = function () { el.classList.add('tor-in'); };
+    if (reduce || !('IntersectionObserver' in window)) play();
+    else {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (en) { if (en.isIntersecting) { play(); io.disconnect(); } });
+      }, { threshold: 0.35 });
+      io.observe(el);
+    }
+  }
+  var t = document.getElementById('chem-tor');
+  if (t) tornado(t);
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function magnetic(el, strength) {
+    if (el.__mag || reduce) return; el.__mag = 1;
+    var k = strength || 0.35;
+    el.style.willChange = 'transform';
+    el.addEventListener('pointermove', function (e) {
+      var r = el.getBoundingClientRect();
+      var dx = e.clientX - (r.left + r.width / 2);
+      var dy = e.clientY - (r.top + r.height / 2);
+      el.style.transform = 'translate(' + dx * k + 'px,' + dy * k + 'px)';
+    });
+    el.addEventListener('pointerleave', function () {
+      el.style.transition = 'transform .5s cubic-bezier(.2,1.6,.4,1)';
+      el.style.transform = 'none';
+      setTimeout(function () { el.style.transition = ''; }, 500);
+    });
+  }
+  function magneticInit(root) {
+    (root || document).querySelectorAll('[data-magnetic]').forEach(function (el) {
+      magnetic(el, parseFloat(el.getAttribute('data-magnetic')) || 0.35);
+    });
+  }
+  magneticInit();
+  var cta = document.getElementById('cta');
+  if (cta) {
+    if (reduce || !('IntersectionObserver' in window)) { cta.classList.add('in'); }
+    else {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (en) { if (en.isIntersecting) { cta.classList.add('in'); io.disconnect(); } });
+      }, { threshold: 0.3 });
+      io.observe(cta);
+    }
+  }
+})();
+</script>
 <script src="/probaligence-site-preview/scrollfx.js" defer></script>
 <script src="/probaligence-site-preview/site.js" defer></script>
 <a href="../feedback/?page=Chemical%20R%26D" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>

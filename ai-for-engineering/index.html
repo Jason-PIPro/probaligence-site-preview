@@ -54,7 +54,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How can AI accelerate CFD and FEM simulations?","acceptedAnswer":{"@type":"Answer","text":"STOCHOS learns a surrogate model from existing solver data, then predicts results for new parameters or geometries in seconds. You run the full solver where it adds the most value and use fast, uncertainty-aware predictions to explore many more variants before committing to the next full solve."}},{"@type":"Question","name":"Can STOCHOS predict full fields, not just one value?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS handles 2D and 3D fields from CFD and FEM, as well as scalars, signals, meshes, and geometries. It can predict spatially resolved outputs for new parameter combinations, so you see more than a single KPI when comparing designs."}},{"@type":"Question","name":"How does STOCHOS work with Ansys?","acceptedAnswer":{"@type":"Answer","text":"PI Probaligence is an official Ansys Technology Partner. STOCHOS Flow reads Ansys Workbench parameters and calls Ansys Solver nodes for selective validation, so fast surrogate prediction connects to the solver workflows engineering teams already use. AI fits the existing process rather than replacing it."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How can AI accelerate CFD and FEM simulations?","acceptedAnswer":{"@type":"Answer","text":"STOCHOS learns a surrogate model from existing solver data, then predicts results for new parameters or geometries in seconds. Fast, uncertainty-aware predictions let you explore many more variants than the solver alone could cover, and the full simulation returns only for the designs you shortlist."}},{"@type":"Question","name":"Can STOCHOS predict full fields as well as single values?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS handles 2D and 3D fields from CFD and FEM, as well as scalars, signals, meshes, and geometries. It can predict spatially resolved outputs for new parameter combinations, so you see more than a single KPI when comparing designs. Confidence is attached to every prediction, field or scalar."}},{"@type":"Question","name":"How does STOCHOS work with Ansys?","acceptedAnswer":{"@type":"Answer","text":"PI Probaligence is an official Ansys Technology Partner. STOCHOS Flow reads Ansys Workbench parameters and calls the Ansys Solver nodes for selective validation, so fast surrogate prediction connects to the solver workflows engineering teams already use. New solver results feed back into training, and the surrogate improves inside the Workbench setup your team runs today."}},{"@type":"Question","name":"How much data does STOCHOS need to be useful?","acceptedAnswer":{"@type":"Answer","text":"Less than most machine-learning tools, but there is no fixed number. DIM-GP is designed for small, expensive datasets, so teams usually start from existing solver runs. How many you need depends on the physics, the number of parameters, and the outputs. Quantified uncertainty then shows where the model is reliable and where more runs are worth adding."}}]}</script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -92,7 +92,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -116,7 +116,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -125,363 +125,719 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 </header>
 <main id="main" style="display: block;">
 
-  <section data-hero-in style="position: relative; padding: 124px 24px 70px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
-    <div aria-hidden="true" style="position: absolute; top: -12%; left: -6%; width: 760px; height: 560px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.1), transparent 64%); pointer-events: none;"></div>
+  <!-- CORE START: page band treatments (hero image + section grounds) -->
+  <style id="afe-bands-css">
+  /* One image band, two repeating grounds. Keeps the page from reading as one flat black sheet. */
+  .afe-hero-img{position:absolute;inset:0;background:url('/probaligence-site-preview/assets/media/bg-engineering-jet-engine.webp') center 44%/cover no-repeat;opacity:.74;pointer-events:none}
+  /* The clip is ping-ponged (forward then reversed), so its last frame is its first and `loop` never snaps.
+     The still underneath is the poster, and the only thing shown under reduced motion or on mobile. */
+  .afe-hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;opacity:.74;pointer-events:none}
+  @media (prefers-reduced-motion:reduce){.afe-hero-vid{display:none}}
+  .afe-hero-scrim{position:absolute;inset:0;pointer-events:none;
+    background:
+      linear-gradient(180deg,rgba(6,6,7,.58) 0%,rgba(6,6,7,.08) 34%,rgba(6,6,7,.82) 100%),
+      linear-gradient(96deg,#060607 0%,rgba(6,6,7,.9) 26%,rgba(6,6,7,.3) 58%,rgba(6,6,7,.5) 100%)}
+  /* Lifted warm plate, used by the bottleneck and proof bands */
+  .afe-plate{background-color:#0F0D0B;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.014) 0 1px,transparent 1px 7px)}
+  /* Near-black band with one anchored amber corner, used by the loop */
+  .afe-glowband{background:radial-gradient(ellipse 60% 70% at 88% 100%,rgba(255,176,6,.07),transparent 62%),#060607}
+  @media (max-width:700px){
+    .afe-hero-vid{display:none}
+    .afe-hero-img{opacity:.42;background-position:center 40%}
+    /* No side scrim on narrow screens, so the vertical one has to protect the copy on its own */
+    .afe-hero-scrim{background:linear-gradient(180deg,rgba(6,6,7,.5) 0%,rgba(6,6,7,.8) 40%,rgba(6,6,7,.97) 100%)}
+  }
+  </style>
+  <!-- CORE END: page band treatments -->
+
+  <section data-hero-in style="position: relative; padding: 128px 24px 74px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
+    <div class="afe-hero-img" aria-hidden="true"></div>
+    <video class="afe-hero-vid" aria-hidden="true" autoplay muted playsinline preload="metadata" poster="/probaligence-site-preview/assets/media/bg-engineering-jet-engine.webp"><source src="/probaligence-site-preview/assets/media/bg-engineering-jet-engine.mp4" type="video/mp4"></video>
+    <div class="afe-hero-scrim" aria-hidden="true"></div>
+    <div aria-hidden="true" style="position: absolute; top: -12%; left: -6%; width: 760px; height: 560px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.07), transparent 64%); pointer-events: none;"></div>
     <div style="max-width: 1280px; margin: 0px auto; position: relative;">
-      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-bottom: 40px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">AI for Engineering</span></nav>
       <div style="max-width: 880px;">
         <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Solution / Engineering</div>
-        <h1 style="font: 700 clamp(40px, 6vw, 78px) / 1.03 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 13ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Simulate</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">less.</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Innovate</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">more.</span></span></h1>
-        <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18.5px); line-height: 1.65; max-width: 62ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">AI for Engineering accelerates CFD, FEM, and CAE work with probabilistic surrogate models. STOCHOS learns from solver data you already trust, predicts new variants in seconds, and quantifies confidence, so you reserve full simulations for the designs worth validating. Not a solver replacement; a fast, uncertainty-aware layer on top of it.</p>
+        <h1 style="font: 700 clamp(40px, 6vw, 78px) / 1.03 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 13ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Fewer</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">runs.</span> <span style="color: rgb(255, 176, 6); display: block;"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">More</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">answers.</span></span></h1>
+        <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18.5px); line-height: 1.65; max-width: 62ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">AI for Engineering learns from the CFD, FEM, and test data you already have, then answers the next question in seconds, with confidence attached. Not a solver replacement; a fast, uncertainty-aware layer on top of it.</p>
         <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
           <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-          <a href="#loop" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">See the engineering loop</a>
-        </div>
-      </div>
-      <figure data-hero="" style="margin: 48px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0); will-change: transform; opacity: 1; transform: translate3d(0px, 0px, 0px); transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-        <img loading="eager" fetchpriority="high" decoding="async" src="/probaligence-site-preview/assets/media/field-prediction-clean.webp" width="1467" height="648" alt="An engineering field prediction: from an input bracket surface geometry STOCHOS predicts the full volumetric von Mises stress field, shown as a coloured volume grid prediction." style="display: block; width: 100%; height: auto;">
-        <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); padding: 14px 18px; border-top: 1px solid rgba(255, 255, 255, 0.07);">From an input surface, STOCHOS predicts the full volumetric field for a new geometry.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1100px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The bottleneck</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Every new variant should not require another full solve</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">High-fidelity simulation stays essential. The cost is using it for every candidate, every parameter set, and every iteration. STOCHOS adds a fast probabilistic layer between your existing simulation data and the next decision, so you explore broadly with predictions and solve selectively where it counts.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 50px;">
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 16px;">Slow loops</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">CFD, FEM, thermal, crash, and multiphysics runs turn design exploration into a bottleneck.</p></div>
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 16px;">Too few variants</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">Teams validate a fraction of the design space because each solve consumes time and hardware.</p></div>
-        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; padding: 30px; opacity: 1; transform: none;"><div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); margin-bottom: 16px;">Black-box predictions</div><p style="color: rgb(200, 200, 194); font-size: 15px; line-height: 1.6;">A fast prediction is not enough; engineers need to know where it is reliable and where it still needs validation.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="loop" data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1200px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The engineering loop</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Use the solver where it adds the most value</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">The workflow follows the engineering loop, not a list of methods. Existing solver data trains the surrogate, STOCHOS explores in seconds, and the full solver returns only where validation or new training data is needed.</p>
-      <div tabindex="0" role="region" aria-label="The engineering loop, four steps, scrolls horizontally" style="margin-top: 50px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; padding: 36px 28px; overflow-x: auto;">
-        <div style="display: flex; align-items: stretch; gap: 10px; min-width: 820px;">
-          <div style="flex: 1 1 0%; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 4px; padding: 20px 16px; background: rgb(14, 14, 16);"><div style="font: 500 24px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.55);">01</div><div style="font: 600 14.5px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 12px;">Start with solver data</div><div style="font-size: 12px; color: rgb(130, 130, 124); margin-top: 6px; line-height: 1.45;">Existing CFD, FEM, CAE, measurement, test results.</div></div>
-          <span style="display: flex; align-items: center; color: rgb(255, 176, 6); flex: 0 0 auto;">→</span>
-          <div style="flex: 1 1 0%; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 4px; padding: 20px 16px; background: rgb(14, 14, 16);"><div style="font: 500 24px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.55);">02</div><div style="font: 600 14.5px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 12px;">Train STOCHOS</div><div style="font-size: 12px; color: rgb(130, 130, 124); margin-top: 6px; line-height: 1.45;">Learn parameters, geometry, and physical outputs.</div></div>
-          <span style="display: flex; align-items: center; color: rgb(255, 176, 6); flex: 0 0 auto;">→</span>
-          <div style="flex: 1 1 0%; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 4px; padding: 20px 16px; background: rgb(14, 14, 16);"><div style="font: 500 24px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.55);">03</div><div style="font: 600 14.5px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 12px;">Predict variants</div><div style="font-size: 12px; color: rgb(130, 130, 124); margin-top: 6px; line-height: 1.45;">New designs and geometries in seconds.</div></div>
-          <span style="display: flex; align-items: center; color: rgb(255, 176, 6); flex: 0 0 auto;">→</span>
-          <div style="flex: 1 1 0%; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 4px; padding: 20px 16px; background: rgb(14, 14, 16);"><div style="font: 500 24px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgba(255, 176, 6, 0.55);">04</div><div style="font: 600 14.5px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 12px;">Quantify confidence</div><div style="font-size: 12px; color: rgb(130, 130, 124); margin-top: 6px; line-height: 1.45;">Separate reliable interpolation from unexplored regions.</div></div>
-          <span style="display: flex; align-items: center; color: rgb(255, 176, 6); flex: 0 0 auto;">→</span>
-          <div style="flex: 1 1 0%; border: 1px solid rgba(255, 176, 6, 0.4); border-radius: 4px; padding: 20px 16px; background: rgba(255, 176, 6, 0.06);"><div style="font: 500 24px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">05</div><div style="font: 600 14.5px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239); margin-top: 12px;">Validate selectively</div><div style="font-size: 12px; color: rgb(156, 156, 150); margin-top: 6px; line-height: 1.45;">Run the full solver only where it improves the model.</div></div>
-        </div>
-        <div style="display: flex; align-items: center; gap: 10px; margin-top: 18px; color: rgb(130, 130, 124); font: 400 12.5px / 1 &quot;IBM Plex Mono&quot;, monospace;"><span style="flex: 0 0 auto; color: rgb(255, 176, 6);">↶</span> New validation data feeds back into training. The loop repeats.</div>
-      </div>
-    </div>
-  </section>
-
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1200px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Application areas</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Built for simulation-heavy engineering work</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">Not another physics solver. STOCHOS learns from the solver and data you already trust, then adds a fast, uncertainty-aware layer for prediction, exploration, and decision support.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1px; margin-top: 50px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
-        <div style="background: rgb(6, 6, 7); padding: 30px 26px; opacity: 1; transform: none;"><h3 style="font: 600 17px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">CFD</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Predict pressure, velocity, temperature, heat flux, and flow across new designs and operating points.</p></div>
-        <div style="background: rgb(6, 6, 7); padding: 30px 26px; opacity: 1; transform: none;"><h3 style="font: 600 17px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">FEM</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Accelerate stress, deformation, fatigue, crash, thermal, and structural-performance predictions.</p></div>
-        <div style="background: rgb(6, 6, 7); padding: 30px 26px; opacity: 1; transform: none;"><h3 style="font: 600 17px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">CAE workflows</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Apply surrogate models across calibration loops, design studies, and digital-engineering processes.</p></div>
-        <div style="background: rgb(6, 6, 7); padding: 30px 26px; opacity: 1; transform: none;"><h3 style="font: 600 17px / 1.2 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">Design exploration</h3><p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Screen more variants, compare trade-offs, and shortlist the designs worth a full solve.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 48px;">
-      <div style="opacity: 1; transform: none;">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Field predictions</div>
-        <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Predict more than a single KPI</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Many engineering decisions depend on the full result field. STOCHOS predicts pressure fields, FEM stress maps, temperature distributions, and time-dependent responses, with confidence attached.</p>
-        <ul style="list-style: none; margin: 24px 0px 0px; padding: 0px; display: flex; flex-direction: column; gap: 12px;">
-          <li style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span><span><strong style="color: rgb(244, 243, 239); font-weight: 600;">2D and 3D fields.</strong> Spatially resolved outputs for new parameter combinations.</span></li>
-          <li style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span><span><strong style="color: rgb(244, 243, 239); font-weight: 600;">Signals and histories.</strong> Time series, force-displacement curves, transient behavior.</span></li>
-          <li style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span><span><strong style="color: rgb(244, 243, 239); font-weight: 600;">Confidence on the result.</strong> Quantified uncertainty decides where another solve is necessary.</span></li>
-        </ul>
-      </div>
-      <div style="opacity: 1; transform: none;">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Geometry-aware modeling</div>
-        <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Model the shape, not only the parameters</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Engineering data carries structure: node connectivity, spatial coordinates, changing geometry, and surface or volume fields. STOCHOS follows the physical representation rather than a flat parameter table.</p>
-        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px;">
-          <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 8px 13px; font-size: 13px; color: rgb(200, 200, 194);">STL and point clouds</span>
-          <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 8px 13px; font-size: 13px; color: rgb(200, 200, 194);">VTK / VTU / VTP</span>
-          <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 8px 13px; font-size: 13px; color: rgb(200, 200, 194);">Graph and mesh data</span>
-          <span style="border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; padding: 8px 13px; font-size: 13px; color: rgb(200, 200, 194);">Surface and volume fields</span>
+          <a href="#use-cases" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">See where it fits</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 48px;">
-      <div style="opacity: 1; transform: none;">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Design-space exploration</div>
-        <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Explore more before committing to the next solve</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">Once the surrogate is trained, evaluate a broad design space quickly. Use Bayesian optimization for next-best candidates, sensitivity analysis to understand the drivers, and generative geometric AI to move beyond predefined combinations.</p>
-        <ul style="list-style: none; margin: 24px 0px 0px; padding: 0px; display: flex; flex-direction: column; gap: 12px;">
-          <li style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span><span><strong style="color: rgb(244, 243, 239); font-weight: 600;">Parameter exploration.</strong> Screen operating points and design variables faster.</span></li>
-          <li style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span><span><strong style="color: rgb(244, 243, 239); font-weight: 600;">Geometry exploration.</strong> Create and compare valid candidate shapes in the learned space.</span></li>
-          <li style="display: flex; gap: 12px; color: rgb(200, 200, 194); font-size: 14.5px; line-height: 1.5;"><span aria-hidden="true" style="flex:0 0 auto;width:13px;height:2px;background:rgb(255,176,6);margin-top:9px"></span><span><strong style="color: rgb(244, 243, 239); font-weight: 600;">Trade-off decisions.</strong> Balance performance, weight, robustness, cost, and constraints.</span></li>
-        </ul>
-      </div>
-      <div style="opacity: 1; transform: none;">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Ansys integration</div>
-        <h2 style="font: 700 clamp(26px, 3.4vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Add a faster decision layer, keep your solver</h2>
-        <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 54ch;">PI Probaligence is an official Ansys Technology Partner. STOCHOS Flow reads Ansys Workbench parameters, explores variants with STOCHOS, and calls the Ansys Solver node where validation or new data is needed. The full simulation remains the source of truth.</p>
-        <a href="/probaligence-site-preview/stochos-flow/" class="scp0" style="display: inline-block; margin-top: 20px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">See the STOCHOS Flow integration →</a>
-      </div>
+  <style id="ufc-css">
+/* ============ CORE START: use-case fit cloud ============ */
+/* the cloud runs the full 1280px column: multi-word engineering phrases are 300
+   to 500px wide, so in a narrow column a spiral can only stack them vertically */
+.ufc-cloud{
+  list-style:none;margin:52px 0 0;padding:0;
+  display:flex;flex-wrap:wrap;justify-content:center;align-content:center;
+  gap:10px 22px;
+}
+.ufc-cloud.is-packed{display:block;position:relative;aspect-ratio:16/12}
+/* a low amber bloom behind the core gives the field depth and pulls the eye to
+   the high-relevance terms, which relevance-ordered placement puts in the middle */
+.ufc-cloud.is-packed::before{
+  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:74%;height:82%;pointer-events:none;z-index:-1;
+  background:radial-gradient(ellipse at center,rgba(255,176,6,.075),rgba(255,176,6,.02) 45%,transparent 70%);
+}
+.ufc-cloud.is-packed > li{position:absolute;top:0;left:0;margin:0}
+
+/* size, weight, colour and opacity are all continuous functions of data-rel,
+   computed in JS and delivered as custom properties. The values below are the
+   no-JS fallback: a plain readable list, no encoding at all. */
+.ufc-term{
+  display:block;margin:0;padding:0;border:0;background:none;
+  font-family:'Space Grotesk',sans-serif;line-height:1.1;letter-spacing:-.01em;
+  cursor:pointer;white-space:nowrap;
+  font-size:calc(var(--fs,17) * 1px);
+  font-weight:var(--fw,500);
+  color:var(--col,#cfcfc9);
+  opacity:var(--op,1);
+  transition:color .25s ease,opacity .25s ease;
+}
+/* hover is a spotlight, not a highlight: the chosen term stays, the rest recede.
+   These rules set opacity and colour directly, so they beat the per-term custom
+   properties on specificity without needing !important. */
+@media (hover:hover) and (pointer:fine){
+  .ufc-cloud:hover .ufc-term{opacity:.2}
+  .ufc-cloud .ufc-term:hover{opacity:1;color:#FFB006}
+}
+.ufc-cloud.has-active .ufc-term{opacity:.2}
+.ufc-cloud.has-active .ufc-term[aria-pressed="true"]{opacity:1;color:#FFB006}
+.ufc-term:focus-visible{
+  outline:2px solid #FFB006;outline-offset:4px;border-radius:2px;
+  box-shadow:0 0 0 6px rgba(255,176,6,.18);opacity:1;
+}
+@media (forced-colors:active){ .ufc-term:focus-visible{outline:2px solid CanvasText} }
+
+/* entrance: rise and unblur, staggered most relevant first */
+.ufc-cloud.is-anim > li{opacity:0;transform:translateY(7px);filter:blur(4px)}
+.ufc-cloud.is-anim.is-in > li{
+  opacity:1;transform:none;filter:blur(0);
+  transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1),filter .6s cubic-bezier(.2,.7,.2,1);
+  transition-delay:var(--d,0ms);
+}
+.ufc-cloud.is-packed.is-anim > li{transform:translate(var(--x),calc(var(--y) + 7px))}
+.ufc-cloud.is-packed.is-anim.is-in > li{transform:translate(var(--x),var(--y))}
+
+/* --- the readout --- */
+.ufc-panel{
+  margin-top:52px;border-left:1px solid rgba(255,176,6,.4);padding:2px 0 2px 28px;
+  display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:12px 44px;
+  grid-template-rows:auto auto;align-items:start;
+  align-content:start;          /* rows keep their own height instead of */
+  min-height:124px;             /* stretching to fill min-height */
+}
+.ufc-cat{font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#FFB006}
+.ufc-term-title{margin:12px 0 0;font:600 25px/1.18 'Space Grotesk',sans-serif;letter-spacing:-.018em;color:#f4f3ef;text-wrap:pretty}
+.ufc-fit{margin:0;grid-column:2;grid-row:1/3;color:#b8b8b2;font-size:16px;line-height:1.62;max-width:56ch}
+.ufc-panel.is-idle .ufc-term-title{color:#6a6a64}
+.ufc-swap{animation:ufcIn .34s cubic-bezier(.2,.7,.2,1)}
+@keyframes ufcIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+@media (max-width:900px){
+  .ufc-panel{grid-template-columns:1fr;gap:12px;margin-top:34px;min-height:0;padding-left:20px}
+  .ufc-fit{grid-column:1;grid-row:auto}
+  .ufc-cloud{gap:9px 18px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ufc-term{transition:none}
+  .ufc-cloud.is-anim > li,.ufc-cloud.is-anim.is-in > li{opacity:1;filter:none;transition:none}
+  .ufc-cloud.is-anim > li{transform:none}
+  .ufc-cloud.is-packed.is-anim > li,.ufc-cloud.is-packed.is-anim.is-in > li{transform:translate(var(--x),var(--y))}
+  .ufc-swap{animation:none}
+}
+/* ============ CORE END ============ */
+  </style>
+
+  <section id="use-cases" data-reveal="" style="padding: clamp(60px, 6.5vw, 96px) 24px clamp(80px, 10vw, 140px); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1280px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Where it fits</div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 24ch;">Find the problem that looks like yours</h2>
+
+      <!-- ============ CORE START: use-case fit cloud ============
+        data-rel is a 0 to 100 relevance score. JS reads it and sets size, weight,
+        colour, opacity and distance from the centre from that one number, so all
+        five channels agree. The score is 0.6 x how fast a simulation engineer
+        recognises the term as their own work, plus 0.4 x how distinctive PI's
+        answer is. Recognition leads because this component's job is
+        self-identification; the argument for PI happens in the readout below.
+        DOM order is relevance descending, so the no-JS list still ranks. -->
+      <ul class="ufc-cloud" id="ufcCloud" aria-label="Engineering problems and workflows">
+
+        <li><button type="button" class="ufc-term" data-rel="90" aria-pressed="false" data-cat="Your setup"
+          data-fit="Tens to low hundreds of runs is the territory, not thousands. Below roughly a thousand samples a Gaussian process is the right method, and above it cheaper methods win.">Small data sets</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="84" aria-pressed="false" data-cat="What you predict"
+          data-fit="A full temperature, pressure, stress or heat-flux field for a new variant, not one number at one probe point. The hotspot you did not think to probe still shows up.">Full-field results</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="82" aria-pressed="false" data-cat="Your setup"
+          data-fit="Dedicated parameter and solver nodes as an Ansys Technology Partner, so an existing project becomes the loop rather than being rebuilt.">Ansys Workbench</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="82" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="A margin is a confidence statement, so the interval is the deliverable rather than a decoration on it. Naturally small-data work: you never get thousands of runs to characterise a tolerance stack.">Tolerance and robustness</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="80" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Flow solves are among the most expensive runs in the building, and the output is a field rather than a number, which is the shape a surrogate handles best.">CFD</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="80" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Structural runs are repeated across variants that differ only slightly, so most of the solver time goes into re-deriving what the last run already showed.">FEM and FEA</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="80" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Staircase testing gives you fifteen to thirty specimens, and scatter is the physics rather than noise. That makes the interval the deliverable, not a decoration on it.">Fatigue and durability</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="80" aria-pressed="false" data-cat="Your setup"
+          data-fit="Graph models train on eight to twenty designs of about 28,000 nodes each. Few variants is the constraint that fits. Large meshes are not a problem.">Few design variants</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="76" aria-pressed="false" data-cat="How you work"
+          data-fit="Cross-validated accuracy that localizes where on the curve or across the field the model is weak, rather than one global number that hides the bad region.">Model validation</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="74" aria-pressed="false" data-cat="Your setup"
+          data-fit="Offline licensing for air-gapped networks, so solver data and geometry never leave your infrastructure.">On-premise and air-gapped</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="74" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Conjugate heat transfer couples fluid and solid, which makes every configuration change a full re-solve rather than a local update.">Thermal and heat transfer</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="74" aria-pressed="false" data-cat="How you work"
+          data-fit="Sobol indices, SHAP and DGSM, including for curve outputs, to show which inputs actually move the response and which you can stop varying.">Sensitivity analysis</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="74" aria-pressed="false" data-cat="Data you have"
+          data-fit="A spreadsheet of runs with inputs in columns and results alongside. This is where most projects start, and ten rows is enough to begin.">DoE parameter tables</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="72" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Every layout change means another multi-hour solve, so thermal sits on the critical path and hotspots surface too late to do more than patch.">Electronics cooling</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="72" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Abuse tests destroy cells and pack propagation runs take days, so the sample count stays low while the safety margin has to be defended.">Battery thermal runaway</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="68" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Explicit runs are long and the result is a time history, so predicting the whole curve matters more than predicting a peak.">Explicit dynamics</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="68" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Modal and harmonic results are curves and spectra, and a limit with a margin on it is exactly the decision an interval informs.">Acoustics and vibration</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="66" aria-pressed="false" data-cat="What you predict"
+          data-fit="Time-resolved curves rather than the peak alone, so the shape of the event survives the surrogate instead of collapsing to one number.">Crash intrusion curves</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="66" aria-pressed="false" data-cat="How you work"
+          data-fit="Fuse many cheap runs with a few expensive ones. Coarse models carry the trend, the expensive runs correct it, and neither has to stand alone.">Multi-fidelity models</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="66" aria-pressed="false" data-cat="How you work"
+          data-fit="The model proposes the next run instead of a blind sweep. Projects start from tables as small as ten rows and four inputs.">Bayesian optimization</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="66" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Microscale structure drives macro behaviour, and resolving both at once is what makes nested simulation slow. A learned material model carries the microscale into the macro run.">Composite materials</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="66" aria-pressed="false" data-cat="Data you have"
+          data-fit="Measured points from a rig or a bench, which are expensive in a different currency and can be fused with simulation rather than kept apart.">Test-bench measurements</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="66" aria-pressed="false" data-cat="What you predict"
+          data-fit="Scalar inputs to a whole curve. The model learns the shape of the response, so you get force against displacement rather than a single peak.">Force-displacement curves</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="66" aria-pressed="false" data-cat="What you predict"
+          data-fit="Graph models read design folders where the mesh itself changes between variants, and write a value per node back out for ParaView.">Fields on a changing mesh</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="64" aria-pressed="false" data-cat="How you work"
+          data-fit="Active learning targets the largest hole in your data rather than the optimum, so the next expensive run is the one that teaches the model most.">Adaptive sampling</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="64" aria-pressed="false" data-cat="How you work"
+          data-fit="Bayesian optimization drives a real Workbench project inside a loop. The solver stays the source of truth and only runs on the candidates worth running.">Solver in the loop</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="64" aria-pressed="false" data-cat="How you work"
+          data-fit="Predict everything, then send only the uncertain cases back to the solver. This is the point where an interval stops being a talking point and starts saving solver hours.">Targeted re-simulation</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="62" aria-pressed="false" data-cat="How you work"
+          data-fit="Learn the space of valid shapes with manufacturing rules built in, then optimize inside it, so the search never leaves the shapes you could actually build.">Shape generation</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="62" aria-pressed="false" data-cat="Data you have"
+          data-fit="Solver meshes read as graphs, with node counts that differ between designs and boundary conditions carried as global features.">Mesh and graph data</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="62" aria-pressed="false" data-cat="What you predict"
+          data-fit="Go from the shape itself to the result, for geometry that varies in ways no parameter table describes.">Performance from CAD geometry</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="60" aria-pressed="false" data-cat="What you predict"
+          data-fit="Signal outputs are native. Predict a spectrum from design parameters and see where along the curve the model is least certain.">Spectra and NVH curves</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="60" aria-pressed="false" data-cat="How you work"
+          data-fit="High parameter counts make a blind sweep hopeless. Choosing each next run from the model keeps the study finite as the dimension grows.">High-dimensional studies</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="60" aria-pressed="false" data-cat="Your setup"
+          data-fit="Most projects start from a spreadsheet of runs. Excel and CSV go in and out at every stage.">Excel and CSV</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="60" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Qualification is data-scarce by design, because each machine and material pair has to be characterised from physical builds.">Additive manufacturing</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="60" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Design-of-experiment studies over low hundreds of finite-element runs, where adaptive infill cuts the count and the model de-risks the chamber test rather than replacing it.">E-motor and EMC</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="58" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Strength verification against a code or directive repeats the same analysis for every variant, which makes it a workflow to automate rather than a study to redo.">Code compliance checks</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="58" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Long transient runs across load cases, where the interesting output is a signal over time rather than a single design value.">Multibody dynamics</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="58" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Process windows are found by design of experiments over expensive runs, so the cost sits in the study rather than in any single solve.">Injection molding</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="58" aria-pressed="false" data-cat="Data you have"
+          data-fit="Geometry sampled as points rather than parameters. STL, VTP, VTK, PLY and OBJ go in and out, so the model sits inside the toolchain you already run.">Point clouds from STL</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="56" aria-pressed="false" data-cat="What you predict"
+          data-fit="Classification with a confidence level attached, so borderline designs get flagged instead of quietly passing.">Pass or fail classification</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="54" aria-pressed="false" data-cat="What you predict"
+          data-fit="Image regression and classification for micrographs, thermography, and surface or defect inspection.">Micrographs and defect images</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="54" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Flutter and aeroelastic margins are decided on tens to low hundreds of expensive runs, and the certification argument turns on how well the error is characterised.">Flutter and aeroelasticity</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="52" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Filling, solidification and distortion are coupled, and the process parameters that matter are found by search rather than by derivation.">Casting and forming</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="52" aria-pressed="false" data-cat="Your setup"
+          data-fit="Reads VTU and VTP design folders with boundary conditions from JSON, and writes predictions back out for ParaView.">VTU and ParaView</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="50" aria-pressed="false" data-cat="What you predict"
+          data-fit="Process dynamics and rolling forecasts from sequence models, where the response evolves over a run rather than settling.">Time-series prediction</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="48" aria-pressed="false" data-cat="How you work"
+          data-fit="Export a trained model as a web app so colleagues query it without touching Python or taking a license seat.">Model as a web app</button></li>
+
+        <li><button type="button" class="ufc-term" data-rel="44" aria-pressed="false" data-cat="Simulation you run"
+          data-fit="Peak temperature at a handful of points decides the result, while the runs that resolve it properly are the expensive ones.">Induction hardening</button></li>
+
+      </ul>
+
+      <aside class="ufc-panel is-idle" id="ufcPanel">
+        <div class="ufc-cat" id="ufcCat">Pick a term</div>
+        <h3 class="ufc-term-title" id="ufcTitle">Where does your work sit?</h3>
+        <p class="ufc-fit" id="ufcFit">Hover or tap any term. Each one explains why that shape of problem suits a model that returns a prediction and an interval around it.</p>
+        <div id="ufcLive" role="status" aria-live="polite" aria-atomic="true"
+             style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"></div>
+      </aside>
+      <!-- ============ CORE END ============ -->
+
     </div>
   </section>
 
-  <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+  <script>
+/* ============ CORE START: use-case fit cloud behaviour ============ */
+(function () {
+  var cloud = document.getElementById('ufcCloud');
+  if (!cloud) return;
+  var panel = document.getElementById('ufcPanel');
+  var elCat = document.getElementById('ufcCat');
+  var elTitle = document.getElementById('ufcTitle');
+  var elFit = document.getElementById('ufcFit');
+  var elLive = document.getElementById('ufcLive');
+  var terms = Array.prototype.slice.call(cloud.querySelectorAll('.ufc-term'));
+  var active = null;
+
+  var REL_MIN = 44, REL_MAX = 90;                 // the authored score range
+  var WARM = [255, 176, 6];                       // PI amber, the core
+  var COOL = [138, 154, 178];                     // steel grey, the tail
+
+  /* ---- deterministic "randomness" ----
+     Every jitter below is drawn from an FNV-1a hash of the term's own text, so
+     it is random across terms but identical on every load and every machine.
+     Real Math.random would repaint the section on each visit, which makes it
+     impossible to design against, impossible to screenshot-review, and reads as
+     a bug to anyone who reloads. */
+  function rnd(str, salt) {
+    var h = 2166136261, s = str + '|' + salt;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return ((h >>> 0) % 100000) / 100000;         // 0..1
+  }
+  function jit(str, salt, amount) { return (rnd(str, salt) - 0.5) * 2 * amount; }
+  function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+  function lerp(rgb, target, k) {
+    return [rgb[0] + (target[0] - rgb[0]) * k,
+            rgb[1] + (target[1] - rgb[1]) * k,
+            rgb[2] + (target[2] - rgb[2]) * k];
+  }
+
+  /* ---- relevance to appearance ----
+     One continuous score drives size, weight, colour, opacity and distance from
+     the centre, so five channels agree. Colour runs a two-ended ramp: cool steel
+     at the tail, neutral through the middle, PI amber at the core. A one-ended
+     ramp puts every term below the threshold at the same grey, which wastes the
+     widest channel available on a black page.
+     The jitter is the honest part: a 90 and an 84 are not meaningfully different
+     scores, and a perfectly monotonic ramp invites the reader to treat the cloud
+     as a leaderboard and argue with the ordering. Jitter says "bands". */
+  function style(btn) {
+    var label = btn.textContent.trim();
+    var rel = +btn.dataset.rel || REL_MIN;
+    var t = clamp((rel - REL_MIN) / (REL_MAX - REL_MIN), 0, 1);   // 0..1
+
+    // size: 11px to 24px, plus up to 8% either way. Kept deliberately modest
+    // so the whole field plus the readout below it fit one screen: a cloud that
+    // pushes its own explanation off the fold is a cloud nobody reads. 11px is
+    // the floor: below that the tail terms stop being readable at arm's length.
+    var fs = (11 + t * 13) * (1 + jit(label, 'size', 0.08));
+
+    var warm = clamp((rel - 58) / 32 + jit(label, 'warm', 0.10), 0, 1);
+    var cool = clamp((62 - rel) / 20 + jit(label, 'cool', 0.10), 0, 1);
+
+    // neutral lightness rises with relevance: the tail greys down, it never
+    // disappears, because a capability the reader cannot read is not in the set.
+    // The floors are tied to the type scale: dimming that reads as recessive at
+    // 24px reads as invisible at 11px, so shrinking the field raised both floors.
+    var L = clamp(56 + t * 38 + jit(label, 'lum', 6), 52, 98);
+    var c = [L * 2.55, L * 2.55, L * 2.55];
+    if (cool > 0) c = lerp(c, COOL, cool * 0.5);  // capped: steel, not blue
+    if (warm > 0) c = lerp(c, WARM, warm);
+    var col = 'rgb(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ')';
+
+    var op = clamp(0.62 + t * 0.38 + jit(label, 'op', 0.05), 0.55, 1);
+
+    btn.style.setProperty('--fs', fs.toFixed(2));
+    btn.style.setProperty('--fw', rel >= 76 ? 700 : 500);
+    btn.style.setProperty('--col', col);
+    btn.style.setProperty('--op', op.toFixed(3));
+  }
+
+  /* ---- readout ---- */
+  function fill(btn, announce) {
+    if (!btn) return;
+    elCat.textContent = btn.dataset.cat || '';
+    elTitle.textContent = btn.textContent.trim();
+    elFit.textContent = btn.dataset.fit || '';
+    panel.classList.remove('is-idle');
+    panel.classList.remove('ufc-swap');
+    void panel.offsetWidth;                       // restart the entrance
+    panel.classList.add('ufc-swap');
+    // announce on focus and click only, never on hover, or mouse users
+    // generate a stream of screen-reader chatter
+    if (announce) elLive.textContent = btn.textContent.trim() + '. ' + (btn.dataset.fit || '');
+  }
+
+  function setActive(btn) {
+    if (active === btn) return;
+    if (active) active.setAttribute('aria-pressed', 'false');
+    active = btn;
+    if (btn) { btn.setAttribute('aria-pressed', 'true'); cloud.classList.add('has-active'); }
+    else cloud.classList.remove('has-active');
+  }
+
+  cloud.addEventListener('pointerenter', function (e) {
+    var b = e.target.closest && e.target.closest('.ufc-term');
+    if (b) fill(b, false);
+  }, true);
+
+  /* focus previews and announces, like hover; it must NOT setActive. A real press
+     fires focusin before click, so pre-arming here made every click read as a
+     second press and toggle the spotlight straight back off. Enter on a focused
+     term still fires click, so keyboard commits the same way the mouse does. */
+  cloud.addEventListener('focusin', function (e) {
+    var b = e.target.closest && e.target.closest('.ufc-term');
+    if (b) fill(b, true);
+  });
+
+  cloud.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.ufc-term');
+    if (b) { fill(b, true); setActive(active === b ? null : b); }
+  });
+
+  /* ---- spiral packing (d3-cloud's archimedean spiral, rect collision) ----
+     Pixel-mask collision exists so words nest into each other's concavities.
+     At 47 unrotated phrases that buys nothing and costs a canvas atlas, so this
+     tests bounding boxes only. Items arrive sorted by relevance, so the spiral
+     puts the most relevant terms nearest the centre: position is the fifth
+     channel carrying the same one score. */
+  function pack(items, W, H, gap) {
+    var placed = [], unplaced = [];
+    var cx = W / 2, cy = H / 2, e = W / H, maxR = Math.sqrt(W * W + H * H);
+    for (var k = 0; k < items.length; k++) {
+      var it = items[k];
+      var dir = (k % 2) ? 1 : -1;                 // alternate handedness
+      // radius and angle are separated so each item starts its search at a
+      // different bearing. Without this, relevance-ordered placement stacks the
+      // big terms in consecutive centred rows and the cloud reads as a list.
+      // 2.39996 rad is the golden angle: successive items never share a bearing,
+      // and the seeded offset stops equally-scored terms forming a visible ring.
+      var phase = k * 2.399963 + it.seed * 6.283;
+      var t = 0, done = false;
+      while (!done) {
+        var r = (t += 1) * 0.1, a = r * dir + phase;
+        var dx = e * r * Math.cos(a), dy = r * Math.sin(a);
+        if (Math.abs(dx) > maxR && Math.abs(dy) > maxR) break;
+        var x = Math.round(cx + dx - it.w / 2), y = Math.round(cy + dy - it.h / 2);
+        if (x < 0 || y < 0 || x + it.w > W || y + it.h > H) continue;
+        var hit = false;
+        for (var i = 0; i < placed.length; i++) {
+          var p = placed[i];
+          if (x - gap < p.x + p.w && x + it.w + gap > p.x &&
+              y - gap < p.y + p.h && y + it.h + gap > p.y) { hit = true; break; }
+        }
+        if (hit) continue;
+        it.x = x; it.y = y; placed.push(it); done = true;
+      }
+      if (!done) unplaced.push(it);
+    }
+    return unplaced;
+  }
+
+  function layout() {
+    // below 700px a packed cloud is unreadable at any density: keep the
+    // authored centred list, which is what the CSS already gives us
+    if (window.innerWidth < 700) {
+      cloud.classList.remove('is-packed');
+      terms.forEach(function (b) { b.parentNode.style.removeProperty('--x');
+                                   b.parentNode.style.removeProperty('--y'); });
+      return;
+    }
+    cloud.classList.remove('is-packed');          // measure in flow
+    var W = cloud.getBoundingClientRect().width;
+    var items = terms.map(function (b) {
+      var li = b.parentNode;
+      return { li: li, w: li.offsetWidth, h: li.offsetHeight,
+               rel: +b.dataset.rel || REL_MIN,
+               seed: rnd(b.textContent.trim(), 'phase') };
+    }).sort(function (a, b) { return b.rel - a.rel; });      // most relevant first
+
+    // grow the box until everything fits rather than dropping terms the way
+    // d3-cloud does; a capability term silently vanishing is not acceptable
+    // start flatter than the old 6.5/16: the packer only ever grows H, so a low
+    // starting box keeps the field wide and short and leaves the readout in view
+    var H = Math.round(W * 3.6 / 16), left = [], tries = 0;
+    do {
+      left = pack(items, W, H, 12);
+      if (left.length) { H = Math.round(H * 1.1); tries++; }
+    } while (left.length && tries < 12);
+
+    // last resort: lay any survivor along the bottom rather than letting it
+    // fall back to 0,0 and pile up on its neighbours
+    if (left.length) {
+      var bx = 0, by = H + 8, rowH = 0;
+      left.forEach(function (it) {
+        if (bx + it.w > W) { bx = 0; by += rowH + 10; rowH = 0; }
+        it.x = bx; it.y = by; bx += it.w + 22; rowH = Math.max(rowH, it.h);
+      });
+      H = by + rowH;
+    }
+
+    cloud.style.aspectRatio = W + ' / ' + H;
+    cloud.classList.add('is-packed');
+    items.forEach(function (it) {
+      it.li.style.setProperty('--x', (it.x || 0) + 'px');
+      it.li.style.setProperty('--y', (it.y || 0) + 'px');
+      it.li.style.transform = 'translate(' + (it.x || 0) + 'px,' + (it.y || 0) + 'px)';
+    });
+  }
+
+  /* ---- entrance, staggered most relevant first, gated on view ---- */
+  function stagger() {
+    var ordered = terms.slice().sort(function (a, b) {
+      return (+b.dataset.rel) - (+a.dataset.rel);
+    });
+    ordered.forEach(function (b, i) {
+      b.parentNode.style.setProperty('--d', Math.min(i * 24, 900) + 'ms');
+    });
+  }
+
+  function start() {
+    terms.forEach(style);                         // size before measuring
+    layout();
+    stagger();
+    cloud.classList.add('is-anim');
+    if (!('IntersectionObserver' in window)) { cloud.classList.add('is-in'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { cloud.classList.add('is-in'); io.disconnect(); }
+      });
+    }, { threshold: .12 });
+    io.observe(cloud);
+  }
+
+  // measuring before Space Grotesk loads gives fallback metrics and the whole
+  // cloud is laid out wrong, so wait for the real faces
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
+  else window.addEventListener('load', start);
+
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      terms.forEach(function (b) { b.parentNode.style.transform = ''; });
+      layout();
+    }, 180);
+  });
+})();
+/* ============ CORE END ============ */
+  </script>
+  <!-- CORE START: cost-and-answer rows (the engineering loop) -->
+  <style id="afe-loop-css">
+  /* Each row states what the current process costs, then the move that removes it. Left is the
+     cost, right is the answer, so the reader never has to hold a problem across two scrolls. */
+  .afe-row{display:grid;grid-template-columns:56px 1fr 1fr;gap:28px;align-items:start;padding:32px 0;border-top:1px solid rgba(255,255,255,.09)}
+  .afe-row-n{font:500 24px/1 'Space Grotesk',sans-serif;color:rgba(255,176,6,.55)}
+  .afe-row-t{font:600 19px/1.25 'Space Grotesk',sans-serif;color:#F4F3EF}
+  .afe-row-today{margin-top:10px;color:#82827C;font-size:14.5px;line-height:1.55;max-width:52ch}
+  .afe-row-with{border-left:1px solid rgba(255,176,6,.28);padding-left:22px}
+  .afe-row-kicker{font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#FFB006}
+  .afe-row-body{margin-top:10px;color:#B8B8B2;font-size:15px;line-height:1.6;max-width:52ch}
+  @media (max-width:860px){
+    .afe-row{grid-template-columns:44px 1fr;gap:16px 18px;padding:26px 0}
+    .afe-row-with{grid-column:2;border-left:0;padding-left:0;padding-top:16px;border-top:1px solid rgba(255,176,6,.28)}
+  }
+  </style>
+  <!-- CORE END: cost-and-answer rows -->
+
+  <section id="loop" class="afe-glowband" data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255,255,255,.07);">
+    <div style="max-width:1280px;margin:0 auto">
+      <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#FFB006">The engineering loop</div>
+      <h2 style="margin:22px 0 0;font:700 clamp(28px,4.2vw,46px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-.02em;max-width:24ch">Train once, then ask what you could not afford to ask</h2>
+      <div style="margin-top:40px">
+      <div class="afe-row"><div class="afe-row-n">01</div><div><div class="afe-row-t">Data you already paid for</div><div class="afe-row-today">Every finished project leaves solver runs, test-bench results and measurements behind, and none of it informs the next one.</div></div><div class="afe-row-with"><div class="afe-row-kicker">With STOCHOS</div><div class="afe-row-body">Those runs train a <a href="/probaligence-site-preview/surrogate-modeling/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">surrogate model</a> on your own physics. There is no new simulation campaign to start.</div></div></div>
+      <div class="afe-row"><div class="afe-row-n">02</div><div><div class="afe-row-t">The questions you skip</div><div class="afe-row-today"><a href="/probaligence-site-preview/bayesian-optimization/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">Optimization</a> across many parameters, <a href="/probaligence-site-preview/sensitivity-analysis/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">sensitivity</a> and robustness studies never run, because the solve budget goes to single designs.</div></div><div class="afe-row-with"><div class="afe-row-kicker">With STOCHOS</div><div class="afe-row-body">Predictions arrive in seconds, each carrying how far it can be trusted, so those studies become affordable.</div></div></div>
+      <div class="afe-row"><div class="afe-row-n">03</div><div><div class="afe-row-t">Where the solver goes</div><div class="afe-row-today">High-fidelity simulation stays essential, but it is spent on every question equally, including the ones the last project already answered.</div></div><div class="afe-row-with"><div class="afe-row-kicker">With STOCHOS</div><div class="afe-row-body">Run the full solver <a href="/probaligence-site-preview/uncertainty-quantification/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">where the model is unsure</a> or where you need proof. That result feeds back into training, and the loop repeats.</div></div></div>
+      </div>
+    </div>
+  </section>
+  <section id="proof" class="afe-plate" data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Proof</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em;">Reference cases as proof, not promises</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 68ch;">Performance depends on the physics, data quality, dimensionality, and the output. In one LS-DYNA reference example, STOCHOS reproduced 32 crash models across more than 50 time steps and predicted a new case with error below 5 percent, after 21 seconds of training on a CPU. A pin-fin cooling reference predicted temperature and heat flux for a new design in under 5 seconds.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; margin-top: 50px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
-        <div style="background: rgb(10, 9, 8); padding: 32px 26px; opacity: 1; transform: none;"><div style="font: 700 clamp(38px, 4.6vw, 52px) / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);"><span data-count="32">32</span></div><p style="color: rgb(156, 156, 150); font-size: 13px; line-height: 1.5; margin-top: 12px;">LS-DYNA crash models reproduced across 50+ time steps.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 26px; opacity: 1; transform: none;"><div style="font: 700 clamp(38px, 4.6vw, 52px) / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">&lt;5<span style="font-size: 0.5em; color: rgb(156, 156, 150);">%</span></div><p style="color: rgb(156, 156, 150); font-size: 13px; line-height: 1.5; margin-top: 12px;">Prediction error on a new case, 21s CPU training.</p></div>
-        <div style="background: rgb(10, 9, 8); padding: 32px 26px; opacity: 1; transform: none;"><div style="font: 700 clamp(38px, 4.6vw, 52px) / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">&lt;5<span style="font-size: 0.5em; color: rgb(156, 156, 150);">s</span></div><p style="color: rgb(156, 156, 150); font-size: 13px; line-height: 1.5; margin-top: 12px;">Pin-fin cooling: temperature and heat flux for a new design.</p></div>
-      </div>
-      <figure style="margin: 36px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0);">
-        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/multi-fidelity-clean.webp" width="1467" height="652" alt="Multi-fidelity learning: coarse mesh results and fine mesh results are combined by the DIM-GP model to predict the result in the highest quality, reducing how much high-fidelity simulation data is needed." style="display: block; width: 100%; height: auto;">
-        <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); padding: 14px 18px; border-top: 1px solid rgba(255, 255, 255, 0.07);">Combine cheap coarse runs with a few high-fidelity results to predict at full quality.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section id="use-cases" data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1280px; margin: 0px auto;">
-      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Results · Selected use cases</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 24ch;">Use cases across engineering</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">Where a fast, uncertainty-aware surrogate fits between your solver and the next decision. Open a card for the short version: the problem, how STOCHOS fits, and the kind of result.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 18px; margin-top: 54px; align-items: start;">
-
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><rect x="2.5" y="2.5" width="11" height="11"></rect><path d="M2.5 8h11M8 2.5v11"></path></svg><span>Engineering <span style="color: rgb(92, 92, 86);">·</span> Crash &amp; Structures</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Crash Simulation Surrogates</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Predict new crash geometries in seconds and keep the solver for the shortlist.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
+      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Engineering teams, on the record</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Named cases and third-party benchmarks, in trade press and at NAFEMS. Each links to the full story.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px; margin-top: 50px;">
+        <a href="/probaligence-site-preview/news/automated-verification-gemu-stochos/" style="display: flex; flex-direction: column; background: rgb(10, 9, 8); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; text-decoration: none;">
+          <div style="aspect-ratio: 16 / 10; overflow: hidden; background: rgb(0, 0, 0); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
+            <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/data/meshes.jpg" alt="Wireframe FEM mesh of a mechanical bracket" style="display: block; width: 100%; height: 100%; object-fit: cover;">
           </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">22<span style="font-size: 0.4em; color: rgb(156, 156, 150);"> s</span></div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">a new crash case, from about nine hours on the solver</div>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Predicted response with confidence band</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><path d="M44 168 C150 118 260 72 436 46 L436 72 C260 98 150 144 44 190 Z" fill="rgba(255,176,6,.13)" style="transform-origin: center center; transform: none;"></path><path d="M44 179 C150 131 260 71 436 59" fill="none" stroke="#FFB006" stroke-width="2" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><circle cx="120" cy="150" r="3.6" fill="#000" stroke="#FFB006" stroke-width="1.6" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="210" cy="116" r="3.6" fill="#000" stroke="#FFB006" stroke-width="1.6" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="300" cy="90" r="3.6" fill="#000" stroke="#FFB006" stroke-width="1.6" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="392" cy="66" r="3.6" fill="#000" stroke="#FFB006" stroke-width="1.6" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">response</text><text x="440" y="214" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">time</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Explicit crash and structural runs cost hours each, so design exploration moves at the speed of the cluster queue. A single result curve also gives no sense of how far to trust it.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS learns the full crash response, including the history over time, from runs you already have. New geometries come back in seconds, the confidence band shows which predictions are reliable, and the full solve validates the candidates that matter.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">seconds</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">a new case, vs hours on the solver</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">~hundreds</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">variants screened, where a handful fit before</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">solver-true</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">full solves kept for the shortlist</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If your crash queue still runs overnight, bring one part family and the runs you already have.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
-              </div>
-            </div>
+          <div style="padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1 1 auto;">
+            <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Press · GEMÜ</div>
+            <h3 style="font: 600 16.5px / 1.28 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Automated verification at GEMÜ with STOCHOS</h3>
+            <span style="margin-top: auto; padding-top: 16px; color: rgb(255, 176, 6); font: 500 13px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Read the case →</span>
           </div>
-        </article>
-
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><rect x="2.5" y="2.5" width="11" height="11"></rect><path d="M2.5 8h11M8 2.5v11"></path></svg><span>Engineering <span style="color: rgb(92, 92, 86);">·</span> Thermal CFD</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Thermal Field Prediction</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Full junction-temperature fields in seconds, inside your Ansys loop.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
+        </a>
+        <a href="/probaligence-site-preview/news/zf-benchmark-pi-bo-nafems/" style="display: flex; flex-direction: column; background: rgb(10, 9, 8); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; text-decoration: none;">
+          <div style="aspect-ratio: 16 / 10; overflow: hidden; background: rgb(0, 0, 0); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
+            <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/news/zf-benchmark-pi-bo-nafems/20231024-nafems2.webp" alt="Benchmark results from the ZF study presented at the NAFEMS seminar" style="display: block; width: 100%; height: 100%; object-fit: cover;">
           </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">4<span style="font-size: 0.4em; color: rgb(156, 156, 150);"> s</span></div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">a full temperature field, from about six hours of CFD</div>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Predicted temperature field</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><rect x="20" y="14" width="420" height="180" rx="3" fill="rgba(255,176,6,.05)" style="transform-origin: left center; transform: none;"></rect><ellipse cx="300" cy="104" rx="150" ry="78" fill="rgba(255,176,6,.12)"></ellipse><ellipse cx="312" cy="100" rx="98" ry="50" fill="rgba(255,176,6,.26)"></ellipse><ellipse cx="322" cy="98" rx="52" ry="28" fill="rgba(255,176,6,.5)"></ellipse><ellipse cx="328" cy="96" rx="22" ry="12" fill="#FFB006"></ellipse><ellipse cx="120" cy="150" rx="40" ry="22" fill="rgba(255,176,6,.1)"></ellipse><text x="20" y="214" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">hotspot, isolated to a few layout features</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Every layout change means another multi-hour CFD solve, so thermal sits on the critical path and hotspots surface too late to do more than patch.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">As an Ansys Technology Partner, STOCHOS reads your Workbench parameters, predicts the full temperature field with confidence, ranks the features that drive the hotspot, and calls the solver only to validate the finalists.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">seconds</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">a full field, vs hours</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">a degree or two</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">of the solve on new layouts</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">days</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">to sign-off, not weeks</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If thermal is always your last gate, bring one module family and the CFD runs behind it.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
-              </div>
-            </div>
+          <div style="padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1 1 auto;">
+            <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Benchmark · ZF</div>
+            <h3 style="font: 600 16.5px / 1.28 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">ZF benchmarks PI's Bayesian optimization at NAFEMS</h3>
+            <span style="margin-top: auto; padding-top: 16px; color: rgb(255, 176, 6); font: 500 13px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Read the case →</span>
           </div>
-        </article>
-
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><rect x="2.5" y="2.5" width="11" height="11"></rect><path d="M2.5 8h11M8 2.5v11"></path></svg><span>Engineering <span style="color: rgb(92, 92, 86);">·</span> Geometry</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Generative Shape Optimization</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Search manufacturable shapes beyond the parameter sweep.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
+        </a>
+        <a href="/probaligence-site-preview/news/high-fidelity-digital-twins-ai/" style="display: flex; flex-direction: column; background: rgb(10, 9, 8); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; text-decoration: none;">
+          <div style="aspect-ratio: 16 / 10; overflow: hidden; background: rgb(0, 0, 0); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
+            <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/news/high-fidelity-digital-twins-ai/20250607-digitalized-ct-scan.webp" alt="Digitalized CT scan used in the high-fidelity digital twin case" style="display: block; width: 100%; height: 100%; object-fit: cover;">
           </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(38px, 4.6vw, 54px) / 0.85 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">-11%</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">pressure drop, found in about 47 trials, not ~600</div>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Best-so-far against evaluations</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><path d="M44 40 C120 150 300 180 436 188" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.4" stroke-dasharray="5 4"></path><path d="M44 40 C90 120 150 150 436 158" fill="none" stroke="#FFB006" stroke-width="2.2" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><circle cx="232" cy="150" r="4.5" fill="#000" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="240" y="142" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">model-guided</text><text x="300" y="184" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">blind sweep</text><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">performance</text><text x="440" y="214" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">evaluations</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Parameter sweeps only nudge the shape you drew, at the speed of the solver. The bigger gains usually live in geometries no one on the team has tried.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Generative geometric AI learns your space of valid shapes with manufacturing rules built in, STOCHOS predicts performance from the geometry itself, and Bayesian optimization searches it, with the solver confirming the winners.</p><a href="/probaligence-site-preview/generative-design/" class="scp0" style="display: inline-block; margin-top: 12px; color: rgb(255, 176, 6); text-decoration: none; font: 500 13.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">How generative design works &rarr;</a></div>
-                </div>
-              </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">double digits</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">performance gain on the optimized part</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">tens of trials</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">instead of hundreds</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">a day</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">for a study that took a week</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If your optimization keeps circling the same shape, bring one component and its CFD history.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
-              </div>
-            </div>
+          <div style="padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1 1 auto;">
+            <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Case study · Digital twins</div>
+            <h3 style="font: 600 16.5px / 1.28 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">High-fidelity digital twins with DIM-GP</h3>
+            <span style="margin-top: auto; padding-top: 16px; color: rgb(255, 176, 6); font: 500 13px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Read the case →</span>
           </div>
-        </article>
-
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><rect x="2.5" y="2.5" width="11" height="11"></rect><path d="M2.5 8h11M8 2.5v11"></path></svg><span>Engineering <span style="color: rgb(92, 92, 86);">·</span> Digital Twins</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Digital Twin Calibration</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Keep a simulation model aligned to live sensor data as the asset drifts.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
+        </a>
+        <a href="/probaligence-site-preview/news/multifidelity-induction-hardening/" style="display: flex; flex-direction: column; background: rgb(10, 9, 8); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; text-decoration: none;">
+          <div style="aspect-ratio: 16 / 10; overflow: hidden; background: rgb(0, 0, 0); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
+            <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/news/multifidelity-induction-hardening/20250604-coars-grid-pic.webp" alt="Coarse simulation grid from the multi-fidelity induction-hardening study" style="display: block; width: 100%; height: 100%; object-fit: cover;">
           </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(34px, 4vw, 48px) / 0.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">live</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">a model that tracks the real asset, not a one-time fit at commissioning</div>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Model vs sensor, kept aligned</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><path d="M44 150 C150 120 300 96 436 84 L436 104 C300 116 150 140 44 170 Z" fill="rgba(255,176,6,.12)" style="transform-origin: center center; transform: none;"></path><path d="M44 160 C150 130 300 104 436 94" fill="none" stroke="#FFB006" stroke-width="2" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><circle cx="100" cy="148" r="3.4" fill="#000" stroke="#FFB006" stroke-width="1.5" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="190" cy="130" r="3.4" fill="#000" stroke="#FFB006" stroke-width="1.5" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="290" cy="112" r="3.4" fill="#000" stroke="#FFB006" stroke-width="1.5" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><circle cx="380" cy="100" r="3.4" fill="#000" stroke="#FFB006" stroke-width="1.5" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="300" y="86" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">model</text><text x="120" y="166" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">sensor data</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">A digital twin is only as good as its calibration. Real assets drift with wear, fouling, and ambient conditions, so a model tuned once at commissioning slowly stops matching what the sensors report.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS learns the gap between model and measurement and updates the model parameters as new sensor data arrives, with uncertainty on the fit, so the twin stays trustworthy and flags when it no longer is.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">continuous</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">recalibration as data arrives</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">uncertainty</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">on every fitted parameter</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">drift caught</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">before the twin misleads</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If your digital twin drifts out of calibration, bring the model and a stream of sensor data.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
-              </div>
-            </div>
+          <div style="padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1 1 auto;">
+            <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Case study · Multi-fidelity</div>
+            <h3 style="font: 600 16.5px / 1.28 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Multi-fidelity analysis of an induction-hardening device</h3>
+            <span style="margin-top: auto; padding-top: 16px; color: rgb(255, 176, 6); font: 500 13px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Read the case →</span>
           </div>
-        </article>
-
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><path d="M8 2l5.2 3v6L8 14l-5.2-3V5z"></path></svg><span>Every Industry <span style="color: rgb(92, 92, 86);">·</span> Operations</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Process Optimization</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Tune machine settings for throughput and quality without a full factorial.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
-          </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(34px, 4vw, 48px) / 0.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">balanced</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">throughput, quality, and cost balanced together, not one at a time</div>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Response surface and optimum</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><ellipse cx="250" cy="108" rx="170" ry="92" fill="none" stroke="rgba(255,176,6,.16)" stroke-width="1.2"></ellipse><ellipse cx="250" cy="108" rx="118" ry="64" fill="none" stroke="rgba(255,176,6,.3)" stroke-width="1.2"></ellipse><ellipse cx="250" cy="108" rx="68" ry="38" fill="none" stroke="rgba(255,176,6,.55)" stroke-width="1.4"></ellipse><ellipse cx="250" cy="108" rx="24" ry="14" fill="rgba(255,176,6,.18)" stroke="#FFB006" stroke-width="1.6"></ellipse><line x1="250" y1="78" x2="250" y2="138" stroke="rgba(255,176,6,.5)"></line><line x1="218" y1="108" x2="282" y2="108" stroke="rgba(255,176,6,.5)"></line><circle cx="250" cy="108" r="3.6" fill="#FFB006" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="262" y="100" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">optimum</text><text x="44" y="210" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">setting A</text><text x="440" y="210" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">setting B</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Production settings interact, and the best operating point shifts with material, tooling, and ambient conditions. Sweeping every combination on a live line is not an option.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS learns the response from run data, predicts quality and throughput across settings with confidence, and proposes the next setting to try, balancing competing targets with multi-objective optimization.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">fewer trials</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">to a better operating point</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">multi-objective</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">throughput, quality, and cost</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">drivers ranked</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">to see what actually matters</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If your line is tuned by hand and intuition, bring the run logs and the settings you can change.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article data-uc="" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; background: rgb(10, 9, 8); overflow: hidden; transition-behavior: normal, normal; transition-duration: 0.4s, 0.4s; transition-timing-function: ease, ease; transition-property: border-color, background; opacity: 1; transform: none;">
-          <div data-uc-toggle="" role="button" tabindex="0" aria-expanded="false" class="scp3" style="cursor: pointer; padding: 26px 24px; min-height: 188px; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;"><span style="display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#FFB006" stroke-width="1.3" style="display: block;"><path d="M8 2l5.2 3v6L8 14l-5.2-3V5z"></path></svg><span>Every Industry <span style="color: rgb(92, 92, 86);">·</span> Reliability</span></span><span data-uc-ind="" style="font: 400 22px / 1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6); transition: transform 0.3s; display: inline-block; margin-top: -2px;">+</span></div>
-            <h3 style="margin-top: 20px; font: 600 22px / 1.18 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239); text-wrap: pretty;">Predictive Maintenance</h3>
-            <p style="margin-top: 11px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.5;">Anticipate failures from sensor signals before they cause downtime.</p>
-            <div style="margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end;"><span data-uc-hint="" style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.04em; color: rgb(255, 176, 6); white-space: nowrap;">Open the story →</span></div>
-          </div>
-          <div data-uc-body="" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s; display: none;">
-            <div style="padding: 2px 24px 30px;">
-              <div style="display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                <div style="font: 500 clamp(34px, 4vw, 48px) / 0.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6); letter-spacing: -0.02em;">early</div>
-                <div style="font: 400 13px / 1.45 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); max-width: 30ch; padding-bottom: 4px;">a warning ahead of failure, with the confidence to act on it</div>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 36px; margin-top: 30px; align-items: start;">
-                <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; background: rgb(0, 0, 0); padding: 20px; opacity: 1; transform: none;">
-                  <div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Health signal toward threshold</div>
-                  <svg viewBox="0 0 460 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;"><line x1="44" y1="18" x2="44" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="196" x2="442" y2="196" stroke="rgba(255,255,255,.16)"></line><line x1="44" y1="50" x2="442" y2="50" stroke="#FFB006" stroke-dasharray="6 5" opacity=".6"></line><text x="438" y="44" text-anchor="end" fill="#FFB006" font-family="'IBM Plex Mono',monospace" font-size="11">failure threshold</text><polyline points="44,170 110,166 176,156 242,140 300,118" fill="none" stroke="#FFB006" stroke-width="2.2"></polyline><path d="M300 118 C340 96 380 70 430 54 L430 78 C384 92 344 116 300 134 Z" fill="rgba(255,176,6,.13)" style="transform-origin: center center; transform: none;"></path><path d="M300 118 C340 96 380 70 430 60" fill="none" stroke="#FFB006" stroke-width="1.6" stroke-dasharray="4 3" style="stroke-dasharray: none; stroke-dashoffset: 0;"></path><circle cx="424" cy="56" r="4.2" fill="#000" stroke="#FFB006" stroke-width="2" style="transform-box: fill-box; transform-origin: center center; transform: none;"></circle><text x="356" y="150" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">predicted</text><text x="44" y="13" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="11">health</text></svg>
-                </figure>
-                <div style="display: flex; flex-direction: column; gap: 22px; opacity: 1; transform: none;">
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">The problem</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">Unplanned downtime is expensive, and fixed maintenance schedules either replace healthy parts too early or miss the ones about to fail.</p></div>
-                  <div><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 9px;">How STOCHOS fits</div><p style="color: rgb(184, 184, 178); font-size: 15px; line-height: 1.62; margin: 0px;">STOCHOS models the equipment health signal and predicts how far it is from the failure threshold, with a confidence band, so maintenance is scheduled on condition rather than on the calendar.</p></div>
-                </div>
-              </div>
-              <div style="margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08);"><div style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">Typically</div><div style="display: flex; flex-wrap: wrap; gap: 22px;"><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">condition-based</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">maintenance, not calendar-based</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">confidence band</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">on time to threshold</div></div><div style="flex: 1 1 0%; min-width: 150px;"><div style="font: 700 20px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(255, 176, 6);">downtime</div><div style="color: rgb(156, 156, 150); font-size: 12.5px; line-height: 1.4; margin-top: 6px;">and over-servicing both cut</div></div></div></div>
-              <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;">
-                <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.5; max-width: 52ch; margin: 0px;">If unplanned downtime hurts, bring sensor histories and the failures you have on record.</p>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;"><a href="/probaligence-site-preview/contact/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Request a Demo</a><a href="/probaligence-site-preview/contact/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 14px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 13px 22px; border-radius: 2px; text-decoration: none;">Discuss a use case</a></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
+        </a>
       </div>
     </div>
   </section>
 
-  
-
-  <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
-    <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Bring one simulation bottleneck</h2>
-      <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 54ch;">Start with one engineering workflow. We can outline where a surrogate model fits, which outputs to predict, how to handle validation, and what a realistic proof of concept looks like.</p>
-      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
-        <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
-        <a href="/probaligence-site-preview/contact/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Discuss a use case</a>
+  <style id="afe-cta-close-css">
+  /* cta-closing-section CORE pattern, ported from 06_website-build/design-toolbox/toolbox/elements/cta-closing-section.html */
+  .cta-close{position:relative;min-height:clamp(380px,52vh,540px);display:flex;align-items:center;justify-content:center;padding:clamp(64px,7vw,92px) 26px;overflow:hidden}
+  .cta-close .glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(820px,120vw);height:520px;background:radial-gradient(closest-side,rgba(255,176,6,.1),transparent 62%);pointer-events:none}
+  .cta-close .frame{position:absolute;inset:22px;pointer-events:none}
+  .cta-close .tick{position:absolute;width:14px;height:14px}
+  .cta-close .tick::before,.cta-close .tick::after{content:'';position:absolute;background:rgba(255,176,6,.5)}
+  .cta-close .tick::before{width:100%;height:1px;top:50%}
+  .cta-close .tick::after{height:100%;width:1px;left:50%}
+  .cta-close .tick.tl{top:0;left:0}.cta-close .tick.tr{top:0;right:0}
+  .cta-close .tick.bl{bottom:0;left:0}.cta-close .tick.br{bottom:0;right:0}
+  .cta-close .inner{position:relative;text-align:center;max-width:760px}
+  .cta-close .eyebrow{font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#FFB006;margin-bottom:20px}
+  .cta-close h2{margin:0;font:700 clamp(30px,5.6vw,54px)/1.06 'Space Grotesk',sans-serif;letter-spacing:-.025em}
+  .cta-close .sub{margin:18px auto 0;max-width:46ch;color:#9C9C96;font-size:15.5px;line-height:1.65}
+  .cta-close .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+  .cta-close .btn-p{display:inline-flex;align-items:center;gap:10px;background:#FFB006;color:#08070A;font:600 15.5px/1 'IBM Plex Sans',sans-serif;padding:16px 26px;border-radius:2px;text-decoration:none;border:0;cursor:pointer;transition:filter .15s}
+  .cta-close .btn-p:hover{filter:brightness(1.08)}
+  .cta-close .btn-p:focus-visible{outline:2px solid #FFCA4D;outline-offset:3px}
+  .cta-close .btn-s{border:1px solid rgba(255,255,255,.22);color:#F4F3EF;background:transparent;font:600 15.5px/1 'IBM Plex Sans',sans-serif;padding:16px 26px;border-radius:2px;text-decoration:none;cursor:pointer;transition:border-color .15s,background .15s}
+  .cta-close .btn-s:hover{border-color:rgba(255,255,255,.46);background:rgba(255,255,255,.05)}
+  .cta-close .foot{margin-top:26px;font:500 11.5px/1.7 'IBM Plex Mono',monospace;color:#6A6A64}
+  .cta-close .foot em{font-style:normal;color:#9C9C96}
+  .cta-close .rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.3,1)}
+  .cta-close.in .rv{opacity:1;transform:none}
+  .cta-close .rv:nth-child(2){transition-delay:.08s}.cta-close .rv:nth-child(3){transition-delay:.16s}
+  .cta-close .rv:nth-child(4){transition-delay:.24s}.cta-close .rv:nth-child(5){transition-delay:.32s}
+  @media (prefers-reduced-motion:reduce){.cta-close .rv{opacity:1;transform:none;transition:none}}
+  </style>
+  <noscript><style>.cta-close .rv{opacity:1;transform:none}</style></noscript>
+  <section class="cta-close" id="afe-cta" data-sc-name="ClosingCTA" style="border-top: 1px solid rgba(255, 255, 255, 0.07);">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="frame" aria-hidden="true">
+      <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    </div>
+    <div class="inner">
+      <div class="eyebrow rv">Get started</div>
+      <h2 class="rv">Bring one engineering bottleneck</h2>
+      <p class="sub rv">Start with one workflow. We outline where a model fits, which outputs to predict, how validation works, and what a realistic proof of concept looks like.</p>
+      <div class="row rv">
+        <a class="btn-p" href="/probaligence-site-preview/contact/" data-magnetic="0.3">Request a Demo <span aria-hidden="true">&rarr;</span></a>
+        <a class="btn-s" href="/probaligence-site-preview/contact/">Discuss a use case</a>
       </div>
+      <p class="foot rv">Runs on your infrastructure &middot; supports air-gapped deployment via an offline license</p>
     </div>
   </section>
+  <script>
+  /* cta-closing-section reveal + magnetic-cta CORE pattern, ported from 06_website-build/design-toolbox/toolbox/elements/magnetic-cta.html */
+  (function(){
+    var sec=document.getElementById('afe-cta'); if(!sec) return;
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ sec.classList.add('in'); io.disconnect(); } });
+      },{threshold:0.3});
+      io.observe(sec);
+    } else { sec.classList.add('in'); }
+    var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function magnetic(el,strength){
+      if(el.__mag||reduce) return; el.__mag=1;
+      var k=strength||0.35; el.style.willChange='transform';
+      el.addEventListener('pointermove',function(e){
+        var r=el.getBoundingClientRect();
+        var dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);
+        el.style.transform='translate('+dx*k+'px,'+dy*k+'px)';
+      });
+      el.addEventListener('pointerleave',function(){
+        el.style.transition='transform .5s cubic-bezier(.2,1.6,.4,1)';
+        el.style.transform='none';
+        setTimeout(function(){el.style.transition='';},500);
+      });
+    }
+    function magneticInit(root){
+      (root||document).querySelectorAll('[data-magnetic]').forEach(function(el){
+        magnetic(el,parseFloat(el.getAttribute('data-magnetic'))||0.35);
+      });
+    }
+    magneticInit(sec);
+  })();
+  </script>
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
       <h2 class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
-        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">How can AI accelerate CFD and FEM simulations?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>STOCHOS learns a surrogate model from existing solver data, then predicts results for new parameters or geometries in seconds. You run the full solver where it adds the most value and use fast, uncertainty-aware predictions to explore many more variants before committing to the next full solve.</p></div></div></details>
-        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Can STOCHOS predict full fields, not just one value?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS handles 2D and 3D fields from CFD and FEM, as well as scalars, signals, meshes, and geometries. It can predict spatially resolved outputs for new parameter combinations, so you see more than a single KPI when comparing designs.</p></div></div></details>
-        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">How does STOCHOS work with Ansys?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>PI Probaligence is an official Ansys Technology Partner. STOCHOS Flow reads Ansys Workbench parameters and calls Ansys Solver nodes for selective validation, so fast surrogate prediction connects to the solver workflows engineering teams already use. AI fits the existing process rather than replacing it.</p></div></div></details>
+        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">How can AI accelerate CFD and FEM simulations?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>STOCHOS learns a surrogate model from existing solver data, then predicts results for new parameters or geometries in seconds. Fast, uncertainty-aware predictions let you explore many more variants than the solver alone could cover, and the full simulation returns only for the designs you shortlist.</p></div></div></details>
+        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Can STOCHOS predict full fields as well as single values?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS handles 2D and 3D fields from CFD and FEM, as well as scalars, signals, meshes, and geometries. It can predict spatially resolved outputs for new parameter combinations, so you see more than a single KPI when comparing designs. Confidence is attached to every prediction, field or scalar.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">How does STOCHOS work with Ansys?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>PI Probaligence is an official Ansys Technology Partner. STOCHOS Flow reads Ansys Workbench parameters and calls the Ansys Solver nodes for selective validation, so fast surrogate prediction connects to the solver workflows engineering teams already use. New solver results feed back into training, and the surrogate improves inside the Workbench setup your team runs today.</p></div></div></details>
+        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">How much data does STOCHOS need to be useful?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Less than most machine-learning tools, but there is no fixed number. DIM-GP is designed for small, expensive datasets, so teams usually start from existing solver runs. How many you need depends on the physics, the number of parameters, and the outputs. Quantified uncertainty then shows where the model is reliable and where more runs are worth adding.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -500,8 +856,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <span>Official Ansys Technology Partner</span>
-          <span>Part of the CADFEM Group</span>
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -535,7 +891,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <span class="legal">
         <a href="/probaligence-site-preview/impressum/">Impressum</a>
         <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
-        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>
@@ -543,6 +898,39 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 </footer>
 <script src="/probaligence-site-preview/scrollfx.js" defer></script>
 <script src="/probaligence-site-preview/site.js" defer></script>
+<script>
+/* scroll-progress-rail CORE pattern, ported from 06_website-build/design-toolbox/toolbox/elements/scroll-progress-rail.html */
+(function () {
+  'use strict';
+  // ---- CORE ----
+  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+  var scrollTop = function () { return window.scrollY || (document.scrollingElement && document.scrollingElement.scrollTop) || document.body.scrollTop || 0; };
+  var maxScroll = function () {
+    return Math.max(document.documentElement.scrollHeight, document.body ? document.body.scrollHeight : 0) - innerHeight || 1;
+  };
+  function progressRail() {
+    if (document.getElementById('pifx-rail')) return;
+    var bar = document.createElement('div');
+    bar.id = 'pifx-rail';
+    bar.setAttribute('aria-hidden', 'true');
+    bar.style.cssText = 'position:fixed;top:0;left:0;height:2px;width:100%;background:linear-gradient(90deg,#CC8D05,#FFB006);z-index:9999;pointer-events:none;box-shadow:0 0 12px rgba(255,176,6,.5);transform:scaleX(0);transform-origin:left center;will-change:transform';
+    document.body.appendChild(bar);
+    var ticking = false;
+    var upd = function () {
+      ticking = false;
+      bar.style.transform = 'scaleX(' + clamp(scrollTop() / maxScroll(), 0, 1).toFixed(4) + ')';
+    };
+    var onS = function () { if (!ticking) { ticking = true; requestAnimationFrame(upd); } };
+    window.addEventListener('scroll', onS, { passive: true });
+    document.addEventListener('scroll', onS, { passive: true, capture: true });
+    window.addEventListener('resize', onS, { passive: true });
+    upd();
+  }
+  // ---- /CORE ----
+  window.progressRail = progressRail;
+  progressRail();
+})();
+</script>
 <a href="../feedback/?page=AI%20for%20Engineering" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 <div id="pi-wip" role="dialog" aria-modal="true" aria-labelledby="pi-wip-h" style="position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(4,4,5,.80);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)">
   <div style="max-width:460px;width:100%;background:#0A0908;border:1px solid rgba(255,176,6,.45);border-top:3px solid #FFB006;border-radius:12px;padding:34px 32px;box-shadow:0 30px 90px rgba(0,0,0,.65);text-align:center">

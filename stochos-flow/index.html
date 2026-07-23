@@ -147,10 +147,10 @@ button.fb-tool{cursor:pointer}
 @media (max-width:880px){.s1-below{grid-template-columns:1fr;gap:32px}}
 .oob-wrap{margin-top:clamp(30px,3.6vw,44px);overflow-x:auto;overflow-y:hidden;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:radial-gradient(circle at center,rgba(255,255,255,.035) 1px,transparent 1.4px) 0 0/26px 26px,#050505}
 .oob-sizer{position:relative;margin:0 auto}
-.oob{position:absolute;left:0;top:0;width:1064px;height:400px;transform-origin:0 0}
-.oob-box{position:absolute;left:53px;top:52px;width:490px;height:296px;border:1.5px dashed rgba(255,255,255,.26);border-radius:16px;opacity:0;transition:opacity .7s}
+.oob{position:absolute;left:0;top:0;width:1000px;height:400px;transform-origin:0 0}
+.oob-box{position:absolute;left:40px;top:50px;width:560px;height:300px;border:1.5px dashed rgba(255,255,255,.26);border-radius:16px;opacity:0;transition:opacity .7s}
 .oob-box .gap{position:absolute;right:-3px;top:32%;height:36%;width:5px;background:#050505}
-.oob-blabel{position:absolute;left:74px;top:28px;font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#6A6A64;opacity:0;transition:opacity .7s}
+.oob-blabel{position:absolute;left:56px;top:26px;font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#6A6A64;opacity:0;transition:opacity .7s}
 .oob.go1 .oob-box,.oob.go1 .oob-blabel{opacity:1}
 .oob-nt{position:absolute;width:96px;text-align:center}
 .oob-card{position:relative;width:66px;height:66px;margin:0 auto;border-radius:12px;background:#262629;border:2.5px solid #4a4a4a;box-shadow:0 8px 20px -10px #000;display:grid;place-items:center}
@@ -161,7 +161,7 @@ button.fb-tool{cursor:pointer}
 .oob-nt.ghost .oob-label{color:#8a8a86}
 .oob.go2 .oob-nt.ghost{opacity:1}
 .oob-label{margin-top:7px;font:500 11px/1.25 'IBM Plex Sans',sans-serif;color:#d8d8da;white-space:nowrap}
-.oob-pyn{position:absolute;left:606px;top:120px;opacity:0;transform:scale(.6);transition:opacity .45s,transform .45s cubic-bezier(.22,1,.3,1)}
+.oob-pyn{position:absolute;left:645px;top:167px;opacity:0;transform:scale(.6);transition:opacity .45s,transform .45s cubic-bezier(.22,1,.3,1)}
 .oob-pyn .oob-card{border-color:#FFB006;box-shadow:0 0 26px -6px rgba(255,176,6,.55),0 8px 20px -10px #000}
 .oob.go3 .oob-pyn{opacity:1;transform:scale(1)}
 .oob-svg{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
@@ -201,7 +201,7 @@ button.fb-tool{cursor:pointer}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a visual workflow in STOCHOS Flow?","acceptedAnswer":{"@type":"Answer","text":"A visual workflow is a node-based pipeline on a canvas: data input, preprocessing, modeling, validation, sensitivity, optimization, solver, and output nodes connected with typed ports. You can see and configure every step before it runs, which keeps the process transparent and reusable across a team."}},{"@type":"Question","name":"What does the Workflow Agent do?","acceptedAnswer":{"@type":"Answer","text":"The Workflow Agent is the AI assistant that helps build, configure, validate, debug, and document workflows from a prompt. It is not the predictive model. The prediction comes from STOCHOS and DIM-GP; the agent helps you assemble and maintain the workflow around them."}},{"@type":"Question","name":"Can STOCHOS Flow use local language models?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS Flow is local-first and can run a local language model through Ollama, with at least a 16k context recommended. Optional cloud models such as OpenAI or Anthropic are available if you choose them. Core features work without any AI agent."}},{"@type":"Question","name":"Can workflows be exported and reused?","acceptedAnswer":{"@type":"Answer","text":"Yes. Workflows can be saved as projects, exported as a Python package, or published as a Streamlit web app, and custom logic can become a reusable node. This turns a one-off analysis into a repeatable asset the team can run again."}},{"@type":"Question","name":"Does the AI assistant cost tokens?","acceptedAnswer":{"@type":"Answer","text":"Not if you run it locally. On your own GPU the agents run a local model through Ollama, with no per-token API fees and no external model costs. Optional cloud models are available if you choose them, never required, and core features work without any AI agent."}},{"@type":"Question","name":"Do I have to replace the tools I already use?","acceptedAnswer":{"@type":"Answer","text":"No. STOCHOS Flow connects to what you already run: your data, your Ansys Workbench parameters, and your Python. It sits at the center of the dataflow instead of replacing your stack, and open customization means almost any connection point can be wired in."}},{"@type":"Question","name":"Can you build a custom node for my workflow?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS Flow gets new features every week, and we build custom nodes on request. If something is programmable, we can usually turn it into a reusable node in your workflow."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a visual workflow in STOCHOS Flow?","acceptedAnswer":{"@type":"Answer","text":"A visual workflow is a node-based pipeline on a canvas: data input, preprocessing, modeling, validation, sensitivity, optimization, solver, and output nodes connected with typed ports. You can see and configure every step before it runs, which keeps the process transparent and reusable across a team."}},{"@type":"Question","name":"What does the Workflow Agent do?","acceptedAnswer":{"@type":"Answer","text":"The Workflow Agent is the AI assistant that helps build, configure, validate, debug, and document workflows from a prompt. It is not the predictive model. The prediction comes from STOCHOS and DIM-GP; the agent helps you assemble and maintain the workflow around them."}},{"@type":"Question","name":"Can STOCHOS Flow use local language models?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS Flow is local-first and can run a local language model through Ollama, with at least a 16k context recommended. Optional cloud models such as OpenAI or Anthropic are available if you choose them. Core features work without any AI agent."}},{"@type":"Question","name":"Can workflows be exported and reused?","acceptedAnswer":{"@type":"Answer","text":"Yes. Workflows can be saved as projects, exported as a Python package, or published as a Streamlit web app, and custom logic can become a reusable node. This turns a one-off analysis into a repeatable asset the team can run again."}},{"@type":"Question","name":"Does the Workflow Agent cost tokens?","acceptedAnswer":{"@type":"Answer","text":"Not if you run it locally. On your own GPU the agents run a local model through Ollama, with no per-token API fees and no external model costs. Optional cloud models are available if you choose them, never required, and core features work without any AI agent."}},{"@type":"Question","name":"Does STOCHOS Flow replace the tools I already use?","acceptedAnswer":{"@type":"Answer","text":"No. STOCHOS Flow connects to what you already run: your data, your Ansys Workbench parameters, and your Python. It sits at the center of the dataflow instead of replacing your stack, and open customization means almost any connection point can be wired in."}},{"@type":"Question","name":"Can you build a custom node for my workflow?","acceptedAnswer":{"@type":"Answer","text":"Yes. STOCHOS Flow gets new features every week, and we build custom nodes on request. If something is programmable, we can usually turn it into a reusable node in your workflow."}}]}</script>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -239,7 +239,7 @@ button.fb-tool{cursor:pointer}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -263,7 +263,7 @@ button.fb-tool{cursor:pointer}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -285,7 +285,6 @@ button.fb-tool{cursor:pointer}
     </div>
     <div aria-hidden="true" style="position: absolute; inset: 0px; z-index: 1; pointer-events: none; background: radial-gradient(at 50% 42%, rgba(6, 6, 7, 0.7), transparent 58%);"></div>
     <div style="max-width: 1280px; margin: 0px auto; position: relative; z-index: 2;">
-      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-bottom: 40px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">STOCHOS Flow</span></nav>
       <div style="max-width: 880px; margin: 0px auto; text-align: center;">
         <video id="flow-logo" data-logo-video muted playsinline preload="metadata" width="900" height="506" poster="/probaligence-site-preview/assets/media/stochos-flow-logo-dark-poster.webp" aria-label="STOCHOS Flow" data-hero="" style="width: clamp(200px, 24vw, 320px); max-width: 100%; height: auto; display: block; margin: 0px auto 18px; mix-blend-mode: screen; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);"><source src="/probaligence-site-preview/assets/media/stochos-flow-logo-dark.webm" type="video/webm"><source src="/probaligence-site-preview/assets/media/stochos-flow-logo-dark.mp4" type="video/mp4"></video>
         <div id="flow-eyebrow" data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 12px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">The workflow bench</div>
@@ -333,17 +332,22 @@ button.fb-tool{cursor:pointer}
           <div class="oob" id="oobStage">
             <div class="oob-box"><span class="gap"></span></div>
             <div class="oob-blabel">standard nodes</div>
-            <div class="oob-nt ghost" style="left:96px;top:150px"><div class="oob-card"><img src="/probaligence-site-preview/assets/media/node-icons/excel_reader.svg" alt="" loading="lazy" decoding="async"></div><div class="oob-label">Excel Reader</div></div>
-            <div class="oob-nt ghost" style="left:222px;top:150px"><div class="oob-card"><img src="/probaligence-site-preview/assets/media/node-icons/train_test_split.svg" alt="" loading="lazy" decoding="async"></div><div class="oob-label">Train/Test Split</div></div>
-            <svg class="oob-svg" width="1064" height="400" viewBox="0 0 1064 400" aria-hidden="true">
-              <path class="oob-wire" d="M690,166 C775,166 792,98 858,96"/>
-              <path class="oob-wire" d="M690,166 C778,166 800,182 864,182"/>
-              <path class="oob-wire" d="M690,166 C775,166 792,258 858,266"/>
+            <div class="oob-nt ghost" style="left:70px;top:92px"><div class="oob-card"><img src="/probaligence-site-preview/assets/media/node-icons/excel_reader.svg" alt="" loading="lazy" decoding="async"></div><div class="oob-label">Excel Reader</div></div>
+            <div class="oob-nt ghost" style="left:250px;top:92px"><div class="oob-card"><img src="/probaligence-site-preview/assets/media/node-icons/train_test_split.svg" alt="" loading="lazy" decoding="async"></div><div class="oob-label">Train/Test Split</div></div>
+            <div class="oob-nt ghost" style="left:430px;top:92px"><div class="oob-card"><img src="/probaligence-site-preview/assets/media/node-icons/dimgp_fit.svg" alt="" loading="lazy" decoding="async"></div><div class="oob-label">DIM-GP Fit</div></div>
+            <div class="oob-nt ghost" style="left:70px;top:220px"><div class="oob-card"><img src="/probaligence-site-preview/assets/media/node-icons/dimgp_predict.svg" alt="" loading="lazy" decoding="async"></div><div class="oob-label">DIM-GP Predict</div></div>
+            <div class="oob-nt ghost" style="left:250px;top:220px"><div class="oob-card"><img src="/probaligence-site-preview/assets/media/node-icons/sobol_indices.svg" alt="" loading="lazy" decoding="async"></div><div class="oob-label">Sobol Indices</div></div>
+            <div class="oob-nt ghost" style="left:430px;top:220px"><div class="oob-card"><img src="/probaligence-site-preview/assets/media/node-icons/plot_scatter.svg" alt="" loading="lazy" decoding="async"></div><div class="oob-label">Pred vs True</div></div>
+            <svg class="oob-svg" width="1000" height="400" viewBox="0 0 1000 400" aria-hidden="true">
+              <path class="oob-wire" d="M600,200 C635,200 640,200 660,200"/>
+              <path class="oob-wire" d="M724,200 C785,200 780,164 828,164"/>
+              <path class="oob-wire" d="M724,200 C790,200 792,240 848,240"/>
+              <path class="oob-wire" d="M724,200 C785,200 780,316 828,316"/>
             </svg>
             <div class="oob-pyn oob-nt"><div class="oob-card"><img src="/probaligence-site-preview/assets/media/node-icons/python-solver.svg" alt="" loading="lazy" decoding="async"></div><div class="oob-label">Python node</div></div>
-            <div class="oob-pin" style="right:44px;top:82px">your database</div>
-            <div class="oob-pin" style="right:34px;top:168px">your solver</div>
-            <div class="oob-pin" style="right:44px;top:252px">internal API</div>
+            <div class="oob-pin" style="left:828px;top:150px">your database</div>
+            <div class="oob-pin" style="left:848px;top:226px">your solver</div>
+            <div class="oob-pin" style="left:828px;top:302px">internal API</div>
             <div class="oob-cap"><b>if the palette ends, the canvas does not</b></div>
           </div>
         </div>
@@ -463,8 +467,8 @@ button.fb-tool{cursor:pointer}
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">What does the Workflow Agent do?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>The Workflow Agent is the AI assistant that helps build, configure, validate, debug, and document workflows from a prompt. It is not the predictive model. The prediction comes from STOCHOS and DIM-GP; the agent helps you assemble and maintain the workflow around them.</p></div></div></details>
         <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Can STOCHOS Flow use local language models?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS Flow is local-first and can run a local language model through Ollama, with at least a 16k context recommended. Optional cloud models such as OpenAI or Anthropic are available if you choose them. Core features work without any AI agent.</p></div></div></details>
         <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Can workflows be exported and reused?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. Workflows can be saved as projects, exported as a Python package, or published as a Streamlit web app, and custom logic can become a reusable node. This turns a one-off analysis into a repeatable asset the team can run again.</p></div></div></details>
-        <details class="fq" id="faq-5"><summary><span class="ix">05</span><span class="q">Does the AI assistant cost tokens?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Not if you run it locally. On your own GPU the agents run a local model through Ollama, with no per-token API fees and no external model costs. Optional cloud models are available if you choose them, never required, and core features work without any AI agent.</p></div></div></details>
-        <details class="fq" id="faq-6"><summary><span class="ix">06</span><span class="q">Do I have to replace the tools I already use?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. STOCHOS Flow connects to what you already run: your data, your Ansys Workbench parameters, and your Python. It sits at the center of the dataflow instead of replacing your stack, and open customization means almost any connection point can be wired in.</p></div></div></details>
+        <details class="fq" id="faq-5"><summary><span class="ix">05</span><span class="q">Does the Workflow Agent cost tokens?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Not if you run it locally. On your own GPU the agents run a local model through Ollama, with no per-token API fees and no external model costs. Optional cloud models are available if you choose them, never required, and core features work without any AI agent.</p></div></div></details>
+        <details class="fq" id="faq-6"><summary><span class="ix">06</span><span class="q">Does STOCHOS Flow replace the tools I already use?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. STOCHOS Flow connects to what you already run: your data, your Ansys Workbench parameters, and your Python. It sits at the center of the dataflow instead of replacing your stack, and open customization means almost any connection point can be wired in.</p></div></div></details>
         <details class="fq" id="faq-7"><summary><span class="ix">07</span><span class="q">Can you build a custom node for my workflow?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS Flow gets new features every week, and we build custom nodes on request. If something is programmable, we can usually turn it into a reusable node in your workflow.</p></div></div></details>
       </div>
     </div>
@@ -484,8 +488,8 @@ button.fb-tool{cursor:pointer}
         <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <span>Official Ansys Technology Partner</span>
-          <span>Part of the CADFEM Group</span>
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -519,7 +523,6 @@ button.fb-tool{cursor:pointer}
       <span class="legal">
         <a href="/probaligence-site-preview/impressum/">Impressum</a>
         <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
-        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>
@@ -631,7 +634,7 @@ resize();update();
 var wrap=document.getElementById('oobWrap'),sizer=document.getElementById('oobSizer'),stage=document.getElementById('oobStage');
 if(!wrap)return;
 var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches&&!window.__PIFX_FORCE;
-var DW=1064,DH=400;
+var DW=1000,DH=400;
 function fit(){var w=wrap.clientWidth;var k=Math.min(1,w/DW);if(w<640)k=Math.max(k,0.52);
  sizer.style.width=(DW*k)+'px';sizer.style.height=(DH*k)+'px';stage.style.transform='scale('+k+')';}
 fit();if('ResizeObserver' in window)new ResizeObserver(fit).observe(wrap);

@@ -56,7 +56,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
 @media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between aleatoric and epistemic uncertainty?","acceptedAnswer":{"@type":"Answer","text":"Aleatoric uncertainty is noise in the system itself, like batch-to-batch variation or sensor error. More data will not remove it, so you plan around it. Epistemic uncertainty is the model's own lack of knowledge, largest where it has seen little data. More data or a better model can reduce it."}},{"@type":"Question","name":"Does a 90 percent range mean a 90 percent chance the truth is inside it?","acceptedAnswer":{"@type":"Answer","text":"Only if the range is calibrated. Calibration means that over many predictions, the true value really falls inside the stated range about that often. A range that is never checked can be overconfident, so calibration should be validated on held-out data."}},{"@type":"Question","name":"Accuracy versus uncertainty?","acceptedAnswer":{"@type":"Answer","text":"Accuracy is how close a prediction is to the truth on cases you can check. Uncertainty is the model's own estimate of how far to trust a prediction, including on new cases you have not checked. A useful model reports both, so you know not just the answer but how much to rely on it."}},{"@type":"Question","name":"Does it slow the model down?","acceptedAnswer":{"@type":"Answer","text":"No. With STOCHOS, confidence is part of the probabilistic prediction rather than a separate, costly step. You get the value and its reliability together, in seconds, which is what makes selective validation practical."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between aleatoric and epistemic uncertainty?","acceptedAnswer":{"@type":"Answer","text":"Aleatoric uncertainty is noise in the system itself, like batch-to-batch variation or sensor error. More data will not remove it, so you plan around it. Epistemic uncertainty is the model's own lack of knowledge, largest where it has seen little data. More data or a better model can reduce it."}},{"@type":"Question","name":"Does a 90 percent range mean a 90 percent chance the truth is inside it?","acceptedAnswer":{"@type":"Answer","text":"Only if the range is calibrated. Calibration means that over many predictions, the true value really falls inside the stated range about that often. A range that is never checked can be overconfident, so calibration should be validated on held-out data."}},{"@type":"Question","name":"What is the difference between accuracy and uncertainty?","acceptedAnswer":{"@type":"Answer","text":"Accuracy is how close a prediction is to the truth on cases you can check. Uncertainty is the model's own estimate of how far to trust a prediction, including on new cases you have not checked. A useful model reports both, so you know not just the answer but how much to rely on it."}},{"@type":"Question","name":"Does uncertainty quantification slow the model down?","acceptedAnswer":{"@type":"Answer","text":"No. With STOCHOS, confidence is part of the probabilistic prediction rather than a separate, costly step. You get the value and its reliability together, in seconds, which is what makes selective validation practical."}},{"@type":"Question","name":"What is uncertainty quantification?","acceptedAnswer":{"@type":"Answer","text":"Uncertainty quantification means reporting how reliable each prediction is. A probabilistic model such as STOCHOS returns a value together with a confidence range, so you can see where it interpolates on solid data and where it extrapolates. Low-confidence cases get full validation; the rest do not need it."}}]}</script>
 <style id="uqcta-css">
 .uqcta-tick{position:absolute;width:14px;height:14px;pointer-events:none}
 .uqcta-tick::before,.uqcta-tick::after{content:'';position:absolute;background:rgba(255,176,6,.5)}
@@ -101,7 +101,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
         </div>
       </div>
-      <a class="nav-link" href="/probaligence-site-preview/news/">News</a>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -125,7 +125,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
       <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
       <div class="m-sep"></div>
-      <a class="m-item" href="/probaligence-site-preview/news/">News</a>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
       <a class="m-item" href="/probaligence-site-preview/about/">About</a>
       <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
       <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
@@ -268,6 +268,22 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
+  <section data-reveal="" id="next-method" aria-label="Next method" style="padding: clamp(48px, 7vw, 88px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
+    <style>.mp-next{display:grid;grid-template-columns:1fr 250px;gap:28px;align-items:center;padding:26px 2px;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);text-decoration:none;transition:background .2s ease}.mp-next:hover{background:rgba(255,255,255,.03)}.mp-next img{opacity:.62;transition:opacity .25s}.mp-next:hover img{opacity:1}.mp-arrow{display:inline-block;transition:transform .2s ease}.mp-next:hover .mp-arrow{transform:translateX(6px)}@media (max-width:640px){.mp-next{grid-template-columns:1fr;gap:14px}}@media (prefers-reduced-motion:reduce){.mp-next,.mp-next img,.mp-arrow{transition:none}}</style>
+    <div style="max-width: 1200px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 18px;">Next method</div>
+      <a class="mp-next" href="/probaligence-site-preview/bayesian-optimization/">
+        <div>
+          <span style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6);">03 / 06</span>
+          <div style="font: 700 clamp(24px, 3.2vw, 36px) / 1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; color: rgb(244, 243, 239); margin-top: 12px;">Bayesian Optimization</div>
+          <p style="color: rgb(156, 156, 150); font-size: 15px; line-height: 1.55; margin-top: 10px; max-width: 60ch;">Decide: choose the next best experiment or simulation.</p>
+          <span style="display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; font: 600 14px / 1 'IBM Plex Sans', sans-serif; color: rgb(255, 176, 6);">Keep reading<span class="mp-arrow" aria-hidden="true">&#8594;</span></span>
+        </div>
+        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/bo-loop-diagram.webp" width="1400" height="933" alt="" style="display: block; width: 100%; height: 150px; object-fit: cover; background: rgb(0, 0, 0); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px;">
+      </a>
+    </div>
+  </section>
+
   <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div aria-hidden="true" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(820px, 120vw); height: 520px; background: radial-gradient(closest-side, rgba(255, 176, 6, 0.12), transparent 62%); pointer-events: none;"></div>
     <span class="uqcta-tick uqcta-tl" aria-hidden="true"></span><span class="uqcta-tick uqcta-tr" aria-hidden="true"></span><span class="uqcta-tick uqcta-bl" aria-hidden="true"></span><span class="uqcta-tick uqcta-br" aria-hidden="true"></span>
@@ -289,8 +305,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What is the difference between aleatoric and epistemic uncertainty?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Aleatoric uncertainty is noise in the system itself, like batch-to-batch variation or sensor error. More data will not remove it, so you plan around it. Epistemic uncertainty is the model's own lack of knowledge, largest where it has seen little data. More data or a better model can reduce it.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Does a 90 percent range mean a 90 percent chance the truth is inside it?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Only if the range is calibrated. Calibration means that over many predictions, the true value really falls inside the stated range about that often. A range that is never checked can be overconfident, so calibration should be validated on held-out data.</p></div></div></details>
-        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Accuracy versus uncertainty?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Accuracy is how close a prediction is to the truth on cases you can check. Uncertainty is the model's own estimate of how far to trust a prediction, including on new cases you have not checked. A useful model reports both, so you know not just the answer but how much to rely on it.</p></div></div></details>
-        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Does it slow the model down?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. With STOCHOS, confidence is part of the probabilistic prediction rather than a separate, costly step. You get the value and its reliability together, in seconds, which is what makes selective validation practical.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">What is the difference between accuracy and uncertainty?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Accuracy is how close a prediction is to the truth on cases you can check. Uncertainty is the model's own estimate of how far to trust a prediction, including on new cases you have not checked. A useful model reports both, so you know not just the answer but how much to rely on it.</p></div></div></details>
+        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Does uncertainty quantification slow the model down?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. With STOCHOS, confidence is part of the probabilistic prediction rather than a separate, costly step. You get the value and its reliability together, in seconds, which is what makes selective validation practical.</p></div></div></details>
+        <details class="fq" id="faq-5"><summary><span class="ix">05</span><span class="q">What is uncertainty quantification?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Uncertainty quantification means reporting how reliable each prediction is. A probabilistic model such as STOCHOS returns a value together with a confidence range, so you can see where it interpolates on solid data and where it extrapolates. Low-confidence cases get full validation; the rest do not need it.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -309,8 +326,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><span>Probaligence</span></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <span>Official Ansys Technology Partner</span>
-          <span>Part of the CADFEM Group</span>
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -344,7 +361,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <span class="legal">
         <a href="/probaligence-site-preview/impressum/">Impressum</a>
         <a href="/probaligence-site-preview/datenschutz/">Datenschutz</a>
-        <a href="/probaligence-site-preview/cookies/">Cookies</a>
         <a href="#" data-consent-reset>Cookie settings</a>
       </span>
     </div>
