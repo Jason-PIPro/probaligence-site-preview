@@ -121,7 +121,7 @@
     b.setAttribute("role", "region");
     b.setAttribute("aria-label", "Cookie consent");
     b.innerHTML =
-      '<p>This site uses only essential storage by default. With your consent we may add analytics to improve it. See the <a href="/datenschutz/">privacy notice</a>.</p>' +
+      '<p>This site uses only essential storage by default. With your consent we may add analytics to improve it. See the <a href="/probaligence-site-preview/datenschutz/">privacy notice</a>.</p>' +
       '<div class="consent-actions">' +
       '<button type="button" class="consent-btn secondary" data-consent="essential">Essential only</button>' +
       '<button type="button" class="consent-btn primary" data-consent="all">Accept analytics</button>' +

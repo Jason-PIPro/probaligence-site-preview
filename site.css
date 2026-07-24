@@ -230,7 +230,7 @@ html{overflow-x:clip}
    frame so the 720px source downsamples (~1.5x) and reads sharper. Scoped to the insights images,
    so nothing else on the site is touched; grid figures are already narrower than the cap so they
    are unaffected. margin !important beats the inline left/right:0 while keeping the inline top gap. */
-figure:has(> img[src*="/assets/media/insights/"]){max-width:500px;margin-left:auto!important;margin-right:auto!important}
+figure:has(> img[src*="/probaligence-site-preview/assets/media/insights/"]){max-width:500px;margin-left:auto!important;margin-right:auto!important}
 
 /* marquee pause control (WCAG 2.2.2: moving content must be pausable, hover alone is not enough) */
 .marquee-pause{position:absolute;right:14px;bottom:10px;z-index:2;width:34px;height:34px;border:1px solid var(--hairline);

@@ -542,7 +542,7 @@ export async function mountStudio(root) {
   function addStudioCtaBanner() {
     const b = document.createElement('div');
     b.className = 'sf-challenge-banner';
-    b.innerHTML = '<span>You built the workflow end to end.</span><a class="sf-ch-return" href="/contact/" style="text-decoration:none">Talk to us about your data</a>';
+    b.innerHTML = '<span>You built the workflow end to end.</span><a class="sf-ch-return" href="/probaligence-site-preview/contact/" style="text-decoration:none">Talk to us about your data</a>';
     root.appendChild(b);
   }
 

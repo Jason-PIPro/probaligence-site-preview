@@ -822,7 +822,7 @@ function renderShowdown(stage, domain, surrogate, userBest, stoch) {
         ${card('STOCHOS', stoch, won, sTerms)}
       </div>
       <div class="ch-sto-actions">
-        <a class="ch-btn primary" href="/contact/">${contactLabel}</a>
+        <a class="ch-btn primary" href="/probaligence-site-preview/contact/">${contactLabel}</a>
         <a class="ch-btn ghost" href="#/studio">Build it in Stochos Flow</a>
         <button class="ch-btn muted" id="chAgain">Play again</button>
       </div>
