@@ -23,7 +23,7 @@ body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-
 ::selection{background:#FFB006;color:#000}
 h1,h2,h3,h4,p{margin:0}
 input,select,textarea{font-family:inherit}
-input::placeholder,textarea::placeholder{color:#5A5A55}
+input::placeholder,textarea::placeholder{color:#82827C}
 input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #FFB006;outline-offset:1px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style><noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript><style>
@@ -104,12 +104,19 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px soli
     </nav>
   </div>
 </header>
-<main id="main" style="display: block;">
+<main id="main" tabindex="-1" style="display: block;">
 
+  <!-- DEMO-LINE-START -->
+  <section data-reveal="" style="padding: 0px 24px clamp(38px, 5vw, 60px); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 880px; margin: 0px auto;">
+      <p style="color: rgb(156, 156, 150); font-size: 15px; line-height: 1.7; margin: 0px;">Not ready for a call? The challenge runs in the browser. <a href="/probaligence-site-preview/challenge/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Try to beat STOCHOS</a></p>
+    </div>
+  </section>
+  <!-- DEMO-LINE-END -->
   <section data-hero-in style="position: relative; padding: 124px 24px 110px; overflow: hidden;">
     <div aria-hidden="true" style="position: absolute; top: -10%; right: -6%; width: 760px; height: 560px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.1), transparent 64%); pointer-events: none;"></div>
     <div style="max-width: 1200px; margin: 0px auto; position: relative;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: clamp(40px, 5vw, 64px); align-items: start;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: clamp(40px, 5vw, 64px); align-items: start;">
         <div>
           <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Request a demo</div>
           <h1 style="font: 700 clamp(36px, 5vw, 60px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 14ch;">See STOCHOS on your own data.</h1>
@@ -126,11 +133,11 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px soli
           
           
             <form novalidate="" style="display: flex; flex-direction: column; gap: 18px;">
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 18px;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 18px;">
                 <label style="display: flex; flex-direction: column; gap: 7px; font: 500 13px / 1 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(200, 200, 194);">Name <span style="color: rgb(255, 176, 6);">*</span><input required name="name" type="text" autocomplete="name" placeholder="Your name" style="background: rgb(6, 6, 7); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 3px; padding: 12px 13px; color: rgb(244, 243, 239); font-size: 14.5px; min-height: 44px;"></label>
                 <label style="display: flex; flex-direction: column; gap: 7px; font: 500 13px / 1 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(200, 200, 194);">Work email <span style="color: rgb(255, 176, 6);">*</span><input required name="email" type="email" autocomplete="email" placeholder="you@company.com" style="background: rgb(6, 6, 7); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 3px; padding: 12px 13px; color: rgb(244, 243, 239); font-size: 14.5px; min-height: 44px;"></label>
               </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 18px;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 18px;">
                 <label style="display: flex; flex-direction: column; gap: 7px; font: 500 13px / 1 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(200, 200, 194);">Company<input required name="company" type="text" autocomplete="organization" placeholder="Organization" style="background: rgb(6, 6, 7); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 3px; padding: 12px 13px; color: rgb(244, 243, 239); font-size: 14.5px; min-height: 44px;"></label>
                 <label style="display: flex; flex-direction: column; gap: 7px; font: 500 13px / 1 &quot;IBM Plex Sans&quot;, sans-serif; color: rgb(200, 200, 194);">Area of interest<select name="area" style="background: rgb(6, 6, 7); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 3px; padding: 12px 13px; color: rgb(244, 243, 239); font-size: 14.5px; min-height: 44px;"><option>Engineering simulation</option><option>Paint and coatings</option><option>Chemical R&amp;D</option><option>STOCHOS Flow platform</option><option>Other</option></select></label>
               </div>

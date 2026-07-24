@@ -7,7 +7,7 @@
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<title>The Science Behind STOCHOS | PI Probaligence</title><meta name="description" content="The science behind STOCHOS: the DIM-GP algorithm and the methods built on it, surrogate modeling, uncertainty quantification, Bayesian optimization, and more."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/science/"><meta property="og:type" content="website"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="The Science Behind STOCHOS | PI Probaligence"><meta property="og:description" content="The DIM-GP algorithm and the methods built on it: surrogate modeling, uncertainty quantification, Bayesian optimization, and more."><meta property="og:url" content="https://probaligence.com/science/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
+<title>The Science Behind STOCHOS | PI Probaligence</title><meta name="description" content="The science behind STOCHOS: the DIM-GP algorithm and the methods built on it, surrogate modeling, uncertainty quantification, Bayesian optimization, and more."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/science/"><meta property="og:type" content="website"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="The Science Behind STOCHOS | PI Probaligence"><meta property="og:description" content="The DIM-GP algorithm and the methods built on it: surrogate modeling, uncertainty quantification, Bayesian optimization, and more."><meta property="og:url" content="https://probaligence.com/science/"><meta property="og:image" content="https://probaligence.com/assets/media/dimgp-diagram.webp"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"Science","item":"https://probaligence.com/science/"}]}
 </script><style>
 @font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
@@ -116,7 +116,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </nav>
   </div>
 </header>
-<main id="main" style="display: block;">
+<main id="main" tabindex="-1" style="display: block;">
 
   <section data-hero-in style="position: relative; padding: 150px 24px 110px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
     <div class="" data-sc-name="NodeBackdrop"><div data-bg-root="" aria-hidden="true" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; z-index: 0; opacity: 1;">
@@ -142,15 +142,15 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   </section>
 
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(40px, 6vw, 72px); align-items: center;">
+    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: clamp(40px, 6vw, 72px); align-items: center;">
       <div style="opacity: 1; transform: none;">
         <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The algorithm</div>
         <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 14ch;">Start with the algorithm</h2>
-        <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 52ch;">Everything in STOCHOS rests on DIM-GP, a Deep Infinite Mixture of Gaussian Processes: deep learning capacity with calibrated Gaussian process uncertainty, in one model built for small, noisy, expensive data.</p>
+        <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 52ch;">Everything in STOCHOS rests on DIM-GP, a Deep Infinite Mixture of Gaussian Processes: deep learning capacity with Gaussian process uncertainty, in one model built for small, noisy, expensive data.</p>
         <a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 24px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Read how STOCHOS works: the DIM-GP algorithm →</a>
       </div>
       <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 16px; background: rgb(0, 0, 0); opacity: 1; transform: none;">
-        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/dimgp-diagram.webp" width="1536" height="1024" alt="DIM-GP combines the capacity of deep learning with the calibrated uncertainty of Gaussian processes in one non-stationary probabilistic model." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/dimgp-diagram.webp" width="1536" height="1024" alt="DIM-GP combines the capacity of deep learning with the uncertainty estimates of Gaussian processes in one non-stationary probabilistic model." style="display: block; width: 100%; height: auto; border-radius: 2px;">
       </figure>
     </div>
   </section>
@@ -232,6 +232,15 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
   </section>
 
+  <!-- PROOF-START -->
+  <section data-reveal="" style="padding: clamp(50px, 6vw, 80px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 880px; margin: 0px auto;">
+      <div style="display: flex; align-items: center; gap: 14px;"><span style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6);">Proof</span><span style="flex: 1 1 0%; height: 1px; background: rgba(255, 255, 255, 0.1);"></span></div>
+      <p style="color: rgb(184, 184, 178); font-size: 16px; line-height: 1.7; max-width: 68ch; margin-top: 16px;">In a DLR and SGL Carbon project presented at the DPG Annual Conference, DIM-GP replaced the microscale FEM step in a multi-scale fracture framework. <a href="/probaligence-site-preview/news/dlr-sgl-partner-project-dpg-2024/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Read the project note</a></p>
+      <p style="color: rgb(184, 184, 178); font-size: 16px; line-height: 1.7; max-width: 68ch; margin-top: 16px;">PI Probaligence took first prize at the Robert Bosch Foundation Health Award, for work outside engineering. <a href="/probaligence-site-preview/news/robert-bosch-health-award/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Read the announcement</a></p>
+    </div>
+  </section>
+  <!-- PROOF-END -->
   <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">

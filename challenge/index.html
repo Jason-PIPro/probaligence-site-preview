@@ -7,7 +7,7 @@
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<title>Beat STOCHOS: the interactive challenge | PI Probaligence</title><meta name="description" content="Try to beat STOCHOS at a real engineering or R&amp;D use case, then let it solve the same problem. An illustrative demo built on response surfaces from STOCHOS's DIM-GP models."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/challenge/"><meta property="og:type" content="website"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Beat STOCHOS: the interactive challenge"><meta property="og:description" content="Pick a use case, find the best settings by hand, then let STOCHOS take the same problem. An illustrative demo built on STOCHOS's DIM-GP models."><meta property="og:url" content="https://probaligence.com/challenge/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><style>
+<title>Beat STOCHOS: the interactive challenge | PI Probaligence</title><meta name="description" content="Try to beat STOCHOS at a real engineering or R&amp;D use case, then let it solve the same problem. An illustrative demo built on DIM-GP response surfaces."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/challenge/"><meta property="og:type" content="website"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Beat STOCHOS: the interactive challenge"><meta property="og:description" content="Pick a use case, find the best settings by hand, then let STOCHOS take the same problem. An illustrative demo built on STOCHOS's DIM-GP models."><meta property="og:url" content="https://probaligence.com/challenge/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><style>
 @font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
 @font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
@@ -98,7 +98,7 @@ h1,h2,h3,p{margin:0}
     </nav>
   </div>
 </header>
-<main id="main" style="display:block">
+<main id="main" tabindex="-1" style="display:block">
   <section data-hero-in style="position:relative; padding:132px 24px 92px; overflow:hidden; border-bottom:1px solid rgba(255,255,255,0.07);">
     <div aria-hidden="true" style="position:absolute; top:-12%; left:50%; transform:translateX(-50%); width:1100px; height:560px; max-width:120vw; background:radial-gradient(rgba(255,176,6,0.10), transparent 62%); pointer-events:none; filter:blur(6px);"></div>
     <div style="max-width:1120px; margin:0 auto; position:relative;">
@@ -122,7 +122,7 @@ h1,h2,h3,p{margin:0}
   <section data-reveal style="padding:clamp(64px,8vw,110px) 24px; background:rgb(10,9,8);">
     <div style="max-width:1120px; margin:0 auto;">
       <div style="display:flex; align-items:center; gap:14px; margin-bottom:40px;"><span style="font:500 12px/1 'IBM Plex Mono',monospace; letter-spacing:0.14em; text-transform:uppercase; color:rgb(255,176,6);">How it works</span><span style="flex:1; height:1px; background:rgba(255,255,255,0.1);"></span></div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px, 100%), 1fr)); gap:18px;">
         <div style="border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:28px;">
           <div style="font:500 11.5px/1 'IBM Plex Mono',monospace; color:rgb(130,130,124); letter-spacing:0.1em;">01</div>
           <h2 style="font:600 19px/1.3 'Space Grotesk',sans-serif; color:rgb(244,243,239); margin:12px 0 0;">You take a turn</h2>

@@ -7,7 +7,7 @@
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<title>AI for Paint and Coating Formulation | PI Probaligence</title><meta name="description" content="Develop paints and coatings with fewer experiments. Optimize recipes for color, gloss, and viscosity with uncertainty-aware models, run locally."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/paint-coating/"><meta property="og:type" content="website"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="AI for Paint and Coating Formulation | PI Probaligence"><meta property="og:description" content="Develop paints and coatings with fewer experiments. Optimize recipes for color, gloss, and viscosity with uncertainty-aware models, run locally."><meta property="og:url" content="https://probaligence.com/paint-coating/"><meta property="og:image" content="https://probaligence.com/assets/og-image.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
+<title>AI for Paint and Coating Formulation | PI Probaligence</title><meta name="description" content="Develop paints and coatings with fewer experiments. Optimize recipes for color, gloss, and viscosity with uncertainty-aware models, run locally."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/paint-coating/"><meta property="og:type" content="website"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="AI for Paint and Coating Formulation | PI Probaligence"><meta property="og:description" content="Develop paints and coatings with fewer experiments. Optimize recipes for color, gloss, and viscosity with uncertainty-aware models, run locally."><meta property="og:url" content="https://probaligence.com/paint-coating/"><meta property="og:image" content="https://probaligence.com/assets/media/loop-doe-active-learning.webp"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"Paint and Coatings","item":"https://probaligence.com/paint-coating/"}]}
 </script><style>
 @font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
@@ -123,7 +123,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </nav>
   </div>
 </header>
-<main id="main" style="display: block;">
+<main id="main" tabindex="-1" style="display: block;">
 
   <style id="pch-css">
 /* Paint hero background. Same still as the Paint and Coatings card on the landing page,
@@ -136,7 +136,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
 /* The bottleneck, stated as three flush hairline items instead of three bordered cards.
    Same hairline idiom as the use-case stack below, so the page reads as one system. */
-.pcb{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 clamp(24px,4vw,52px);margin-top:40px;max-width:1000px}
+.pcb{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px, 100%), 1fr));gap:0 clamp(24px,4vw,52px);margin-top:40px;max-width:1000px}
 .pcb>div{border-top:1px solid rgba(255,255,255,.12);padding:16px 0 0}
 .pcb span{display:block;font:500 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#FFB006}
 .pcb p{margin:11px 0 0;color:#a9a9a3;font-size:14.5px;line-height:1.55}
@@ -148,7 +148,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .pcl img{display:block;width:100%;height:auto;min-width:520px}
 .pcl figcaption{margin-top:14px;color:#a9a9a3;font-size:14.5px;line-height:1.6;max-width:62ch}
 .pcl .hint{display:none}
-@media (max-width:760px){.pcl .hint{display:block;margin-top:9px;font:400 11px/1.4 'IBM Plex Mono',monospace;color:#6A6A64}}
+@media (max-width:760px){.pcl .hint{display:block;margin-top:9px;font:400 11px/1.4 'IBM Plex Mono',monospace;color:#82827C}}
 
 /* Small news and guides row at the foot of the page. Hairline rows borrowed from the
    toolbox element redesign-news-editorial, kept to one line each. */
@@ -159,7 +159,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .pcm a{display:flex;align-items:baseline;gap:16px;padding:19px 4px;text-decoration:none;color:#d6d6d0;font-size:17px;line-height:1.4;transition:color .2s ease,transform .2s ease}
 .pcm a:hover{color:#f4f3ef;transform:translateX(8px)}
 .pcm .kind{flex:0 0 auto;font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#FFB006;min-width:58px}
-.pcm a .arw{margin-left:auto;color:#6A6A64;transition:color .2s ease}
+.pcm a .arw{margin-left:auto;color:#82827C;transition:color .2s ease}
 .pcm a:hover .arw{color:#FFB006}
 @media (prefers-reduced-motion:reduce){.pcm a,.pcm a .arw{transition:none}}
   </style>
@@ -213,12 +213,22 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .cvt .best{font:500 12px/1 'IBM Plex Mono',monospace;color:#B8B8B2}
 .cvt .best b{color:#FFCA4D;font-weight:500}
 .cvt canvas{display:block;width:100%;height:290px}
-.cvt .foot{display:flex;gap:8px;align-items:center;padding:12px 18px;border-top:1px solid rgba(255,255,255,.08)}
+.cvt .foot{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 18px;border-top:1px solid rgba(255,255,255,.08)}
 .cvt button{font:500 11.5px/1 'IBM Plex Mono',monospace;padding:9px 12px;border-radius:2px;cursor:pointer;background:transparent;color:#B8B8B2;border:1px solid rgba(255,255,255,.16);transition:all .15s}
 .cvt button:hover{border-color:rgba(255,176,6,.6);color:#F4F3EF}
 .cvt button:focus-visible{outline:2px solid #FFCA4D;outline-offset:2px}
 .cvt button[aria-pressed="true"]{background:#FFB006;color:#08070A;border-color:#FFB006}
-.cvt .note{margin-left:auto;font:400 11px/1.4 'IBM Plex Mono',monospace;color:#4A4A44}
+/* was #4A4A44 (2.27:1 on the page background, well under AA). margin-left:auto also
+   pushed it past the viewport at 320px, so it wraps to its own line on narrow screens. */
+.cvt .note{margin-left:auto;min-width:0;font:400 11px/1.4 'IBM Plex Mono',monospace;color:#82827C}
+/* The note shares a flex row with the three toggle buttons. Its min-content width
+   is wider than what is left over below ~560px, so the row used to overflow by 8px.
+   Fixed at the row, not the child: .foot wraps, and under 560px the note takes a
+   full line of its own via flex-basis. An earlier attempt set width:100% on the
+   note alone, which resolves against the container while the note is still in the
+   row, so the row grew to 483px instead of wrapping. flex:1 0 100% only forces a
+   line break because the parent is now flex-wrap:wrap. */
+@media (max-width:560px){.cvt .note{flex:1 0 100%;margin-left:0}}
       </style>
       <div class="cvt" data-sc-name="ConvergenceTrace" style="max-width: 820px; margin: 44px auto 0;">
         <div class="head">
@@ -232,13 +242,13 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <button type="button" id="cvt-re">replay &#8635;</button>
           <span class="note">amber step = best so far &middot; dots = single trials &middot; illustrative run</span>
         </div>
-        <noscript><p style="font: 400 12px / 1.6 'IBM Plex Mono', monospace; color: rgb(106, 106, 100); padding: 14px 18px; margin: 0;">Illustrative convergence chart, requires JavaScript. Each grey dot is one trial; the amber step line is the best formulation so far.</p></noscript>
+        <noscript><p style="font: 400 12px / 1.6 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); padding: 14px 18px; margin: 0;">Illustrative convergence chart, requires JavaScript. Each grey dot is one trial; the amber step line is the best formulation so far.</p></noscript>
       </div>
     </div>
   </section>
 
   <section data-reveal="" id="tradeoffs" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
-    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(40px, 6vw, 64px); align-items: center;">
+    <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: clamp(40px, 6vw, 64px); align-items: center;">
       <div style="opacity: 1; transform: none;">
         <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Multi-objective optimization</div>
         <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Balance the coating targets that compete</h2>
@@ -252,7 +262,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 14px;">Trade-off frontier</div>
         <div style="position: relative; height: clamp(260px, 32vw, 340px);">
           <canvas id="pf-cv" aria-hidden="true" style="position: absolute; inset: 0px; width: 100%; height: 100%; cursor: crosshair;"></canvas>
-          <div style="position: absolute; right: 0px; bottom: 0px; font: 400 10.5px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(106, 106, 100); pointer-events: none;">hover to inspect &middot; click to resample</div>
+          <div style="position: absolute; right: 0px; bottom: 0px; font: 400 10.5px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); pointer-events: none;">hover to inspect &middot; click to resample</div>
         </div>
         <noscript>
         <svg viewBox="0 0 520 320" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;">
@@ -264,8 +274,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <circle cx="300" cy="196" r="4.5" fill="#0A0908" stroke="#FFB006" stroke-width="2"></circle>
           <circle cx="400" cy="232" r="4.5" fill="#0A0908" stroke="#FFB006" stroke-width="2"></circle>
           <circle cx="170" cy="90" r="3.5" fill="#3A3A38"></circle><circle cx="250" cy="110" r="3.5" fill="#3A3A38"></circle><circle cx="320" cy="130" r="3.5" fill="#3A3A38"></circle><circle cx="380" cy="160" r="3.5" fill="#3A3A38"></circle><circle cx="430" cy="190" r="3.5" fill="#3A3A38"></circle><circle cx="290" cy="90" r="3.5" fill="#3A3A38"></circle><circle cx="440" cy="130" r="3.5" fill="#3A3A38"></circle>
-          <text x="44" y="30" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="12">performance</text>
-          <text x="492" y="298" text-anchor="end" fill="#6A6A64" font-family="'IBM Plex Mono',monospace" font-size="12">cost</text>
+          <text x="44" y="30" fill="#82827C" font-family="'IBM Plex Mono',monospace" font-size="12">performance</text>
+          <text x="492" y="298" text-anchor="end" fill="#82827C" font-family="'IBM Plex Mono',monospace" font-size="12">cost</text>
         </svg>
         </noscript>
         <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 8px;">Amber points form the frontier; grey points are dominated.</figcaption>
@@ -574,7 +584,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .cta-close .btn-p:focus-visible{outline:2px solid #FFCA4D;outline-offset:3px}
 .cta-close .btn-s{border:1px solid rgba(255,255,255,.22);color:#F4F3EF;background:transparent;font:600 15.5px/1 'IBM Plex Sans',sans-serif;padding:16px 26px;border-radius:2px;text-decoration:none;cursor:pointer;transition:border-color .15s,background .15s}
 .cta-close .btn-s:hover{border-color:rgba(255,255,255,.46);background:rgba(255,255,255,.05)}
-.cta-close .foot{margin-top:26px;font:500 11.5px/1.7 'IBM Plex Mono',monospace;color:#6A6A64}
+.cta-close .foot{margin-top:26px;font:500 11.5px/1.7 'IBM Plex Mono',monospace;color:#82827C}
 .cta-close .foot em{font-style:normal;color:#9C9C96}
 .cta-close .rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.3,1)}
 .cta-close.in .rv{opacity:1;transform:none}
@@ -595,10 +605,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .chz .btn-p:focus-visible{outline:2px solid #FFCA4D;outline-offset:3px}
 .chz .btn-s{border:1px solid rgba(255,255,255,.2);color:#F4F3EF;font:600 15px/1 'IBM Plex Sans',sans-serif;padding:15px 26px;border-radius:2px;text-decoration:none;transition:border-color .15s ease,background .15s ease}
 .chz .btn-s:hover{border-color:rgba(255,255,255,.46);background:rgba(255,255,255,.05)}
-.chz .foot{margin-top:20px;font:400 12px/1.6 'IBM Plex Mono',monospace;color:#6A6A64;max-width:60ch}
+.chz .foot{margin-top:20px;font:400 12px/1.6 'IBM Plex Mono',monospace;color:#82827C;max-width:60ch}
 .chz .mark{display:block;margin:0;border:1px solid rgba(255,255,255,.1);border-radius:6px;overflow:hidden;background:#060607}
 .chz .mark img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
-.chz .steps{margin-top:14px;display:flex;gap:9px;flex-wrap:wrap;justify-content:center;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#6A6A64}
+.chz .steps{margin-top:14px;display:flex;gap:9px;flex-wrap:wrap;justify-content:center;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#82827C}
 @media (max-width:820px){.chz{grid-template-columns:1fr}.chz .side{order:-1}}
 @media (prefers-reduced-motion:reduce){.chz .btn-p,.chz .btn-s{transition:none}}
 </style>
@@ -635,6 +645,15 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   </div>
 </section>
 
+  <!-- PROOF-START -->
+  <section data-reveal="" style="padding: clamp(50px, 6vw, 80px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 880px; margin: 0px auto;">
+      <div style="display: flex; align-items: center; gap: 14px;"><span style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6);">Proof</span><span style="flex: 1 1 0%; height: 1px; background: rgba(255, 255, 255, 0.1);"></span></div>
+      <p style="color: rgb(184, 184, 178); font-size: 16px; line-height: 1.7; max-width: 68ch; margin-top: 16px;">With partner Adler Lacke, a color match was reached after four adaptation cycles. <a href="/probaligence-site-preview/news/adler-lacke-color-matching/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Read the results</a></p>
+      <p style="color: rgb(184, 184, 178); font-size: 16px; line-height: 1.7; max-width: 68ch; margin-top: 16px;">Figures from the Na, Logisch research project put about 40 percent of the primary energy in automotive production into painting, with up to 2,000 tonnes of paint waste avoidable. These are consortium figures, not PI results. <a href="/probaligence-site-preview/news/na-logisch-project-meeting-fraunhofer/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Read the project note</a></p>
+    </div>
+  </section>
+  <!-- PROOF-END -->
   <section class="cta-close" id="cta" data-sc-name="CtaClosingSection">
     <div class="glow" aria-hidden="true"></div>
     <div class="frame" aria-hidden="true">
@@ -756,7 +775,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     function draw() {
       if (!W) size();
       ctx.clearRect(0, 0, W, H);
-      ctx.font = '500 10px "IBM Plex Mono",monospace'; ctx.fillStyle = '#6A6A64';
+      ctx.font = '500 10px "IBM Plex Mono",monospace'; ctx.fillStyle = '#82827C';
       var ticks = log ? [0.01, 0.03, 0.1, 0.3, 1] : [0, 0.25, 0.5, 0.75, 1];
       ticks.forEach(function (v) {
         var y = Y(Math.max(v, log ? yMin : 0.0001));
@@ -927,7 +946,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         ctx.fillStyle = hover.front ? '#FFCA4D' : '#B8B8B2';
         ctx.fillText(txt, bx, by + 10);
       }
-      ctx.font = '400 10.5px "IBM Plex Mono",monospace'; ctx.fillStyle = '#6A6A64';
+      ctx.font = '400 10.5px "IBM Plex Mono",monospace'; ctx.fillStyle = '#82827C';
       ctx.textAlign = 'center';
       ctx.fillText('relative cost per design →', g.L + g.pw / 2, H - 16);
       ctx.save();

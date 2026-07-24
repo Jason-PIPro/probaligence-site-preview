@@ -25,6 +25,7 @@
 .skip-link{position:absolute;left:16px;top:-60px;background:var(--amber);color:#000;
   padding:10px 16px;font:600 14px/1 'IBM Plex Sans',sans-serif;z-index:60;border-radius:2px;transition:top .2s}
 .skip-link:focus{top:12px}
+main:focus{outline:none}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex:none}
 .brand img{height:34px;width:auto;display:block}
 .brand span{font:600 17px/1 'Space Grotesk',sans-serif;color:var(--text);letter-spacing:-.01em}
@@ -252,7 +253,7 @@ figure:has(> img[src*="/probaligence-site-preview/assets/media/insights/"]){max-
 .na-points > li b{color:var(--text);font-weight:600}
 
 /* key figures: 2 to 4 real numbers lifted out of the prose, each with its unit and what it counts */
-.na-figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;margin:38px 0 0;
+.na-figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px, 100%), 1fr));gap:1px;margin:38px 0 0;
   background:var(--hairline);border:1px solid var(--hairline);border-radius:4px;overflow:hidden}
 .na-figs > div{background:#0A0908;padding:24px 22px}
 .na-figs .na-n{font:700 clamp(26px,3.4vw,34px)/1.05 'Space Grotesk',sans-serif;letter-spacing:-.02em;color:var(--amber)}
