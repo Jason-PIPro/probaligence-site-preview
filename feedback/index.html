@@ -337,10 +337,19 @@ select.fb-i{appearance:none;-webkit-appearance:none;background-image:url("data:i
     fetch(ENDPOINT, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)})
       .then(function(r){ if(!r.ok) throw new Error("bad status "+r.status); return r.json().catch(function(){return {};}); })
       .then(function(){ form.style.display="none"; done.style.display="block"; done.scrollIntoView({behavior:"smooth",block:"center"}); })
-      .catch(function(){ btn.disabled=false; btn.textContent="Send feedback"; fail("Could not send right now. Please try again, or email info@probaligence.com."); });
+      .catch(function(){
+        btn.disabled=false; btn.textContent="Send feedback";
+        // Same single use token problem: a failed send may already have spent it,
+        // so hand the widget a fresh one before the user retries.
+        try{ if(window.turnstile) window.turnstile.reset(); }catch(e){}
+        fail("Could not send right now. Please try again, or email info@probaligence.com.");
+      });
   });
+  // Full reload, not an in-place form.reset(). The Turnstile token is single use:
+  // it is spent by the first send, so a reused form always failed on the second.
+  // Reloading keeps any ?page= prefill and issues a fresh token.
   document.getElementById("fb-again").addEventListener("click", function(){
-    form.reset(); done.style.display="none"; form.style.display="block"; btn.disabled=false; btn.textContent="Send feedback"; form.name.focus();
+    location.reload();
   });
 })();
 </script>
