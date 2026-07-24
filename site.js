@@ -182,9 +182,25 @@
     var submitLabel = submitBtn ? submitBtn.textContent : "";
     var sending = false;
 
+    // Say up front that sending is not connected yet, instead of letting the
+    // visitor find out only after they have typed out a whole request. Tied to
+    // the endpoint, so filling DEMO_FORM_ENDPOINT in for launch removes it.
+    if (!DEMO_FORM_ENDPOINT && submitBtn && submitBtn.parentNode) {
+      var pending = document.createElement("p");
+      pending.setAttribute("data-form-pending", "");
+      pending.style.cssText = "margin:0;padding:11px 13px;border:1px solid rgba(255,176,6,.26);" +
+        "border-left:2px solid #FFB006;background:rgba(255,176,6,.06);" +
+        "font:400 13.5px/1.6 'IBM Plex Sans',sans-serif;color:#C8C8C2";
+      pending.innerHTML = "This form is not connected yet. It will start sending when the site goes live. " +
+        "Until then, write to " + MAIL_LINK + ".";
+      submitBtn.parentNode.insertBefore(pending, submitBtn);
+    }
+
     // Success: reveal the prepared confirmation block if the page has one,
     // otherwise replace the form body with the message.
     function finish(html) {
+      var pend = form.querySelector("[data-form-pending]");
+      if (pend) pend.remove();
       if (done) {
         if (html) done.innerHTML = html;
         done.hidden = false;

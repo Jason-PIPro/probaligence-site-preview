@@ -345,11 +345,15 @@ select.fb-i{appearance:none;-webkit-appearance:none;background-image:url("data:i
         fail("Could not send right now. Please try again, or email info@probaligence.com.");
       });
   });
-  // Full reload, not an in-place form.reset(). The Turnstile token is single use:
-  // it is spent by the first send, so a reused form always failed on the second.
-  // Reloading keeps any ?page= prefill and issues a fresh token.
+  // Fresh navigation, not an in-place form.reset(). The Turnstile token is single
+  // use: it is spent by the first send, so a reused form always failed on the second.
+  // Navigating keeps any ?page= prefill and issues a fresh token.
+  // Two details that bit us: browsers restore the field values you left behind, so
+  // clear the form BEFORE leaving or the sent message reappears in the textarea, and
+  // use replace() rather than reload() because restoration is tied to reloads.
   document.getElementById("fb-again").addEventListener("click", function(){
-    location.reload();
+    try{ form.reset(); if(form.message) form.message.value=""; }catch(e){}
+    location.replace(location.pathname + location.search);
   });
 })();
 </script>
