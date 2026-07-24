@@ -217,7 +217,7 @@ const DASH = '';  // size/value placeholder; no em or en dashes per the studio s
 
 // Inject studio-scoped CSS overrides once into <head>. Idempotent.
 // This avoids touching styles.css (owned by another agent) while keeping
-// studio-specific colour fixes local to this module.
+// studio-specific color fixes local to this module.
 (function injectStudioCSS() {
   if (document.getElementById('__studio_injected_css')) return;
   const s = document.createElement('style');

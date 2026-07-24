@@ -2,7 +2,7 @@
 // A 3D parametric bottle (Three.js LatheGeometry) that MORPHS live as the visitor
 // drags the sliders: height stretches it, diameter widens the body, wall thickness
 // shows as a visible wall + inset, and a 3-way material picker (PET / HDPE / glass)
-// swaps the look (colour, transparency, shininess). Gentle auto-rotate + the
+// swaps the look (color, transparency, shininess). Gentle auto-rotate + the
 // project's custom azimuth/polar/dist orbit drag. The camera AUTO-FITS the current
 // geometry so the bottle never clips, across the whole slider range.
 //

@@ -161,7 +161,13 @@
     else document.addEventListener("DOMContentLoaded", hideConsentReset);
   }
 
-  /* ---------- demo request form (staged: routing not wired yet) ---------- */
+  /* ---------- demo request form ----------
+     Posts to the Cloudflare Worker in 06_website-build/site-services/, which
+     files the request as an issue on the PRIVATE repo. Leave the endpoint
+     empty until that Worker is deployed: the form then validates and shows the
+     email fallback instead of failing on a dead URL. Setup: DEMO-DEPLOY-SETUP.md. */
+  var DEMO_FORM_ENDPOINT = "";
+  var MAIL_LINK = '<a href="mailto:info@probaligence.com" style="color:var(--amber)">info@probaligence.com</a>';
   var form = document.querySelector("form[data-demo], form#demo-form, .contact-form form");
   if (!form) {
     // fall back to the first form that has the demo fields
@@ -172,8 +178,47 @@
   if (form) {
     form.setAttribute("novalidate", "novalidate");
     var done = form.querySelector(".form-ok, [data-form-ok]");
+    var submitBtn = form.querySelector("button[type=submit]");
+    var submitLabel = submitBtn ? submitBtn.textContent : "";
+    var sending = false;
+
+    // Success: reveal the prepared confirmation block if the page has one,
+    // otherwise replace the form body with the message.
+    function finish(html) {
+      if (done) {
+        if (html) done.innerHTML = html;
+        done.hidden = false;
+        done.classList.add("show");
+        done.setAttribute("tabindex", "-1");
+        done.focus();
+        form.querySelectorAll(".field, .field-row, .cta-row, .check, button[type=submit]").forEach(function (n) {
+          if (!n.contains(done)) n.style.display = "none";
+        });
+      } else {
+        form.innerHTML = '<p role="status" style="color:var(--text);font:500 16px/1.6 \'IBM Plex Sans\',sans-serif">' + html + "</p>";
+      }
+    }
+
+    // Failure: keep the form intact so the visitor can retry, and give them the
+    // email route as well. Never lose what they typed.
+    function failed(html) {
+      sending = false;
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitLabel; }
+      var note = form.querySelector("[data-form-error]");
+      if (!note) {
+        note = document.createElement("p");
+        note.setAttribute("data-form-error", "");
+        note.setAttribute("role", "alert");
+        note.style.cssText = "margin-top:14px;font:400 14px/1.6 'IBM Plex Sans',sans-serif;color:#F4B4B4";
+        if (submitBtn && submitBtn.parentNode) submitBtn.parentNode.insertBefore(note, submitBtn.nextSibling);
+        else form.appendChild(note);
+      }
+      note.innerHTML = html;
+    }
+
     form.addEventListener("submit", function (e) {
-      e.preventDefault(); // routing is a deliberate team input; nothing is sent yet
+      e.preventDefault();
+      if (sending) return;
       var valid = true, firstBad = null;
       form.querySelectorAll("[required]").forEach(function (el) {
         var good = el.type === "checkbox" ? el.checked : String(el.value).trim().length > 0;
@@ -186,19 +231,42 @@
       var hp = form.querySelector('.hp input, [name="website"]');
       if (hp && hp.value) return;
       if (!valid) { if (firstBad) firstBad.focus(); return; }
-      if (done) {
-        done.hidden = false;
-        done.classList.add("show");
-        done.setAttribute("tabindex", "-1");
-        done.focus();
-        form.querySelectorAll(".field, .field-row, .cta-row, .check, button[type=submit]").forEach(function (n) {
-          if (!n.contains(done)) n.style.display = "none";
-        });
-      } else {
-        form.innerHTML = '<p role="status" style="color:var(--text);font:500 16px/1.6 \'IBM Plex Sans\',sans-serif">' +
-          'Thank you. Your request has been validated. Sending is not yet connected on this preview, ' +
-          'so please also write to <a href="mailto:info@probaligence.com" style="color:var(--amber)">info@probaligence.com</a> for now.</p>';
+
+      var prevErr = form.querySelector("[data-form-error]");
+      if (prevErr) prevErr.remove();
+
+      // Not wired yet: validate, confirm, and point at email. No dead request.
+      if (!DEMO_FORM_ENDPOINT) {
+        finish("Thank you. Your request has been validated. Sending is not yet connected on this preview, " +
+          "so please also write to " + MAIL_LINK + " for now.");
+        return;
       }
+
+      var val = function (n) { var el = form.querySelector('[name="' + n + '"]'); return el ? String(el.value).trim() : ""; };
+      var payload = {
+        name: val("name"),
+        email: val("email"),
+        company: val("company"),
+        area: val("area"),
+        message: val("message"),
+        url: location.href.split("#")[0].slice(0, 200)
+      };
+
+      sending = true;
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending..."; }
+
+      fetch(DEMO_FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        return r.json().catch(function () { return { ok: false }; });
+      }).then(function (res) {
+        if (!res || !res.ok) throw new Error("rejected");
+        finish("Thank you. Your request has reached us and we will come back to you by email.");
+      }).catch(function () {
+        failed("That did not go through. Please try again, or write to " + MAIL_LINK + " and we will pick it up from there.");
+      });
     });
     form.querySelectorAll("input, textarea").forEach(function (el) {
       el.addEventListener("input", function () {

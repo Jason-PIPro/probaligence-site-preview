@@ -187,7 +187,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 }
 .ufc-cloud.is-packed > li{position:absolute;top:0;left:0;margin:0}
 
-/* size, weight, colour and opacity are all continuous functions of data-rel,
+/* size, weight, color and opacity are all continuous functions of data-rel,
    computed in JS and delivered as custom properties. The values below are the
    no-JS fallback: a plain readable list, no encoding at all. */
 .ufc-term{
@@ -201,7 +201,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   transition:color .25s ease,opacity .25s ease;
 }
 /* hover is a spotlight, not a highlight: the chosen term stays, the rest recede.
-   These rules set opacity and colour directly, so they beat the per-term custom
+   These rules set opacity and color directly, so they beat the per-term custom
    properties on specificity without needing !important. */
 @media (hover:hover) and (pointer:fine){
   .ufc-cloud:hover .ufc-term{opacity:.2}
@@ -262,7 +262,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
       <!-- ============ CORE START: use-case fit cloud ============
         data-rel is a 0 to 100 relevance score. JS reads it and sets size, weight,
-        colour, opacity and distance from the centre from that one number, so all
+        color, opacity and distance from the centre from that one number, so all
         five channels agree. The score is 0.6 x how fast a simulation engineer
         recognises the term as their own work, plus 0.4 x how distinctive PI's
         answer is. Recognition leads because this component's job is
@@ -462,8 +462,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   }
 
   /* ---- relevance to appearance ----
-     One continuous score drives size, weight, colour, opacity and distance from
-     the centre, so five channels agree. Colour runs a two-ended ramp: cool steel
+     One continuous score drives size, weight, color, opacity and distance from
+     the centre, so five channels agree. Color runs a two-ended ramp: cool steel
      at the tail, neutral through the middle, PI amber at the core. A one-ended
      ramp puts every term below the threshold at the same grey, which wastes the
      widest channel available on a black page.

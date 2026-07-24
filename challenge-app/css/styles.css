@@ -547,7 +547,7 @@ canvas.field { position: absolute; inset: 0; width: 100%; height: 100%; }
 .stage-caption .sc-step { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
 .stage-caption .sc-title { font-size: 15px; font-weight: 600; }
 .stage-caption .sc-sub { font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.45; }
-/* plain-language decode key: tells a cold visitor what colour / fog / pins mean.
+/* plain-language decode key: tells a cold visitor what color / fog / pins mean.
    Sits under the caption so the three pieces of the Confidence Field are named in one place. */
 .decode-key { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--line); }
 .decode-key .dk { display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: var(--muted); line-height: 1.3; }
@@ -1374,7 +1374,7 @@ svg.studio-edges {
 }
 
 /* ===== studio v3 (Stochos Flow replica) ===== */
-/* A literal multi-colour skin of the real Stochos Flow desktop app, scoped under
+/* A literal multi-color skin of the real Stochos Flow desktop app, scoped under
    .sf-app so it wins by specificity over the v1/v2 amber studio blocks above
    (which still serve the kept classes for other code paths). The palette here is
    the Flow look, NOT the PI amber brand: pure-black canvas, dark Qt-grey chrome,
@@ -1549,7 +1549,7 @@ svg.studio-edges {
 }
 .pal-tri { color: var(--sf-tri); font-size: 10px; line-height: 1; flex: none; }
 
-/* node rows: 20px colour icon + light label, hover highlight. Override the flow
+/* node rows: 20px color icon + light label, hover highlight. Override the flow
    .pal-node base look. No transform on hover: nodes only move when actually dragged. */
 .sf-app .pal-node {
   display: flex; align-items: center; gap: 9px;
@@ -1848,7 +1848,7 @@ svg.sf-edges {
   flex: 1; min-width: 0; background: transparent; border: none; outline: none;
   color: #cfcfd2; font-family: var(--mono); font-size: 12px;
 }
-/* Variables table inside the dock (override the .vars-table amber type colour) */
+/* Variables table inside the dock (override the .vars-table amber type color) */
 .sf-app .sf-vars { width: 100%; border-collapse: collapse; font-size: 11.5px; }
 .sf-app .sf-vars[hidden] { display: none; }
 .sf-app .sf-vars thead th {
