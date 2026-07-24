@@ -111,7 +111,8 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
 .ms-card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;filter:grayscale(1) brightness(.85);transition:filter .4s}
 .ms-card:hover img{filter:none}
 .ms-plate{display:flex;align-items:center;justify-content:center;aspect-ratio:16/10;background:linear-gradient(150deg,rgba(255,176,6,.16),rgba(255,176,6,.03) 62%),#0B0A09;border-bottom:1px solid rgba(255,255,255,.07)}
-.ms-plate img{width:auto;height:auto;max-width:64%;max-height:44%;object-fit:contain;filter:none}
+/* Logo plates read the same as the photo cards: grey until hover */
+.ms-plate img{width:auto;height:auto;max-width:64%;max-height:44%;object-fit:contain;filter:grayscale(1) brightness(.85);transition:filter .4s}
 .ms-card:hover .ms-plate img{filter:none}
 .ms-plate--light{background:#F6F5F2}
 .ms-plate--light img{max-width:58%;max-height:34%}
