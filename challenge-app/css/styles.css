@@ -118,6 +118,7 @@ input[type=range]:focus-visible,
 }
 .brand { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
 .brand img { height: 34px; display: block; }
+.brand .brand-word { height: 15px; }
 .brand span { font: 600 17px/1 var(--display); color: var(--text); letter-spacing: -0.01em; }
 .domnav {
   display: flex; gap: 6px; margin-left: 10px;
@@ -309,7 +310,7 @@ input[type=range]:focus-visible,
 @media (max-width: 480px) {
   body { overflow-x: hidden; }
   .topbar-inner { padding: 0 14px; gap: 8px; }
-  .brand span { display: none; }
+  .brand span, .brand .brand-word { display: none; }
   /* both nav links + the CTA must share a very tight row here: tighten the
      link padding/size and shrink the CTA further so nothing clips behind it. */
   .domnav a { padding: 8px 9px; font-size: 13px; }
@@ -346,6 +347,7 @@ input[type=range]:focus-visible,
 .footer-brand { min-width: 220px; }
 .footer-brand .brand { margin-bottom: 18px; }
 .footer-brand .brand img { height: 32px; }
+.footer-brand .brand .brand-word { height: 14px; }
 .footer-brand .brand span { font-size: 16px; }
 .footer-brand p { color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 300px; margin: 0 0 18px; }
 .footer-cred { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }

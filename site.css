@@ -28,6 +28,7 @@
 main:focus{outline:none}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex:none}
 .brand img{height:34px;width:auto;display:block}
+.brand .brand-word{height:15px}
 .brand span{font:600 17px/1 'Space Grotesk',sans-serif;color:var(--text);letter-spacing:-.01em}
 
 .nav{display:flex;align-items:center;gap:4px}
@@ -115,6 +116,7 @@ main:focus{outline:none}
 .footer-brand{min-width:220px}
 .footer-brand .brand{margin-bottom:18px}
 .footer-brand .brand img{height:32px}
+.footer-brand .brand .brand-word{height:14px}
 .footer-brand .brand span{font-size:16px}
 .footer-brand p{color:var(--muted);font-size:14px;line-height:1.6;max-width:300px;margin:0 0 18px}
 .footer-cred{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
