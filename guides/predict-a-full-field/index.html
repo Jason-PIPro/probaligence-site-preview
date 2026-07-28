@@ -154,13 +154,13 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 4px; overflow: hidden;">
         <div style="background: rgb(6, 6, 7); padding: clamp(28px, 4vw, 44px);">
           <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 16px;">One number back</div>
-          <h2 style="font: 700 clamp(24px, 3vw, 32px) / 1.14 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a scalar answer costs you</h2>
+          <h2 id="what-a-scalar-answer-costs-you" style="font: 700 clamp(24px, 3vw, 32px) / 1.14 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a scalar answer costs you</h2>
           <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 54ch;">Peak stress passes or fails a design, but it does not tell you whether the peak sits in a fillet you can redesign or in a wall thickness you cannot.</p>
           <p style="margin-top: 16px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 54ch;">Two variants can report the same maximum and still need completely different fixes, and the scalar has no way to separate them. So the number gets checked, then the solve gets rerun anyway to see the picture behind it. The summary is cheap to store and expensive to act on.</p>
         </div>
         <div style="background: rgb(10, 9, 8); padding: clamp(28px, 4vw, 44px);">
           <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 16px;">The whole distribution back</div>
-          <h2 style="font: 700 clamp(24px, 3vw, 32px) / 1.14 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a field model predicts</h2>
+          <h2 id="what-a-field-model-predicts" style="font: 700 clamp(24px, 3vw, 32px) / 1.14 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a field model predicts</h2>
           <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 54ch;">The output is the same shape as the solver's, a value at every node or cell, so the prediction can be viewed, sliced, and compared the way a solve is.</p>
           <p style="margin-top: 16px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 54ch;">You keep the gradient across the part, not only its highest point, so you can see where load or heat concentrates and how far the margin extends around it. Because the shapes match, the difference between a prediction and a reference solve is itself a field you can inspect. STOCHOS is not a physics solver, it learns the mapping from solves you have already run.</p>
         </div>
@@ -177,7 +177,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div aria-hidden="true" style="position: absolute; left: -8%; bottom: -30%; width: 760px; height: 620px; max-width: 100vw; background: radial-gradient(rgba(255, 176, 6, 0.08), transparent 66%); pointer-events: none;"></div>
     <div style="max-width: 980px; margin: 0px auto; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Two timings</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">The map arrives in seconds</h2>
+      <h2 id="the-map-arrives-in-seconds" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">The map arrives in seconds</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">In an engineering scenario a full temperature field came out in about 4 seconds, from about six hours of CFD, and in a pin-fin cooling reference example STOCHOS predicted temperature and heat flux for a new design in under 5 seconds. Each timing comes from its own case setup, so read neither as a general promise.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">The number worth taking from those two is not the exact second count, it is what the cost change does to the question you can ask. When a field costs seconds instead of an afternoon, you stop rationing which variants get one. You can look at the map for every candidate in a sweep rather than for the two the schedule allowed, and the ones that look wrong get thrown out before they reach the solver queue.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1px; margin-top: 36px; background: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.09);">
@@ -197,7 +197,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         </figure>
         <div>
           <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">In your toolchain</div>
-          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Predicted fields land in your post-processor</h2>
+          <h2 id="predicted-fields-land-in-your-post-processor" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Predicted fields land in your post-processor</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 58ch;">The field prediction goes into the same post-processing you already use, and the solver still validates the designs that matter.</p>
           <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 58ch;">Nothing about the toolchain has to change. You screen many variants against predicted fields, shortlist the few that hold up, and send those through the solver exactly as before. The <a href="/probaligence-site-preview/surrogate-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">surrogate model</a> is trained on solves you have already paid for, so it extends that spend instead of replacing it. Where the model is less certain the range widens, and that is your cue to spend a solve there first. More on the engineering side of this is on <a href="/probaligence-site-preview/ai-for-engineering/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">AI for Engineering</a>.</p>
         </div>
@@ -207,7 +207,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Does STOCHOS need identical meshes across runs?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Consistency helps. The practical answer depends on your case setup, which is what a first look at your data settles.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Do I get uncertainty on the field too?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. The confidence range is spatial as well, so you can see where in the geometry the model is less sure.</p></div></div></details>
@@ -239,7 +239,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <div style="max-width: 720px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Send us a field you want predicted</h2>
+      <h2 id="send-us-a-field-you-want-predicted" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Send us a field you want predicted</h2>
       <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring one case you have already solved. A first look at your data settles the questions this page can only answer in general: mesh setup, how many solves you need, and what the confidence range looks like on your geometry.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>

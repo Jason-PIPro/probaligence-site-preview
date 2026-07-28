@@ -63,7 +63,10 @@ main:focus{outline:none}
   font:600 14.5px/1 'IBM Plex Sans',sans-serif;padding:10px 16px;border-radius:2px;
   text-decoration:none;white-space:nowrap;transition:border-color .15s, background .15s}
 .nav-cta-ghost:hover{border-color:var(--amber);background:rgba(255,176,6,.08)}
-@media (max-width:1220px){.nav .nav-cta-ghost{display:none}}
+/* was 1220px: between 1221 and 1280 the nav already overflowed its 1280px
+   container by 18px with both CTAs and the full menu shown. Dropping the ghost
+   CTA 60px earlier fixes that and leaves room for the search button. */
+@media (max-width:1280px){.nav .nav-cta-ghost{display:none}}
 
 .nav-toggle{display:none;flex:none;width:44px;height:44px;flex-direction:column;
   align-items:center;justify-content:center;gap:5px;background:none;border:0;cursor:pointer}
@@ -86,6 +89,16 @@ main:focus{outline:none}
 .mobile-panel .m-sep{height:1px;background:rgba(255,255,255,.07);margin:14px 0}
 .mobile-panel .nav-cta{margin:18px 0 0;text-align:center;padding:15px 18px;font-size:15px;display:block}
 .mobile-panel .nav-cta-ghost{margin:12px 0 0;text-align:center;padding:14px 18px;font-size:15px;display:block}
+
+/* Between the mobile breakpoint and 1100px the nav row runs out of width: it
+   already overflowed its container here before search was added, and the
+   search button made it worse. Tighten the spacing rather than drop an item. */
+@media (min-width:961px) and (max-width:1100px){
+  .nav{gap:1px}
+  .nav-link{padding:9px 8px;font-size:14px}
+  .nav-cta{margin-left:8px;padding:11px 14px;font-size:14px}
+  .nav-search{margin-left:2px;padding:0 8px}
+}
 
 @media (max-width:960px){
   .nav{display:none}
@@ -241,6 +254,85 @@ figure:has(> img[src*="/probaligence-site-preview/assets/media/insights/"]){max-
 .marquee-pause:hover{color:var(--text);border-color:rgba(255,255,255,.3)}
 @media (prefers-reduced-motion:reduce){.marquee-pause{display:none}}
 
+/* ---------- mobile figure pan ----------
+   The technical figures are desktop-authored rasters with their labels baked in. Scaled into a
+   312px phone column, a 1467px chart puts its axis labels and annotations at 2 to 6 CSS px, so
+   the figure carries the argument on a laptop and nothing at all on a phone, while the caption
+   underneath keeps making a claim the reader cannot check.
+
+   Opt in per figure: class="fig-bleed" on the <figure> to reclaim the 24px gutters, class="fig-pan"
+   on a wrapper around the image, and --fig-min to set the width the labels stay legible at. The
+   scroll is confined to the wrapper, so the page body never pans sideways (html{overflow-x:clip}
+   above would silently cut it off if it did). Two pages already ship a hand-rolled version of
+   this (.pcl .scroller); this is that pattern promoted to the shared sheet. */
+.fig-pan{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.fig-pan>img,.fig-pan>video{display:block;width:100%;height:auto;max-width:none}
+.fig-hint{display:none}
+@media (max-width:560px){
+  /* !important throughout: these pages are generated output and every <figure> carries an inline
+     margin / padding / border / border-radius shorthand, which outranks any author stylesheet.
+     Without it the class is inert, the figure keeps its 24px gutters and nothing bleeds. */
+  figure.fig-bleed{margin-left:-24px!important;margin-right:-24px!important;border-radius:0!important;
+    border-left:0!important;border-right:0!important;padding-left:0!important;padding-right:0!important}
+  figure.fig-bleed>figcaption{padding-left:24px!important;padding-right:24px!important}
+  /* the hint is a sibling of the caption, so it needs the gutters back too or it paints flush
+     against the screen edge once the figure bleeds */
+  figure.fig-bleed>.fig-hint{padding-left:24px;padding-right:24px}
+  /* width:100%, not auto. For a loaded raster width:auto resolves to the intrinsic width, and
+     min-width can only raise a value, never lower it, so --fig-min would never bind and a 1467px
+     chart would render at 1467px. Against the wrapper's 100% the min-width is what wins. */
+  .fig-pan>img,.fig-pan>video{width:100%!important;min-width:var(--fig-min,620px)}
+  /* the soft right edge is what tells the reader it pans */
+  .fig-pan{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 88%,transparent 100%);
+    mask-image:linear-gradient(90deg,#000 0,#000 88%,transparent 100%)}
+  .fig-hint{display:block;margin-top:6px;color:#82827C;font:400 11.5px/1.4 'IBM Plex Mono',monospace}
+}
+
+/* ---------- hero figures sit above the hero backdrop ----------
+   The hero sections layer a background image and its scrims as absolutely positioned children,
+   then give the text column position:relative;z-index:1 to clear them. A <figure data-hero> added
+   later as a sibling kept the default static position, and CSS paints non-positioned content
+   before positioned siblings, so on 8 guide pages the figure and its caption render underneath
+   the scrims: the caption drops to about 1.2:1 contrast and is effectively invisible. This is not
+   width-dependent, it was simply easiest to see on a phone. */
+section[data-hero-in]>figure[data-hero]{position:relative;z-index:1}
+
+/* ---------- touch ergonomics ----------
+   Measured in a mobile Chromium at 390px and 360px. These controls came out 13 to 34 CSS px tall.
+   Most clear the 24px WCAG 2.5.8 minimum only through the spacing exception, and all of them are
+   fiddly under a thumb. The breadcrumb and legal links grow their hit area with padding cancelled
+   by an equal negative margin, so the target grows and the layout does not move at all. Gated on
+   (pointer:coarse) so the mouse layout, built on a tight 11px rhythm, is untouched. */
+@media (pointer:coarse){
+  nav[aria-label="Breadcrumb"] a{display:inline-block;padding:15px 6px;margin:-15px -6px}
+  .footer-bottom .legal a{display:inline-block;padding:13px 4px;margin:-13px -4px}
+  .social-btn{width:44px;height:44px}
+}
+@media (max-width:560px){
+  .marquee-pause{width:44px;height:44px;font-size:13px;right:10px;bottom:6px}
+  /* the current crumb is a full article title and wrapped to three lines on a phone */
+  nav[aria-label="Breadcrumb"]>span:last-child{display:inline-block;max-width:100%;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}
+}
+
+/* ---------- hero CTA pairs stack instead of wrapping ragged ----------
+   The hero button rows are flex-wrap, so on a phone the second button wrapped to its own line at
+   its own intrinsic width and the pair read as a mistake. Scoped to div[data-hero] because
+   /guides/predict-a-full-field/ also carries data-hero on a <figure>, and :has(> a) keeps it to
+   button rows: /sensitivity-analysis/ uses the same div[data-hero] wrapper for a row of <span>
+   method chips (Sobol indices, SHAP, DGSM) that are meant to wrap as chips, not stack. */
+@media (max-width:560px){
+  section[data-hero-in] div[data-hero]:has(> a){flex-direction:column;align-items:stretch}
+  section[data-hero-in] div[data-hero]:has(> a)>a{display:flex;justify-content:center;text-align:center}
+}
+
+/* The mobile menu is capped at 92vh, which on a phone means the large viewport, so its last item
+   sits under the browser chrome while the URL bar is showing. dvh tracks the viewport actually
+   visible; the vh line stays first as the fallback for engines without dvh. */
+@media (max-width:960px){
+  .mobile-panel.open{max-height:calc(100vh - 68px);max-height:calc(100dvh - 68px)}
+}
+
 /* ---------- article body patterns ----------
    News and guide bodies were pure paragraph stacks, which read as a wall of text. These give an
    article three ways to break a run of prose without changing the page template: a point list, a
@@ -281,3 +373,174 @@ figure:has(> img[src*="/probaligence-site-preview/assets/media/insights/"]){max-
 .xpd-more-wrap{margin-top:28px;text-align:center}
 .xpd-more{font:500 12.5px/1 'IBM Plex Mono',monospace;letter-spacing:.04em;color:#FFB006;background:transparent;border:1px solid rgba(255,176,6,.4);border-radius:2px;padding:12px 20px;cursor:pointer;transition:border-color .15s,background .15s}
 .xpd-more:hover{background:rgba(255,176,6,.1);border-color:#FFB006}
+
+/* Demonstration ticker: a running warning strip attached to every interactive
+   piece that imitates the product or its math (the Flow builder mock, the
+   Pareto explorer, the browser Gaussian process). Same component as the one in
+   the challenge app. The track is duplicated exactly once; the -50% loop
+   depends on it. The visible copy is hidden from assistive tech, which reads
+   the aria-label on the note instead. Reduced motion stops the scroll and
+   leaves a readable, scrollable row. */
+/* the warning never fades in with the scroll reveal: site.js marks the children
+   of a block with .pi-rv, and a disclaimer that is still at 10% opacity while the
+   demo above it is usable defeats its purpose. Depending on how a page nests it,
+   the mark lands on the strip itself (the Flow mock) or on .demo-ticker-view
+   inside it (the science plot), which reads as a strip with no text, so both the
+   strip and anything inside it opt out. */
+html.anim .demo-ticker.pi-rv,
+html.anim .demo-ticker .pi-rv{animation:none;opacity:1;transform:none}
+/* overflow:hidden here as well as on the view: without it the max-content width of
+   the track (~4000px) becomes this box's contribution and blows out the grid column
+   of the Flow mock it sits in. The mask stays on the view so it never fades the button. */
+.demo-ticker{position:relative;height:20px;min-width:0;overflow:hidden;background:rgba(255,255,255,.045);
+  border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.demo-ticker-view{height:100%;margin-right:20px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 4%,#000 92%,transparent)}
+.demo-ticker-track{display:flex;width:max-content;will-change:transform;
+  animation:demoTickerScroll 46s linear infinite}
+.demo-ticker-set{display:flex;flex:0 0 auto}
+/* pause control, same WCAG 2.2.2 reasoning as .marquee-pause above: the text
+   moves on its own, so it must be stoppable without a pointer hover */
+.demo-ticker-pause{position:absolute;right:0;top:0;z-index:2;width:20px;height:18px;
+  border:0;border-left:1px solid rgba(255,255,255,.1);background:rgba(10,9,8,.72);
+  color:var(--muted);font-size:7.5px;line-height:1;cursor:pointer;padding:0}
+.demo-ticker-pause:hover{background:rgba(255,255,255,.1);color:var(--text)}
+.demo-ticker-set b{padding:0 18px;white-space:nowrap;
+  font:500 9.5px/18px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted)}
+.demo-ticker-set b::before{content:'\25C6';margin-right:18px;opacity:.5}
+@keyframes demoTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .demo-ticker-view{margin-right:0;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:none;mask-image:none}
+  .demo-ticker-view::-webkit-scrollbar{display:none}
+  .demo-ticker-track{animation:none}
+  .demo-ticker-set + .demo-ticker-set{display:none}
+  .demo-ticker-set b:nth-child(n+4){display:none}   /* one pass of the message, not the looped copies */
+  .demo-ticker-pause{display:none}
+}
+@media (max-width:560px){
+  .demo-ticker-set b{padding:0 12px;font-size:9px;letter-spacing:.1em}
+  .demo-ticker-set b::before{margin-right:12px}
+}
+
+/* ---------- site search ----------
+   The trigger buttons are injected by site.js, not written into the 84 page
+   files: search needs JS, so a button that exists without it would be dead
+   chrome. Panel styling follows the toolbox command-palette element. */
+.nav-search{flex:none;display:inline-flex;align-items:center;gap:8px;margin-left:4px;
+  height:34px;padding:0 10px;background:none;border:1px solid var(--hairline);border-radius:2px;
+  color:var(--muted);cursor:pointer;transition:color .15s, border-color .15s, background .15s}
+.nav-search:hover{color:var(--text);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.03)}
+.nav-search svg{width:15px;height:15px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8}
+.mobile-panel .m-search{display:flex;align-items:center;gap:10px;width:100%;margin:4px 0 10px;
+  padding:13px 14px;background:rgba(255,255,255,.04);border:1px solid var(--hairline);border-radius:2px;
+  color:var(--muted);font:400 15px/1 'IBM Plex Sans',sans-serif;text-align:left;cursor:pointer}
+.mobile-panel .m-search svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8}
+
+.pis-overlay{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.74);
+  display:flex;justify-content:center;align-items:flex-start;padding:10vh 18px 18px}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .pis-overlay{-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+}
+.pis-overlay[hidden]{display:none}
+.pis-panel{width:min(640px,100%);max-height:80vh;display:flex;flex-direction:column;
+  background:var(--bg-warm);border:1px solid rgba(255,176,6,.32);border-radius:4px;overflow:hidden;
+  box-shadow:0 24px 70px rgba(0,0,0,.6);opacity:0;transform:translateY(8px) scale(.985)}
+.pis-anim .pis-panel{transition:opacity .18s ease, transform .18s cubic-bezier(.2,.9,.3,1)}
+.pis-overlay.pis-in .pis-panel{opacity:1;transform:none}
+.pis-inputrow{display:flex;align-items:center;gap:12px;padding:15px 16px;flex:none;
+  border-bottom:1px solid var(--hairline)}
+.pis-inputrow svg{width:17px;height:17px;flex:none;stroke:var(--amber);fill:none;stroke-width:1.8}
+.pis-input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--text);
+  font:400 15px/1.2 'IBM Plex Sans',sans-serif}
+.pis-input::placeholder{color:var(--faint)}
+.pis-input::-webkit-search-cancel-button,.pis-input::-webkit-search-decoration{-webkit-appearance:none;appearance:none}
+.pis-esc{font:500 10.5px/1 'IBM Plex Mono',monospace;color:var(--faint);
+  border:1px solid var(--hairline);border-radius:2px;padding:4px 6px;flex:none}
+/* ---------- search overlay on a phone ----------
+   Three mobile-specific corrections to the rules above.
+
+   1. iOS Safari zooms the page in whenever a focused field is under 16px and never zooms back
+      out. The search box is the single most-tapped field on the site, so 15px is the worst place
+      to have it. Same defect and same fix as the contact form.
+   2. The "Esc" chip names a key the device does not have. Tapping the backdrop already closes the
+      overlay (site.js closes on a backdrop mousedown, which touch synthesises), so the chip is
+      just a misleading 30px of the input row. A visible close button would be better still, but
+      that needs markup, not CSS.
+
+   The panel geometry needs nothing from here: the 560px block further down already takes the
+   overlay full screen on a phone, which is the right idiom and leaves the results list scrolling
+   inside a fixed frame. */
+@media (pointer:coarse){
+  .pis-input{font-size:16px}
+}
+@media (max-width:560px){
+  .pis-esc{display:none}
+}
+.pis-list{flex:1;overflow-y:auto;padding:6px 0;overscroll-behavior:contain}
+.pis-list::-webkit-scrollbar{width:8px}
+.pis-list::-webkit-scrollbar-thumb{background:rgba(255,176,6,.25);border-radius:4px}
+.pis-group{padding:12px 18px 6px;font:500 10px/1 'IBM Plex Mono',monospace;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+.pis-item{display:block;padding:10px 18px;border-left:2px solid transparent;
+  text-decoration:none;cursor:pointer}
+.pis-item .pis-t{display:block;font:500 14.5px/1.35 'IBM Plex Sans',sans-serif;color:var(--text)}
+.pis-item .pis-x{display:block;margin-top:3px;font:400 12.5px/1.5 'IBM Plex Sans',sans-serif;
+  color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* the default UA mark is a yellow block: keep the highlight on brand */
+.pis-item mark{background:none;color:var(--amber);font-weight:600}
+.pis-item .pis-x mark{color:var(--amber-lt);font-weight:500}
+.pis-item .pis-u{display:block;margin-top:4px;font:400 11px/1.4 'IBM Plex Mono',monospace;
+  color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pis-item.pis-active{background:rgba(255,176,6,.09);border-left-color:var(--amber)}
+.pis-item.pis-active .pis-t{color:var(--amber-lt)}
+.pis-empty{padding:26px 18px 22px;font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)}
+.pis-empty b{display:block;color:var(--text);font-weight:500;margin-bottom:6px}
+.pis-foot{flex:none;display:flex;gap:16px;padding:10px 18px;border-top:1px solid var(--hairline);
+  font:400 10.5px/1.4 'IBM Plex Mono',monospace;color:var(--faint)}
+.pis-foot .pis-count{margin-left:auto}
+@media (max-width:560px){
+  .pis-overlay{padding:0}
+  .pis-panel{width:100%;max-height:100%;height:100%;border:0;border-radius:0}
+  .pis-foot{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .pis-anim .pis-panel{transition:none}
+}
+
+/* ---------- search: the extras the cascade needs ----------
+   The overlay answers a query in three ways now (exact, spelling-corrected,
+   closest), caps its list at 12 and hands the rest to /search/. These are the
+   three pieces of chrome that carries. */
+.pis-item.pis-more{font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--amber);
+  padding:12px 18px 14px;letter-spacing:.04em}
+.pis-item.pis-more.pis-active{color:var(--amber-lt)}
+.pis-sugg{display:inline-block;margin:10px 8px 0 0;padding:6px 11px;cursor:pointer;
+  background:transparent;border:1px solid var(--hairline);border-radius:2px;
+  font:400 12.5px/1 'IBM Plex Sans',sans-serif;color:var(--muted)}
+.pis-sugg:hover,.pis-sugg:focus-visible{color:var(--amber-lt);border-color:rgba(255,176,6,.42)}
+
+/* ---------- the /search/ page ----------
+   Same result rows as the overlay, given the room a full page has: the snippet
+   wraps to two lines instead of being cut at one, and every result is listed
+   rather than the first twelve. */
+.sp-field{display:flex;align-items:center;gap:12px;padding:14px 16px;
+  background:var(--bg-warm);border:1px solid rgba(255,176,6,.32);border-radius:4px}
+.sp-field svg{width:18px;height:18px;flex:none;stroke:var(--amber);fill:none;stroke-width:1.8}
+.sp-field input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--text);
+  font:400 16px/1.2 'IBM Plex Sans',sans-serif}
+.sp-field input::placeholder{color:var(--faint)}
+.sp-field input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.sp-results .pis-item{padding:16px 0 17px;border-left:0;border-top:1px solid var(--hairline)}
+.sp-results .pis-item:hover{background:rgba(255,176,6,.05)}
+.sp-results .pis-item .pis-t{font-size:17px;line-height:1.3}
+.sp-results .pis-item .pis-x{margin-top:6px;font-size:13.5px;white-space:normal;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.sp-results .pis-item .pis-u{margin-top:7px}
+.sp-results .pis-group{padding:0 0 14px}
+.sp-results .pis-empty{padding:22px 0}
+
+/* A deep link from search targets a heading, and the header is sticky, so
+   without this the heading lands underneath it. Covers in-page anchors too. */
+:target,main h2[id],main h3[id]{scroll-margin-top:96px}

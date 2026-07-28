@@ -136,6 +136,10 @@ h1,h2,h3,h4,p{margin:0}
 <main id="main" tabindex="-1" style="display: block;">
 
   <section data-hero-in style="position: relative; overflow: hidden;">
+    <style>/* Phone crop: the 1600x900 frame is cover-scaled to 1500px wide, so the default
+       50% keeps only source x 710 to 1210 and cuts the laptop in half. 28% recentres it.
+       The pause control is 29px tall by default, below the 44px touch target. */
+    @media (max-width:640px){[data-hero-video]{object-position:28% center}[data-hero-toggle]{min-height:44px;padding:12px 14px}}</style>
     <div style="position: relative; width: 100%; height: 100vh; height: 100svh; min-height: 480px; overflow: hidden; background: rgb(6, 6, 7);">
       <video data-hero-video autoplay muted loop playsinline preload="metadata" poster="/probaligence-site-preview/assets/media/hero-poster.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
         <source src="/probaligence-site-preview/assets/media/hero-video.mp4" type="video/mp4">
@@ -363,7 +367,11 @@ h1,h2,h3,h4,p{margin:0}
   <section data-reveal="" style="padding: clamp(90px,12vw,160px) 24px clamp(56px,8vw,104px); opacity:1; transform:none; filter:none; transition:opacity .85s cubic-bezier(.2,.7,.2,1), transform .85s cubic-bezier(.2,.7,.2,1), filter .85s cubic-bezier(.2,.7,.2,1);">
     <div style="max-width: 940px; margin: 0 auto; text-align: center;">
       <div style="font: 500 12px/1 'IBM Plex Mono',monospace; letter-spacing:.18em; text-transform:uppercase; color:#FFB006; margin-bottom: 28px;">The opportunity</div>
-      <blockquote style="font: 700 clamp(30px,5.2vw,58px)/1.14 'Space Grotesk',sans-serif; letter-spacing:-.022em; color:#F4F3EF; margin:0 auto; max-width: 40ch;"><span aria-hidden="true" style="color:rgba(255,176,6,.5)">&ldquo;</span>Turn small, expensive data<br>into answers you trust.<span aria-hidden="true" style="color:rgba(255,176,6,.5)">&rdquo;</span></blockquote>
+      <style>/* The authored break is set for the desktop measure. On a phone the first half wraps
+         again and strands "data" on a line of its own, so drop the break and let the browser
+         balance the quote instead. */
+      @media (max-width:560px){blockquote .q-br{display:none}blockquote{text-wrap:balance}}</style>
+      <blockquote style="font: 700 clamp(30px,5.2vw,58px)/1.14 'Space Grotesk',sans-serif; letter-spacing:-.022em; color:#F4F3EF; margin:0 auto; max-width: 40ch;"><span aria-hidden="true" style="color:rgba(255,176,6,.5)">&ldquo;</span>Turn small, expensive data <br class="q-br">into answers you trust.<span aria-hidden="true" style="color:rgba(255,176,6,.5)">&rdquo;</span></blockquote>
       <p data-quote-kicker style="opacity:0; transform:translateY(14px); transition:opacity 1.1s ease, transform 1.1s ease; margin: 34px auto 0; font: 600 clamp(20px,2.4vw,28px)/1.3 'Space Grotesk',sans-serif; letter-spacing:-.01em; color:#F4F3EF;"><span style="color:#FFB006">STOCHOS</span> does it locally.</p>
     </div>
     <script>(function(){var el=document.querySelector('[data-quote-kicker]');if(!el)return;function show(){el.style.opacity='1';el.style.transform='none';}if(!document.documentElement.classList.contains('anim')){show();return;}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){setTimeout(show,900);io.disconnect();}});},{threshold:.35});io.observe(el);})();</script>
@@ -374,7 +382,7 @@ h1,h2,h3,h4,p{margin:0}
   <section data-reveal="" style="padding: clamp(50px, 6.5vw, 92px) 24px; background: rgb(10, 9, 8); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 'IBM Plex Mono',monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Two layers, one local system</div>
-      <h2 style="font: 700 clamp(28px, 4.4vw, 50px) / 1.1 'Space Grotesk',sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What PI Probaligence provides</h2>
+      <h2 id="what-pi-probaligence-provides" style="font: 700 clamp(28px, 4.4vw, 50px) / 1.1 'Space Grotesk',sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What PI Probaligence provides</h2>
       <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 60ch;">STOCHOS predicts. STOCHOS Flow turns it into agentic, reusable workflows. Both run locally.</p>
 
       <div data-layers style="margin-top: 30px;">
@@ -383,6 +391,13 @@ h1,h2,h3,h4,p{margin:0}
           <button type="button" data-layer-btn="stochos" role="tab" aria-selected="true" style="position:relative;z-index:1;border:0;background:transparent;color:#08070A;font:600 14px/1 'IBM Plex Sans',sans-serif;padding:11px 20px;border-radius:999px;cursor:pointer;transition:color .3s">STOCHOS</button>
           <button type="button" data-layer-btn="flow" role="tab" aria-selected="false" style="position:relative;z-index:1;border:0;background:transparent;color:#F4F3EF;font:600 14px/1 'IBM Plex Sans',sans-serif;padding:11px 20px;border-radius:999px;cursor:pointer;transition:color .3s">STOCHOS Flow</button>
         </div>
+        <style>/* Both panels sit in the same single grid cell, so the row is sized by whichever
+           is taller. On a phone the hidden Flow panel is the taller one and leaves a large empty
+           box under "Explore STOCHOS", with the off-canvas panel peeking at the right edge.
+           Below 700px only the selected panel is laid out. Without JS the STOCHOS panel stays
+           visible and Flow stays hidden, which is the correct fallback. The slide is unchanged
+           above 700px. */
+        @media (max-width:700px){[data-layer-stage]>[data-panel="flow"]{display:none}[data-layer-stage]>[data-panel="flow"].is-on{display:block}[data-layer-stage]>[data-panel="stochos"].is-off{display:none}}</style>
         <div data-layer-stage style="margin-top:20px;display:grid;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:4px;background:radial-gradient(at 80% 0%, rgba(255,176,6,.06), transparent 55%)">
           <div data-panel="stochos" style="grid-column:1;grid-row:1;background:#0A0908;padding:clamp(24px,3.4vw,38px);z-index:1">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
@@ -395,7 +410,7 @@ h1,h2,h3,h4,p{margin:0}
           </div>
           <div data-panel="flow" style="grid-column:1;grid-row:1;background:#0A0908;padding:clamp(24px,3.4vw,38px);z-index:2;transform:translateX(101%);transition:transform .85s cubic-bezier(.2,.7,.2,1);will-change:transform;box-shadow:-24px 0 40px rgba(0,0,0,.4)">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-              <div style="display:flex;align-items:center;gap:11px"><video data-logo-video muted playsinline preload="metadata" width="480" height="318" poster="/probaligence-site-preview/assets/media/stochos-flow-logo-mark-poster.webp" aria-hidden="true" style="height:34px;width:auto;display:block;mix-blend-mode:screen"><source src="/probaligence-site-preview/assets/media/stochos-flow-logo-mark.webm" type="video/webm"><source src="/probaligence-site-preview/assets/media/stochos-flow-logo-mark.mp4" type="video/mp4"></video><h3 style="font:600 22px/1 'Space Grotesk',sans-serif;color:#F4F3EF">STOCHOS Flow</h3></div>
+              <div style="display:flex;align-items:center;gap:11px"><video data-logo-video muted playsinline preload="metadata" width="480" height="318" poster="/probaligence-site-preview/assets/media/stochos-flow-logo-mark-poster.webp" aria-hidden="true" style="height:34px;width:auto;display:block;mix-blend-mode:screen"><source src="/probaligence-site-preview/assets/media/stochos-flow-logo-mark.webm" type="video/webm"><source src="/probaligence-site-preview/assets/media/stochos-flow-logo-mark.mp4" type="video/mp4"></video><h3 id="stochos-flow" style="font:600 22px/1 'Space Grotesk',sans-serif;color:#F4F3EF">STOCHOS Flow</h3></div>
               <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#FFB006">Workflow layer</span>
             </div>
             <p style="margin:16px 0 0;color:#B8B8B2;font:400 16px/1.55 'IBM Plex Sans',sans-serif;max-width:54ch">From a sentence to a running workflow, in three steps.</p>
@@ -432,6 +447,7 @@ h1,h2,h3,h4,p{margin:0}
       (function(){
         var root=document.querySelector('[data-layers]'); if(!root) return;
         var flow=root.querySelector('[data-panel="flow"]');
+        var stoch=root.querySelector('[data-panel="stochos"]');
         var pill=root.querySelector('[data-pill]');
         var btns=root.querySelectorAll('[data-layer-btn]');
         var cur='stochos';
@@ -439,13 +455,18 @@ h1,h2,h3,h4,p{margin:0}
         function placePill(l,w){ pill.style.left=l+'px'; pill.style.width=w+'px'; }
         function pillTo(a){ var b=btnOf(a); if(b) placePill(b.offsetLeft, b.offsetWidth); }
         function set(a){ cur=a; flow.style.transform = a==='flow' ? 'translateX(0)' : 'translateX(101%)'; pillTo(a);
+          flow.classList.toggle('is-on', a==='flow');
+          if(stoch) stoch.classList.toggle('is-off', a!=='stochos');
           btns.forEach(function(b){ var on=b.getAttribute('data-layer-btn')===a; b.setAttribute('aria-selected', on?'true':'false'); b.style.color=on?'#08070A':'#F4F3EF'; });
         }
         btns.forEach(function(b){ b.addEventListener('click', function(){ set(b.getAttribute('data-layer-btn')); }); });
         window.addEventListener('resize', function(){ pillTo(cur); });
         requestAnimationFrame(function(){ pillTo('stochos'); });
         set('stochos');
-        if(document.documentElement.classList.contains('anim') && 'IntersectionObserver' in window){
+        /* The peek teaser slides the Flow panel to 80% to hint at the second tab. Below 700px
+           only one panel is laid out, so the peek would show a sliver of the wrong panel. */
+        var _wide = !window.matchMedia || window.matchMedia('(min-width:700px)').matches;
+        if(_wide && document.documentElement.classList.contains('anim') && 'IntersectionObserver' in window){
           var _n=false;
           var _io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting && !_n){ _n=true;
             setTimeout(function(){
@@ -464,8 +485,11 @@ h1,h2,h3,h4,p{margin:0}
   <section data-reveal="" style="padding: clamp(50px, 6.5vw, 92px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">By domain</div>
-      <h2 style="font: 700 clamp(28px, 4.4vw, 50px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">One engine, three domains</h2>
-      <style>.dom-card .dom-more{max-height:0;opacity:0;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.7,.2,1),opacity .4s,margin-top .5s}.dom-card:hover .dom-more,.dom-card:focus-visible .dom-more{max-height:150px;opacity:1;margin-top:12px}.dom-card img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}.dom-card:hover img{transform:scale(1.05)}</style>
+      <h2 id="one-engine-three-domains" style="font: 700 clamp(28px, 4.4vw, 50px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">One engine, three domains</h2>
+      <style>.dom-card .dom-more{max-height:0;opacity:0;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.7,.2,1),opacity .4s,margin-top .5s}.dom-card:hover .dom-more,.dom-card:focus-visible .dom-more{max-height:150px;opacity:1;margin-top:12px}.dom-card img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}.dom-card:hover img{transform:scale(1.05)}
+      /* A touch device has no hover, so the second sentence of every card is unreachable.
+         Show it outright wherever hover is not available. */
+      @media (hover:none){.dom-card .dom-more{max-height:150px;opacity:1;margin-top:12px}}</style>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 18px; margin-top: 36px;"><a href="/probaligence-site-preview/ai-for-engineering/" class="scp2 dom-card" style="display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1);border-radius:5px;overflow:hidden;text-decoration:none;background:#0A0908;transition:border-color .2s,transform .2s;opacity:1;transform:none"><div style="height:172px;overflow:hidden;position:relative"><img src="/probaligence-site-preview/assets/media/domains/engineering.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"><div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(10,9,8,.55) 78%,#0A0908 100%)"></div></div><div style="padding:24px"><h3 style="font:600 22px/1.1 'Space Grotesk',sans-serif;color:#F4F3EF">AI for Engineering</h3><p style="color:#9C9C96;font-size:15px;line-height:1.55;margin-top:10px">Accelerate CFD, FEM, and CAE.</p><p class="dom-more" style="color:#9C9C96;font-size:14.5px;line-height:1.55">Predict full fields, shortlist the variants worth a full solve, and cut the number of expensive simulations.</p></div></a><a href="/probaligence-site-preview/paint-coating/" class="scp2 dom-card" style="display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1);border-radius:5px;overflow:hidden;text-decoration:none;background:#0A0908;transition:border-color .2s,transform .2s;opacity:1;transform:none"><div style="height:172px;overflow:hidden;position:relative"><img src="/probaligence-site-preview/assets/media/domains/paint.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"><div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(10,9,8,.55) 78%,#0A0908 100%)"></div></div><div style="padding:24px"><h3 style="font:600 22px/1.1 'Space Grotesk',sans-serif;color:#F4F3EF">AI for Paint and Coatings</h3><p style="color:#9C9C96;font-size:15px;line-height:1.55;margin-top:10px">Reach the target formulation with fewer lab trials.</p><p class="dom-more" style="color:#9C9C96;font-size:14.5px;line-height:1.55">Match color and properties, and get to a working coating in fewer adaptation cycles.</p></div></a><a href="/probaligence-site-preview/ai-for-chemical-process-optimization/" class="scp2 dom-card" style="display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1);border-radius:5px;overflow:hidden;text-decoration:none;background:#0A0908;transition:border-color .2s,transform .2s;opacity:1;transform:none"><div style="height:172px;overflow:hidden;position:relative"><img src="/probaligence-site-preview/assets/media/domains/chemical.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"><div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(10,9,8,.55) 78%,#0A0908 100%)"></div></div><div style="padding:24px"><h3 style="font:600 22px/1.1 'Space Grotesk',sans-serif;color:#F4F3EF">AI for Chemical R&amp;D</h3><p style="color:#9C9C96;font-size:15px;line-height:1.55;margin-top:10px">Smarter experiments across lab, pilot, and production.</p><p class="dom-more" style="color:#9C9C96;font-size:14.5px;line-height:1.55">Plan the next best experiment, connect scales, and reach targets with less trial and error.</p></div></a></div>
     </div>
   </section>
@@ -484,11 +508,14 @@ h1,h2,h3,h4,p{margin:0}
         <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 24px; background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(6,6,7,.82) 0%, rgba(6,6,7,.5) 45%, rgba(6,6,7,0) 72%);">
           <div style="max-width: 620px; text-align: center;">
             <div style="font: 500 12px / 1 'IBM Plex Mono',monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Partners and reach</div>
-            <h2 style="font: 700 clamp(28px, 4.4vw, 48px) / 1.1 'Space Grotesk',sans-serif; letter-spacing: -0.02em; margin: 0 auto; max-width: 16ch;">Hundreds of workflows, all over the world</h2>
+            <h2 id="hundreds-of-workflows-all-over-the-world" style="font: 700 clamp(28px, 4.4vw, 48px) / 1.1 'Space Grotesk',sans-serif; letter-spacing: -0.02em; margin: 0 auto; max-width: 16ch;">Hundreds of workflows, all over the world</h2>
             <p style="margin: 22px auto 0; color: rgb(200, 200, 194); font-size: 17px; line-height: 1.65; max-width: 54ch;">An official Ansys Technology Partner, with a global partner network behind hundreds of engineering and R&amp;D workflows.</p>
+            <style>/* The rule is its own flex child, so once the two logos wrap it strands at the
+               end of line 1. Same pattern as [data-lf-sep] further down the page. */
+            @media (max-width:640px){[data-partner-sep]{display:none}}</style>
             <div style="margin: 32px auto 0; display: flex; gap: 44px; justify-content: center; align-items: center; flex-wrap: wrap;">
               <img loading="lazy" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner" style="height: 62px; width: auto; display: block;">
-              <span aria-hidden="true" style="width: 1px; height: 42px; background: rgba(255,255,255,0.18);"></span>
+              <span data-partner-sep aria-hidden="true" style="width: 1px; height: 42px; background: rgba(255,255,255,0.18);"></span>
               <img loading="lazy" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group" style="height: 34px; width: auto; display: block;">
             </div>
           </div>
@@ -498,7 +525,7 @@ h1,h2,h3,h4,p{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 9vw, 120px) 24px; background: rgb(10, 9, 8); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto; text-align: center;">
       <div style="font: 500 12px/1 'IBM Plex Mono',monospace; letter-spacing: 0.18em; text-transform: uppercase; color: #FFB006; margin-bottom: 24px;">Local-first and secure</div>
-      <h2 style="font: 700 clamp(32px, 5vw, 58px)/1.08 'Space Grotesk',sans-serif; letter-spacing: -0.022em; max-width: 20ch; margin: 0 auto;">Your data and IP never leave your systems</h2>
+      <h2 id="your-data-and-ip-never-leave-your-systems" style="font: 700 clamp(32px, 5vw, 58px)/1.08 'Space Grotesk',sans-serif; letter-spacing: -0.022em; max-width: 20ch; margin: 0 auto;">Your data and IP never leave your systems</h2>
       <style>@media (max-width:640px){[data-lf-sep]{display:none}[data-local-facts]{flex-direction:column;gap:16px!important}}</style>
       <div data-local-facts style="margin: 52px auto 0; display: flex; justify-content: center; align-items: center; gap: clamp(18px,4vw,44px); flex-wrap: wrap;">
       <span data-lf style="font:500 12.5px/1.6 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#C9C9C3;opacity:0;transform:translateY(10px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)">Air-gapped deployment</span>
@@ -527,7 +554,7 @@ h1,h2,h3,h4,p{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 9vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.16), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
-      <h2 style="font: 700 clamp(32px, 5vw, 60px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See STOCHOS on your own data</h2>
+      <h2 id="see-stochos-on-your-own-data" style="font: 700 clamp(32px, 5vw, 60px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See STOCHOS on your own data</h2>
       <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 19px); line-height: 1.6; max-width: 52ch;">Talk to our experts, find the right use case in your domain, and see STOCHOS run on your own data.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
         <a href="/probaligence-site-preview/contact/" class="scp0" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
@@ -538,7 +565,7 @@ h1,h2,h3,h4,p{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What does PI Probaligence do?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>PI Probaligence develops local, probabilistic AI for engineering and R&amp;D. It uses your existing simulation, experimental, and process data to build fast surrogate models that predict results for new variants and quantify uncertainty. This shortens development cycles and supports more reliable decisions, without needing an in-house ML team.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">What is probabilistic AI?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Probabilistic AI returns a prediction together with a measure of confidence, not a single number with no context. For engineering, that means you can see where a model is reliable and where it is not, which matters when decisions carry cost or risk and data is limited.</p></div></div></details>

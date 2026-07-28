@@ -183,6 +183,33 @@ button.fb-tool{cursor:pointer}
 .oob-cap b{color:#FFB006}
 .oob.go5 .oob-cap{opacity:1}
 
+/* ---------- phone: three laptop-authored figures in a 342px column ----------
+   03 spent 210vh of scroll (about 2.5 phone screens) to reveal a workflow that renders 232px wide
+   inside a laptop frame; 05 auto-fit its node graph to 0.455, so 66px cards landed at 30px and the
+   11px labels at 5px; 02 clamped its 1000x400 stage to 0.52, so the same labels landed at 5.7px and
+   the amber payoff node sat off-screen. The pin is released and the poster carries 03. The other
+   two get a scale floor and pan sideways inside their own container, which is the house .fig-pan
+   answer applied to two live stages instead of a raster. */
+@media (max-width:880px){
+  .pin-wrap{height:auto!important}
+  .pin-stick{position:static;height:auto;overflow:visible;padding:72px 0 80px}
+  .flow-pin-stage{height:auto;order:0}
+  #laptop-scrub,#laptop-screen-content{display:none}
+  /* [hidden] outranks a bare #id, so the poster needs the attribute selector to come back */
+  #laptop-poster,#laptop-poster[hidden]{display:block;width:100%;height:auto}
+  /* the hint reads "keep scrolling, the workflow appears on screen". With the scrub gone below
+     880px there is nothing left to scrub, so the line goes with it. */
+  .flow-pin-hint{display:none}
+}
+@media (max-width:820px){
+  /* pairs with the 0.8 scale floor in fit(): the graph is wider than the canvas and pans */
+  .fb-canvas{overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;min-height:380px}
+}
+@media (max-width:640px){
+  /* the soft right edge is what tells the reader it pans (same treatment as .fig-pan) */
+  .oob-wrap{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 90%,transparent 100%);
+    mask-image:linear-gradient(90deg,#000 0,#000 90%,transparent 100%)}
+}
 </style>
 <link rel="stylesheet" href="/probaligence-site-preview/site.css">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
@@ -315,7 +342,7 @@ button.fb-tool{cursor:pointer}
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
     <div style="max-width: 1120px; margin: 0px auto;">
       <div style="font: 500 12px/1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">01 &middot; The platform</div>
-      <h2 style="font: 700 clamp(31px, 4.6vw, 52px)/1.08 'Space Grotesk', sans-serif; letter-spacing: -0.022em; max-width: 20ch;">One canvas, raw data to running model</h2>
+      <h2 id="one-canvas-raw-data-to-running-model" style="font: 700 clamp(31px, 4.6vw, 52px)/1.08 'Space Grotesk', sans-serif; letter-spacing: -0.022em; max-width: 20ch;">One canvas, raw data to running model</h2>
       <div class="flow-split-media" style="position: relative; margin-top: clamp(30px,3.6vw,44px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; overflow: hidden; background: rgb(0, 0, 0); box-shadow: rgba(0, 0, 0, 0.6) 0px 40px 100px;">
         <video id="flow-tour" muted playsinline preload="none" controlslist="nodownload noplaybackrate" disablepictureinpicture width="1600" height="900" poster="/probaligence-site-preview/assets/media/flow-product-video-poster.webp" aria-label="STOCHOS Flow product tour: the node canvas, agent-built pipelines, plots, and exports in motion" style="display: block; width: 100%; height: auto;"><source src="/probaligence-site-preview/assets/media/flow-product-video.mp4" type="video/mp4"></video>
         <button type="button" data-video-start aria-controls="flow-tour" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; width: 100%; border: 0; padding: 0; background: rgba(0, 0, 0, 0.34); cursor: pointer; color: rgb(244, 243, 239); transition: background 0.2s ease;">
@@ -339,7 +366,7 @@ button.fb-tool{cursor:pointer}
     <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px/1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">02 &middot; Customization</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px)/1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 18ch;">If you can script it, it becomes a node.</h2>
+      <h2 id="if-you-can-script-it-it-becomes-a-node" style="font: 700 clamp(28px, 4.2vw, 46px)/1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 18ch;">If you can script it, it becomes a node.</h2>
       <p style="margin-top: 20px; color: rgb(198,198,192); font-size: clamp(16px,1.5vw,18.5px); line-height: 1.7; max-width: 50ch;">The Python node is the way out of any box. Anything you can script runs as a step in the workflow, and the whole team can reuse it.</p>
       <div class="oob-wrap" id="oobWrap">
         <div class="oob-sizer" id="oobSizer">
@@ -366,6 +393,7 @@ button.fb-tool{cursor:pointer}
           </div>
         </div>
       </div>
+      <p class="fig-hint">Scroll sideways to read the labels.</p>
     </div>
   </section>
 
@@ -374,7 +402,7 @@ button.fb-tool{cursor:pointer}
       <div class="flow-pin-grid">
         <div>
           <div style="font: 500 12px/1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">03 &middot; The basics</div>
-          <h2 class="pin-h2" style="font: 700 clamp(28px, 4.2vw, 46px)/1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em;">What a workflow looks like</h2>
+          <h2 id="what-a-workflow-looks-like" class="pin-h2" style="font: 700 clamp(28px, 4.2vw, 46px)/1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em;">What a workflow looks like</h2>
           <p style="margin-top: 22px; color: rgb(184,184,178); font-size: clamp(16px,1.4vw,17.5px); line-height: 1.68; max-width: 40ch;">Every workflow is a chain of nodes, each doing one job, wired left to right. Here is a basic one, from raw data through to a checked model.</p>
           <p class="flow-pin-hint" aria-hidden="true">Keep scrolling &middot; the workflow appears on screen</p>
         </div>
@@ -403,7 +431,7 @@ button.fb-tool{cursor:pointer}
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px/1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">05 &middot; The demonstrator</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px)/1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Describe the task. Watch it build.</h2>
+      <h2 id="describe-the-task-watch-it-build" style="font: 700 clamp(28px, 4.2vw, 46px)/1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Describe the task. Watch it build.</h2>
       <p style="margin-top: 22px; color: rgb(198,198,192); font-size: clamp(16px,1.5vw,18.5px); line-height: 1.7; max-width: 56ch;">This is the STOCHOS Flow builder, lean and live. Pick a task and the Workflow Agent places and wires the nodes for you, the same editor your team would use.</p>
       <div class="fb-wrap">
         <div class="fb-titlebar">
@@ -437,13 +465,23 @@ button.fb-tool{cursor:pointer}
             </div>
           </div>
         </div>
+        <div class="demo-ticker" style="border-bottom:0" role="note" aria-label="Demonstration only. This is not the real STOCHOS software or algorithm. Everything shown runs on synthetic data for demonstration purposes.">
+          <div class="demo-ticker-view">
+            <div class="demo-ticker-track" aria-hidden="true">
+              <div class="demo-ticker-set"><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b></div>
+              <div class="demo-ticker-set"><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b></div>
+            </div>
+          </div>
+          <button type="button" class="demo-ticker-pause" aria-pressed="false" aria-label="Pause the demonstration notice">&#10074;&#10074;</button>
+        </div>
     </div>
+    <p class="fig-hint" id="fbPanHint" style="display:none">Scroll sideways to read the labels.</p>
   </section>
 
   <section data-reveal="" style="padding: clamp(52px, 6vw, 84px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px/1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 16px;">06 &middot; The little helpers</div>
-      <h2 style="font: 700 clamp(24px, 3.2vw, 34px)/1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Smaller agents inside the nodes.</h2>
+      <h2 id="smaller-agents-inside-the-nodes" style="font: 700 clamp(24px, 3.2vw, 34px)/1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Smaller agents inside the nodes.</h2>
       <p style="margin-top: 16px; color: rgb(198,198,192); font-size: clamp(15px,1.3vw,16.5px); line-height: 1.65; max-width: 62ch;">The big agent builds the workflow. Inside it, smaller agents do the steps: tell a node what you want in plain language and it configures itself. The prediction still comes from STOCHOS and DIM-GP, never the language model.</p>
       <div class="hlp-row">
         <div class="hlp"><img src="/probaligence-site-preview/assets/media/node-icons/smart-data-loader.svg" alt="" loading="lazy" decoding="async"><b>Smart Data Loader</b><q>load lab_data.xlsx and drop the empty rows</q><p>Reads and cleans your file.</p></div>
@@ -464,7 +502,7 @@ button.fb-tool{cursor:pointer}
   <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See STOCHOS Flow on your workflow</h2>
+      <h2 id="see-stochos-flow-on-your-workflow" style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See STOCHOS Flow on your workflow</h2>
       <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 48ch;">Request a demo and we will walk through the interface on a problem close to yours.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
@@ -475,7 +513,7 @@ button.fb-tool{cursor:pointer}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What is a visual workflow in STOCHOS Flow?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>A visual workflow is a node-based pipeline on a canvas: data input, preprocessing, modeling, validation, sensitivity, optimization, solver, and output nodes connected with typed ports. You can see and configure every step before it runs, which keeps the process transparent and reusable across a team.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">What does the Workflow Agent do?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>The Workflow Agent is the AI assistant that helps build, configure, validate, debug, and document workflows from a prompt. It is not the predictive model. The prediction comes from STOCHOS and DIM-GP; the agent helps you assemble and maintain the workflow around them.</p></div></div></details>
@@ -605,7 +643,10 @@ var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matc
 var N=45,BASE='/probaligence-site-preview/assets/media/laptop-frames/laptop-scrub-',FA=2328/1768;
 var QUAD=[[0.0097,0.0754],[0.6364,0.0068],[0.6873,0.5655],[0.0721,0.6924]];
 var W0=1000,H0=692;
-if(reduce){canvas.style.display='none';overlay.style.display='none';if(poster)poster.hidden=false;return}
+/* below 880px the pin is released in CSS, so the scrub is skipped outright: no 210vh of scroll and
+   no 45 frame downloads, and the still poster carries the section instead */
+var small=innerWidth<=880;
+if(reduce||small){canvas.style.display='none';overlay.style.display='none';if(poster)poster.hidden=false;if(small)stage.style.height='auto';return}
 wrap.style.height='210vh';
 var ctx=canvas.getContext('2d');var cw=2,ch=2,ox=0,oy=0,dw=2,dh=2;
 var imgs=[],loaded=[],started=false,idx=0,lastDrawn=-1,p=0;
@@ -651,8 +692,16 @@ var wrap=document.getElementById('oobWrap'),sizer=document.getElementById('oobSi
 if(!wrap)return;
 var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches&&!window.__PIFX_FORCE;
 var DW=1000,DH=400;
-function fit(){var w=wrap.clientWidth;var k=Math.min(1,w/DW);if(w<640)k=Math.max(k,0.52);
- sizer.style.width=(DW*k)+'px';sizer.style.height=(DH*k)+'px';stage.style.transform='scale('+k+')';}
+/* phone: 0.52 put the 11px node labels at 5.7px. The floor keeps them readable and the wrap pans
+   (it already has overflow-x:auto), so the first frame is set on the payoff: the amber Python node
+   and the wires leaving the box, with the standard-node grid still to the left. */
+var K=1;
+function fit(){var w=wrap.clientWidth;var k=Math.min(1,w/DW);if(w<640)k=Math.max(k,0.8);
+ K=k;sizer.style.width=(DW*k)+'px';sizer.style.height=(DH*k)+'px';stage.style.transform='scale('+k+')';}
+var panned=false;
+function panToPoint(){if(panned)return;var max=wrap.scrollWidth-wrap.clientWidth;if(max<=0)return;
+ var py=stage.querySelector('.oob-pyn');if(!py)return;panned=true;
+ wrap.scrollLeft=Math.max(0,Math.min(max,(py.offsetLeft+py.offsetWidth/2)*K-wrap.clientWidth*0.62));}
 fit();if('ResizeObserver' in window)new ResizeObserver(fit).observe(wrap);
 var wires=[].slice.call(stage.querySelectorAll('.oob-wire'));
 wires.forEach(function(p){var L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;});
@@ -671,14 +720,14 @@ function play(){stage.classList.add('go1');
  setTimeout(function(){stage.classList.add('go3');},750);
  setTimeout(function(){stage.classList.add('go4');drawWires();},1050);
  setTimeout(function(){stage.classList.add('go5');},1650);}
-if(reduce){finish();}
+if(reduce){finish();panToPoint();}
 else if('IntersectionObserver' in window){
  var started=false;
  var io=new IntersectionObserver(function(es){es.forEach(function(en){
-   if(en.isIntersecting){if(!started){started=true;play();setTimeout(startPk,1700);}else{startPk();}}
+   if(en.isIntersecting){if(!started){started=true;panToPoint();play();setTimeout(startPk,1700);}else{startPk();}}
    else if(started){stopPk();}});},{threshold:.3});
  io.observe(wrap);}
-else{finish();startPk();}
+else{finish();panToPoint();startPk();}
 }catch(e){}})();</script>
 <script>(function(){'use strict';try{
 var canvas=document.getElementById('fbCanvas');if(!canvas)return;
@@ -706,6 +755,7 @@ var TASKS=[
   order:['excel','split','fit','sobol','bar'],cap:'drivers ranked &middot; Sobol indices'}
 ];
 var nodes={},edgeEls=[];
+var SC=1,TX=0,panHint=document.getElementById('fbPanHint');
 function port(n,kind,idx){var count=kind==='out'?n.outN:n.inN,cardLeft=n.x+6;return{x:kind==='out'?cardLeft+66:cardLeft,y:n.y+(idx+1)/(count+1)*66};}
 function renderNode(n){var el=document.createElement('div');el.className='fb-node';el.style.left=n.x+'px';el.style.top=n.y+'px';el.style.setProperty('--cat',CAT[n.cat]||'#888');
  var p='';for(var i=0;i<n.inN;i++)p+='<span class="fb-port" style="left:-2px;top:'+((i+1)/(n.inN+1)*66-4)+'px"></span>';
@@ -717,20 +767,39 @@ function fit(){var xs=[],ys=[],xe=[],ye=[];for(var id in nodes){var n=nodes[id];
  if(!xs.length)return;var minX=Math.min.apply(0,xs),minY=Math.min.apply(0,ys),maxX=Math.max.apply(0,xe),maxY=Math.max.apply(0,ye);
  var gw=maxX-minX,gh=maxY-minY,cw=canvas.clientWidth,ch=canvas.clientHeight,pad=48;
  var s=Math.min(1.05,(cw-pad)/gw,(ch-pad)/gh);
- stage.style.transform='translate('+((cw-gw*s)/2-minX*s)+'px,'+((ch-gh*s)/2-minY*s)+'px) scale('+s+')';}
-function clearGraph(){for(var id in nodes)nodes[id].el.remove();nodes={};edgeEls.forEach(function(e){e.el.remove();});edgeEls=[];}
+ /* phone: fitting a 646px graph into a 340px canvas puts the 66px cards at 30px and the 11px
+    labels at 5px. Below 560px the scale gets a floor, the canvas pans (overflow-x:auto from the
+    820px block) and the assembly keeps the node it is placing in view. */
+ if(cw<560&&getComputedStyle(canvas).overflowX==='auto')s=Math.max(s,0.8);
+ var over=gw*s>cw-pad;
+ SC=s;TX=over?pad/2-minX*s:(cw-gw*s)/2-minX*s;
+ /* the stage is a 0x0 abspos box, so it needs a real size or the pan has nothing to scroll to */
+ stage.style.width=maxX+'px';stage.style.height=maxY+'px';
+ stage.style.transform='translate('+TX+'px,'+((ch-gh*s)/2-minY*s)+'px) scale('+s+')';}
+function follow(n){if(getComputedStyle(canvas).overflowX!=='auto')return;/* desktop clips, never pans */
+ var cwv=canvas.clientWidth,max=canvas.scrollWidth-cwv;if(max<=0)return;
+ var L=n.x*SC+TX,R=L+78*SC,sl=canvas.scrollLeft,m=14,to=-1;
+ if(R>sl+cwv-m)to=Math.min(max,R-cwv+m);else if(L<sl+m)to=Math.max(0,L-m);
+ if(to<0)return;
+ if(canvas.scrollTo)canvas.scrollTo({left:to,behavior:reduce?'auto':'smooth'});else canvas.scrollLeft=to;}
+/* the caption and the placeholder are positioned against the canvas, so they would scroll off with
+   the graph; translating them by the scroll offset keeps them where they were authored */
+canvas.addEventListener('scroll',function(){var t='translateX('+canvas.scrollLeft+'px)';cap.style.transform=t;hint.style.transform=t;},{passive:true});
+function clearGraph(){for(var id in nodes)nodes[id].el.remove();nodes={};edgeEls.forEach(function(e){e.el.remove();});edgeEls=[];
+ stage.style.width=stage.style.height='';/* drop the pan extent with the graph that needed it */}
 function loadTask(t){clearGraph();
  t.nodes.forEach(function(d){nodes[d[0]]={id:d[0],icon:d[1],label:d[2],cat:d[3],x:d[4]*COLX,y:d[5]*COLY,inN:d[6],outN:d[7],desc:DESC[d[1]]||''};});
  for(var id in nodes)renderNode(nodes[id]);
  edgeEls=t.edges.map(function(e){var p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('class','fb-edge');svg.appendChild(p);return{from:[e[0],e[1]],to:[e[2],e[3]],el:p};});
- drawEdges();fit();}
+ drawEdges();fit();canvas.scrollLeft=0;
+ if(panHint)panHint.style.display=canvas.scrollWidth>canvas.clientWidth?'':'none';}
 var currentTask=null,placed={};
 var runBtn=document.getElementById('fbRun'),resetBtn=document.getElementById('fbReset');
 function assemble(t){return new Promise(function(res){placed={};
  if(reduce){for(var id in nodes){nodes[id].el.style.opacity='1';nodes[id].el.style.transform='scale(1)';nodes[id].el.classList.add('done');placed[id]=true;}edgeEls.forEach(function(e){e.el.style.opacity='1';});res();return;}
  var i=0;(function step(){if(i>=t.order.length){res();return;}var n=nodes[t.order[i]];
   cap.innerHTML='<b>'+n.label+'</b> &middot; '+n.desc;
-  n.el.style.opacity='1';n.el.style.transform='scale(1)';placed[n.id]=true;
+  n.el.style.opacity='1';n.el.style.transform='scale(1)';placed[n.id]=true;follow(n);
   edgeEls.forEach(function(e){if(placed[e.from[0]]&&placed[e.to[0]])e.el.style.opacity='1';});
   setTimeout(function(){n.el.classList.add('done');},300);i++;setTimeout(step,560);})();});}
 function packet(e){return new Promise(function(res){var path=e.el,len=path.getTotalLength();
@@ -743,12 +812,13 @@ function runFlow(){if(!currentTask||busy)return;busy=true;runBtn.disabled=true;
  for(var id in nodes)nodes[id].el.classList.remove('done');
  var ord=currentTask.order.slice();
  (function step(i){if(i>=ord.length){cap.innerHTML='<b>run complete</b> &middot; '+currentTask.cap;busy=false;runBtn.disabled=false;return;}
-  var n=nodes[ord[i]];n.el.classList.add('running');cap.innerHTML='<b>running</b> &middot; '+n.label;
+  var n=nodes[ord[i]];n.el.classList.add('running');follow(n);cap.innerHTML='<b>running</b> &middot; '+n.label;
   var outs=edgeEls.filter(function(e){return e.from[0]===n.id&&placed[e.to[0]];});outs.forEach(function(e){e.el.classList.add('running');});
   var fin=function(){n.el.classList.remove('running');n.el.classList.add('done');outs.forEach(function(e){e.el.classList.remove('running');});step(i+1);};
   if(reduce||!outs.length){setTimeout(fin,reduce?0:300);}else{Promise.all(outs.map(packet)).then(fin);}
  })(0);}
 function resetFlow(){if(busy)return;clearGraph();currentTask=null;placed={};hint.style.opacity='1';cap.textContent='idle';runBtn.disabled=true;
+ canvas.scrollLeft=0;if(panHint)panHint.style.display='none';
  [].forEach.call(chips.children,function(x){x.disabled=false;});}
 var busy=false;
 TASKS.forEach(function(t){var b=document.createElement('button');b.type='button';b.className='fb-chip';b.innerHTML='<span class="k">'+t.k+'</span>'+t.chip;b.onclick=function(){run(t);};chips.appendChild(b);});

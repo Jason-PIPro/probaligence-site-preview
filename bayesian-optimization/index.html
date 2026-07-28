@@ -142,8 +142,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         </div>
         <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 24px; background: rgb(10, 9, 8); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
           <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 14px;">The loop</div>
+          <div class="fig-pan" style="--fig-min:700px">
           <img decoding="async" src="/probaligence-site-preview/assets/media/bo-loop-diagram.webp" width="1400" height="933" alt="The Bayesian optimization loop: a task feeds a model, the acquisition step chooses an experiment, the observation updates the model, and the cycle repeats, carrying uncertainty and cost back each time." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+          </div>
           <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 12px;">Each result updates the model, which chooses the next experiment.</figcaption>
+          <p class="fig-hint">Scroll sideways to read the labels.</p>
         </figure>
       </div>
     </div>
@@ -152,7 +155,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The loop</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Decide, test, learn, repeat</h2>
+      <h2 id="decide-test-learn-repeat" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Decide, test, learn, repeat</h2>
       <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 60ch;">Trying every option is slow. Bayesian optimization runs a short loop: after each result it picks the one experiment worth doing next, reaching a good answer in far fewer tries.</p>
 
       <div style="position: relative; margin-top: 46px; max-width: 760px;">
@@ -160,22 +163,22 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
         <div style="display: grid; grid-template-columns: 40px 1fr; gap: 22px; align-items: start; padding-bottom: 30px;">
           <span style="position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255, 176, 6, 0.45); background: rgb(6, 6, 7); color: rgb(255, 176, 6); font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace;">01</span>
-          <div style="padding-top: 5px;"><h3 style="font: 600 19px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Decide</h3><p style="margin-top: 8px; color: rgb(156, 156, 150); font-size: 15.5px; line-height: 1.6; max-width: 56ch;">The model scores every untried option and proposes the one most worth running: high predicted value, high uncertainty, or both.</p></div>
+          <div style="padding-top: 5px;"><h3 id="decide" style="font: 600 19px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Decide</h3><p style="margin-top: 8px; color: rgb(156, 156, 150); font-size: 15.5px; line-height: 1.6; max-width: 56ch;">The model scores every untried option and proposes the one most worth running: high predicted value, high uncertainty, or both.</p></div>
         </div>
 
         <div style="display: grid; grid-template-columns: 40px 1fr; gap: 22px; align-items: start; padding-bottom: 30px;">
           <span style="position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255, 176, 6, 0.45); background: rgb(6, 6, 7); color: rgb(255, 176, 6); font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace;">02</span>
-          <div style="padding-top: 5px;"><h3 style="font: 600 19px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Test</h3><p style="margin-top: 8px; color: rgb(156, 156, 150); font-size: 15.5px; line-height: 1.6; max-width: 56ch;">You run only that one: a lab trial, a full solve, a build. The costly step, spent once per turn.</p></div>
+          <div style="padding-top: 5px;"><h3 id="test" style="font: 600 19px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Test</h3><p style="margin-top: 8px; color: rgb(156, 156, 150); font-size: 15.5px; line-height: 1.6; max-width: 56ch;">You run only that one: a lab trial, a full solve, a build. The costly step, spent once per turn.</p></div>
         </div>
 
         <div style="display: grid; grid-template-columns: 40px 1fr; gap: 22px; align-items: start; padding-bottom: 30px;">
           <span style="position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255, 176, 6, 0.45); background: rgb(6, 6, 7); color: rgb(255, 176, 6); font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace;">03</span>
-          <div style="padding-top: 5px;"><h3 style="font: 600 19px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Learn</h3><p style="margin-top: 8px; color: rgb(156, 156, 150); font-size: 15.5px; line-height: 1.6; max-width: 56ch;">The result updates the model and its confidence. What it now understands narrows; what it still guesses about stays wide.</p></div>
+          <div style="padding-top: 5px;"><h3 id="learn" style="font: 600 19px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Learn</h3><p style="margin-top: 8px; color: rgb(156, 156, 150); font-size: 15.5px; line-height: 1.6; max-width: 56ch;">The result updates the model and its confidence. What it now understands narrows; what it still guesses about stays wide.</p></div>
         </div>
 
         <div style="display: grid; grid-template-columns: 40px 1fr; gap: 22px; align-items: start; padding-bottom: 30px;">
           <span style="position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255, 176, 6, 0.45); background: rgb(6, 6, 7); color: rgb(255, 176, 6); font: 500 13px / 1 &quot;IBM Plex Mono&quot;, monospace;">04</span>
-          <div style="padding-top: 5px;"><h3 style="font: 600 19px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Repeat</h3><p style="margin-top: 8px; color: rgb(156, 156, 150); font-size: 15.5px; line-height: 1.6; max-width: 56ch;">Back to decide, better informed. Good designs surface in far fewer runs than a grid or trial and error.</p></div>
+          <div style="padding-top: 5px;"><h3 id="repeat" style="font: 600 19px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Repeat</h3><p style="margin-top: 8px; color: rgb(156, 156, 150); font-size: 15.5px; line-height: 1.6; max-width: 56ch;">Back to decide, better informed. Good designs surface in far fewer runs than a grid or trial and error.</p></div>
         </div>
 
         <div style="display: grid; grid-template-columns: 40px 1fr; gap: 22px; align-items: start;">
@@ -189,9 +192,12 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 900px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Watch one turn</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">What the model sees each cycle</h2>
+      <h2 id="what-the-model-sees-each-cycle" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">What the model sees each cycle</h2>
       <figure style="margin: 32px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 8px; padding: 16px; background: rgb(0, 0, 0);">
-        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/bayesian-optimization-expected-improvement.gif" width="877" height="801" alt="Animated Bayesian optimization: the model's mean line and its shaded confidence band update as new results are added, while the expected-improvement curve below rises where a new test would help most and a star marks the current best." style="display: block; width: 100%; height: auto; max-width: 560px; margin: 0px auto; border-radius: 3px;">      </figure>
+        <div class="fig-pan" style="--fig-min:560px">
+        <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/bayesian-optimization-expected-improvement.gif" width="877" height="801" alt="Animated Bayesian optimization: the model's mean line and its shaded confidence band update as new results are added, while the expected-improvement curve below rises where a new test would help most and a star marks the current best." style="display: block; width: 100%; height: auto; max-width: 560px; margin: 0px auto; border-radius: 3px;">      </div>
+        <p class="fig-hint">Scroll sideways to read the labels.</p>
+      </figure>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 1px; margin-top: 28px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
         <div style="background: rgb(10, 9, 8); padding: 20px 22px;"><div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6);">Orange line</div><p style="margin-top: 9px; color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55;">The model's current best estimate.</p></div>
         <div style="background: rgb(10, 9, 8); padding: 20px 22px;"><div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6);">Shaded band</div><p style="margin-top: 9px; color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55;">Its uncertainty. Wide where it has no data yet.</p></div>
@@ -205,13 +211,16 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: clamp(32px, 5vw, 56px); align-items: center;">
         <div>
           <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">In STOCHOS</div>
-          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">The model picks your next experiment</h2>
+          <h2 id="the-model-picks-your-next-experiment" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">The model picks your next experiment</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 58ch;">STOCHOS runs this loop with DIM-GP, a probabilistic surrogate for small, noisy data. Its acquisition step balances exploration and exploitation, handles constraints and competing targets, and reports confidence at every turn. PI-BO drives parameters; GEN-BO searches geometry.</p>
           <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 58ch;">Use it where each try is expensive: formulation, process tuning, design, and simulation. It runs on a<a href="/probaligence-site-preview/surrogate-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">surrogate model</a> and its <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">uncertainty</a>; for new shapes, see <a href="/probaligence-site-preview/generative-design/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">generative design</a>.</p>
         </div>
         <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 8px; padding: 14px; background: rgb(0, 0, 0);">
+          <div class="fig-pan" style="--fig-min:700px">
           <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/dimgp-next-experiment.webp" width="1080" height="1080" alt="A DIM-GP fit of impact strength versus additive concentration: an orange mean curve inside a shaded uncertainty band, white dots for measured results, a down-weighted red outlier, and a green star marking the recommended next experiment where predicted value and uncertainty are both high." style="display: block; width: 100%; height: auto; border-radius: 3px;">
+          </div>
           <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 12px; padding: 0px 4px;">A DIM-GP fit and its uncertainty band. The star marks the next experiment: high predicted value and high uncertainty.</figcaption>
+          <p class="fig-hint" style="padding: 0px 4px;">Scroll sideways to read the labels.</p>
         </figure>
       </div>
     </div>
@@ -274,7 +283,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <div style="max-width: 720px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Let the model pick your next experiment</h2>
+      <h2 id="let-the-model-pick-your-next-experiment" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Let the model pick your next experiment</h2>
       <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring your variables, constraints, and targets. STOCHOS returns the next run worth doing, and the best design so far.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
@@ -286,7 +295,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">When is Bayesian optimization better than design of experiments?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>When evaluations are expensive and you can run them in sequence. Classical design of experiments commits to a plan upfront, while Bayesian optimization updates after each result and chooses the next run adaptively. For large spaces and costly trials, the adaptive approach usually reaches the target with fewer experiments.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Can Bayesian optimization handle several objectives at once?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS supports multi-objective Bayesian optimization, which balances competing targets such as performance, cost, and quality and shows the trade-off between them, rather than optimizing one target while ignoring the others.</p></div></div></details>

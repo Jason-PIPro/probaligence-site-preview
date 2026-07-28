@@ -164,7 +164,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The stall</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Why the model never gets built</h2>
+      <h2 id="why-the-model-never-gets-built" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Why the model never gets built</h2>
       <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 60ch;">The data exists, the use case is obvious, and the work still stalls because it needs weeks of somebody who writes machine learning code for a living. That person is either not on the team or already committed for two quarters.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 60ch;">So the results stay in spreadsheets and solver output folders, and the next project starts from the same blank sheet. The bottleneck is rarely the data or the maths. It is the handover between the engineer who understands the problem and the specialist who can express it in code.</p>
     </div>
@@ -175,7 +175,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(32px, 5vw, 56px); align-items: center;">
         <div>
           <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The node graph</div>
-          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a visual workflow replaces</h2>
+          <h2 id="what-a-visual-workflow-replaces" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a visual workflow replaces</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 58ch;">You connect nodes for data, model, validation, and export instead of writing the pipeline, and STOCHOS Flow ships 120 or more built-in nodes across 14 categories, with 14 DIM-GP models built in. The graph is the pipeline, so the thing you read on screen is the thing that runs.</p>
           <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 58ch;">That removes the glue work: loading a spreadsheet, splitting train and test, fitting, predicting, scoring, plotting. It also removes a class of silent mistake, because a wiring error is visible on the canvas rather than buried in a script nobody else opens. More on the product on the <a href="/probaligence-site-preview/stochos-flow/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">STOCHOS Flow</a> page.</p>
         </div>
@@ -190,17 +190,17 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Two different things</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Where the assistant helps, and where it does not</h2>
+      <h2 id="where-the-assistant-helps-and-where-it-does-not" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Where the assistant helps, and where it does not</h2>
       <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 60ch;">The Workflow Agent builds, configures, and debugs the graph for you; it is not the predictive model. The prediction comes from the DIM-GP engine that trains on your data. Keeping the two apart matters, because it decides what you audit and what you trust.</p>
       <div class="gw-grid">
         <div class="gw-cell on-soft">
           <div class="gw-k">The assistant</div>
-          <h3>Workflow Agent and smart nodes</h3>
+          <h3 id="workflow-agent-and-smart-nodes">Workflow Agent and smart nodes</h3>
           <p>Describe what you want to build and it places nodes, wires them, and sets parameters. It reads error output and suggests the fix. Everything it does lands on the canvas, where you can inspect and change it before anything runs.</p>
         </div>
         <div class="gw-cell on-soft">
           <div class="gw-k">The engine</div>
-          <h3>DIM-GP, trained on your data</h3>
+          <h3 id="dim-gp-trained-on-your-data">DIM-GP, trained on your data</h3>
           <p>The numbers come from a probabilistic model fitted to your own results, with an uncertainty attached to every prediction. The assistant never invents a value. It only assembles the workflow that produces one.</p>
         </div>
       </div>
@@ -211,17 +211,17 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The escape hatch</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">When you still need code</h2>
+      <h2 id="when-you-still-need-code" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">When you still need code</h2>
       <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 60ch;">Visual workflows cover the standard path, and custom Python is there for the advanced requirements that do not fit a node. The two live in the same graph, so reaching for code is a local decision about one step rather than a rewrite of the whole pipeline.</p>
       <div class="gw-grid">
         <div class="gw-cell">
           <div class="gw-k">Stay visual</div>
-          <h3>Standard tasks</h3>
+          <h3 id="standard-tasks">Standard tasks</h3>
           <p>Reading tabular results, splitting data, fitting and validating a model, scoring it, plotting it, and exporting it. These are the nodes that already exist, and using them needs no code at all.</p>
         </div>
         <div class="gw-cell">
           <div class="gw-k">Reach for Python</div>
-          <h3>Advanced requirements</h3>
+          <h3 id="advanced-requirements">Advanced requirements</h3>
           <p>A house-specific file format, a preprocessing rule nobody else has, a bespoke metric, or a call into an internal system. Write that step in Python and connect it to the rest of the graph like any other node.</p>
         </div>
       </div>
@@ -231,7 +231,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Is STOCHOS Flow no-code?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Visual workflows handle standard tasks, and custom Python covers advanced requirements. You are not locked out of code, and you are not forced into it.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">What does the Workflow Agent cost to run?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>The agents run locally on your own GPU, so there is no token limit and no token cost per run.</p></div></div></details>
@@ -263,7 +263,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <div style="max-width: 720px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Build your first workflow with us</h2>
+      <h2 id="build-your-first-workflow-with-us" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Build your first workflow with us</h2>
       <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring one dataset and the question you want answered. We build the graph with you, on your machine, and you keep it.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>

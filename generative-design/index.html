@@ -162,7 +162,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 8vw, 110px) 24px; opacity: 1; transform: none;">
     <div style="max-width: 900px; margin: 0px auto;">
       <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">In plain terms</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Show it examples, get new designs</h2>
+      <h2 id="show-it-examples-get-new-designs" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Show it examples, get new designs</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.7; max-width: 64ch;">A generator does not score a shape you drew. It makes the shapes. You give it a handful of real designs, it learns the space they share, and it proposes new ones that stay inside it. Generation is not proof: every candidate still needs a performance check and a final solver run before you trust it.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 16px; margin-top: 44px;">
@@ -182,7 +182,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255,255,255,0.07); opacity: 1; transform: none;">
     <div style="max-width: 1000px; margin: 0px auto;">
       <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255,176,6); margin-bottom: 20px;">Walkthrough</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 20ch;">One example, start to finish</h2>
+      <h2 id="one-example-start-to-finish" style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 20ch;">One example, start to finish</h2>
       <p style="margin-top: 20px; color: rgb(184,184,178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Follow a mounting bracket through generative geometry in STOCHOS, from the designs you feed in to the variants you get back. This is a demonstration example. Real results depend on the geometry, the data, and the objective.</p>
 
       <div style="margin-top: clamp(44px, 6vw, 72px);">
@@ -193,7 +193,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           </div>
           <div style="padding-bottom: clamp(40px, 5vw, 64px);">
             <div style="font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(156,156,150); margin-bottom: 12px;">Input designs</div>
-            <h3 style="font: 700 clamp(20px, 2.6vw, 26px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.015em;">Start from designs you already have</h3>
+            <h3 id="start-from-designs-you-already-have" style="font: 700 clamp(20px, 2.6vw, 26px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.015em;">Start from designs you already have</h3>
             <p style="margin-top: 12px; color: rgb(184,184,178); font-size: 16px; line-height: 1.6; max-width: 60ch;">Here, three bracket designs go in. The mounting holes are part of each shape, so the model keeps them as constraints on its own. You do not define them by hand.</p>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 22px; max-width: 560px;">
               <div style="border: 1px solid rgba(255,255,255,0.09); border-radius: 5px; background: #000; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; padding: 8px;"><img src="/probaligence-site-preview/assets/media/gen-slide-input-1.webp" width="600" height="600" loading="lazy" decoding="async" alt="Input bracket design one, a 3D-rendered mounting bracket with boreholes." style="max-width: 100%; max-height: 100%; object-fit: contain;"></div>
@@ -211,7 +211,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           </div>
           <div style="padding-bottom: clamp(40px, 5vw, 64px);">
             <div style="font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(156,156,150); margin-bottom: 12px;">Generation</div>
-            <h3 style="font: 700 clamp(20px, 2.6vw, 26px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.015em;">The model learns the space</h3>
+            <h3 id="the-model-learns-the-space" style="font: 700 clamp(20px, 2.6vw, 26px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.015em;">The model learns the space</h3>
             <p style="margin-top: 12px; color: rgb(184,184,178); font-size: 16px; line-height: 1.6; max-width: 60ch;">STOCHOS learns what the three designs have in common: the space of shapes they belong to. In this example, training took under a minute on a single GPU. From here, nothing is drawn by hand.</p>
             <div style="border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; background: rgb(6,6,7); padding: 20px 22px; margin-top: 22px; max-width: 460px;">
               <div style="font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(255,176,6); margin-bottom: 14px;">STOCHOS generative model</div>
@@ -231,7 +231,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           </div>
           <div style="padding-bottom: clamp(40px, 5vw, 64px);">
             <div style="font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(156,156,150); margin-bottom: 12px;">Generated variants</div>
-            <h3 style="font: 700 clamp(20px, 2.6vw, 26px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.015em;">Get new, valid variants in seconds</h3>
+            <h3 id="get-new-valid-variants-in-seconds" style="font: 700 clamp(20px, 2.6vw, 26px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.015em;">Get new, valid variants in seconds</h3>
             <p style="margin-top: 12px; color: rgb(184,184,178); font-size: 16px; line-height: 1.6; max-width: 60ch;">The model proposes new shapes inside that space, in seconds. Each is a complete geometry, not a rough sketch, and each keeps the holes it needs.</p>
             <figure style="margin: 22px 0 0; border: 1px solid rgba(255,255,255,0.09); border-radius: 6px; padding: 12px; background: #000; max-width: 620px;">
               <video data-method-video autoplay muted loop playsinline preload="metadata" poster="/probaligence-site-preview/assets/media/generative-variants-poster.webp" width="1600" height="900" style="display: block; width: 100%; height: auto; border-radius: 2px;" aria-label="Six generated bracket geometry variants rotating, each a complete valid shape derived from the three input designs.">
@@ -248,7 +248,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           </div>
           <div>
             <div style="font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(156,156,150); margin-bottom: 12px;">Predict and choose</div>
-            <h3 style="font: 700 clamp(20px, 2.6vw, 26px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.015em;">Predict how each performs, then improve</h3>
+            <h3 id="predict-how-each-performs-then-improve" style="font: 700 clamp(20px, 2.6vw, 26px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.015em;">Predict how each performs, then improve</h3>
             <p style="margin-top: 12px; color: rgb(184,184,178); font-size: 16px; line-height: 1.6; max-width: 62ch;">A new shape only helps if you know how it behaves. On each generated design, STOCHOS can predict full fields, stress, temperature, or flow, in seconds, instead of re-running the full solver each time. Rank the variants by predicted performance, then let <a href="/probaligence-site-preview/bayesian-optimization/" class="scp0" style="color: rgb(255,176,6); text-decoration: none;">GEN-BO</a> search for a better shape. Keep the solver for final checks.</p>
             <a href="/probaligence-site-preview/surrogate-modeling/" class="scp0" style="display: inline-block; margin-top: 14px; color: rgb(255,176,6); text-decoration: none; font: 500 15px / 1 'IBM Plex Sans', sans-serif;">How field prediction works &rarr;</a>
             <figure style="margin: 24px 0 0; border: 1px solid rgba(255,255,255,0.09); border-radius: 6px; padding: 12px; background: #000; max-width: 620px;">
@@ -295,7 +295,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Your geometry</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 'Space Grotesk', sans-serif; letter-spacing: -0.025em;">Generate variants of your own geometry</h2>
+      <h2 id="generate-variants-of-your-own-geometry" style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 'Space Grotesk', sans-serif; letter-spacing: -0.025em;">Generate variants of your own geometry</h2>
       <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 54ch;">Bring a few of your existing designs. We will show generative geometry and GEN-BO on a part close to yours, with a predicted performance for every variant.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 'IBM Plex Sans', sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none;">Request a Demo</a>
@@ -306,7 +306,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Is this the same as the generative AI that makes images?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. Here, generative design means learning the space of engineering shapes, then producing new valid geometries that respect real constraints and ranking them by predicted performance. It works on parts, not pictures or text.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Is generative design the same as topology optimization?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. Topology optimization removes material inside a fixed design space to produce one shape that meets a physics goal. The generative geometry here learns from example shapes and proposes many new variants. The two can be combined, but they are different methods.</p></div></div></details>

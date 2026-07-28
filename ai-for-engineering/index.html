@@ -19,7 +19,12 @@
 @font-face{font-family:'IBM Plex Mono';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* overflow-x is clip, not hidden. hidden forces overflow-y to compute to auto, which makes
+   body a scroll container, and a scroll container that never scrolls is the scrollport every
+   descendant position:sticky then measures against, so sticky silently does nothing anywhere
+   on the page. clip does the same clipping without that side effect (site.css already relies
+   on it for html), and the use-case readout below needs sticky to work. */
+body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
 ::selection{background:#FFB006;color:#000}
 h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
@@ -245,6 +250,24 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   .ufc-fit{grid-column:1;grid-row:auto}
   .ufc-cloud{gap:9px 18px}
 }
+/* phone. Below 700px layout() drops the spiral and the cloud is 47 centred rows, 1078px
+   tall, and two things fail at that size. The terms measured 11 to 27px tall, well under
+   a thumb; padding grows the hit box and the tighter row gap pays most of the height back.
+   And the readout starts 1112px below the first term, so a tap near the top of the cloud
+   answered a full viewport off screen. Pinning it to the bottom edge, but only once a term
+   is actually active, puts the answer on screen wherever the reader taps and leaves the
+   idle state of the section exactly as it was. */
+@media (max-width:560px){
+  .ufc-cloud{gap:2px 16px}
+  .ufc-term{padding:6px 2px}
+  .ufc-cloud.has-active ~ .ufc-panel{
+    position:sticky;bottom:0;z-index:2;
+    margin-left:-24px;margin-right:-24px;
+    padding:13px 24px 15px;
+    border-left:0;border-top:1px solid rgba(255,176,6,.4);
+    background:#060607;
+  }
+}
 @media (prefers-reduced-motion:reduce){
   .ufc-term{transition:none}
   .ufc-cloud.is-anim > li,.ufc-cloud.is-anim.is-in > li{opacity:1;filter:none;transition:none}
@@ -258,7 +281,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section id="use-cases" data-reveal="" style="padding: clamp(60px, 6.5vw, 96px) 24px clamp(80px, 10vw, 140px); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1280px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Where it fits</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 24ch;">Find the problem that looks like yours</h2>
+      <h2 id="find-the-problem-that-looks-like-yours" style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 24ch;">Find the problem that looks like yours</h2>
 
       <!-- ============ CORE START: use-case fit cloud ============
         data-rel is a 0 to 100 relevance score. JS reads it and sets size, weight,
@@ -479,7 +502,13 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     // so the whole field plus the readout below it fit one screen: a cloud that
     // pushes its own explanation off the fold is a cloud nobody reads. 11px is
     // the floor: below that the tail terms stop being readable at arm's length.
-    var fs = (11 + t * 13) * (1 + jit(label, 'size', 0.08));
+    // On a phone that floor is too low: the tail measured 10.2 to 13px at 0.62 to
+    // 0.65 opacity, which composites to about 3.4:1 on this background, under AA.
+    // Both floors rise below 560px. The top of the ramp does not move, so the
+    // cloud gains only the height the tail needs, and desktop is untouched.
+    var narrow = window.matchMedia('(max-width:560px)').matches;
+    var fsMin = narrow ? 13 : 11;
+    var fs = (fsMin + t * (24 - fsMin)) * (1 + jit(label, 'size', 0.08));
 
     var warm = clamp((rel - 58) / 32 + jit(label, 'warm', 0.10), 0, 1);
     var cool = clamp((62 - rel) / 20 + jit(label, 'cool', 0.10), 0, 1);
@@ -494,7 +523,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     if (warm > 0) c = lerp(c, WARM, warm);
     var col = 'rgb(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ')';
 
-    var op = clamp(0.62 + t * 0.38 + jit(label, 'op', 0.05), 0.55, 1);
+    // 0.8 rather than the desktop 0.55: at 0.65 the tail greys measured about 3.4:1
+    // against #060607, at 0.8 they clear 4.5:1. Size and colour still carry the
+    // relevance encoding at phone width, so the compressed opacity range costs nothing.
+    var op = clamp(0.62 + t * 0.38 + jit(label, 'op', 0.05), narrow ? 0.8 : 0.55, 1);
 
     btn.style.setProperty('--fs', fs.toFixed(2));
     btn.style.setProperty('--fw', rel >= 76 ? 700 : 500);
@@ -686,13 +718,21 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     .afe-row{grid-template-columns:44px 1fr;gap:16px 18px;padding:26px 0}
     .afe-row-with{grid-column:2;border-left:0;padding-left:0;padding-top:16px;border-top:1px solid rgba(255,176,6,.28)}
   }
+  /* on a phone the 44px rail plus its 18px gap spent 62px of a 342px column on a
+     decorative index, which left the body text 280px and wrapped it four lines deep.
+     The number moves above the row and the copy takes the whole column. */
+  @media (max-width:560px){
+    .afe-row{grid-template-columns:1fr;gap:10px 0}
+    .afe-row-n{grid-column:1;font-size:18px;margin-bottom:2px}
+    .afe-row-with{grid-column:1}
+  }
   </style>
   <!-- CORE END: cost-and-answer rows -->
 
   <section id="loop" class="afe-glowband" data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255,255,255,.07);">
     <div style="max-width:1280px;margin:0 auto">
       <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#FFB006">The engineering loop</div>
-      <h2 style="margin:22px 0 0;font:700 clamp(28px,4.2vw,46px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-.02em;max-width:24ch">Train once, then ask what you could not afford to ask</h2>
+      <h2 id="train-once-then-ask-what-you-could-not-afford" style="margin:22px 0 0;font:700 clamp(28px,4.2vw,46px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-.02em;max-width:24ch">Train once, then ask what you could not afford to ask</h2>
       <div style="margin-top:40px">
       <div class="afe-row"><div class="afe-row-n">01</div><div><div class="afe-row-t">Data you already paid for</div><div class="afe-row-today">Every finished project leaves solver runs, test-bench results and measurements behind, and none of it informs the next one.</div></div><div class="afe-row-with"><div class="afe-row-kicker">With STOCHOS</div><div class="afe-row-body">Those runs train a <a href="/probaligence-site-preview/surrogate-modeling/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">surrogate model</a> on your own physics. There is no new simulation campaign to start.</div></div></div>
       <div class="afe-row"><div class="afe-row-n">02</div><div><div class="afe-row-t">The questions you skip</div><div class="afe-row-today"><a href="/probaligence-site-preview/bayesian-optimization/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">Optimization</a> across many parameters, <a href="/probaligence-site-preview/sensitivity-analysis/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">sensitivity</a> and robustness studies never run, because the solve budget goes to single designs.</div></div><div class="afe-row-with"><div class="afe-row-kicker">With STOCHOS</div><div class="afe-row-body">Predictions arrive in seconds, each carrying how far it can be trusted, so those studies become affordable.</div></div></div>
@@ -718,13 +758,19 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   .chz .mark img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
   .chz .steps{margin-top:14px;display:flex;gap:9px;flex-wrap:wrap;justify-content:center;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#82827C}
   @media (max-width:820px){.chz{grid-template-columns:1fr}.chz .side{order:-1}}
+  @media (max-width:560px){
+    /* each middot is its own flex child, so the third one stranded at the end of line 1
+       and left 04 COMPARE alone underneath. The steps are numbered already. */
+    .chz .steps{gap:6px 16px}
+    .chz .steps span:nth-child(even){display:none}
+  }
   @media (prefers-reduced-motion:reduce){.chz .btn-p,.chz .btn-s{transition:none}}
   </style>
   <section id="challenge" data-reveal="" style="padding: clamp(60px, 7vw, 100px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
     <div class="chz">
       <div>
         <div class="eb">Interactive demo</div>
-        <h2>Try to beat STOCHOS on an engineering problem</h2>
+        <h2 id="try-to-beat-stochos-on-an-engineering-problem">Try to beat STOCHOS on an engineering problem</h2>
         <p>You get a few tries to shape a plastic bottle that passes a 26 bar pressure test at the lowest weight and cost. Then STOCHOS takes the same problem, on the same score, and you see both answers side by side.</p>
         <div class="row">
           <a class="btn-p" href="/probaligence-site-preview/challenge-app/?case=engineering#/challenge">Take the challenge <span aria-hidden="true">&rarr;</span></a>
@@ -743,7 +789,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section id="proof" class="afe-plate" data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Proof</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Engineering teams, on the record</h2>
+      <h2 id="engineering-teams-on-the-record" style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Engineering teams, on the record</h2>
       <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Named cases and third-party benchmarks, in trade press and at NAFEMS. Each links to the full story.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px; margin-top: 50px;">
         <a href="/probaligence-site-preview/news/automated-verification-gemu-stochos/" style="display: flex; flex-direction: column; background: rgb(10, 9, 8); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; text-decoration: none;">
@@ -827,7 +873,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <div class="inner">
       <div class="eyebrow rv">Get started</div>
-      <h2 class="rv">Bring one engineering bottleneck</h2>
+      <h2 id="bring-one-engineering-bottleneck" class="rv">Bring one engineering bottleneck</h2>
       <p class="sub rv">Start with one workflow. We outline where a model fits, which outputs to predict, how validation works, and what a realistic proof of concept looks like.</p>
       <div class="row rv">
         <a class="btn-p" href="/probaligence-site-preview/contact/" data-magnetic="0.3">Request a Demo <span aria-hidden="true">&rarr;</span></a>
@@ -872,7 +918,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">How can AI accelerate CFD and FEM simulations?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>STOCHOS learns a surrogate model from existing solver data, then predicts results for new parameters or geometries in seconds. Fast, uncertainty-aware predictions let you explore many more variants than the solver alone could cover, and the full simulation returns only for the designs you shortlist.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Can STOCHOS predict full fields as well as single values?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS handles 2D and 3D fields from CFD and FEM, as well as scalars, signals, meshes, and geometries. It can predict spatially resolved outputs for new parameter combinations, so you see more than a single KPI when comparing designs. Confidence is attached to every prediction, field or scalar.</p></div></div></details>

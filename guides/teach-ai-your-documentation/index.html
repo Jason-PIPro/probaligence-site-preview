@@ -144,7 +144,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The gap</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Plausible code is not working code</h2>
+      <h2 id="plausible-code-is-not-working-code" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Plausible code is not working code</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">A general assistant has read the public internet. Your solver macros, your naming conventions, and your internal method notes are not on it. Ask for code against a niche simulation API and the answer arrives fluent and confident, with plausible calls to functions that do not exist.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">That failure mode is worse than a blank answer, because plausible code gets pasted into real workflows before anyone checks the import.</p>
     <figure style="margin: 40px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 8px; padding: 14px; background: rgb(0, 0, 0);"><img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/insights/ep11-code-before.webp" width="720" height="606" alt="The STOCHOS Flow coding assistant writing PyMAPDL code without the library documentation attached, producing a plausible script that will fail at runtime." style="display: block; width: 100%; height: auto; border-radius: 3px;"><figcaption style="margin: 12px 4px 0px; color: rgb(150, 150, 144); font: 400 13px / 1.55 &quot;IBM Plex Mono&quot;, monospace;">Without the library's own documentation, the assistant writes plausible code that does not match the real API and fails when it runs.</figcaption></figure>
@@ -154,7 +154,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">One request, twice</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">With the docs indexed, the code runs</h2>
+      <h2 id="with-the-docs-indexed-the-code-runs" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">With the docs indexed, the code runs</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Knowledge bases in STOCHOS Flow index your own docs, code, data, and PDFs, and any AI node can use them as context. We put that to the test in a demo: the same request for code against a niche simulation API, first from general training alone, then with the documentation base attached.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1px; margin-top: 40px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
         <div style="background: rgb(10, 9, 8); padding: 26px 24px;">
@@ -177,7 +177,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(56px, 7vw, 84px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Does my documentation leave my machine?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. The base is built and queried locally. STOCHOS Flow is local-first: the assistant can run against a local LLM via Ollama, and cloud models stay optional, so nothing forces your documentation through an external service.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Does indexing the docs guarantee correct code?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No, and we do not claim it does. In the demo the difference was code that failed at import versus code that ran. The index gives the assistant the real interface instead of a guess; reviewing and validating the output stays your job.</p></div></div></details>
@@ -221,7 +221,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <div style="max-width: 720px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Bring an API the internet has never seen</h2>
+      <h2 id="bring-an-api-the-internet-has-never-seen" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Bring an API the internet has never seen</h2>
       <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">We index your documentation into a knowledge base and show what the assistant writes with your own material as context.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>

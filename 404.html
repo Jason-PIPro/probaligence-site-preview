@@ -23,6 +23,18 @@ h1,h2,p{margin:0}
 </style><style>
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
+</style><style>
+/* Phone: the quick-nav links are 13.5px/1 text, so their hit box is 13.5px tall. Give each one a
+   44px target. The gap override needs !important because the row carries an inline gap:18px.
+   The CTA pair repeats the shared section[data-hero-in] div[data-hero] stack rule locally: this
+   page has no hero section wrapper, so the shared selector cannot reach it. */
+@media (max-width:560px){
+  .e404-links{gap:4px 8px!important}
+  .e404-links a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;
+                justify-content:center;padding:0 6px}
+  .e404-cta{flex-direction:column;align-items:stretch}
+  .e404-cta>a{display:flex;justify-content:center;text-align:center}
+}
 </style>
 <link rel="stylesheet" href="/probaligence-site-preview/site.css">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
@@ -105,11 +117,11 @@ h1,h2,p{margin:0}
     <h1 style="font: 700 clamp(48px, 9vw, 108px) / 1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.03em; color: rgb(255, 176, 6);">404</h1>
     <h2 style="font: 700 clamp(24px, 3.4vw, 38px) / 1.15 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; margin-top: 18px;">This prediction fell outside the data.</h2>
     <p style="margin: 18px auto 0px; color: rgb(184, 184, 178); font-size: clamp(15px, 1.5vw, 17px); line-height: 1.6; max-width: 42ch;">The page you were looking for does not exist or has moved. Let us point you back to solid ground.</p>
-    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
+    <div class="e404-cta" style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
       <a href="/probaligence-site-preview/" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none;">Back to home</a>
       <a href="/probaligence-site-preview/science/" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none;">Explore the science</a>
     </div>
-    <div style="display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 34px; font: 400 13.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">
+    <div class="e404-links" style="display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 34px; font: 400 13.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">
       <a href="/probaligence-site-preview/stochos/" style="color: rgb(156, 156, 150); text-decoration: none;">STOCHOS</a>
       <a href="/probaligence-site-preview/stochos-flow/" style="color: rgb(156, 156, 150); text-decoration: none;">STOCHOS Flow</a>
       <a href="/probaligence-site-preview/news/" style="color: rgb(156, 156, 150); text-decoration: none;">News</a>

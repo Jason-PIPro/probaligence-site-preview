@@ -22,7 +22,7 @@ const CH = {
     img: 'assets/cases/chemistry-flask.webp',
     tag: 'Chemistry', title: 'Push a reaction to higher yield', verb: 'Run the reaction',
     blurb: 'You run a reaction that makes a specialty pharma intermediate. Too much is wasted. Tune the conditions to lift the yield and beat STOCHOS.',
-    story: 'You are a process chemist making a specialty pharma intermediate, the building block that goes into the final drug. Right now the reaction wastes too much: low yield means starting material burned off as by-products and less product in the flask, so higher cost and more waste per batch. Your job is to lift the yield by tuning the PROCESS (temperature, catalyst loading, residence time, addition rate) and the FORMULATION (solvent ratio, concentration, cosolvent, base equivalents), while keeping selectivity in spec and cost down. Run the reaction, read the yield, and see if you can beat STOCHOS.',
+    story: 'You are a process chemist making a specialty pharma intermediate. Yield is low, so starting material burns off as by-products and every batch costs more. Tune the formulation and the process to lift it, keeping selectivity in spec and cost down. Can you beat STOCHOS?',
     task: 'Tune the conditions for the highest yield.',
   },
   engineering: {

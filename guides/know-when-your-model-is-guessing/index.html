@@ -144,7 +144,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The failure mode</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">A deterministic fit believes every point</h2>
+      <h2 id="a-deterministic-fit-believes-every-point" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">A deterministic fit believes every point</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">A deterministic fit treats every training point as equally true. One suspect measurement, a mistyped value or a noisy reading, pulls the whole curve toward it, and the model still reports a single number per prediction with nothing attached to say how far to trust it.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">A confidently wrong answer is the expensive kind. The error surfaces only after you have acted on it, and a decision built on a warped fit can take months to unwind.</p>
     <figure style="margin: 40px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 8px; padding: 14px; background: rgb(0, 0, 0);"><img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/insights/ep4-standard-model.webp" width="720" height="591" alt="A scatter of experimental points with a standard model curve that bends sharply toward one outlying measurement, drawn without any uncertainty band." style="display: block; width: 100%; height: auto; border-radius: 3px;"><figcaption style="margin: 12px 4px 0px; color: rgb(150, 150, 144); font: 400 13px / 1.55 &quot;IBM Plex Mono&quot;, monospace;">A standard fit treats every measurement as exact. One noisy point warps the curve, and nothing on the chart signals how far to trust it.</figcaption></figure>
@@ -154,7 +154,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1060px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Side by side</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a probabilistic fit does differently</h2>
+      <h2 id="what-a-probabilistic-fit-does-differently" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a probabilistic fit does differently</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">DIM-GP, the probabilistic engine inside STOCHOS, is designed for small, noisy datasets without manual tuning. Every prediction comes back as a mean with 1, 2, and 3 sigma bands around it.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1px; margin-top: 40px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
         <div style="background: rgb(10, 9, 8); padding: 26px 24px;">
@@ -179,7 +179,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(56px, 7vw, 84px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Does a narrow band guarantee the prediction is right?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. The bands quantify the model's confidence given the data it was trained on. Inside well-covered regions that is a strong signal. Outside them, a prediction still needs validation against a measurement or a solver run before you rely on it.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Do wide bands mean the model is bad?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Wide bands mean the model is honest about a region it has not seen. They tell you where to measure or simulate next, and adding data there narrows them. A model that hides that gap is the one to worry about.</p></div></div></details>
@@ -223,7 +223,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <div style="max-width: 720px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See where your model is guessing</h2>
+      <h2 id="see-where-your-model-is-guessing" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See where your model is guessing</h2>
       <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring a dataset you already have, including the points you do not fully trust. We will fit it and show you where the predictions stand on data and where the bands open up.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>

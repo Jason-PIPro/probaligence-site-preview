@@ -251,9 +251,34 @@ const DASH = '';  // size/value placeholder; no em or en dashes per the studio s
 .studio-stage,
 .studio,
 .studio-pick {
-  height: calc(100vh - 66px) !important;
+  height: calc(100vh - var(--chrome-h)) !important;
   min-height: 0 !important;
-  max-height: calc(100vh - 66px) !important;
+  max-height: calc(100vh - var(--chrome-h)) !important;
+}
+
+/* ---------------------------------------------------------------
+   FIX 1b: RELEASE THAT LOCK FOR THE PICKER ON NARROW VIEWPORTS
+   At 1100px and below styles.css collapses .pick-cards to a single
+   column, so the picker needs about 1200px of content inside the
+   758px box FIX 1 locks it to. .studio-pick centres with
+   justify-content:center, so the overflow splits both ways. Measured
+   at 390px before this rule: the back button, H1 and lead sat at
+   y=-170 (above the document origin, so invisible and unreachable by
+   scrolling) and the card stack painted 240px over the footer. The
+   lock exists for the full-viewport editor (.sf-app / .studio-stage),
+   which keeps it; the picker is a scrolling page and must be free to
+   grow. Breakpoint is 1100px, not 900px, because that is where the
+   card grid collapses: measured 1101px fits, 1100px overflows by
+   206px. dvh, not vh, since phone browser chrome resizes the viewport.
+   -------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .studio,
+  .studio-pick {
+    height: auto !important;
+    max-height: none !important;
+    min-height: calc(100dvh - var(--chrome-h)) !important;
+    justify-content: flex-start !important;
+  }
 }
 
 /* ---------------------------------------------------------------

@@ -40,7 +40,14 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .sci-row:hover{background:rgba(255,255,255,.03)}
 .sci-row img{opacity:.62;transition:opacity .25s}
 .sci-row:hover img{opacity:1}
-@media (max-width:640px){.sci-row{grid-template-columns:1fr;gap:14px}}
+@media (max-width:640px){
+.sci-row{grid-template-columns:1fr;gap:14px}
+/* One column releases the width but the inline height:150px stayed, so each diagram was cropped
+   to a strip (50 to 76 percent of the frame left). Natural ratio restores the whole figure at the
+   same scale. !important because the height and object-fit are set inline on every img. */
+.sci-row img{height:auto!important;object-fit:contain!important}
+.sci-btn{padding:15px 18px;font-size:13.5px}
+}
 </style>
 <link rel="stylesheet" href="/probaligence-site-preview/site.css">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
@@ -145,7 +152,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: clamp(40px, 6vw, 72px); align-items: center;">
       <div style="opacity: 1; transform: none;">
         <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The algorithm</div>
-        <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 14ch;">Start with the algorithm</h2>
+        <h2 id="start-with-the-algorithm" style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 14ch;">Start with the algorithm</h2>
         <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 52ch;">Everything in STOCHOS rests on DIM-GP, a Deep Infinite Mixture of Gaussian Processes: deep learning capacity with Gaussian process uncertainty, in one model built for small, noisy, expensive data.</p>
         <a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 24px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 &quot;IBM Plex Sans&quot;, sans-serif;">Read how STOCHOS works: the DIM-GP algorithm →</a>
       </div>
@@ -158,7 +165,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 880px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Live math</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">Click to train a model</h2>
+      <h2 id="click-to-train-a-model" style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">Click to train a model</h2>
       <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">This is a live Gaussian process, the building block DIM-GP extends, running in your browser. Click anywhere in the plot to add a measurement. The model refits, and the amber band shows its confidence: tight where data exists, wide where it is guessing.</p>
       <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-top: 34px; margin-bottom: 12px;">
         <span style="font: 500 11px / 1.5 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(156, 156, 150);">Real Gaussian process: RBF kernel, Cholesky solve</span>
@@ -166,6 +173,15 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       </div>
       <div style="position: relative; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; background: rgb(0, 0, 0); height: 340px; overflow: hidden;">
         <canvas id="sci-gp" role="img" aria-label="Interactive Gaussian process plot. Click to add measurements and watch the confidence band tighten around them." style="position: absolute; inset: 0px; width: 100%; height: 100%;"></canvas>
+      </div>
+      <div class="demo-ticker" style="margin-top: 14px" role="note" aria-label="Demonstration only. This is not the real STOCHOS software or algorithm. Everything shown runs on synthetic data for demonstration purposes.">
+        <div class="demo-ticker-view">
+          <div class="demo-ticker-track" aria-hidden="true">
+            <div class="demo-ticker-set"><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b></div>
+            <div class="demo-ticker-set"><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b></div>
+          </div>
+        </div>
+        <button type="button" class="demo-ticker-pause" aria-pressed="false" aria-label="Pause the demonstration notice">&#10074;&#10074;</button>
       </div>
       <div style="display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap;">
         <button class="sci-btn sci-btn-p" type="button" id="sci-gp-add">+ Random measurement</button>
@@ -177,7 +193,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The methods</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Six methods, one loop</h2>
+      <h2 id="six-methods-one-loop" style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Six methods, one loop</h2>
       <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Each method is a stage of one loop around the model: model, trust, decide, cut cost, explain, expand. Every card opens a plain-language guide showing how STOCHOS runs that stage.</p>
       <div style="margin-top: 44px;">
         <a href="/probaligence-site-preview/surrogate-modeling/" class="scp3 sci-row" style="text-decoration: none;">
@@ -245,7 +261,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Go deeper</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Put the science to the test</h2>
+      <h2 id="put-the-science-to-the-test" style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Put the science to the test</h2>
       <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring a problem you know well and your hardest questions. We will show STOCHOS on data close to yours, with the confidence behind every prediction visible. Or try beating it yourself first.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>

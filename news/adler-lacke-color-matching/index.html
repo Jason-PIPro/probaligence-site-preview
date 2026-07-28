@@ -27,6 +27,9 @@ h1,h2,h3,h4,p{margin:0}
 </style><noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript><style>
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
+/* The benchmark figure carries its margin here rather than inline, because an inline shorthand
+   would beat the .fig-bleed rule in site.css and the figure could never reclaim the gutters. */
+figure.fig-bleed{margin:0}
 </style>
 <link rel="stylesheet" href="/probaligence-site-preview/site.css">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
@@ -117,9 +120,12 @@ h1,h2,h3,h4,p{margin:0}
 
   <section data-reveal="" style="padding: clamp(50px, 6vw, 80px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 880px; margin: 0px auto;">
-      <figure style="margin: 0px 0 0;">
-        <img src="/probaligence-site-preview/assets/news/adler-lacke-color-matching/20230925-benchmark-adler-lacke.webp" alt="Benchmark table listing ten RAL and NCS reference colors with their color difference (dE) values, comparing commercial color matching software against the best of four machine learning trials." width="812" height="518" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+      <figure class="fig-bleed">
+        <div class="fig-pan" style="max-width: 812px; --fig-min: 660px;">
+          <img src="/probaligence-site-preview/assets/news/adler-lacke-color-matching/20230925-benchmark-adler-lacke.webp" alt="Benchmark table listing ten RAL and NCS reference colors with their color difference (dE) values, comparing commercial color matching software against the best of four machine learning trials." width="812" height="518" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+        </div>
         <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">Color difference (dE) after four ML adaptations, compared with commercial color matching software using standard formulas.</figcaption>
+        <p class="fig-hint" style="padding-left: 24px; padding-right: 24px;">Scroll sideways to read the labels.</p>
       </figure>
       <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">Within the Smart Paint Factory Alliance (smartpaintfactory.com), together with ADLER-Werk Lackfabrik (adler-lacke.com), we used our own machine learning algorithms and methods for adaptive experimental design for color matching. After only four adaptations, we came very close to, and in part even better than, the results of commercial color matching software using standard formulas.</p>
       <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 30px; max-width: 68ch;">Our big advantage: color is not the only thing that can be optimized. Everything that can be measured can go into the optimization.</p>

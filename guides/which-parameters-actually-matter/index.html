@@ -150,7 +150,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Thirty inputs</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Why everything gets varied</h2>
+      <h2 id="why-everything-gets-varied" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Why everything gets varied</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Without a ranking, every input looks like it might matter, so the design grows to cover all of them and the budget spreads thin across parameters that do nothing. Adding a factor to a screening design is cheap on paper and expensive in the lab, and nobody wants to be the person who fixed the one variable that turned out to drive the result.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">The outcome is a campaign that resolves nothing well. Each parameter gets a couple of levels, the important ones are sampled too coarsely to model, and the unimportant ones absorb runs that produce flat, uninformative data.</p>
     </div>
@@ -161,7 +161,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(32px, 5vw, 56px); align-items: center;">
         <div>
           <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Reading the ranking</div>
-          <h2 style="font: 700 clamp(26px, 3.6vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a ranking actually tells you</h2>
+          <h2 id="what-a-ranking-actually-tells-you" style="font: 700 clamp(26px, 3.6vw, 38px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a ranking actually tells you</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 58ch;">A sensitivity index reports the share of output variation attributable to each input, and separating the direct effect from the total effect shows which inputs matter only through their interactions. A large gap between the two for one input is the signal that it does nothing on its own and a great deal in combination.</p>
           <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 58ch;">The global picture ranks drivers across the whole space you sampled. A local view answers a different question: why one specific batch or design came out where it did. Both are useful, and they are not substitutes, so it pays to be clear which one you are asking for. The <a href="/probaligence-site-preview/sensitivity-analysis/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">sensitivity analysis</a> page works through both views in more depth.</p>
         </div>
@@ -176,7 +176,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1060px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Method families</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">Choosing a method</h2>
+      <h2 id="choosing-a-method" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">Choosing a method</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">Different questions need different measures, from correlation for a quick look through to variance-based indices when interactions matter, and six sensitivity methods are built in. Picking one is mostly a matter of how much structure you expect in the response and how many inputs you need to thin down.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1px; margin-top: 40px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
         <div style="background: rgb(6, 6, 7); padding: 26px 24px;">
@@ -203,7 +203,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Before the campaign</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Rank first, then design the campaign</h2>
+      <h2 id="rank-first-then-design-the-campaign" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Rank first, then design the campaign</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Run it on data you already have, before the next campaign, so the ranking shapes the design rather than explaining it afterwards. The indices are computed on a <a href="/probaligence-site-preview/surrogate-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">surrogate model</a> fitted to those results, which is what makes it affordable: no fresh runs are needed to produce the ranking itself.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">What comes out is a decision about the next design. High-ranked inputs get more levels and a wider range. Low-ranked inputs get fixed at a sensible value and recorded, not deleted, so the assumption is visible when someone later widens the space. If you do widen a range, rerun the ranking, because it only holds over the region your data covers.</p>
     </div>
@@ -211,7 +211,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(56px, 7vw, 84px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Do I need new experiments to run sensitivity analysis?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Usually not. It runs on the results you already have, and a surrogate model lets you compute indices without thousands of fresh runs.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">What if two inputs only matter together?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>That is the interaction case, and it is why total-effect indices exist. An input with a small direct effect and a large total effect matters through its interactions.</p></div></div></details>
@@ -255,7 +255,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <div style="max-width: 720px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Rank your inputs with us</h2>
+      <h2 id="rank-your-inputs-with-us" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Rank your inputs with us</h2>
       <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring the data you already have and the output you care about. We will show the ranking it produces, and what it would change about your next design.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>

@@ -81,7 +81,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .ecloud.fx .ec-tile{opacity:0;transform:translateY(18px)}
 .ecloud.fx .ec-tile.in{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.22,1,.3,1),transform .7s cubic-bezier(.22,1,.3,1),border-color .35s}
 @media (max-width:1000px){.ecloud{column-count:3}}
-@media (max-width:700px){.ecloud{column-count:2;column-gap:10px}.ec-tile{margin-bottom:10px}.ec-cap{opacity:1}}
+@media (max-width:700px){.ecloud{column-count:2;column-gap:10px}.ec-tile{margin-bottom:10px}.ec-cap{opacity:1}
+/* Captions are permanently on below 700px, and they need three lines in a 166px column, so the
+   top lines used to sit on a scrim that was still transparent. Darken it earlier. */
+.ec-cap{background:linear-gradient(transparent,rgba(6,6,7,.72) 22%,rgba(6,6,7,.96));padding:20px 10px 9px;font-size:12.5px;color:#E9E8E3}}
 @media (prefers-reduced-motion:reduce){.ecloud.fx .ec-tile{opacity:1;transform:none}.ec-tile,.ec-tile img{transition:none}}
 
 /* Hero: event photos as a warm welcome behind the name */
@@ -133,6 +136,7 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
 .fu-office{display:flex;gap:8px;margin-top:14px}
 .fu-office img{width:33.33%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;filter:grayscale(1) brightness(.8);transition:filter .35s}
 .fu-office:hover img{filter:none}
+@media (max-width:480px){.fu-office{flex-wrap:wrap}.fu-office img{width:calc(50% - 4px)}}
 /* the aerial card */
 .aerial-card{display:block;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:4px;background:#07070A;text-decoration:none;transition:border-color .3s}
 .aerial-card:hover{border-color:rgba(255,176,6,.45)}
@@ -143,7 +147,10 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
 .aerial-bar{position:absolute;left:0;right:0;bottom:0;display:flex;gap:14px;align-items:baseline;justify-content:space-between;flex-wrap:wrap;padding:32px 18px 14px;background:linear-gradient(transparent,rgba(6,6,7,.92))}
 .aerial-bar .addr{font:400 12.5px/1.5 'IBM Plex Mono',monospace;color:#C8C8C2}
 .aerial-bar .go{font:600 13px/1.5 'IBM Plex Sans',sans-serif;color:#FFB006}
-@media (max-width:560px){.aerial-label{display:none}}
+@media (max-width:560px){.aerial-label{display:none}
+/* The pin sits at 50% of the image height, exactly where the overlay scrim starts on a phone.
+   Below 560px the address moves out of the picture so the whole map, pin included, stays visible. */
+.aerial-bar{position:static;background:#0B0A09;border-top:1px solid rgba(255,255,255,.09);padding:14px 16px;gap:8px}}
 @media (prefers-reduced-motion:reduce){.aerial-card,.aerial-card img{transition:none}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where is PI Probaligence based?","acceptedAnswer":{"@type":"Answer","text":"PI Probaligence is based in Grafing bei Munich, Germany. It was founded in 2018 as a spin-off of the Institute for Modeling and High Performance Computing at Niederrhein University of Applied Sciences, and works with engineering and R&D teams internationally."}},{"@type":"Question","name":"Is PI part of CADFEM?","acceptedAnswer":{"@type":"Answer","text":"Yes. The CADFEM Group acquired a stake in PI Probaligence, and PI has been part of the CADFEM Group since 2024. PI continues to develop STOCHOS and STOCHOS Flow as its own products for engineering and R&D."}},{"@type":"Question","name":"Is PI an Ansys partner?","acceptedAnswer":{"@type":"Answer","text":"Yes. PI Probaligence is an official Ansys Technology Partner. STOCHOS Flow connects to Ansys workflows, reading Ansys Workbench parameters and calling the Ansys Solver node for selective validation, so the solver stays the source of truth."}},{"@type":"Question","name":"How do I request a demo?","acceptedAnswer":{"@type":"Answer","text":"Use the Request a Demo button or the contact page. Bring one use case, bottleneck, or dataset, and we can outline where STOCHOS fits and what a realistic proof of concept could look like. PI often works with teams that have no in-house machine learning team."}}]}</script>
@@ -228,7 +235,7 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
       <h1 style="font: 700 clamp(40px, 7vw, 92px) / 1.02 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.03em; margin: 0px auto; max-width: 14ch;"><span style="display: inline-block;">PI</span> <span style="display: inline-block; color: rgb(255, 176, 6);">Probaligence</span></h1>
       <p class="piword" id="piword"><b><span class="lead">P</span><span class="rest">robabilistic</span></b><b><span class="lead">I</span><span class="rest">ntelligence</span></b></p>
       <p data-hero="" style="margin: 26px auto 0px; color: rgb(200, 200, 194); font-size: clamp(18px, 2vw, 24px); line-height: 1.5; max-width: 26ch; font-family: &quot;Space Grotesk&quot;, sans-serif; font-weight: 500; letter-spacing: -0.01em; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Local, probabilistic AI for engineering and R&amp;D.</p>
-      <p data-hero="" style="margin: 20px auto 0px; color: rgb(130, 130, 124); font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Founded 2018 &nbsp;·&nbsp; Part of the CADFEM Group since 2024 &nbsp;·&nbsp; Ansys Technology Partner</p>
+      <p data-hero="" style="margin: 20px auto 0px; color: rgb(130, 130, 124); font: 400 13px / 1.8 &quot;IBM Plex Mono&quot;, monospace; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);"><span style="white-space: nowrap;">Founded 2018</span> &nbsp;·&nbsp; <span style="white-space: nowrap;">Part of the CADFEM Group since 2024</span> &nbsp;·&nbsp; <span style="white-space: nowrap;">Ansys Technology Partner</span></p>
     </div>
   </section>
 
@@ -236,10 +243,10 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1000px; margin: 0px auto;">
       <div style="font: 500 12px / 1 "IBM Plex Mono", monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">What we do</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Predictions you can put a number on</h2>
+      <h2 id="predictions-you-can-put-a-number-on" style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Predictions you can put a number on</h2>
       <p style="margin-top: 24px; color: rgb(200, 200, 194); font-size: clamp(18px, 1.9vw, 22px); line-height: 1.55; max-width: 46ch;">Simulations and lab tests are slow and expensive. We learn from the results you already have, then predict the next one in seconds.</p>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; max-width: 56ch;">Every prediction comes with a range, so you can see how sure the model is. Move past what it has seen and it tells you, instead of guessing quietly.</p>
-      <p style="margin-top: 26px; font: 400 13px / 1.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);"><a href="/probaligence-site-preview/stochos/" style="color: rgb(255, 176, 6); text-decoration: none;">STOCHOS</a>, the engine &nbsp;&middot;&nbsp; <a href="/probaligence-site-preview/stochos-flow/" style="color: rgb(255, 176, 6); text-decoration: none;">STOCHOS Flow</a>, the workflows &nbsp;&middot;&nbsp; <a href="/probaligence-site-preview/how-stochos-works/" style="color: rgb(255, 176, 6); text-decoration: none;">How it works</a></p>
+      <p style="margin-top: 26px; font: 400 13px / 1.9 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);"><span style="white-space: nowrap;"><a href="/probaligence-site-preview/stochos/" style="color: rgb(255, 176, 6); text-decoration: none;">STOCHOS</a>, the engine</span> &nbsp;&middot;&nbsp; <span style="white-space: nowrap;"><a href="/probaligence-site-preview/stochos-flow/" style="color: rgb(255, 176, 6); text-decoration: none;">STOCHOS Flow</a>, the workflows</span> &nbsp;&middot;&nbsp; <span style="white-space: nowrap;"><a href="/probaligence-site-preview/how-stochos-works/" style="color: rgb(255, 176, 6); text-decoration: none;">How it works</a></span></p>
     </div>
   </section>
 
@@ -247,16 +254,16 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
     <div aria-hidden="true" style="position: absolute; top: -20%; left: 50%; transform: translateX(-50%); width: 1100px; height: 620px; max-width: 130vw; background: radial-gradient(rgba(255, 176, 6, 0.08), transparent 62%); pointer-events: none;"></div>
     <div style="max-width: 1100px; margin: 0px auto; position: relative;">
       <div style="font: 500 12px / 1 "IBM Plex Mono", monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Who we build with</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 20ch;">Backed by the CADFEM Group, partnered with Ansys</h2>
+      <h2 id="backed-by-the-cadfem-group-partnered-with-ansys" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 20ch;">Backed by the CADFEM Group, partnered with Ansys</h2>
       <div class="plock">
         <div class="plock-card">
           <img class="plock-logo" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner" loading="lazy">
-          <h3>Official Ansys Technology Partner</h3>
+          <h3 id="official-ansys-technology-partner">Official Ansys Technology Partner</h3>
           <p>STOCHOS Flow connects to Ansys workflows: it reads Ansys Workbench parameters and calls the Ansys Solver node for selective validation, so the solver stays the source of truth. <a href="/probaligence-site-preview/stochos-flow/">See the integration</a></p>
         </div>
         <div class="plock-card">
           <img class="plock-logo plock-logo--cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group" loading="lazy">
-          <h3>Part of the CADFEM Group since 2024</h3>
+          <h3 id="part-of-the-cadfem-group-since-2024">Part of the CADFEM Group since 2024</h3>
           <p>The CADFEM Group acquired a stake in PI Probaligence. PI continues to develop STOCHOS and STOCHOS Flow as its own products, with the reach of a simulation group behind it.</p>
         </div>
       </div>
@@ -267,7 +274,7 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
   <section data-reveal="" id="milestones" style="padding: clamp(72px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Milestones</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What got us here</h2>
+      <h2 id="what-got-us-here" style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What got us here</h2>
       <div class="mstone">
         <a class="ms-card" href="/probaligence-site-preview/news/robert-bosch-health-award/"><img src="/probaligence-site-preview/assets/news/robert-bosch-health-award/20260227-preistraeger-foto.webp" alt="" loading="lazy"><span class="ms-body"><span class="ms-date">February 2026</span><h3>First prize at the Robert Bosch Foundation Health Award</h3><p>For AI-supported prevention of diabetic foot syndrome, with Niederrhein University of Applied Sciences and CID GmbH.</p></span></a>
         <a class="ms-card" href="/probaligence-site-preview/news/introducing-stochos-flow/"><img src="/probaligence-site-preview/assets/news/introducing-stochos-flow/20260112-stochos-flow.webp" alt="" loading="lazy"><span class="ms-body"><span class="ms-date">January 2026</span><h3>Introducing STOCHOS Flow</h3><p>A visual workflow editor that runs locally, with an AI assistant that builds and wires the node graph.</p></span></a>
@@ -283,7 +290,7 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
   <section data-reveal="" id="team" style="padding: clamp(72px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); background: rgb(10, 9, 8); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1240px; margin: 0px auto;">
       <div style="font: 500 12px / 1 "IBM Plex Mono", monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The team</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 "Space Grotesk", sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Where you will meet us</h2>
+      <h2 id="where-you-will-meet-us" style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 "Space Grotesk", sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Where you will meet us</h2>
       <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Conferences, trade fairs, and customer floors across Europe and Asia. Based in Grafing bei Munich.</p>
       <div class="ecloud" id="ecloud">
         <a class="ec-tile" href="/probaligence-site-preview/news/cadfem-conference-rapperswil-2026/"><img src="/probaligence-site-preview/assets/news/cadfem-conference-rapperswil-2026/cadfem-rapperswil-2026-pi-probaligence-booth.webp" alt="PI stand at the CADFEM Conference in Rapperswil, 2026" loading="lazy" width="1000" height="1333"><span class="ec-cap">PI stand at the CADFEM Conference in Rapperswil, 2026</span></a>
@@ -307,7 +314,7 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
   <section data-reveal="" id="find-us" style="padding: clamp(84px, 10vw, 140px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1140px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Find us</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">One office, in the CADFEM building</h2>
+      <h2 id="one-office-in-the-cadfem-building" style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">One office, in the CADFEM building</h2>
 
       <div class="fu-grid">
         <div class="fu-rail">
@@ -358,7 +365,7 @@ html.anim .piword b:nth-child(1) .rest{animation-delay:.95s}
   <!-- SOLUTION-ROUTING-END -->
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Where is PI Probaligence based?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>PI Probaligence is based in Grafing bei Munich, Germany. It was founded in 2018 as a spin-off of the Institute for Modeling and High Performance Computing at Niederrhein University of Applied Sciences, and works with engineering and R&amp;D teams internationally.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Is PI part of CADFEM?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. The CADFEM Group acquired a stake in PI Probaligence, and PI has been part of the CADFEM Group since 2024. PI continues to develop STOCHOS and STOCHOS Flow as its own products for engineering and R&amp;D.</p></div></div></details>

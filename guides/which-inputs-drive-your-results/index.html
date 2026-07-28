@@ -144,7 +144,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The black box</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Prediction is not understanding</h2>
+      <h2 id="prediction-is-not-understanding" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Prediction is not understanding</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">The knowledge you want is already in the trained model: it encodes how the output moves as each input changes, over every combination your data covers. Sensitivity analysis reads that structure out. Without it, the model hits its validation targets and you still cannot say which of a dozen process parameters the prediction hangs on.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">You stop treating the surrogate as an oracle that returns numbers and start interrogating it. The answers come in two forms: a global ranking of what drives the output anywhere in the space, and a local attribution that explains one prediction at a time.</p>
     </div>
@@ -153,18 +153,18 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1060px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Two views</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Global ranks the space, local explains the case</h2>
+      <h2 id="global-ranks-the-space-local-explains-the-case" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Global ranks the space, local explains the case</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 64ch;">The two views answer different questions, and you will usually use both.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1px; margin-top: 40px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
         <div style="background: rgb(6, 6, 7); padding: 26px 24px;">
           <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 12px;">Global: the ranking</div>
-          <h3 style="font: 600 17px / 1.35 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.008em; color: rgb(244, 243, 239); margin: 0px 0px 12px;">Which inputs drive the output, in general?</h3>
+          <h3 id="which-inputs-drive-the-output-in-general" style="font: 600 17px / 1.35 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.008em; color: rgb(244, 243, 239); margin: 0px 0px 12px;">Which inputs drive the output, in general?</h3>
           <p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin: 0px 0px 12px;">The Sobol total-order index measures each input's share of the output variation across the whole space, interactions with other inputs included.</p>
           <p style="color: rgb(130, 130, 124); font-size: 14px; line-height: 1.6; margin: 0px;">What you do: focus control and monitoring on the top of the ranking, and settle arguments about the bottom.</p>
         </div>
         <div style="background: rgb(6, 6, 7); padding: 26px 24px;">
           <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 12px;">Local: this one prediction</div>
-          <h3 style="font: 600 17px / 1.35 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.008em; color: rgb(244, 243, 239); margin: 0px 0px 12px;">Why did this specific case come out the way it did?</h3>
+          <h3 id="why-did-this-specific-case-come-out-the-way-it" style="font: 600 17px / 1.35 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.008em; color: rgb(244, 243, 239); margin: 0px 0px 12px;">Why did this specific case come out the way it did?</h3>
           <p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin: 0px 0px 12px;">SHAP splits one prediction's distance from the model's baseline across the inputs, showing which pushed it up and which pulled it down.</p>
           <p style="color: rgb(130, 130, 124); font-size: 14px; line-height: 1.6; margin: 0px;">What you do: explain an unusual batch or design, and check the model's reasoning against what you know about the process.</p>
         </div>
@@ -176,7 +176,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Checking the model</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">The ranking is a test the model has to pass</h2>
+      <h2 id="the-ranking-is-a-test-the-model-has-to-pass" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">The ranking is a test the model has to pass</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Hold the global ranking against your process understanding. If it matches what experience says drives the process, the model has earned some trust. If it does not, either the data samples the space badly or the process behaves differently from what you assumed, and both are worth finding out before the next decision.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">Local attributions run the same test case by case. An explanation that contradicts process knowledge flags a problem earlier than prediction error will, and one that holds up is something you can put in front of colleagues who never saw the model.</p>
     </div>
@@ -184,7 +184,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(56px, 7vw, 84px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Can I trust indices computed on a surrogate rather than on the real process?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>The indices describe the model, so validate the fit first. A surrogate that predicts held-out results well has captured the input-output structure the indices summarise. Where the model is uncertain, read the ranking with the same caution.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Can the global and local views disagree?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes, and the disagreement is information. An input can rank low across the whole space yet dominate one prediction taken near the edge of your data. Global averages over everything you sampled; local looks at a single point.</p></div></div></details>
@@ -228,7 +228,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <div style="max-width: 720px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Ask your model why</h2>
+      <h2 id="ask-your-model-why" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Ask your model why</h2>
       <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring a trained model, or the data to build one. We will show what drives its predictions, globally and one case at a time.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>

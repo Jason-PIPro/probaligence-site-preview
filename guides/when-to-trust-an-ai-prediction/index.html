@@ -158,7 +158,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         </figure>
         <div>
           <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The starting point</div>
-          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">The problem with a point prediction</h2>
+          <h2 id="the-problem-with-a-point-prediction" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">The problem with a point prediction</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 54ch;">A model will answer any question you ask it, including questions about designs nothing in its training data resembles, and a bare number gives you no way to tell those two cases apart.</p>
           <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 54ch;">Both answers arrive in the same format, to the same decimal place, with the same apparent authority. One is an interpolation between cases the model has seen many times. The other is an extrapolation into territory it has never been shown.</p>
           <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.7; max-width: 54ch;">Nothing in the output separates the two, so the risk does not disappear. It moves to whoever signs the release, who now has to judge the model without any information from it.</p>
@@ -172,7 +172,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(28px, 4vw, 52px); align-items: center;">
         <div>
           <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">What you get instead</div>
-          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What quantified uncertainty actually reports</h2>
+          <h2 id="what-quantified-uncertainty-actually-reports" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What quantified uncertainty actually reports</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 54ch;">Alongside the predicted value you get a confidence range that widens where the model has seen little relevant data, which is the signal you use to decide.</p>
           <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 54ch;">Where your data is dense the range stays tight, and the model is telling you it has handled this kind of case before. Where the range opens out it is telling you the opposite, without anyone having to guess which region a candidate fell into.</p>
           <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.7; max-width: 54ch;">That makes the output a two-part answer: the estimate, and how much weight it will carry in a review. <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Uncertainty Quantification</a> covers the two kinds of uncertainty behind that range.</p>
@@ -195,7 +195,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div aria-hidden="true" style="position: absolute; left: 50%; top: 0px; transform: translateX(-50%); width: min(900px, 120vw); height: 420px; background: radial-gradient(closest-side, rgba(255, 176, 6, 0.1), transparent 66%); pointer-events: none;"></div>
     <div style="max-width: 980px; margin: 0px auto; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">A reference case</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Reading the range in practice</h2>
+      <h2 id="reading-the-range-in-practice" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Reading the range in practice</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 62ch;">In an LS-DYNA reference example STOCHOS learned from 32 crash models and predicted a new case with error below 5 percent, after 21 seconds of training on a CPU. The full solver still validates the cases that matter.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 1px; margin-top: 36px; background: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden;">
         <div style="background: rgb(10, 9, 8); padding: 30px 26px;">
@@ -228,7 +228,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         </div>
         <div>
           <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The limit</div>
-          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Where the boundary sits</h2>
+          <h2 id="where-the-boundary-sits" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Where the boundary sits</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 54ch;">Confidence is only meaningful inside the domain the model was trained on, so a design far outside that range is a signal to run the solver, not to trust the number.</p>
           <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 54ch;">It is worth being exact about what confidence claims. It says the model is consistent where it has data. It does not say the answer is proven correct, and no range replaces the validation that confirms a design.</p>
           <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.7; max-width: 54ch;">STOCHOS is a predictive model that sits alongside your solver, not in place of it. Used that way, a <a href="/probaligence-site-preview/surrogate-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">surrogate model</a> narrows what needs a full run, and the runs you do keep are the ones that decide something.</p>
@@ -239,7 +239,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Does high confidence mean the prediction is correct?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>It means the model has seen enough relevant data to be consistent there. Validation against the solver is still what confirms a design.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">What happens outside the training domain?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>The range widens, which is the model telling you it is extrapolating. Treat that as a prompt to run the full simulation.</p></div></div></details>
@@ -271,7 +271,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <div style="max-width: 720px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See it on your own data</h2>
+      <h2 id="see-it-on-your-own-data" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">See it on your own data</h2>
       <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring one dataset. We put a range on the predictions with STOCHOS, on a problem close to yours, and you can see for yourself where it is confident.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>

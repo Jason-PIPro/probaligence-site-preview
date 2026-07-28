@@ -161,31 +161,34 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">How it works, on one example</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Watch a surrogate learn a CFD case</h2>
+      <h2 id="watch-a-surrogate-learn-a-cfd-case" style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Watch a surrogate learn a CFD case</h2>
       <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.7; max-width: 64ch;">A surrogate model is a fast stand-in for a slow calculation. Take computational fluid dynamics (CFD), which predicts how air or liquid flows around a shape: one run can take hours. A surrogate learns from a handful of those runs, then predicts a new case in seconds. Here is the whole method on that one example.</p>
       <figure style="margin: clamp(32px, 5vw, 48px) 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0);">
         <div style="font: 500 11.5px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); padding: 14px 18px 0px;">CFD: solver, surrogate, error</div>
+        <div class="fig-pan" style="--fig-min:780px">
         <video data-lazy-video muted loop playsinline preload="none" poster="/probaligence-site-preview/assets/media/surrogate-cfd-poster.webp" width="1280" height="960" style="display: block; width: 100%; height: auto; margin-top: 12px;" aria-label="Three stacked velocity color maps of flow past a cylinder: the CFD solver ground truth, the STOCHOS surrogate prediction of the same field, and their near-zero difference.">
           <source data-src="/probaligence-site-preview/assets/media/surrogate-cfd.mp4" type="video/mp4">
         </video>
+        </div>
         <figcaption style="font: 400 12.5px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); padding: 14px 18px; border-top: 1px solid rgba(255, 255, 255, 0.07);">Flow past a cylinder: top the CFD solver, middle the surrogate's prediction, bottom the near-zero difference between them.</figcaption>
+        <p class="fig-hint" style="padding: 0px 18px 14px;">Scroll sideways to read the labels.</p>
       </figure>
       <div style="margin-top: clamp(40px, 6vw, 64px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
         <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; padding: 26px 0px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
           <span style="font: 500 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(255, 176, 6);">01</span>
-          <div><h3 style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">What goes in</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">A set of CFD runs you already have. Each pairs the inputs you can change, geometry and flow conditions, with the output you want: the full velocity field. Often tens of runs, not thousands.</p></div>
+          <div><h3 id="what-goes-in" style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">What goes in</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">A set of CFD runs you already have. Each pairs the inputs you can change, geometry and flow conditions, with the output you want: the full velocity field. Often tens of runs, not thousands.</p></div>
         </div>
         <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; padding: 26px 0px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
           <span style="font: 500 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(255, 176, 6);">02</span>
-          <div><h3 style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">What the model learns</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">STOCHOS fits the relationship between those inputs and the field, and learns how sure it should be in each region from where the runs actually landed.</p></div>
+          <div><h3 id="what-the-model-learns" style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">What the model learns</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">STOCHOS fits the relationship between those inputs and the field, and learns how sure it should be in each region from where the runs actually landed.</p></div>
         </div>
         <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; padding: 26px 0px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
           <span style="font: 500 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(255, 176, 6);">03</span>
-          <div><h3 style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">What comes out</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">Give it a new case and it returns the predicted field in seconds, with confidence attached. In the clip, the prediction matches the solver and the error stays near zero.</p></div>
+          <div><h3 id="what-comes-out" style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">What comes out</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">Give it a new case and it returns the predicted field in seconds, with confidence attached. In the clip, the prediction matches the solver and the error stays near zero.</p></div>
         </div>
         <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; padding: 26px 0px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
           <span style="font: 500 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(255, 176, 6);">04</span>
-          <div><h3 style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Where it is trusted</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">Inside the range it learned from, the prediction holds and its confidence says so. Outside that range, confidence drops. The solver still validates the design you commit to.</p></div>
+          <div><h3 id="where-it-is-trusted" style="font: 600 clamp(19px, 2.2vw, 23px) / 1.2 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Where it is trusted</h3><p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.6; max-width: 62ch;">Inside the range it learned from, the prediction holds and its confidence says so. Outside that range, confidence drops. The solver still validates the design you commit to.</p></div>
         </div>
       </div>
     </div>
@@ -207,7 +210,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 780px; margin: 0px auto;">
       <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Under the hood</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 22ch;">How STOCHOS builds a surrogate</h2>
+      <h2 id="how-stochos-builds-a-surrogate" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 22ch;">How STOCHOS builds a surrogate</h2>
       <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">STOCHOS uses DIM-GP, a model family built for small, noisy datasets, changing geometries, and multi-fidelity data. Every prediction carries quantified uncertainty, so a reliable interpolation is easy to tell from a risky guess. It handles fields, geometries, and meshes, not just tidy tables.</p>
       <a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 16px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 'IBM Plex Sans', sans-serif;">How the DIM-GP model works →</a>
       <p style="margin-top: 28px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">See where a surrogate stays reliable with <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">uncertainty quantification</a>, and cut its data cost with <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">multi-fidelity modeling</a>.</p>
@@ -257,7 +260,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.15), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Put a surrogate to work</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Bring us your slowest simulation</h2>
+      <h2 id="bring-us-your-slowest-simulation" style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Bring us your slowest simulation</h2>
       <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Point us at a simulation or test you run again and again. We will train a surrogate on your data and show it predicting new cases in seconds, on a problem close to yours.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
@@ -268,7 +271,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Is a surrogate model the same as the solver?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. A solver computes the physics from scratch at high cost. A surrogate learns that input-output behavior from existing runs and predicts new cases in seconds. It cuts how often you run the solver, which still validates the results that matter.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">How much data does a surrogate model need?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>There is no fixed number. STOCHOS is built for small, expensive datasets, often tens of runs rather than thousands. It handles noisy and multi-fidelity data, and flags where confidence is low so you can add runs where they help most.</p></div></div></details>

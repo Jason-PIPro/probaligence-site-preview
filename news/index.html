@@ -38,6 +38,8 @@ h1,h2,h3,h4,p{margin:0}
 .ne-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .ne-pills button{font:500 11.5px/1 'IBM Plex Mono',monospace;padding:9px 12px;border-radius:2px;cursor:pointer;background:transparent;color:#B8B8B2;border:1px solid rgba(255,255,255,.16);transition:all .15s}
 .ne-pills button[aria-pressed="true"]{background:#FFB006;color:#08070A;border-color:#FFB006}
+/* Phone: the filter pills sit at 31.5px with 6px between them, under the 44px touch target. */
+@media (max-width:640px){.ne-pills{gap:10px}.ne-pills button{min-height:44px;padding:0 14px;display:inline-flex;align-items:center}}
 .ne-feat{display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;padding:34px 8px;border-top:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14);text-decoration:none;color:inherit;transition:background .2s}
 .ne-feat:hover{background:rgba(255,176,6,.03);color:inherit}
 @media (max-width:640px){.ne-feat{grid-template-columns:1fr;gap:12px}}
@@ -61,7 +63,9 @@ h1,h2,h3,h4,p{margin:0}
 .ne-row:hover{background:rgba(255,176,6,.04);transform:translateX(5px);color:inherit}
 .ne-row:hover::before{transform:scaleY(1)}
 .ne-row[hidden]{display:none}
-@media (max-width:640px){.ne-row{grid-template-columns:1fr auto}.ne-row time{grid-column:1 / -1}}
+/* Phone: date and tag share row 1, the title takes the full width on row 2. The decorative
+   arrow is dropped so it cannot strand on a third line of its own. */
+@media (max-width:640px){.ne-row{grid-template-columns:1fr auto;row-gap:10px}.ne-row time{grid-column:1;grid-row:1}.ne-row .tag{grid-column:2;grid-row:1;justify-self:end}.ne-row .t{grid-column:1 / -1;grid-row:2}.ne-row .arr{display:none}}
 .ne-row time{font:400 12px/1.4 'IBM Plex Mono',monospace;color:#82827C;white-space:nowrap}
 .ne-row .t{font:500 16px/1.4 'Space Grotesk',sans-serif;letter-spacing:-.008em;color:#F4F3EF}
 .ne-row .tag{font:500 9.5px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#FFCA4D;border:1px solid rgba(255,176,6,.35);border-radius:2px;padding:6px 9px;white-space:nowrap}
@@ -263,7 +267,7 @@ h1,h2,h3,h4,p{margin:0}
   <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div aria-hidden="true" style="position: absolute; inset: 0px; background: radial-gradient(at 50% 120%, rgba(255, 176, 6, 0.14), transparent 60%); pointer-events: none;"></div>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Put a method to work</h2>
+      <h2 id="put-a-method-to-work" style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Put a method to work</h2>
       <p style="margin: 22px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 50ch;">Request a demo and we will show STOCHOS and STOCHOS Flow on a problem close to yours.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;">
         <a href="/probaligence-site-preview/contact/" class="scp2" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>

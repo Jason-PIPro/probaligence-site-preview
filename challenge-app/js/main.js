@@ -178,5 +178,21 @@ domnav.addEventListener('scroll', navFade, { passive: true });
 window.addEventListener('resize', navFade);
 navFade();
 
+// Demonstration ticker: the warning strip under the topbar scrolls on its own, so
+// WCAG 2.2.2 wants a way to stop it that does not depend on hovering. The button is
+// in index.html; this only toggles the CSS animation and keeps the label in sync.
+const tickerPause = document.querySelector('.demo-ticker-pause');
+const tickerTrack = document.querySelector('.demo-ticker-track');
+if (tickerPause && tickerTrack) {
+  tickerPause.addEventListener('click', () => {
+    const paused = tickerPause.getAttribute('aria-pressed') !== 'true';
+    tickerTrack.style.animationPlayState = paused ? 'paused' : '';
+    tickerPause.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    tickerPause.textContent = paused ? '▶' : '❘❘';
+    tickerPause.setAttribute('aria-label', paused
+      ? 'Resume the demonstration notice' : 'Pause the demonstration notice');
+  });
+}
+
 window.addEventListener('hashchange', route);
 route();

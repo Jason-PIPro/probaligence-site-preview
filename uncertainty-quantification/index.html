@@ -63,6 +63,24 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .uqcta-tick::after{height:100%;width:1px;left:50%}
 .uqcta-tl{top:22px;left:22px}.uqcta-tr{top:22px;right:22px}.uqcta-bl{bottom:22px;left:22px}.uqcta-br{bottom:22px;right:22px}
 </style>
+<style id="figmob-css">
+/* Page-local half of the shared .fig-pan pattern in site.css. This page is generated output: its
+   figures and images carry margin, padding, border and width as inline styles, and an inline
+   declaration beats an author stylesheet, so site.css cannot apply the full-bleed or the pan width
+   on its own. The same declarations are repeated here with !important, scoped to the figures that
+   opted in with class="fig-bleed". Above 560px nothing changes. */
+@media (max-width:560px){
+  figure.fig-bleed{margin-left:-24px!important;margin-right:-24px!important;
+    padding-left:0!important;padding-right:0!important;
+    border-left:0!important;border-right:0!important;border-radius:0!important}
+  figure.fig-bleed>*:not(.fig-pan){padding-left:24px!important;padding-right:24px!important}
+  /* width:100%, not auto. site.css sets width:auto with max-width:none inside its 560px block, and
+     for a loaded raster that resolves to the natural width (1149px and 1600px here), so --fig-min
+     is never reached and the figure renders at full native size. width:100% resolves to the pan
+     container and is then floored by the min-width site.css sets from --fig-min. */
+  figure.fig-bleed .fig-pan>img{width:100%!important;max-width:none!important;border-radius:0!important}
+}
+</style>
 </head>
 <body>
 <header class="site-header" role="banner">
@@ -147,9 +165,12 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <a href="/probaligence-site-preview/how-stochos-works/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">How STOCHOS works</a>
           </div>
         </div>
-        <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 176, 6, 0.28); border-radius: 4px; padding: 14px; background: rgb(0, 0, 0); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
-          <img loading="eager" fetchpriority="high" decoding="async" src="/probaligence-site-preview/assets/media/dimgp-uncertainty-chart.webp" width="1149" height="1149" alt="A DIM-GP prediction with a mean line and one, two, and three sigma confidence bands that stay tight where data exists and widen where the model extrapolates." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+        <figure data-hero="" class="fig-bleed" style="margin: 0px; border: 1px solid rgba(255, 176, 6, 0.28); border-radius: 4px; padding: 14px; background: rgb(0, 0, 0); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
+          <div class="fig-pan" style="--fig-min:720px">
+            <img loading="eager" fetchpriority="high" decoding="async" src="/probaligence-site-preview/assets/media/dimgp-uncertainty-chart.webp" width="1149" height="1149" alt="A DIM-GP prediction with a mean line and one, two, and three sigma confidence bands that stay tight where data exists and widen where the model extrapolates." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+          </div>
           <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 10px; padding: 0px 4px;">Mean prediction with confidence bands; confidence widens where data is missing.</figcaption>
+          <p class="fig-hint">Scroll sideways to read the labels.</p>
         </figure>
       </div>
     </div>
@@ -158,11 +179,14 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">The black box</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">A number with no measure of trust</h2>
+      <h2 id="a-number-with-no-measure-of-trust" style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">A number with no measure of trust</h2>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: clamp(28px, 4vw, 52px); align-items: center; margin-top: 36px;">
-        <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; padding: 14px; background: rgb(0, 0, 0);">
-          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/uncertainty-black-box.webp" width="1600" height="932" alt="Twelve labeled inputs feed a closed model that returns a single bare prediction of 42.7, with no indication of how far to trust the number." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+        <figure class="fig-bleed" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; padding: 14px; background: rgb(0, 0, 0);">
+          <div class="fig-pan" style="--fig-min:820px">
+            <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/uncertainty-black-box.webp" width="1600" height="932" alt="Twelve labeled inputs feed a closed model that returns a single bare prediction of 42.7, with no indication of how far to trust the number." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+          </div>
           <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 10px; padding: 0px 4px;">Twelve inputs, one bare number. Nothing here says whether the model is confident or guessing.</figcaption>
+          <p class="fig-hint">Scroll sideways to read the labels.</p>
         </figure>
         <div>
           <p style="color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 52ch;">Feed a model twelve settings and it returns one number: 42.7. Two predictions can read the same and mean opposite things. One sits inside the data the model has already seen. One lands far outside it. The bare number hides the difference.</p>
@@ -170,7 +194,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         </div>
       </div>
       <div style="margin-top: clamp(40px, 5vw, 64px);">
-        <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 18px;">The same estimate, two ways to report it</div>
+        <div style="font: 500 12px / 1.5 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 18px;">The same estimate, two ways to report it</div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(258px, 100%), 1fr)); gap: 18px; align-items: stretch;">
           <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 28px 26px; background: rgba(255, 255, 255, 0.02); display: flex; flex-direction: column;">
             <span style="font: 500 11px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(156, 156, 150);">Bare number</span>
@@ -198,12 +222,15 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: clamp(28px, 4vw, 52px); align-items: center;">
         <div>
           <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">What goes wrong</div>
-          <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Trusting the box blindly</h2>
+          <h2 id="trusting-the-box-blindly" style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Trusting the box blindly</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.7; max-width: 52ch;">STOCHOS returns confidence bounds on every prediction. Engineers read that confidence map to decide which variants still need a full solve, instead of validating every candidate or trusting them all.</p>
         </div>
-        <figure style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; padding: 14px; background: rgb(0, 0, 0);">
-          <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/uncertainty-standard-model.webp" width="1149" height="1149" alt="A standard model with no confidence bounds warps toward an outlier and trusts a noisy measurement blindly, with no indication of how much to trust the prediction." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+        <figure class="fig-bleed" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; padding: 14px; background: rgb(0, 0, 0);">
+          <div class="fig-pan" style="--fig-min:720px">
+            <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/uncertainty-standard-model.webp" width="1149" height="1149" alt="A standard model with no confidence bounds warps toward an outlier and trusts a noisy measurement blindly, with no indication of how much to trust the prediction." style="display: block; width: 100%; height: auto; border-radius: 2px;">
+          </div>
           <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 10px; padding: 0px 4px;">Without uncertainty, a model warps toward outliers and trusts noisy data blindly.</figcaption>
+          <p class="fig-hint">Scroll sideways to read the labels.</p>
         </figure>
       </div>
     </div>
@@ -214,7 +241,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(80px, 10vw, 140px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Two kinds of uncertainty</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Why a prediction needs a range</h2>
+      <h2 id="why-a-prediction-needs-a-range" style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Why a prediction needs a range</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 60ch;">Not all uncertainty is the same. Splitting it in two tells you what to do next.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 20px; margin-top: 34px;">
         <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 26px; background: rgba(255, 255, 255, 0.02);">
@@ -239,27 +266,27 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 1100px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Why it matters in industry</div>
-      <h2 style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a range buys you</h2>
+      <h2 id="what-a-range-buys-you" style="font: 700 clamp(28px, 4.2vw, 44px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">What a range buys you</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Quantified uncertainty is not statistical tidiness. It changes the decision in front of you.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 1px; background: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; margin-top: 34px;">
         <div style="background: rgb(6, 6, 7); padding: 30px 26px;">
           <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">01</span>
-          <h3 style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">Decisions under risk</h3>
+          <h3 id="decisions-under-risk" style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">Decisions under risk</h3>
           <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">See whether a design clears its limit comfortably or only under optimistic assumptions. The question moves from what is the value to how likely it is to pass.</p>
         </div>
         <div style="background: rgb(6, 6, 7); padding: 30px 26px;">
           <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">02</span>
-          <h3 style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">Fewer physical tests</h3>
+          <h3 id="fewer-physical-tests" style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">Fewer physical tests</h3>
           <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Validate where the model is unsure. Where confidence is high, skip the extra bench test or full solve and move on.</p>
         </div>
         <div style="background: rgb(6, 6, 7); padding: 30px 26px;">
           <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">03</span>
-          <h3 style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">When to trust, when not</h3>
+          <h3 id="when-to-trust-when-not" style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">When to trust, when not</h3>
           <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Act on a confident prediction inside the data. A low-confidence one flags itself for a check before it drives a decision.</p>
         </div>
         <div style="background: rgb(6, 6, 7); padding: 30px 26px;">
           <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">04</span>
-          <h3 style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">Honest safety margins</h3>
+          <h3 id="honest-safety-margins" style="margin-top: 14px; font: 600 18px / 1.3 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em;">Honest safety margins</h3>
           <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Separate a real design margin from an unresolved prediction, so a margin guards against physics, not against not knowing.</p>
         </div>
       </div>
@@ -302,7 +329,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <span class="uqcta-tick uqcta-tl" aria-hidden="true"></span><span class="uqcta-tick uqcta-tr" aria-hidden="true"></span><span class="uqcta-tick uqcta-bl" aria-hidden="true"></span><span class="uqcta-tick uqcta-br" aria-hidden="true"></span>
     <div style="max-width: 760px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Know when to trust a prediction, and when not.</h2>
+      <h2 id="know-when-to-trust-a-prediction-and-when-not" style="font: 700 clamp(30px, 4.6vw, 54px) / 1.08 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Know when to trust a prediction, and when not.</h2>
       <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Bring one dataset. We put a confidence range on predictions with STOCHOS and STOCHOS Flow, on a problem close to yours.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
@@ -314,7 +341,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What is the difference between aleatoric and epistemic uncertainty?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Aleatoric uncertainty is noise in the system itself, like batch-to-batch variation or sensor error. More data will not remove it, so you plan around it. Epistemic uncertainty is the model's own lack of knowledge, largest where it has seen little data. More data or a better model can reduce it.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Does a 90 percent range mean a 90 percent chance the truth is inside it?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Only if the range is calibrated. Calibration means that over many predictions, the true value really falls inside the stated range about that often. A range that is never checked can be overconfident, so calibration should be validated on held-out data.</p></div></div></details>

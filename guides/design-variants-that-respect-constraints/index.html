@@ -145,7 +145,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <section data-reveal="" style="padding: clamp(70px, 8vw, 120px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 860px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The bottleneck</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Why variant count stays low</h2>
+      <h2 id="why-variant-count-stays-low" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 18ch;">Why variant count stays low</h2>
       <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Each new geometry is manual CAD work, so the design space you actually evaluate is the small corner you had time to build.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">The limit is rarely the solver and it is never the idea list. It is the hours between a sketch and a body clean enough to mesh. Teams answer that by choosing a handful of variants early and defending them, which quietly turns an exploration into a confirmation of the first guess. Everything outside that corner stays an opinion, because nothing ever attached a number to it.</p>
     </div>
@@ -164,7 +164,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <span style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255, 176, 6, 0.45); background: rgb(6, 6, 7); color: rgb(255, 176, 6); font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace;">01</span>
             <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);">Input designs</span>
           </div>
-          <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">A shape family, not a parameter list</h2>
+          <h2 id="a-shape-family-not-a-parameter-list" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">A shape family, not a parameter list</h2>
           <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 58ch;">Trained on a handful of geometries, it learns the shape family rather than a parameter list, which is why the variants it produces look like your parts and not like noise.</p>
           <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 58ch;">A parameter list can only move the dimensions somebody thought to expose, and it stops at the edge of that list. A learned shape family carries the proportions, the transitions, and the features that repeat across parts you have already signed off. That is the difference between generating a new bracket and generating a shape that happens to have a hole in it.</p>
         </div>
@@ -180,7 +180,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <span style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255, 176, 6, 0.45); background: rgb(6, 6, 7); color: rgb(255, 176, 6); font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace;">02</span>
         <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);">Learned constraints</span>
       </div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Constraints are learned, not bolted on</h2>
+      <h2 id="constraints-are-learned-not-bolted-on" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Constraints are learned, not bolted on</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">In a generative geometry example, boreholes were learned as constraints from three input designs, with training in under a minute on a GPU and new variations produced in seconds. One example, one setup: a different part family will answer differently.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">Nobody told the model those holes were bolt positions. They held because they held in every design it was shown, so it treated them as part of the family rather than as something to vary. That gives you a practical test for what will survive: a feature that is genuinely invariant across your training geometries comes through the generated ones, and a feature that drifts between them will drift in the output too.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 1px; margin-top: 32px; background: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.09);">
@@ -198,7 +198,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <span style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255, 176, 6, 0.45); background: rgb(6, 6, 7); color: rgb(255, 176, 6); font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace;">03</span>
         <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6);">Generated variants</span>
       </div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">What comes out the other end</h2>
+      <h2 id="what-comes-out-the-other-end" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">What comes out the other end</h2>
       <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Many shapes from the same family, produced in seconds rather than sketched one at a time. They are candidates to evaluate, which is exactly what a wide search needs at this stage.</p>
       <figure style="margin: 34px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 8px; padding: 14px; background: rgb(0, 0, 0);">
         <img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/generative-cluster-grid-poster.webp" width="958" height="814" alt="A grid of generated bracket geometry variants grouped into color-coded clusters, produced by STOCHOS from a few input designs." style="display: block; width: 100%; height: auto; border-radius: 3px;">
@@ -211,7 +211,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div aria-hidden="true" style="position: absolute; left: 50%; top: 0px; width: 1px; height: 46px; background: linear-gradient(rgba(255, 176, 6, 0.55), rgba(255, 176, 6, 0));"></div>
     <div style="max-width: 860px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">In your process</div>
-      <h2 style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">A wider shortlist, the same sign-off path</h2>
+      <h2 id="a-wider-shortlist-the-same-sign-off-path" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">A wider shortlist, the same sign-off path</h2>
       <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Generated variants feed the same evaluation you already run, and every geometry that matters still goes through your normal CAD and validation path before anyone makes it.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">Treat the output as a shortlist of candidates, not as finished parts. Screen them the way you screen anything else, with a solve or with a <a href="/probaligence-site-preview/surrogate-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">surrogate model</a>, and take the few that survive into CAD. The gain is the width of the search that happens before that point, not a step removed from the end of it. The method behind this is set out on <a href="/probaligence-site-preview/generative-design/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Generative Design</a>, and <a href="/probaligence-site-preview/stochos/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">STOCHOS</a> is the engine that runs it on your own infrastructure.</p>
     </div>
@@ -219,7 +219,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 
   <section data-reveal="" id="faq" style="padding: clamp(44px, 6vw, 72px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
     <div class="fqq-wrap">
-      <h2 class="fqq-title">Common questions</h2>
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">Are the generated geometries ready to manufacture?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. They are candidates to evaluate. Your normal CAD, validation, and sign-off path still decides what gets made.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">How many existing designs does generative design need?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Fewer than most people expect. The generative geometry example learned from three input designs. How far that generalizes depends on how varied your family is.</p></div></div></details>
@@ -251,7 +251,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <div style="max-width: 720px; margin: 0px auto; text-align: center; position: relative;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
-      <h2 style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Show us a part family</h2>
+      <h2 id="show-us-a-part-family" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Show us a part family</h2>
       <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">A few geometries you have already built are enough to start the conversation. We can look at which features are invariant across them, which ones are not, and what a generated set would give you to evaluate.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
         <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>

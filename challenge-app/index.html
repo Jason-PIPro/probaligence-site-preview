@@ -31,6 +31,19 @@
     </div>
   </header>
 
+  <!-- Demonstration ticker: sticky under the topbar on every route. The visible
+       track is duplicated once for the seamless loop and hidden from assistive
+       tech, which reads the aria-label on the note instead. -->
+  <div class="demo-ticker" role="note" aria-label="Demonstration only. This is not the real STOCHOS software or algorithm. Everything shown runs on synthetic data for demonstration purposes.">
+    <div class="demo-ticker-view">
+      <div class="demo-ticker-track" aria-hidden="true">
+        <div class="demo-ticker-set"><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b></div>
+        <div class="demo-ticker-set"><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b></div>
+      </div>
+    </div>
+    <button type="button" class="demo-ticker-pause" aria-pressed="false" aria-label="Pause the demonstration notice">&#10074;&#10074;</button>
+  </div>
+
   <main id="app" class="app"><!-- demo mounts here --></main>
 
   <footer class="site-footer" role="contentinfo">
