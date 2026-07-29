@@ -123,9 +123,10 @@
      PI runs cookieless for now (decision 2026-07-09): no analytics, no
      non-essential storage, so there is nothing to consent to and the banner
      is not shown. The machinery below is kept intact. To bring analytics
-     back: set ANALYTICS_ENABLED = true (re-shows the banner and the footer
-     "Cookie settings" control), then initialise the tracker where marked
-     "non-essential scripts would initialise here". */
+     back: set ANALYTICS_ENABLED = true (re-shows the banner), restore the
+     footer "Cookie settings" link in build_static.py's FOOTER_ONLY, then
+     initialise the tracker where marked "non-essential scripts would
+     initialise here". */
   var ANALYTICS_ENABLED = false;
   var KEY = "pi-consent";
   function getConsent() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
@@ -168,16 +169,13 @@
       clearConsent();
       buildBanner();
     });
-  } else {
-    // cookieless: hide the orphaned "Cookie settings" footer control on every page
-    var hideConsentReset = function () {
-      document.querySelectorAll("[data-consent-reset]").forEach(function (el) {
-        el.style.display = "none";
-      });
-    };
-    if (document.body) hideConsentReset();
-    else document.addEventListener("DOMContentLoaded", hideConsentReset);
   }
+  // No else branch: while ANALYTICS_ENABLED is false the footer carries no
+  // "Cookie settings" control at all (removed from the markup and from
+  // build_static.py's FOOTER_ONLY on 2026-07-29, Jason's call). Setting
+  // ANALYTICS_ENABLED = true therefore also means putting
+  // <a href="#" data-consent-reset>Cookie settings</a> back into the footer
+  // template, or the banner can be answered once and never reopened.
 
   /* ---------- demo request form ----------
      Posts to the Cloudflare Worker in 06_website-build/site-services/, which
@@ -190,7 +188,9 @@
   if (!form) {
     // fall back to the first form that has the demo fields
     document.querySelectorAll("form").forEach(function (f) {
-      if (!form && f.querySelector('[name="email"]')) form = f;
+      // data-no-demo-form opts a form out of this handler. Without it, any form
+      // with an email field (the newsletter signup) is treated as the demo form.
+      if (!form && !f.hasAttribute("data-no-demo-form") && f.querySelector('[name="email"]')) form = f;
     });
   }
   if (form) {

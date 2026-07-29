@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a4a4a"/>
+      <stop offset="100%" style="stop-color:#2a2a2a"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.25"/>
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="femStress" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   style="stop-color:#ff4d4d"/>
+      <stop offset="30%"  style="stop-color:#ff9f40"/>
+      <stop offset="52%"  style="stop-color:#ffe066"/>
+      <stop offset="74%"  style="stop-color:#4dd17a"/>
+      <stop offset="100%" style="stop-color:#4d8bff"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" rx="6" ry="6" fill="url(#bgGrad)"/>
+  <path d="M0 6 Q0 0 6 0 L58 0 Q64 0 64 6 L64 28 Q32 36 0 28 Z" fill="url(#shine)"/>
+
+  <!-- fixed-support ground at the top of the vertical arm -->
+  <g stroke="#c4ccd2" stroke-width="1.4" stroke-linecap="round">
+    <line x1="16" y1="17" x2="33" y2="17"/>
+    <line x1="18" y1="17" x2="15" y2="21"/>
+    <line x1="22" y1="17" x2="19" y2="21"/>
+    <line x1="26" y1="17" x2="23" y2="21"/>
+    <line x1="30" y1="17" x2="27" y2="21"/>
+  </g>
+
+  <!-- L-bracket coloured by a stress contour -->
+  <path d="M18 18 L31 18 L31 36 L49 36 L49 50 L18 50 Z"
+        fill="url(#femStress)" stroke="#eef6ff" stroke-width="1.1" stroke-linejoin="round"/>
+
+  <!-- load arrow on the free tip -->
+  <g fill="#ff5a5a" stroke="#ff5a5a" stroke-width="2.2" stroke-linecap="round">
+    <line x1="43" y1="25" x2="43" y2="32"/>
+    <path d="M39 31 L43 37 L47 31 Z" stroke="none"/>
+  </g>
+</svg>
