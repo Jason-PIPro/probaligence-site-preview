@@ -181,8 +181,17 @@
      Posts to the Cloudflare Worker in 06_website-build/site-services/, which
      files the request as an issue on the PRIVATE repo. Leave the endpoint
      empty until that Worker is deployed: the form then validates and shows the
-     email fallback instead of failing on a dead URL. Setup: DEMO-DEPLOY-SETUP.md. */
-  var DEMO_FORM_ENDPOINT = "";
+     email fallback instead of failing on a dead URL. Setup: DEMO-DEPLOY-SETUP.md.
+
+     Wired 2026-07-29. Two things move with this value and must never diverge:
+       1. connect-src in security-headers/ (all three host formats). A filled
+          endpoint with an unlisted origin means the browser blocks every submit.
+       2. ALLOW_ORIGIN on the Worker, which must be the origin the form is
+          served from, or the Worker answers 403.
+     Derived from the Cloudflare subdomain in demo-extras/feedback-config.json
+     and the Worker name in DEMO-DEPLOY-SETUP.md part C2. Confirm it against the
+     real Worker URL after deploying, then run the part C5 tests. */
+  var DEMO_FORM_ENDPOINT = "https://pi-demo-request.jason-easaw.workers.dev";
   var MAIL_LINK = '<a href="mailto:info@probaligence.com" style="color:var(--amber)">info@probaligence.com</a>';
   var form = document.querySelector("form[data-demo], form#demo-form, .contact-form form");
   if (!form) {
