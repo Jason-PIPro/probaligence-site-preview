@@ -7,8 +7,14 @@
 // demos are noData mounts, so nothing (not even surrogate.js) is parsed until a
 // route needs it; each lazy-imports its own dependency graph at mount time.
 
+import { isPhone, syncPhoneClass, onPhoneChange } from './phone.js';
+
 const app = document.getElementById('app');
 const boot = document.getElementById('boot');
+
+// The builder is desktop-only (see phone.js). Set the class before the first
+// render so no phone frame ever paints an entry point into it.
+syncPhoneClass();
 
 // Teardown seam: a demo's mount(root) MAY return a teardown (a function, or an
 // object with .destroy()). We run it on the next route change BEFORE the DOM is
@@ -77,7 +83,8 @@ function renderHub() {
             <span class="hero-kicker">The live demonstrator</span>
             <h1 class="hero-title">Don't just read about STOCHOS.<br><span class="hero-hot">Try to beat it.</span></h1>
             <p class="hero-pitch">Pick a use case, find the best settings by hand over a few tries, then
-              let STOCHOS take the same problem. Closest to optimal wins, then you build the workflow that did it.</p>
+              let STOCHOS take the same problem. Closest to optimal wins${isPhone() ? ''
+                : ', then you build the workflow that did it'}.</p>
             <div class="hero-actions">
               <a class="hero-cta" href="#/challenge">Can you beat STOCHOS? &rarr;</a>
               <span class="hero-sub">3 use cases &middot; a few tries each &middot; about 2 minutes</span>
@@ -161,8 +168,25 @@ function route() {
   runTeardown();   // tear down the outgoing demo before swapping the DOM
   const h = location.hash.replace(/^#\//, '');
   if (!h) return renderHub();
+  // The one hard gate on the builder: hiding the links is not enough, because a
+  // bookmark, a shared link or a QR code can name #/studio directly. A phone
+  // gets the hub instead, with the dead hash cleaned out of the address bar the
+  // same way a retired route is handled below.
+  if (h === 'studio' && isPhone()) {
+    try { history.replaceState(null, '', '#/'); } catch (e) { /* noop */ }
+    return renderHub();
+  }
   renderDomain(h);
 }
+
+// Turning a tablet or a desktop window into phone territory while the builder is
+// open drops back to the hub rather than leaving an unusable editor on screen.
+onPhoneChange(() => {
+  syncPhoneClass();
+  if (isPhone() && location.hash.startsWith('#/studio')) {
+    location.hash = '#/';   // hashchange runs route(), which tears the studio down
+  }
+});
 
 // Nav overflow affordance: on narrow screens the nav scrolls horizontally with a
 // hidden scrollbar, which reads as clipped. While more tabs sit off-screen, styles.css

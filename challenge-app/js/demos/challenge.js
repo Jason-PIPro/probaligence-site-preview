@@ -4,6 +4,7 @@
 // studio, or watch it optimize live) -> SHOWDOWN (you vs Stochos). PI website brand.
 import { loadDomain } from '../surrogate.js';
 import { PRIMARY, scoreOf, outputsFull, beatRate, stochosRun, constraintCfg } from '../challenge/score.js';
+import { isPhone } from '../phone.js';
 
 // industry -> { data json, instrument module, copy }
 // Single amber accent per brand rule (was 3 distinct hexes, 2 off-brand);
@@ -206,7 +207,9 @@ function maybeShowGuide(stage) {
         <li><b>Set</b> the recipe / conditions.</li>
         <li><b>Run it</b> and read the score.</li>
         <li><b>Lock</b> your best result.</li>
-        <li>Then <b>build STOCHOS's workflow</b> and see the showdown.</li>
+        <li>Then ${isPhone()
+          ? '<b>let STOCHOS run</b> the same problem'
+          : '<b>build STOCHOS\'s workflow</b>'} and see the showdown.</li>
       </ol>
       <button class="ch-btn primary ch-guide-go" id="chGuideGo">Got it &rarr;</button>
     </div>`;
@@ -293,7 +296,7 @@ function renderPick(stage) {
         <span class="ch-hiw-step">01 Set</span><span class="ch-hiw-sep">&middot;</span>
         <span class="ch-hiw-step">02 Run</span><span class="ch-hiw-sep">&middot;</span>
         <span class="ch-hiw-step">03 Lock</span><span class="ch-hiw-sep">&middot;</span>
-        <span class="ch-hiw-step">04 Build the workflow</span>
+        <span class="ch-hiw-step">04 ${isPhone() ? 'Let STOCHOS run it' : 'Build the workflow'}</span>
       </div>
     </div>`;
   stage.querySelectorAll('.ch-card').forEach((c) => {
@@ -433,6 +436,12 @@ async function renderStochos(stage, domain, surrogate, userBest) {
   // `terms` itself (renderPlay only stores {params, outputs, mean, score}).
   const compCfg = constraintCfg(surrogate);
   const userTerms = (userBest && compCfg) ? scoreOf(surrogate, userBest.params || {}, prim.out, prim.goal).terms : null;
+  // A phone gets no build option (phone.js), so this act offers one action and the
+  // copy describes the run rather than a choice between building it and watching it.
+  const phone = isPhone();
+  const objectiveLine = phone
+    ? `STOCHOS runs the whole pipeline: load the data, train the model, run the optimiser, then back here for the showdown.`
+    : `Build STOCHOS's workflow lays out the same pipeline in Stochos Flow: load the data, train the model, run the optimiser, then brings you back here for the showdown. Short on time? Just watch it run.`;
   stage.innerHTML = `
     <div class="ch-stochos">
       ${backBarHTML()}
@@ -442,7 +451,7 @@ async function renderStochos(stage, domain, surrogate, userBest) {
       ${complianceChipsHTML(surrogate, userTerms)}
       <div class="ch-objective">
         <span class="ch-obj-dot"></span>
-        Build STOCHOS's workflow lays out the same pipeline in Stochos Flow: load the data, train the model, run the optimiser, then brings you back here for the showdown. Short on time? Just watch it run.
+        ${objectiveLine}
       </div>
       <div class="ch-sto-readout" id="chStoReadout">Ready.</div>
 
@@ -469,14 +478,18 @@ async function renderStochos(stage, domain, surrogate, userBest) {
       </div>
 
       <div class="ch-sto-actions">
-        <button class="ch-btn primary" id="chBuild">Build STOCHOS's workflow &rarr;</button>
-        <button class="ch-btn ghost" id="chRunStochos">Or just watch it optimize</button>
+        ${phone ? '' : '<button class="ch-btn primary" id="chBuild">Build STOCHOS\'s workflow &rarr;</button>'}
+        <button class="ch-btn ${phone ? 'primary' : 'ghost'}" id="chRunStochos">${phone
+          ? 'Watch STOCHOS optimize &rarr;' : 'Or just watch it optimize'}</button>
       </div>
     </div>`;
   wireBack(stage);
   const readout = stage.querySelector('#chStoReadout');
-  // hand off to the real Flow studio: build the workflow, then return to the showdown
-  stage.querySelector('#chBuild').onclick = () => {
+  // hand off to the real Flow studio: build the workflow, then return to the showdown.
+  // Absent on a phone (see phone.js), where watching the run is the only path on and
+  // so loses the "Or just" framing that only makes sense beside a first choice.
+  const buildBtn0 = stage.querySelector('#chBuild');
+  if (buildBtn0) buildBtn0.onclick = () => {
     try {
       sessionStorage.setItem('challengeCtx', JSON.stringify({
         domain, dataDomain: cfg.data, primary: { out: prim.out, goal: prim.goal },
@@ -823,7 +836,7 @@ function renderShowdown(stage, domain, surrogate, userBest, stoch) {
       </div>
       <div class="ch-sto-actions">
         <a class="ch-btn primary" href="/probaligence-site-preview/contact/">${contactLabel}</a>
-        <a class="ch-btn ghost" href="#/studio">Build it in Stochos Flow</a>
+        ${isPhone() ? '' : '<a class="ch-btn ghost" href="#/studio">Build it in Stochos Flow</a>'}
         <button class="ch-btn muted" id="chAgain">Play again</button>
       </div>
     </div>`;

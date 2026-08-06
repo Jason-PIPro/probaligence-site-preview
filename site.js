@@ -193,6 +193,10 @@
      real Worker URL after deploying, then run the part C5 tests. */
   var DEMO_FORM_ENDPOINT = "https://pi-demo-request.jason-easaw.workers.dev";
   var MAIL_LINK = '<a href="mailto:info@probaligence.com" style="color:var(--amber)">info@probaligence.com</a>';
+  // Same slot picker the contact card links to. Kept here so the success state
+  // can name a next step instead of stopping at "we will come back to you".
+  var BOOK_LINK = '<a href="https://bookings.cloud.microsoft/book/PIProbaligenceGmbHBooking@probaligence.de/"' +
+    ' target="_blank" rel="noopener" style="color:var(--amber)">pick a slot that suits you</a>';
   var form = document.querySelector("form[data-demo], form#demo-form, .contact-form form");
   if (!form) {
     // fall back to the first form that has the demo fields
@@ -222,6 +226,34 @@
         "Until then, write to " + MAIL_LINK + ".";
       submitBtn.parentNode.insertBefore(pending, submitBtn);
     }
+
+    /* ---------- clear what was typed once it has been sent ----------
+       Reported 2026-07-30: after a successful send, reloading the page brought
+       the whole request back in the fields. Browsers restore form state on a
+       reload, so on a shared machine the next visitor saw the previous
+       person's name, address, and use case, and one click would have sent it
+       again. Two steps, because the restore happens on the fresh load and not
+       in the tab that sent: reset the fields on success, and flag the send so
+       the first load after it starts empty. */
+    var SENT_KEY = "pi-demo-sent";
+    function clearFields() {
+      try { form.reset(); } catch (e) {}
+      form.querySelectorAll("input, select, textarea").forEach(function (el) {
+        el.__touched = false;
+        el.removeAttribute("aria-invalid");
+      });
+      var stale = form.querySelector("[data-form-summary]");
+      if (stale) stale.textContent = "";
+    }
+    function clearIfSent() {
+      var flagged = null;
+      try { flagged = sessionStorage.getItem(SENT_KEY); } catch (e) {}
+      if (!flagged) return;
+      try { sessionStorage.removeItem(SENT_KEY); } catch (e) {}
+      clearFields();
+    }
+    clearIfSent();
+    window.addEventListener("pageshow", clearIfSent);
 
     // Success: reveal the prepared confirmation block if the page has one,
     // otherwise replace the form body with the message.
@@ -259,21 +291,171 @@
       note.innerHTML = html;
     }
 
+    /* ---------- name the refusal (sign-off A4, 2026-08-06) ----------
+       The Worker answers with a code in res.error and has nine distinct
+       refusals, but every one of them used to produce the same "That did not go
+       through". Someone whose address failed the email pattern was told nothing
+       they could act on, which is how the empty-use-case rejection stayed
+       invisible from launch until 2026-08-05. The codes are the error strings in
+       site-services/demo-request-worker.js. Anything not listed, including a
+       dropped connection that returns no body at all, falls through to the
+       generic line, so a new Worker code degrades instead of showing nothing. */
+    function refusalMessage(code) {
+      var retry = " Please try again, or write to " + MAIL_LINK + " and we will pick it up from there.";
+      if (code === "email") return "That email address did not pass our check. Look for a typo and send it again.";
+      if (code === "name") return "The name field arrived empty. Add your name and send it again.";
+      if (code === "rate") return "That is more requests from this connection than we accept in one minute. Wait a minute and send it again, or write to " + MAIL_LINK + ".";
+      if (code === "big") return "That request is longer than the form accepts. Shorten the use case and send it again.";
+      if (code === "captcha") return "The spam check did not pass. Reload the page and send it again, or write to " + MAIL_LINK + ".";
+      if (code === "github") return "Your request reached us but could not be filed." + retry;
+      if (code === "origin" || code === "method" || code === "json") {
+        return "Something between your browser and us blocked this request, so it never arrived. Please write to " + MAIL_LINK + " and we will pick it up from there.";
+      }
+      return "That did not go through." + retry;
+    }
+
+    /* ---------- a real URL for the success state (sign-off A14, 2026-08-06) ----------
+       The in-place message is written first and stays as the fallback, so a
+       navigation that is blocked or fails still leaves a confirmation on screen.
+       Only the demo request form navigates: this handler also adopts any other
+       form carrying an email field (the newsletter signup), and that must never
+       land on the contact thank-you page, hence the two-field test. The root
+       comes from the brand link, the same trick the search uses for BASE below,
+       because the demo build rebases that href onto its GitHub Pages subpath and
+       does not rewrite arbitrary paths inside this file. */
+    function goThankYou() {
+      if (!form.querySelector('[name="company"]') || !form.querySelector('[name="message"]')) return;
+      var brand = document.querySelector("header a.brand");
+      var root = (brand && brand.getAttribute("href")) || "/";
+      if (root.charAt(root.length - 1) !== "/") root += "/";
+      try { location.assign(root + "contact/thank-you/"); } catch (e) {}
+    }
+
+    /* ---------- validation, staged and spoken ----------
+       The form carries novalidate, so the browser says nothing and this is the
+       only thing between the visitor and a silent dead end. Until 2026-07-29
+       an invalid field got focus plus an .error class that no stylesheet
+       defined: the cursor jumped and the page never said what was wrong.
+
+       Staged the way design-toolbox/elements/premium-form-fields.html does it.
+       A field is judged only once it has been left (blur) or once submit has
+       been pressed, so nobody is told they are wrong while typing the first
+       letter of their name. After that it re-checks on every keystroke, so the
+       message clears the moment it is fixed rather than at the next submit.
+
+       Copy lives in data-msg / data-msg-email on the field, so the wording is
+       editable in the page. The fallbacks here keep any other form sensible. */
+    var EMAIL_OK = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var msgSeq = 0;
+
+    function fieldHost(el) { return el.closest(".field") || el.closest("label") || el.parentNode; }
+
+    // The label text without the amber "*" and without the field's own value.
+    function fieldName(el) {
+      var lab = el.closest("label") || (el.id ? form.querySelector('label[for="' + el.id + '"]') : null);
+      if (!lab) return "This field";
+      var copy = lab.cloneNode(true);
+      copy.querySelectorAll("input, select, textarea, .field-msg").forEach(function (n) { n.remove(); });
+      return (copy.textContent || "").replace(/\*/g, "").trim() || "This field";
+    }
+
+    // "" when the field is fine, otherwise the sentence to show under it.
+    function problem(el) {
+      var v = String(el.value).trim();
+      var empty = el.type === "checkbox" ? !el.checked : !v;
+      if (empty) return el.getAttribute("data-msg") || fieldName(el) + " is required.";
+      if ((el.type === "email" || el.name === "email") && !EMAIL_OK.test(v)) {
+        return el.getAttribute("data-msg-email") || "Use a full address, for example you@company.com.";
+      }
+      return "";
+    }
+
+    function msgSlot(el) {
+      var host = fieldHost(el);
+      var m = host.querySelector(".field-msg");
+      if (!m) {
+        // A span, not a p: the fields sit inside their <label>, which only
+        // takes phrasing content. The CSS gives it block behaviour.
+        m = document.createElement("span");
+        m.className = "field-msg";
+        m.id = "field-msg-" + (++msgSeq);
+        m.setAttribute("aria-live", "polite");
+        host.appendChild(m);
+      }
+      return m;
+    }
+
+    // Show or clear one field's state. Returns true when the field is good.
+    function mark(el) {
+      var why = problem(el), m = msgSlot(el);
+      m.textContent = why;
+      if (why) {
+        el.setAttribute("aria-invalid", "true");
+        el.setAttribute("aria-describedby", m.id);
+      } else {
+        el.removeAttribute("aria-invalid");
+        el.removeAttribute("aria-describedby");
+      }
+      return !why;
+    }
+
+    // One line above the button, so the reason is visible without hunting.
+    function summary(text) {
+      var s = form.querySelector("[data-form-summary]");
+      if (!text) { if (s) s.remove(); return; }
+      if (!s) {
+        s = document.createElement("p");
+        s.setAttribute("data-form-summary", "");
+        s.setAttribute("role", "alert");
+        s.className = "form-summary";
+        if (submitBtn && submitBtn.parentNode) submitBtn.parentNode.insertBefore(s, submitBtn);
+        else form.appendChild(s);
+      }
+      s.textContent = text;
+    }
+
+    // The header is sticky, so plain focus() can park the field under it.
+    function reveal(el) {
+      try { el.focus({ preventScroll: true }); } catch (err) { el.focus(); }
+      if (el.scrollIntoView) {
+        el.scrollIntoView({ block: "center", behavior: reduceMotion ? "auto" : "smooth" });
+      }
+    }
+
+    // Once submit has been pressed the count above the button is live, so a
+    // visitor fixing three fields watches it fall to nothing instead of
+    // reading a stale "4 fields" while one is left.
+    var submitTried = false;
+    function refreshSummary() {
+      if (!submitTried) return;
+      var n = form.querySelectorAll('[aria-invalid="true"]').length;
+      summary(!n ? "" : n === 1
+        ? "One field still needs an answer, marked in red."
+        : n + " fields still need an answer, marked in red.");
+    }
+
+    form.querySelectorAll("[required]").forEach(function (el) {
+      el.addEventListener("blur", function () { el.__touched = true; mark(el); refreshSummary(); });
+      var live = function () { if (el.__touched) { mark(el); refreshSummary(); } };
+      el.addEventListener("input", live);
+      el.addEventListener("change", live);
+    });
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (sending) return;
-      var valid = true, firstBad = null;
+      var bad = [];
+      submitTried = true;
       form.querySelectorAll("[required]").forEach(function (el) {
-        var good = el.type === "checkbox" ? el.checked : String(el.value).trim().length > 0;
-        if (el.type === "email") good = good && /.+@.+\..+/.test(el.value);
-        var field = el.closest(".field") || el.parentNode;
-        if (field && field.classList) field.classList.toggle("error", !good);
-        if (!good) { valid = false; if (!firstBad) firstBad = el; }
+        el.__touched = true;
+        if (!mark(el)) bad.push(el);
       });
       // honeypot: if a bot filled the hidden field, stop silently
       var hp = form.querySelector('.hp input, [name="website"]');
       if (hp && hp.value) return;
-      if (!valid) { if (firstBad) firstBad.focus(); return; }
+      refreshSummary();
+      if (bad.length) { reveal(bad[0]); return; }
 
       var prevErr = form.querySelector("[data-form-error]");
       if (prevErr) prevErr.remove();
@@ -305,16 +487,22 @@
       }).then(function (r) {
         return r.json().catch(function () { return { ok: false }; });
       }).then(function (res) {
-        if (!res || !res.ok) throw new Error("rejected");
-        finish("Thank you. Your request has reached us and we will come back to you by email.");
-      }).catch(function () {
-        failed("That did not go through. Please try again, or write to " + MAIL_LINK + " and we will pick it up from there.");
-      });
-    });
-    form.querySelectorAll("input, textarea").forEach(function (el) {
-      el.addEventListener("input", function () {
-        var f = el.closest(".field") || el.parentNode;
-        if (f && f.classList) f.classList.remove("error");
+        if (!res || !res.ok) {
+          // carry the Worker's code out to refusalMessage instead of losing it
+          var refused = new Error("rejected");
+          refused.code = res ? res.error : "";
+          throw refused;
+        }
+        // it is sent: nothing typed here stays behind, in this tab or the next load
+        try { sessionStorage.setItem(SENT_KEY, "1"); } catch (e) {}
+        clearFields();
+        // A5: name the next step and point at the booking link. No response
+        // window, per the 2026-08-06 decision on C6.
+        finish("Thank you. Your request has reached us. The next step is a short call to look at your use case: " +
+          BOOK_LINK + ", or wait for our reply by email.");
+        goThankYou();
+      }).catch(function (err) {
+        failed(refusalMessage(err && err.code));
       });
     });
   }

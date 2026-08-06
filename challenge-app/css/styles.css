@@ -2190,6 +2190,15 @@ svg.sf-edges {
   .hub-builder-body { grid-template-columns: 1fr; gap: 32px; }
   .hub-builder-visual { order: 2; }
 }
+/* Phones never see an entry point into the Flow builder (2026-07-29, Jason): it
+   is a drag-and-wire node editor, so the hub does not advertise it and the nav
+   does not offer it. `.is-phone` is set on <html> by js/phone.js, which holds the
+   single definition of "phone" (portrait width or a sideways phone) and also
+   guards the #/studio route itself. The band's 480px fit rules further down are
+   kept, so restoring it does not mean redoing that sizing work. */
+.is-phone .hub-builder,
+.is-phone #domnav a[data-domain="studio"] { display: none; }
+
 @media (max-width: 480px) {
   .hub-builder { padding: 44px 18px; }
   /* the chain is 326px wide at 390px, so three 92px nodes and two 20px links

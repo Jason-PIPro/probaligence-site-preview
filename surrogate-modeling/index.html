@@ -7,7 +7,7 @@
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<title>What Are AI Surrogate Models? | PI Probaligence</title><meta name="description" content="A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/surrogate-modeling/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="What Are AI Surrogate Models? | PI Probaligence"><meta property="og:description" content="A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them."><meta property="og:url" content="https://probaligence.com/surrogate-modeling/"><meta property="og:image" content="https://probaligence.com/assets/media/surrogate-crash-poster.webp"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
+<title>What Are AI Surrogate Models? | PI Probaligence</title><meta name="description" content="A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/surrogate-modeling/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="What Are AI Surrogate Models? | PI Probaligence"><meta property="og:description" content="A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them."><meta property="og:url" content="https://probaligence.com/surrogate-modeling/"><meta property="og:image" content="https://probaligence.com/assets/media/surrogate-crash-poster-og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"What are AI surrogate models?","description":"A surrogate model is a fast approximation of an expensive simulation or experiment. Learn what AI surrogate models are and how STOCHOS builds them.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-06-18","dateModified":"2026-07-15","mainEntityOfPage":"https://probaligence.com/surrogate-modeling/","inLanguage":"en","image":["https://probaligence.com/assets/media/surrogate-crash-poster.webp"]}</script><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"Surrogate Modeling","item":"https://probaligence.com/surrogate-modeling/"}]}
 </script><style>
@@ -31,6 +31,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <link rel="stylesheet" href="/probaligence-site-preview/site.css">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/probaligence-site-preview/assets/favicon-192.png">
 <link rel="apple-touch-icon" href="/probaligence-site-preview/assets/apple-touch-icon.png">
 <meta name="theme-color" content="#060607">
 <noscript><style>@media(max-width:960px){.nav-toggle{display:none}.mobile-panel{max-height:none!important;opacity:1!important;overflow:visible!important;border-bottom:1px solid rgba(255,255,255,.08)}}[data-uc-body]{max-height:none!important;opacity:1!important;display:block!important}</style></noscript>
@@ -142,16 +144,27 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         </div>
         <figure data-hero="" style="margin: 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 4px; padding: 16px; background: rgb(0, 0, 0); will-change: transform; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.21s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
           <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 12px;">Prediction vs simulation</div>
-          <video data-method-video autoplay muted loop playsinline preload="metadata" poster="/probaligence-site-preview/assets/media/surrogate-crash-poster.webp" width="640" height="480" style="display: block; width: 100%; height: auto; border-radius: 2px;" aria-label="A crash simulation next to the STOCHOS surrogate prediction of the same case: the deformed car bodies match.">
-            <source src="/probaligence-site-preview/assets/media/surrogate-crash.mp4" type="video/mp4">
+          <video data-method-video muted loop playsinline preload="none" poster="/probaligence-site-preview/assets/media/surrogate-crash-poster.webp" width="640" height="480" style="display: block; width: 100%; height: auto; border-radius: 2px;" aria-label="A crash simulation next to the STOCHOS surrogate prediction of the same case: the deformed car bodies match.">
+            <source data-src="/probaligence-site-preview/assets/media/surrogate-crash.mp4" type="video/mp4">
           </video>
           <figcaption style="font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-top: 10px;">Reference example: STOCHOS learned from 32 LS-DYNA crash models and predicted a new crash case with error below 5 percent, after 21 seconds of training on a CPU. The full solver still validates the cases that matter.</figcaption>
         </figure>
         <script>
+        /* Reduced-motion guard, now on the source rather than on autoplay. Stripping autoplay
+           still paid for the whole file and showed a still, so the clip is held in data-src and
+           assigned only when motion is allowed. Under reduced motion nothing is fetched and the
+           poster stands. Same in-view gate as the CFD clip below, so a visitor who never reaches
+           the figure never pays for it either. */
         (function () {
           var v = document.querySelector("[data-method-video]");
           if (!v) return;
-          if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); v.pause(); }
+          if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+          var loaded = false;
+          function load() { if (loaded) return; loaded = true; var s = v.querySelector("source[data-src]"); if (s) { s.src = s.getAttribute("data-src"); v.load(); } }
+          if ("IntersectionObserver" in window) {
+            var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { load(); if (v.play) { v.play().catch(function () {}); } } else if (v.pause) { v.pause(); } }); }, { threshold: 0.25 });
+            io.observe(v);
+          } else { load(); if (v.play) { v.play().catch(function () {}); } }
         })();
         </script>
       </div>
@@ -194,15 +207,17 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     </div>
     <script>
     (function () {
-      var v = document.querySelector('[data-lazy-video]');
+      var v = document.querySelector('[data-lazy-video]:not([data-x3d-video])');
       if (!v) return;
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      /* Reduced motion now loads nothing at all. The old branch still fetched the whole file
+         just to hold it on a still, so the poster carries the figure on its own instead. */
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var loaded = false;
       function load() { if (loaded) return; loaded = true; var s = v.querySelector('source[data-src]'); if (s) { s.src = s.getAttribute('data-src'); v.load(); } }
       if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { load(); if (!reduce && v.play) { v.play().catch(function () {}); } } else if (v.pause) { v.pause(); } }); }, { threshold: 0.25 });
+        var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { load(); if (v.play) { v.play().catch(function () {}); } } else if (v.pause) { v.pause(); } }); }, { threshold: 0.25 });
         io.observe(v);
-      } else { load(); if (!reduce && v.play) { v.play().catch(function () {}); } }
+      } else { load(); if (v.play) { v.play().catch(function () {}); } }
     })();
     </script>
   </section>
@@ -211,13 +226,110 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 780px; margin: 0px auto;">
       <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Under the hood</div>
       <h2 id="how-stochos-builds-a-surrogate" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 22ch;">How STOCHOS builds a surrogate</h2>
-      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">STOCHOS uses DIM-GP, a model family built for small, noisy datasets, changing geometries, and multi-fidelity data. Every prediction carries quantified uncertainty, so a reliable interpolation is easy to tell from a risky guess. It handles fields, geometries, and meshes, not just tidy tables.</p>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">STOCHOS uses DIM-GP, a model family built for small, noisy datasets, changing geometries, and multi-fidelity data. Every prediction carries quantified uncertainty, so a reliable interpolation is easy to tell from a risky guess. It handles fields, geometries, meshes, particle and transient simulation results, not just tidy tables.</p>
       <a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="display: inline-block; margin-top: 16px; color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 'IBM Plex Sans', sans-serif;">How the DIM-GP model works →</a>
       <p style="margin-top: 28px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">See where a surrogate stays reliable with <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">uncertainty quantification</a>, and cut its data cost with <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: none;">multi-fidelity modeling</a>.</p>
     </div>
   </section>
 
   
+
+  <!-- Physics preview. Teaser mirroring #examples-physics on /ai-for-engineering/: four clips,
+       one row, linking through to the full section there.
+       The source frames carry burned-in wording (a speed value on the mixer, ground truth
+       versus prediction labels), so it is visible in frame. The labels stay physics-only: no
+       number, no accuracy claim, no truth-versus-prediction framing, because the words must
+       not turn a picture into a claim. -->
+  <section id="physics-preview" data-reveal="" style="padding: clamp(52px, 5.5vw, 76px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
+    <style id="x3d-preview-css">
+    /* Scoped to #physics-preview. The page carries no .x3d rules of its own, so the shared
+       set from /ai-for-engineering/ is restated here under the section id and nothing else
+       on the page can be reached by it. Same four-across row, same tighter gap, and the
+       same fixed 2/1 media box with object-fit:contain, so four different source ratios
+       line up on one row without cropping anything away. */
+    #physics-preview .x3d-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.4vw,18px);align-items:start}
+    #physics-preview .x3d-fig{margin:0}
+    #physics-preview .x3d-media{display:block;border:1px solid rgba(255,255,255,.09);border-radius:4px;overflow:hidden;background:#000}
+    #physics-preview .x3d-media video{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:contain}
+    #physics-preview .x3d-kicker{font:500 10px/1.3 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#FFB006;margin-bottom:6px}
+    @media (max-width:1000px){#physics-preview .x3d-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:620px){#physics-preview .x3d-grid{grid-template-columns:1fr}}
+    </style>
+    <div style="max-width: 1100px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 18px;">Physics in motion</div>
+      <h2 id="surrogates-on-cases-that-move" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Surrogates on cases that move</h2>
+      <p style="margin-top: 18px; color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65; max-width: 62ch;">The flow case above is one steady field. These four cases change while they run, from a seal closing to liquid in a tank.</p>
+      <div class="x3d-grid" style="margin-top:clamp(22px,2.2vw,28px)">
+        <figure class="x3d-fig">
+          <div class="x3d-kicker">01 Seal closing</div>
+          <div class="x3d-media">
+            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1170" height="540" poster="/probaligence-site-preview/assets/media/physics-seal-compression-poster.jpg" aria-label="A seal cross section pressed between two plates, its rubber section bulging sideways as the gap closes, the interior drawn as coloured particles.">
+              <source data-src="/probaligence-site-preview/assets/media/physics-seal-compression.mp4" type="video/mp4">
+            </video>
+          </div>
+        </figure>
+        <figure class="x3d-fig">
+          <div class="x3d-kicker">02 Stirred vessel</div>
+          <div class="x3d-media">
+            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1280" height="720" poster="/probaligence-site-preview/assets/media/physics-stirred-vessel-mixing-poster.jpg" aria-label="A stirred vessel of blue and salmon particles, the bed lifted and folded over by vertical impeller blades between baffles.">
+              <source data-src="/probaligence-site-preview/assets/media/physics-stirred-vessel-mixing.mp4" type="video/mp4">
+            </video>
+          </div>
+        </figure>
+        <figure class="x3d-fig">
+          <div class="x3d-kicker">03 Gears in grains</div>
+          <div class="x3d-media">
+            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1280" height="576" poster="/probaligence-site-preview/assets/media/physics-gears-granular-bed-poster.jpg" aria-label="A pair of meshing gears turning inside a bed of loose granular material, the grains dragged round with the teeth and piling ahead of them.">
+              <source data-src="/probaligence-site-preview/assets/media/physics-gears-granular-bed.mp4" type="video/mp4">
+            </video>
+          </div>
+        </figure>
+        <figure class="x3d-fig">
+          <div class="x3d-kicker">04 Sloshing tank</div>
+          <div class="x3d-media">
+            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1280" height="640" poster="/probaligence-site-preview/assets/media/physics-tank-sloshing-poster.jpg" aria-label="Liquid moving inside a closed rectangular tank, the free surface riding up one wall and breaking back across the tank.">
+              <source data-src="/probaligence-site-preview/assets/media/physics-tank-sloshing.mp4" type="video/mp4">
+            </video>
+          </div>
+        </figure>
+      </div>
+      <a href="/probaligence-site-preview/ai-for-engineering/#examples-physics" class="scp0" style="display: inline-block; margin-top: clamp(20px, 2.2vw, 28px); color: rgb(255, 176, 6); text-decoration: none; font: 500 15px / 1 'IBM Plex Sans', sans-serif;">AI for Engineering &#8594;</a>
+    </div>
+  </section>
+  <script>
+  /* Nothing loads until the clip is in view. Same gate as /generative-design/: preload="none",
+     the file held in data-src, and an IntersectionObserver that assigns the real src the first
+     time the clip is seen. Before that the poster is all that is fetched.
+     Scoped to [data-x3d-video], so it cannot collide with any other lazy clip on the page.
+     Under reduced motion the src is never assigned at all: the old guard only stripped autoplay
+     and paused, which still paid for the whole file and showed no motion for it. Those visitors
+     now transfer zero video bytes and keep the poster.
+     Sits outside the section element on purpose: site.js markBlocks() counts every element child,
+     and a script tag inside the section would change which blocks get the scroll reveal. */
+  (function () {
+    var vs = Array.prototype.slice.call(document.querySelectorAll('[data-x3d-video]'));
+    if (!vs.length) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    function load(v) {
+      if (v.dataset.lazyLoaded) return;
+      v.dataset.lazyLoaded = '1';
+      var s = v.querySelector('source[data-src]');
+      if (s) { s.src = s.getAttribute('data-src'); v.load(); }
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting) { load(v); if (v.play) { v.play().catch(function () {}); } }
+          else if (v.pause) { v.pause(); }
+        });
+      }, { threshold: 0.25 });
+      vs.forEach(function (v) { io.observe(v); });
+    } else {
+      vs.forEach(function (v) { load(v); if (v.play) { v.play().catch(function () {}); } });
+    }
+  })();
+  </script>
 
   <section data-reveal="" id="next-method" aria-label="Next method" style="padding: clamp(48px, 7vw, 88px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07);">
     <style>.mp-next{display:grid;grid-template-columns:1fr 250px;gap:28px;align-items:center;padding:26px 2px;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);text-decoration:none;transition:background .2s ease}.mp-next:hover{background:rgba(255,255,255,.03)}.mp-next img{opacity:.62;transition:opacity .25s}.mp-next:hover img{opacity:1}.mp-arrow{display:inline-block;transition:transform .2s ease}.mp-next:hover .mp-arrow{transform:translateX(6px)}@media (max-width:640px){.mp-next{grid-template-columns:1fr;gap:14px}}@media (prefers-reduced-motion:reduce){.mp-next,.mp-next img,.mp-arrow{transition:none}}</style>
@@ -285,7 +397,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <section class="logo-marquee" aria-label="Partners, customers and research collaborators">
   <div class="label">Partners, customers, and research collaborators</div>
   <div class="marquee-mask">
-    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bmwk.png" alt="BMWK" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bmwk.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span></div></div>
+    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img class="logo-badge" src="/probaligence-site-preview/assets/partners/nafems-member.png" alt="NAFEMS Member" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span><span class="logo-cell"><img class="logo-wide" src="/probaligence-site-preview/assets/partners/itficient.png" alt="ITficient" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img class="logo-badge" src="/probaligence-site-preview/assets/partners/nafems-member.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span><span class="logo-cell"><img class="logo-wide" src="/probaligence-site-preview/assets/partners/itficient.png" alt="" loading="lazy"></span></div></div>
   </div>
 </section>
 <footer class="site-footer" role="contentinfo">
@@ -302,10 +414,6 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
             <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
           </a>
-          <!-- YouTube channel URL pending: replace this span with <a href="CHANNEL_URL" class="social-btn" target="_blank" rel="noopener" aria-label="PI Probaligence on YouTube"> once the channel is live -->
-          <span class="social-btn social-btn--pending" role="link" aria-disabled="true" aria-label="YouTube channel coming soon" title="YouTube (coming soon)">
-            <svg viewBox="0 0 576 512" aria-hidden="true"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
-          </span>
         </div>
       </div>
       <div>

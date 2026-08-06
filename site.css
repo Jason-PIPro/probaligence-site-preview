@@ -20,6 +20,39 @@
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .site-header.scrolled{background:rgba(6,6,7,.97)}
 }
+/* Bare landing header (Jason's call, 2026-08-04). On a page that opens with a
+   full-bleed hero the nav competes with the footage, so at the top only the brand
+   shows. Everything else fades in on the first scroll, reusing the .scrolled class
+   the sticky header already toggles: no new scroll listener, and the chrome and the
+   backdrop arrive together instead of in two beats.
+   Opt in per page with data-nav-reveal on the header, so pages without a hero keep
+   their nav from the first paint.
+   The links are transparent, not hidden, so they still take focus: tabbing into the
+   nav fires :focus-within and the bar is visible before the focus ring lands. Scoped
+   to .nav rather than the header so the skip link does not drag the nav in with it. */
+.site-header[data-nav-reveal] .nav,
+.site-header[data-nav-reveal] .nav-toggle{
+  opacity:0;pointer-events:none;transform:translateY(-4px);
+  transition:opacity .34s ease,transform .34s ease}
+.site-header[data-nav-reveal].scrolled .nav,
+.site-header[data-nav-reveal].scrolled .nav-toggle,
+.site-header[data-nav-reveal] .nav:focus-within,
+.site-header[data-nav-reveal] .nav-toggle:focus,
+.site-header[data-nav-reveal] .nav-toggle[aria-expanded="true"]{
+  opacity:1;pointer-events:auto;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .site-header[data-nav-reveal] .nav,
+  .site-header[data-nav-reveal] .nav-toggle{transition:none;transform:none}
+}
+/* A keyboard reveal at scroll 0 puts the links straight onto the footage with no
+   backdrop behind them, which on a bright frame leaves About and the ghost CTA
+   unreadable. Borrow the scrolled treatment for that case. */
+.site-header[data-nav-reveal]:focus-within{background:rgba(6,6,7,.78);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  -webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .site-header[data-nav-reveal]:focus-within{background:rgba(6,6,7,.97)}
+}
 .nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:68px;
   display:flex;align-items:center;justify-content:space-between;gap:24px}
 .skip-link{position:absolute;left:16px;top:-60px;background:var(--amber);color:#000;
@@ -118,6 +151,15 @@ main:focus{outline:none}
 .marquee-track .logo-cell{flex:none;display:flex;align-items:center;justify-content:center;
   width:172px;height:74px;background:#F6F5F2;border:1px solid rgba(0,0,0,.06);border-radius:4px;box-sizing:border-box}
 .marquee-track .logo-cell img{height:36px;width:auto;max-width:124px;object-fit:contain;display:block}
+/* The NAFEMS member mark is a shield, not a wordmark, so it needs the plate's height
+   to stay legible: 60px here against the 74px cell, 70px on the inline-styled plates
+   of the homepage variant. The reduced-motion block below carries its own override. */
+.marquee-track .logo-cell img.logo-badge{height:60px;max-width:70px}
+/* Wordmarks wider than about 3.5:1 (ITficient is 3.95:1) hit the width cap long before
+   the shared height, so they render short and read smaller than the marks beside them.
+   This cap lets them reach ~91% of the row height while keeping air at the cell edge:
+   130px against the 36px row here, 158px on the 44px inline plates of the homepage. */
+.marquee-track .logo-cell img.logo-wide{max-width:130px}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
 
@@ -239,6 +281,7 @@ html{overflow-x:clip}
   /* compact cells so the wrapped grid stays a short band, not a wall */
   .marquee-track .logo-cell,[data-marquee]>div>span{width:128px!important;height:56px!important}
   .marquee-track .logo-cell img,[data-marquee]>div>span img{height:26px!important;max-width:100px!important}
+  .marquee-track .logo-cell img.logo-badge,[data-marquee]>div>span img.logo-badge{height:42px!important;max-width:60px!important}
 }
 
 /* Insight-page episode figures: the source slides are fixed 720px social-carousel crops, so a
@@ -254,19 +297,23 @@ figure:has(> img[src*="/probaligence-site-preview/assets/media/insights/"]){max-
 .marquee-pause:hover{color:var(--text);border-color:rgba(255,255,255,.3)}
 @media (prefers-reduced-motion:reduce){.marquee-pause{display:none}}
 
-/* ---------- mobile figure pan ----------
-   The technical figures are desktop-authored rasters with their labels baked in. Scaled into a
-   312px phone column, a 1467px chart puts its axis labels and annotations at 2 to 6 CSS px, so
-   the figure carries the argument on a laptop and nothing at all on a phone, while the caption
-   underneath keeps making a claim the reader cannot check.
+/* ---------- mobile figures fit the screen ----------
+   The technical figures are desktop-authored rasters with their labels baked in. The first answer
+   to that was a sideways pan: --fig-min held the image at the width its labels stayed legible and
+   the wrapper scrolled. Reviewed on a real phone (2026-07-29) it reads as a broken layout, not as
+   an invitation: the reader sees two of four boxes and a wire running off the edge, and nothing
+   says the rest is one swipe away. A cropped figure is worse than a small one, because the reader
+   cannot tell there is more.
 
-   Opt in per figure: class="fig-bleed" on the <figure> to reclaim the 24px gutters, class="fig-pan"
-   on a wrapper around the image, and --fig-min to set the width the labels stay legible at. The
-   scroll is confined to the wrapper, so the page body never pans sideways (html{overflow-x:clip}
-   above would silently cut it off if it did). Two pages already ship a hand-rolled version of
-   this (.pcl .scroller); this is that pattern promoted to the shared sheet. */
-.fig-pan{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
-.fig-pan>img,.fig-pan>video{display:block;width:100%;height:auto;max-width:none}
+   So the figure now fits the column. Detail is not lost: the viewport meta allows pinch-zoom, so a
+   reader who wants the axis labels can zoom the page. Where a figure genuinely cannot survive the
+   scale (dense charts, the four-box loop), the fix is a phone-authored version of the artwork, not
+   a scrollport. Those are listed in the mobile pass report.
+
+   class="fig-bleed" on the <figure> still reclaims the 24px gutters, and --fig-min is now inert,
+   kept only so the per-figure inline styles do not need touching. */
+.fig-pan>img,.fig-pan>video{display:block;width:100%;height:auto;max-width:100%}
+/* the hint said "swipe to see the full figure". Nothing pans now, so it would be a lie. */
 .fig-hint{display:none}
 @media (max-width:560px){
   /* !important throughout: these pages are generated output and every <figure> carries an inline
@@ -275,17 +322,8 @@ figure:has(> img[src*="/probaligence-site-preview/assets/media/insights/"]){max-
   figure.fig-bleed{margin-left:-24px!important;margin-right:-24px!important;border-radius:0!important;
     border-left:0!important;border-right:0!important;padding-left:0!important;padding-right:0!important}
   figure.fig-bleed>figcaption{padding-left:24px!important;padding-right:24px!important}
-  /* the hint is a sibling of the caption, so it needs the gutters back too or it paints flush
-     against the screen edge once the figure bleeds */
-  figure.fig-bleed>.fig-hint{padding-left:24px;padding-right:24px}
-  /* width:100%, not auto. For a loaded raster width:auto resolves to the intrinsic width, and
-     min-width can only raise a value, never lower it, so --fig-min would never bind and a 1467px
-     chart would render at 1467px. Against the wrapper's 100% the min-width is what wins. */
-  .fig-pan>img,.fig-pan>video{width:100%!important;min-width:var(--fig-min,620px)}
-  /* the soft right edge is what tells the reader it pans */
-  .fig-pan{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 88%,transparent 100%);
-    mask-image:linear-gradient(90deg,#000 0,#000 88%,transparent 100%)}
-  .fig-hint{display:block;margin-top:6px;color:#82827C;font:400 11.5px/1.4 'IBM Plex Mono',monospace}
+  /* min-width:0 undoes any per-figure --fig-min still sitting in a page's inline style */
+  .fig-pan>img,.fig-pan>video{width:100%!important;min-width:0!important;max-width:100%!important}
 }
 
 /* ---------- hero figures sit above the hero backdrop ----------
@@ -544,3 +582,59 @@ html.anim .demo-ticker .pi-rv{animation:none;opacity:1;transform:none}
 /* A deep link from search targets a heading, and the header is sticky, so
    without this the heading lands underneath it. Covers in-page anchors too. */
 :target,main h2[id],main h3[id]{scroll-margin-top:96px}
+
+/* ---------- form validation ----------
+   The demo request form runs on novalidate, so the browser shows nothing and
+   site.js writes these elements itself: one .field-msg under each field that
+   fails, one .form-summary above the button. Error red is #FF6E5C, the value
+   the toolbox uses (design-toolbox/elements/premium-form-fields.html).
+
+   The contact form carries its border and background in inline style
+   attributes, so a stylesheet cannot mark a field red without !important.
+   Same reason as the 16px font-size rule on that page. */
+.field-msg{margin:7px 0 0;font:400 12.5px/1.45 'IBM Plex Sans',sans-serif;color:#FF6E5C;
+  display:flex;gap:6px;align-items:flex-start}
+.field-msg:empty{display:none}
+.field-msg::before{content:'!';flex:none;width:14px;height:14px;margin-top:1px;
+  border:1px solid currentColor;border-radius:50%;
+  font:600 10px/12px 'IBM Plex Sans',sans-serif;text-align:center}
+.cf-form [aria-invalid="true"],form [aria-invalid="true"]{
+  border-color:rgba(255,110,92,.62)!important;background:rgba(255,110,92,.05)!important}
+form [aria-invalid="true"]:focus-visible{outline-color:#FF6E5C}
+.form-summary{margin:0;padding:11px 13px;border:1px solid rgba(255,110,92,.28);
+  border-left:2px solid #FF6E5C;background:rgba(255,110,92,.06);
+  font:400 13.5px/1.6 'IBM Plex Sans',sans-serif;color:#EEC7C1}
+/* ---------- contact page, form before the address on one column (A6, 2026-08-06) ----------
+   The contact hero is a two-column auto-fit grid. When it collapses to one
+   column the address block comes first, so on a phone three ways to leave the
+   page (mailto, Google Maps, LinkedIn) sit above the only conversion point on
+   the site. One order rule fixes it.
+
+   747px is derived, not picked: the grid is minmax(min(330px,100%),1fr) with a
+   gap of clamp(40px,5vw,64px), so two columns need 330 + 330 + 40 = 700px of
+   content, and the section pads 24px each side, giving 748px as the narrowest
+   viewport that still fits two. Below that it is already one column.
+
+   order works here without !important because the inline style attribute on the
+   grid sets display and columns but never order, and a grid item obeys order
+   under auto-placement. Scoped inside the query so the wide layout, where the
+   card belongs on the right, is untouched. */
+@media (max-width:747px){
+  .cf-grid>.cf-card{order:-1}
+}
+
+/* Scroll a flagged field clear of the sticky header when site.js reveals it. */
+.cf-form input,.cf-form select,.cf-form textarea{scroll-margin-top:110px;scroll-margin-bottom:40px}
+
+/* ---------- .no-phone: content a phone must not be offered ----------
+   Added 2026-07-29 for the Flow builder. The builder at /challenge-app/#/studio is
+   a drag-and-wire node editor, so a phone gets no route into it: the app hides its
+   own entry points and guards the route (challenge-app/js/phone.js), and the two
+   links to it from these pages carry this class. Query matches phone.js: portrait
+   phone width, or the same phone sideways (wide but short, and touch, which keeps a
+   short desktop window out of it). Also used to drop the sentence clause that
+   promises the build. !important because a page's own <style> block loads after
+   this file, so an equal-specificity rule there (.fb-cta{display:flex}) would win. */
+@media (max-width:480px), (max-height:480px) and (pointer:coarse) {
+  .no-phone { display: none !important; }
+}

@@ -1,0 +1,91 @@
+# PI Probaligence
+
+> PI Probaligence builds probabilistic AI for engineering and R&D. Its products learn from simulation, experimental, and process data, then predict new cases in seconds with a stated uncertainty range instead of a bare number. Everything runs locally on your own infrastructure.
+
+Two layers, kept distinct:
+
+- **STOCHOS** is the predictive engine, built on DIM-GP, a probabilistic model that joins deep learning with Gaussian-process uncertainty. It is designed for small, noisy engineering datasets, typically tens to low hundreds of samples, where a conventional neural network has nothing to learn from.
+- **STOCHOS Flow** is the visual workbench where teams build, automate, and share technical workflows, with AI assistance inside the nodes. It is not the predictive engine, it is what you run the engine from.
+
+Founded 2018, based in Grafing bei Munich, Germany. Part of the CADFEM Group and an official Ansys Technology Partner.
+
+Why the uncertainty matters: an engineering decision needs to know how far to trust a prediction. A model that returns a single number cannot be signed off. Every method below is built around returning a range, and around spending expensive runs where they are worth spending.
+
+## Proof
+
+Measured examples and verifiable status, each published in full on the page linked.
+
+- Crash surrogate, LS-DYNA reference example: STOCHOS learned from 32 crash models and predicted a new crash case with error below 5 percent, after 21 seconds of training on a CPU. The full solver still validates the cases that matter. Setup on [Surrogate modeling](https://probaligence.com/surrogate-modeling/).
+- Pin-fin cooling reference example: temperature and heat flux for a new design in under 5 seconds. The timing comes from that case setup, not from every case. Setup in [Predict a full field](https://probaligence.com/guides/predict-a-full-field/).
+- Coating formulation reference example: a coating with 17 parameters developed automatically within five adaptation cycles. Setup on [Paint and Coatings](https://probaligence.com/paint-coating/).
+- [Automated verification at GEMÜ](https://probaligence.com/news/automated-verification-gemu-stochos/): Konstruktionspraxis reported in November 2025 how GEMÜ automates strength verification of metallic valve bodies with STOCHOS and CADFEM.
+- [Ansys Technology Partner](https://probaligence.com/news/ansys-technology-partner/): official status since 25 November 2025, after developing AI algorithms for the Ansys ecosystem since 2022.
+- [First prize, Robert Bosch Foundation Health Award](https://probaligence.com/news/robert-bosch-health-award/): a joint project on AI-supported prevention of diabetic foot syndrome. PI Probaligence built the core AI technology.
+
+Last updated: 2026-07-31. This file is maintained by hand and the date above is stamped by hand, so it can lag the site. Treat the page list as indicative and the sitemap at https://probaligence.com/sitemap.xml as authoritative.
+
+## Products
+
+- [STOCHOS](https://probaligence.com/stochos/): The predictive engine. Builds fast surrogate models with quantified uncertainty from simulation and experimental data, for prediction, optimization, and sensitivity analysis.
+- [STOCHOS Flow](https://probaligence.com/stochos-flow/): The local-first, AI-assisted visual workbench where R&D teams build, automate, and share technical workflows, connecting the tools they already run.
+
+## Solutions
+
+- [AI for Engineering](https://probaligence.com/ai-for-engineering/): Accelerate CFD, CAE, and FEM. Predict new variants in seconds and optimize designs with fewer runs. A surrogate model, not a solver replacement.
+- [Paint and Coatings](https://probaligence.com/paint-coating/): Develop paints and coatings with fewer experiments. Optimize recipes for color, gloss, and viscosity with uncertainty-aware models.
+- [AI for Chemical Process Optimization](https://probaligence.com/ai-for-chemical-process-optimization/): Optimize chemical experiments, formulation, process, and scale-up. Fewer runs, quantified uncertainty, local execution.
+
+## The science
+
+- [Science hub](https://probaligence.com/science/): The methods behind STOCHOS and how they fit together.
+- [How STOCHOS works, DIM-GP](https://probaligence.com/how-stochos-works/): The algorithm itself. Deep learning joined with Gaussian-process uncertainty, built for small and noisy engineering data.
+- [Surrogate modeling](https://probaligence.com/surrogate-modeling/): What a surrogate model is, a fast approximation of an expensive simulation or experiment, and when it is the right tool.
+- [Uncertainty quantification](https://probaligence.com/uncertainty-quantification/): Putting a range on a prediction rather than a number. Aleatoric versus epistemic uncertainty, and why a bare point estimate cannot be signed off.
+- [Bayesian optimization](https://probaligence.com/bayesian-optimization/): Finding the best design or recipe in the fewest expensive tries, and how STOCHOS applies it.
+- [Sensitivity analysis](https://probaligence.com/sensitivity-analysis/): Ranking which inputs actually drive an output. Global versus local, with Sobol indices, SHAP, DGSM, and correlation.
+- [Multi-fidelity modeling](https://probaligence.com/multi-fidelity-modeling/): Blending a few accurate expensive measurements with many cheap ones to predict more for less.
+- [Generative design](https://probaligence.com/generative-design/): Learning from a few of your designs to propose new valid variants, including 3D geometry.
+
+## Guides
+
+Answer-first articles on specific R&D bottlenecks. Each states the problem, then the method that addresses it. Both this section and Insights publish under /guides/<slug>/.
+
+- [Bayesian optimization for engineers](https://probaligence.com/guides/bayesian-optimization-for-engineers/): Testing every combination is not an option. Choosing each next experiment from the last result.
+- [When to trust an AI prediction](https://probaligence.com/guides/when-to-trust-an-ai-prediction/): A prediction without a confidence range cannot be signed off.
+- [Which parameters actually matter](https://probaligence.com/guides/which-parameters-actually-matter/): Most inputs barely move the result. Ranking what drives your response before the next campaign.
+- [Predict a full field](https://probaligence.com/guides/predict-a-full-field/): Peak stress does not tell you where it is. Returning the whole distribution across the geometry.
+- [Lab to production scale-up](https://probaligence.com/guides/lab-to-production-scale-up/): Lab results rarely survive plant scale, and what to do about it.
+- [Color matching in fewer batches](https://probaligence.com/guides/color-matching-in-fewer-batches/): Every color correction costs a batch. Starting the match close so it converges sooner.
+- [High-throughput experimentation planning](https://probaligence.com/guides/high-throughput-experimentation-planning/): Automation moved the bottleneck from the bench to planning.
+- [Design variants that respect constraints](https://probaligence.com/guides/design-variants-that-respect-constraints/): Generating new designs that keep the rules your existing geometry follows.
+- [On-premise AI for engineering](https://probaligence.com/guides/on-premise-ai-for-engineering/): Your simulation data is your IP. Training and predicting on your own infrastructure.
+- [An ML workflow without an ML team](https://probaligence.com/guides/ml-workflow-without-an-ml-team/): Putting machine learning on simulation data without a data scientist.
+
+## Insights
+
+Shorter than a guide. Each answers one question about a STOCHOS or STOCHOS Flow feature, and links to the page that owns the detail.
+
+- [Run fewer experiments](https://probaligence.com/guides/run-fewer-experiments/): One noisy result can send your next run to a fake peak. How a probabilistic model discounts it and picks the point worth measuring.
+- [Know when your model is guessing](https://probaligence.com/guides/know-when-your-model-is-guessing/): Reading uncertainty bands to see where predictions rest on data and where they do not.
+- [Which inputs drive your results](https://probaligence.com/guides/which-inputs-drive-your-results/): A model can predict well and still explain nothing. Sobol indices rank, SHAP explains.
+- [Combine cheap and expensive data](https://probaligence.com/guides/combine-cheap-and-expensive-data/): Dense cheap data gives the shape, scarce accurate data corrects it.
+- [Clean lab data for ML](https://probaligence.com/guides/clean-lab-data-for-ml/): Turning plain-language cleaning instructions into a reviewable script.
+- [Merge messy engineering data](https://probaligence.com/guides/merge-messy-engineering-data/): Merging spreadsheets and logs into one table you can model.
+- [Custom workflow steps in Python](https://probaligence.com/guides/custom-workflow-steps-python/): Drafting a custom step from a plain description, then reviewing the code.
+- [Describe a chart, get a chart](https://probaligence.com/guides/describe-a-chart-get-a-chart/): Turning a description into editable matplotlib code.
+- [From analysis to report](https://probaligence.com/guides/analysis-to-report/): Drafting a structured report from a workflow, with captioned figures.
+- [Teach AI your documentation](https://probaligence.com/guides/teach-ai-your-documentation/): Indexing your own docs, code, and PDFs locally so AI nodes write against real material.
+- [Share a model, not a manual](https://probaligence.com/guides/share-a-model-not-a-manual/): Turning a workflow into a standalone app colleagues can run.
+- [From workflow to production code](https://probaligence.com/guides/workflow-to-production-code/): Exporting a workflow as a standalone Python package.
+
+## Company
+
+- [About](https://probaligence.com/about/): What PI Probaligence is, the timeline, and how the two product layers fit together.
+- [Contact and demo request](https://probaligence.com/contact/): Bring one use case, bottleneck, or dataset, and we will show where probabilistic AI fits.
+- [Imprint](https://probaligence.com/impressum/): Legal notice and company details.
+
+## Optional
+
+- [News](https://probaligence.com/news/): Company news, conference talks, releases, and partnerships.
+- [Beat STOCHOS](https://probaligence.com/challenge/): An interactive demo. Try a real engineering or R&D use case yourself, then let the model solve the same problem. Illustrative, built on DIM-GP.
+- [Sitemap](https://probaligence.com/sitemap.xml): Every indexable page.
