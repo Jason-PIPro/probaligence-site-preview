@@ -355,7 +355,7 @@ h1,h2,h3,h4,p{margin:0}
     });
     if (!pick) { feat.hidden = true; return; }
     feat.hidden = false;
-    feat.setAttribute('href', '/news/' + pick.slug + '/');
+    feat.setAttribute('href', '/probaligence-site-preview/news/' + pick.slug + '/');
     feat.setAttribute('data-slug', pick.slug);
     var day = esc(pick.day) + '<small>[' + esc(pick.mon) + ' ' + esc(pick.year) + ']</small>';
     var body = '<span class="kick">Featured &middot; ' + esc(pick.cat) + '</span>' +
