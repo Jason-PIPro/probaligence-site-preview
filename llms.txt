@@ -19,10 +19,15 @@ Measured examples and verifiable status, each published in full on the page link
 - Pin-fin cooling reference example: temperature and heat flux for a new design in under 5 seconds. The timing comes from that case setup, not from every case. Setup in [Predict a full field](https://probaligence.com/guides/predict-a-full-field/).
 - Coating formulation reference example: a coating with 17 parameters developed automatically within five adaptation cycles. Setup on [Paint and Coatings](https://probaligence.com/paint-coating/).
 - [Automated verification at GEMÜ](https://probaligence.com/news/automated-verification-gemu-stochos/): Konstruktionspraxis reported in November 2025 how GEMÜ automates strength verification of metallic valve bodies with STOCHOS and CADFEM.
+- [Multi-fidelity induction hardening case study](https://probaligence.com/news/multifidelity-induction-hardening/): 20 high-fidelity plus 69 low-fidelity simulations trained one model that predicts peak temperatures accurately. Low-fidelity data alone erred by up to 40 percent.
+- [Colour matching with Adler Lacke](https://probaligence.com/news/adler-lacke-color-matching/): PI Probaligence and ADLER-Werk Lackfabrik matched paint colours in four ML adaptations, close to and partly better than commercial colour matching software.
+- [High-fidelity digital twins with SGL Carbon and DLR](https://probaligence.com/news/high-fidelity-digital-twins-ai/): multi-scale composite simulation cut from months to minutes using STOCHOS material models inside macro-level FEM.
 - [Ansys Technology Partner](https://probaligence.com/news/ansys-technology-partner/): official status since 25 November 2025, after developing AI algorithms for the Ansys ecosystem since 2022.
+- [Official NAFEMS member](https://probaligence.com/news/nafems-member/): member of NAFEMS, the international association for engineering modelling, analysis and simulation. Not-for-profit, founded 1983, independent of any software vendor, and around 30,000 engineers, designers and analysts.
+- [Part of the CADFEM Group](https://probaligence.com/news/pi-probaligence-cadfem-group/): CADFEM Group has held a stake since the end of 2023.
 - [First prize, Robert Bosch Foundation Health Award](https://probaligence.com/news/robert-bosch-health-award/): a joint project on AI-supported prevention of diabetic foot syndrome. PI Probaligence built the core AI technology.
 
-Last updated: 2026-07-31. This file is maintained by hand and the date above is stamped by hand, so it can lag the site. Treat the page list as indicative and the sitemap at https://probaligence.com/sitemap.xml as authoritative.
+Last updated: 2026-08-13. This file is maintained by hand and the date above is stamped by hand, so it can lag the site. Treat the page list as indicative and the sitemap at https://probaligence.com/sitemap.xml as authoritative.
 
 ## Products
 
@@ -87,5 +92,7 @@ Shorter than a guide. Each answers one question about a STOCHOS or STOCHOS Flow 
 ## Optional
 
 - [News](https://probaligence.com/news/): Company news, conference talks, releases, and partnerships.
+- [Introducing STOCHOS Flow](https://probaligence.com/news/introducing-stochos-flow/): the visual workflow editor with a built-in AI agent that creates nodes, wires workflows, and runs fully locally.
+- [AI for Engineering, in Der Konstrukteur](https://probaligence.com/news/ai-for-engineering-der-konstrukteur/): the engineering journal Der Konstrukteur published PI Probaligence's article on machine learning for design optimization in its June 2024 issue.
 - [Beat STOCHOS](https://probaligence.com/challenge/): An interactive demo. Try a real engineering or R&D use case yourself, then let the model solve the same problem. Illustrative, built on DIM-GP.
 - [Sitemap](https://probaligence.com/sitemap.xml): Every indexable page.
