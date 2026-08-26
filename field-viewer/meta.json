@@ -1,0 +1,14 @@
+{
+  "source": "c:\\Users\\jason\\OneDrive - PI Probaligence GmbH\\Desktop\\Stochos Coding\\Stochos_examples\\Stochos_examples\\1_Modeling\\8_node_data\\data_example_8_3\\test\\Design0006\\surface.vtp",
+  "nPoints": 62122,
+  "nTriangles": 124260,
+  "scalarName": "eqvStress",
+  "scalarMin": 0.00372292660176754,
+  "scalarMax": 24.252798080444336,
+  "boundsRadius": 77.14512634277344,
+  "offsets": {
+    "positions": 0,
+    "indices": 745464,
+    "scalars": 2236584
+  }
+}
