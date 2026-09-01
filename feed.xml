@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>PI Probaligence News</title>
+<link>https://probaligence.com/news/</link>
+<description>Company news and evergreen guides on surrogate modeling, coating development, and chemical process scale-up, written to explain the methods plainly.</description>
+<language>en</language>
+<atom:link href="https://probaligence.com/feed.xml" rel="self" type="application/rss+xml"/>
+<lastBuildDate>Wed, 19 Aug 2026 12:00:00 +0000</lastBuildDate>
+<item>
+<title>Kevin Cremanns co-authors new book on AI in product development</title>
+<link>https://probaligence.com/news/ai-in-product-development-book/</link>
+<guid isPermaLink="true">https://probaligence.com/news/ai-in-product-development-book/</guid>
+<pubDate>Wed, 19 Aug 2026 12:00:00 +0000</pubDate>
+<description>Kevin Cremanns co-authored KI in der Produktentwicklung, a 226 page technical book on applying AI in engineering, published by Vogel Professional Education in July 2026.</description>
+</item>
+<item>
+<title>PI Probaligence is an official NAFEMS member</title>
+<link>https://probaligence.com/news/nafems-member/</link>
+<guid isPermaLink="true">https://probaligence.com/news/nafems-member/</guid>
+<pubDate>Thu, 06 Aug 2026 12:00:00 +0000</pubDate>
+<description>PI Probaligence is an official member of NAFEMS, the international association for the engineering modelling, analysis and simulation community.</description>
+</item>
+<item>
+<title>CADFEM Conference Rapperswil, Switzerland 2026</title>
+<link>https://probaligence.com/news/cadfem-conference-rapperswil-2026/</link>
+<guid isPermaLink="true">https://probaligence.com/news/cadfem-conference-rapperswil-2026/</guid>
+<pubDate>Sat, 20 Jun 2026 12:00:00 +0000</pubDate>
+<description>PI Probaligence joined the CADFEM Conference Rapperswil 2026 as exhibitor and speaker, showing STOCHOS Flow and projects with VAT and Jaeger-LeCoultre.</description>
+</item>
+<item>
+<title>PI Probaligence at the CADFEM AI Conference Singapore 2026</title>
+<link>https://probaligence.com/news/cadfem-ai-conference-singapore-2026/</link>
+<guid isPermaLink="true">https://probaligence.com/news/cadfem-ai-conference-singapore-2026/</guid>
+<pubDate>Wed, 10 Jun 2026 12:00:00 +0000</pubDate>
+<description>Over 100 engineers and researchers discussed practical AI in engineering at the CADFEM AI Conference Singapore 2026, with STOCHOS on the agenda.</description>
+</item>
+<item>
+<title>Discover STOCHOS Flow: free online seminar</title>
+<link>https://probaligence.com/news/stochos-flow-online-seminar/</link>
+<guid isPermaLink="true">https://probaligence.com/news/stochos-flow-online-seminar/</guid>
+<pubDate>Tue, 12 May 2026 12:00:00 +0000</pubDate>
+<description>Two free one-hour webinars on 23 and 24 June 2026 introduce STOCHOS Flow for chemistry and engineering applications, in English on Microsoft Teams.</description>
+</item>
+<item>
+<title>First prize at the Robert Bosch Foundation Health Award</title>
+<link>https://probaligence.com/news/robert-bosch-health-award/</link>
+<guid isPermaLink="true">https://probaligence.com/news/robert-bosch-health-award/</guid>
+<pubDate>Fri, 27 Feb 2026 12:00:00 +0000</pubDate>
+<description>A joint project on AI-supported prevention of diabetic foot syndrome won the Ideas for Impact Health Prize; PI Probaligence built the core AI technology.</description>
+</item>
+<item>
+<title>Introducing STOCHOS Flow: AI-assisted workflow automation for engineers</title>
+<link>https://probaligence.com/news/introducing-stochos-flow/</link>
+<guid isPermaLink="true">https://probaligence.com/news/introducing-stochos-flow/</guid>
+<pubDate>Mon, 12 Jan 2026 12:00:00 +0000</pubDate>
+<description>STOCHOS Flow is a visual workflow editor with a built-in AI agent that creates nodes, wires workflows, and runs fully locally: no cloud, no data leakage.</description>
+</item>
+<item>
+<title>PI Probaligence achieves official Ansys Technology Partner status</title>
+<link>https://probaligence.com/news/ansys-technology-partner/</link>
+<guid isPermaLink="true">https://probaligence.com/news/ansys-technology-partner/</guid>
+<pubDate>Tue, 25 Nov 2025 12:00:00 +0000</pubDate>
+<description>PI Probaligence achieved official Ansys Technology Partner status on 25 November 2025, after developing AI algorithms for the Ansys ecosystem since 2022.</description>
+</item>
+<item>
+<title>Article in Konstruktionspraxis: Automated Verification Processes at GEMÜ with STOCHOS</title>
+<link>https://probaligence.com/news/automated-verification-gemu-stochos/</link>
+<guid isPermaLink="true">https://probaligence.com/news/automated-verification-gemu-stochos/</guid>
+<pubDate>Fri, 14 Nov 2025 12:00:00 +0000</pubDate>
+<description>Konstruktionspraxis reports how GEMÜ automates strength verification of metallic valve bodies with STOCHOS and CADFEM, cutting manual modeling effort.</description>
+</item>
+<item>
+<title>PI Probaligence Visits CADFEM SEA in Singapore</title>
+<link>https://probaligence.com/news/cadfem-sea-singapore-visit/</link>
+<guid isPermaLink="true">https://probaligence.com/news/cadfem-sea-singapore-visit/</guid>
+<pubDate>Mon, 03 Nov 2025 12:00:00 +0000</pubDate>
+<description>Kevin Cremanns visited Singapore with CADFEM South East Asia for joint customer meetings on STOCHOS and advanced engineering simulation applications.</description>
+</item>
+<item>
+<title>PI Probaligence Joins Lacktagung 2025 in Aachen, Germany</title>
+<link>https://probaligence.com/news/lacktagung-2025-aachen/</link>
+<guid isPermaLink="true">https://probaligence.com/news/lacktagung-2025-aachen/</guid>
+<pubDate>Mon, 22 Sep 2025 12:00:00 +0000</pubDate>
+<description>PI Probaligence joined the GDCh Coatings Conference 2025 in Aachen with a talk and booth on AI-driven adaptive design of experiments for coatings development.</description>
+</item>
+<item>
+<title>PI Probaligence at the CADFEM Konferenz 2025 in Rapperswil</title>
+<link>https://probaligence.com/news/cadfem-konferenz-2025-rapperswil/</link>
+<guid isPermaLink="true">https://probaligence.com/news/cadfem-konferenz-2025-rapperswil/</guid>
+<pubDate>Fri, 12 Sep 2025 12:00:00 +0000</pubDate>
+<description>PI Probaligence presented generative AI for engineering and a first look at its new graphical user interface at the CADFEM Konferenz 2025 in Rapperswil.</description>
+</item>
+<item>
+<title>AI Beyond the Buzz: How Engineers Apply AI in Real-World Projects</title>
+<link>https://probaligence.com/news/ai-beyond-the-buzz/</link>
+<guid isPermaLink="true">https://probaligence.com/news/ai-beyond-the-buzz/</guid>
+<pubDate>Tue, 22 Jul 2025 12:00:00 +0000</pubDate>
+<description>Kevin Cremanns and APC&amp;#x27;s Ana Luisa Pinto Queiroz discuss a STOCHOS gene therapy case in CADFEM&amp;#x27;s Blueprint interview: weeks of computing cut with multi-fidelity.</description>
+</item>
+<item>
+<title>New Office in the CADFEM Building</title>
+<link>https://probaligence.com/news/new-office-cadfem-building/</link>
+<guid isPermaLink="true">https://probaligence.com/news/new-office-cadfem-building/</guid>
+<pubDate>Tue, 01 Jul 2025 12:00:00 +0000</pubDate>
+<description>PI Probaligence moved into its new office in the CADFEM building in Grafing near Munich on 1 July 2025, about 30 minutes by train from Munich East Station.</description>
+</item>
+<item>
+<title>High Fidelity Digital Twins Using AI</title>
+<link>https://probaligence.com/news/high-fidelity-digital-twins-ai/</link>
+<guid isPermaLink="true">https://probaligence.com/news/high-fidelity-digital-twins-ai/</guid>
+<pubDate>Fri, 06 Jun 2025 12:00:00 +0000</pubDate>
+<description>PI Probaligence, SGL Carbon, and DLR cut multi-scale composite simulation from months to minutes with STOCHOS material models in macro-level FEM.</description>
+</item>
+<item>
+<title>PI at the CADFEM Conference France 2025</title>
+<link>https://probaligence.com/news/cadfem-conference-france-2025/</link>
+<guid isPermaLink="true">https://probaligence.com/news/cadfem-conference-france-2025/</guid>
+<pubDate>Wed, 04 Jun 2025 12:00:00 +0000</pubDate>
+<description>PI presented its AI tools for simulation engineers at the CADFEM Conference France 2025 in Lyon on June 4, alongside companies serving Ansys users.</description>
+</item>
+<item>
+<title>Case study: multifidelity analysis of a traversed induction hardening device</title>
+<link>https://probaligence.com/news/multifidelity-induction-hardening/</link>
+<guid isPermaLink="true">https://probaligence.com/news/multifidelity-induction-hardening/</guid>
+<pubDate>Wed, 04 Jun 2025 12:00:00 +0000</pubDate>
+<description>20 high-fidelity plus 69 low-fidelity simulations trained one model that predicts peak temperatures accurately; low-fidelity alone erred by up to 40%.</description>
+</item>
+<item>
+<title>AI in coatings development: insights from ECS 2025</title>
+<link>https://probaligence.com/news/ai-coatings-ecs-2025/</link>
+<guid isPermaLink="true">https://probaligence.com/news/ai-coatings-ecs-2025/</guid>
+<pubDate>Thu, 27 Mar 2025 12:00:00 +0000</pubDate>
+<description>PI at the European Coatings Show 2025: automated design of experiments and AI control of high-throughput experimentation drew the strongest interest.</description>
+</item>
+<item>
+<title>Our interview in the expert survey: How AI is revolutionizing production</title>
+<link>https://probaligence.com/news/expert-survey-ai-production/</link>
+<guid isPermaLink="true">https://probaligence.com/news/expert-survey-ai-production/</guid>
+<pubDate>Mon, 10 Mar 2025 12:00:00 +0000</pubDate>
+<description>PI&amp;#x27;s answers in the Digital Manufacturing expert survey: where AI already works in production today and which hurdles slow wider adoption.</description>
+</item>
+<item>
+<title>PI Probaligence expands its presence in the USA</title>
+<link>https://probaligence.com/news/pi-probaligence-expands-usa/</link>
+<guid isPermaLink="true">https://probaligence.com/news/pi-probaligence-expands-usa/</guid>
+<pubDate>Thu, 20 Feb 2025 12:00:00 +0000</pubDate>
+<description>Dr. Cremanns presented the new STOCHOS features at OzenCon 2025 by Ozen Engineering in San Jose, USA, and met with customers about upcoming projects.</description>
+</item>
+<item>
+<title>Making repositories and AI systems usable in everyday nursing care (KIP)</title>
+<link>https://probaligence.com/news/kip-ai-nursing-care/</link>
+<guid isPermaLink="true">https://probaligence.com/news/kip-ai-nursing-care/</guid>
+<pubDate>Wed, 12 Feb 2025 12:00:00 +0000</pubDate>
+<description>In the KIP healthcare program, PI built AI software that reads a pressure sensor in a shoe and warns diabetic foot syndrome patients in real time by smartwatch.</description>
+</item>
+<item>
+<title>STOCHOS 6.0.0 released</title>
+<link>https://probaligence.com/news/stochos-6-0-0-released/</link>
+<guid isPermaLink="true">https://probaligence.com/news/stochos-6-0-0-released/</guid>
+<pubDate>Thu, 16 Jan 2025 12:00:00 +0000</pubDate>
+<description>STOCHOS 6.0.0 adds GEN-AI geometry generation, one-line web app export for DIM-GP models, target-driven sensitivity analysis, and a text-based optimization API.</description>
+</item>
+<item>
+<title>CADFEM Conference 2024 Austria</title>
+<link>https://probaligence.com/news/cadfem-conference-2024-austria/</link>
+<guid isPermaLink="true">https://probaligence.com/news/cadfem-conference-2024-austria/</guid>
+<pubDate>Thu, 07 Nov 2024 12:00:00 +0000</pubDate>
+<description>Dr. Cremanns presented PI&amp;#x27;s latest developments to around 200 attendees at the CADFEM Simulation Conference Austria in Salzburg on 7 November 2024.</description>
+</item>
+<item>
+<title>WOST Conference 2024</title>
+<link>https://probaligence.com/news/wost-conference-2024/</link>
+<guid isPermaLink="true">https://probaligence.com/news/wost-conference-2024/</guid>
+<pubDate>Wed, 23 Oct 2024 12:00:00 +0000</pubDate>
+<description>With AI as a focus of the WOST Conference 2024, PI Probaligence was invited to present its recent machine learning developments.</description>
+</item>
+<item>
+<title>Days of Digital Technologies, 07.-08. October in Berlin</title>
+<link>https://probaligence.com/news/days-of-digital-technologies-2024-berlin/</link>
+<guid isPermaLink="true">https://probaligence.com/news/days-of-digital-technologies-2024-berlin/</guid>
+<pubDate>Tue, 08 Oct 2024 12:00:00 +0000</pubDate>
+<description>PI Probaligence presented the Na, Logisch project on sustainable, AI-supported paint development at the Days of Digital Technologies 2024 in Berlin.</description>
+</item>
+<item>
+<title>PI Probaligence: From AI startup to a global player</title>
+<link>https://probaligence.com/news/from-ai-startup-to-global-player/</link>
+<guid isPermaLink="true">https://probaligence.com/news/from-ai-startup-to-global-player/</guid>
+<pubDate>Mon, 30 Sep 2024 12:00:00 +0000</pubDate>
+<description>How PI Probaligence grew from AI startup to CADFEM Group member with projects in Europe, the USA, India, and Southeast Asia. By Nils Odenthal, Managing Director.</description>
+</item>
+<item>
+<title>CADFEM Blueprint about AI: Answers to open questions</title>
+<link>https://probaligence.com/news/cadfem-blueprint-ai-training-data/</link>
+<guid isPermaLink="true">https://probaligence.com/news/cadfem-blueprint-ai-training-data/</guid>
+<pubDate>Tue, 03 Sep 2024 12:00:00 +0000</pubDate>
+<description>CADFEM&amp;#x27;s Let&amp;#x27;s Simulate Blueprint series shows how automated Ansys processes generate high-quality simulation training data for AI models. In German.</description>
+</item>
+<item>
+<title>The resource-efficient advantages of the probabilistic machine learning software STOCHOS for dedicated simulation applications</title>
+<link>https://probaligence.com/news/stochos-resource-efficiency-ascs-magazin/</link>
+<guid isPermaLink="true">https://probaligence.com/news/stochos-resource-efficiency-ascs-magazin/</guid>
+<pubDate>Fri, 30 Aug 2024 12:00:00 +0000</pubDate>
+<description>ASCS Magazin 2024 (p. 32-33) features PI Probaligence on the resource-efficient advantages of the probabilistic ML software STOCHOS for simulation.</description>
+</item>
+<item>
+<title>PI to attend the European Automotive &amp; Plastic Coating Event</title>
+<link>https://probaligence.com/news/european-automotive-plastic-coating-event-2024/</link>
+<guid isPermaLink="true">https://probaligence.com/news/european-automotive-plastic-coating-event-2024/</guid>
+<pubDate>Tue, 02 Jul 2024 12:00:00 +0000</pubDate>
+<description>PI presents AI in industrial painting at the DFO European Automotive &amp;amp; Plastic Coating Event: the Na, Logisch project on data-efficient paint development.</description>
+</item>
+<item>
+<title>PI Probaligence participated in the 2nd Workference for Smart Paint</title>
+<link>https://probaligence.com/news/smart-paint-workference-2024/</link>
+<guid isPermaLink="true">https://probaligence.com/news/smart-paint-workference-2024/</guid>
+<pubDate>Fri, 14 Jun 2024 12:00:00 +0000</pubDate>
+<description>As a Smart Paint Factory Alliance member, PI Probaligence joined the 2nd Workference at Fraunhofer IFAM Bremen on June 13 and 14, 2024 on AI in paint R&amp;amp;D.</description>
+</item>
+<item>
+<title>BioTechX webinar in partnership with Ansys</title>
+<link>https://probaligence.com/news/biotechx-webinar-ansys/</link>
+<guid isPermaLink="true">https://probaligence.com/news/biotechx-webinar-ansys/</guid>
+<pubDate>Thu, 13 Jun 2024 12:00:00 +0000</pubDate>
+<description>Dr. Dmitrij Ivanov of PI Probaligence joins a BioTechX webinar with Ansys on June 19, 2024 on in silico technologies and AI for pharmaceutical applications.</description>
+</item>
+<item>
+<title>'Universal machine learning based on probabilistic intelligence' at the CADFEM Conference 2024 in Rapperswil, Switzerland</title>
+<link>https://probaligence.com/news/universal-machine-learning-cadfem-rapperswil/</link>
+<guid isPermaLink="true">https://probaligence.com/news/universal-machine-learning-cadfem-rapperswil/</guid>
+<pubDate>Tue, 04 Jun 2024 12:00:00 +0000</pubDate>
+<description>PI Probaligence presents STOCHOS and DIM-GP at the CADFEM Conference 2024 in Rapperswil on June 20: sample-efficient machine learning for R&amp;amp;D experts.</description>
+</item>
+<item>
+<title>Read our article 'AI for Engineering' in the engineering journal Der Konstrukteur</title>
+<link>https://probaligence.com/news/ai-for-engineering-der-konstrukteur/</link>
+<guid isPermaLink="true">https://probaligence.com/news/ai-for-engineering-der-konstrukteur/</guid>
+<pubDate>Mon, 03 Jun 2024 12:00:00 +0000</pubDate>
+<description>The engineering journal Der Konstrukteur published PI Probaligence&amp;#x27;s article AI for Engineering in its June 2024 issue, on ML for design optimization.</description>
+</item>
+<item>
+<title>Very strong interest in our ML solution at the CADFEM Conference 2024</title>
+<link>https://probaligence.com/news/cadfem-conference-2024-darmstadt/</link>
+<guid isPermaLink="true">https://probaligence.com/news/cadfem-conference-2024-darmstadt/</guid>
+<pubDate>Thu, 11 Apr 2024 12:00:00 +0000</pubDate>
+<description>PI Probaligence drew strong interest at the CADFEM Conference 2024 in Darmstadt, with new project prospects in automotive, engineering, and process design.</description>
+</item>
+<item>
+<title>DLR to present the partner project with SGL Carbon and PI Probaligence at the DPG Annual Conference and Spring Meeting</title>
+<link>https://probaligence.com/news/dlr-sgl-partner-project-dpg-2024/</link>
+<guid isPermaLink="true">https://probaligence.com/news/dlr-sgl-partner-project-dpg-2024/</guid>
+<pubDate>Tue, 19 Mar 2024 12:00:00 +0000</pubDate>
+<description>DLR presents the joint project with SGL Carbon and PI Probaligence at the DPG Spring Meeting: machine learning replaces microscale FEM for graphite-resin composites.</description>
+</item>
+<item>
+<title>PI Probaligence to present at the High Performance Engineering Solutions 2024 in Brasov, Romania</title>
+<link>https://probaligence.com/news/high-performance-engineering-2024-brasov/</link>
+<guid isPermaLink="true">https://probaligence.com/news/high-performance-engineering-2024-brasov/</guid>
+<pubDate>Wed, 28 Feb 2024 12:00:00 +0000</pubDate>
+<description>PI Probaligence joins the High Performance Engineering Solutions 2024 event by INAS in Brasov, Romania, presenting AI engineering solutions.</description>
+</item>
+<item>
+<title>Project meeting with the project partners at the Fraunhofer Institute in Bremen</title>
+<link>https://probaligence.com/news/na-logisch-project-meeting-fraunhofer/</link>
+<guid isPermaLink="true">https://probaligence.com/news/na-logisch-project-meeting-fraunhofer/</guid>
+<pubDate>Thu, 08 Feb 2024 12:00:00 +0000</pubDate>
+<description>Na, Logisch project partners met at Fraunhofer in Bremen: building a digital paint twin to cut paint waste, reject rates, and development times.</description>
+</item>
+<item>
+<title>PI Probaligence becomes part of the CADFEM Group</title>
+<link>https://probaligence.com/news/pi-probaligence-cadfem-group/</link>
+<guid isPermaLink="true">https://probaligence.com/news/pi-probaligence-cadfem-group/</guid>
+<pubDate>Wed, 31 Jan 2024 12:00:00 +0000</pubDate>
+<description>The CADFEM Group acquired a stake in PI Probaligence in January 2024, adding AI expertise and STOCHOS to its simulation solution partner network.</description>
+</item>
+<item>
+<title>STOCHOS 5.0.2 released: almost 50% speed boost with backend software upgrade</title>
+<link>https://probaligence.com/news/stochos-5-0-2-released/</link>
+<guid isPermaLink="true">https://probaligence.com/news/stochos-5-0-2-released/</guid>
+<pubDate>Mon, 08 Jan 2024 12:00:00 +0000</pubDate>
+<description>STOCHOS 5.0.2 brings a backend software upgrade with roughly 30 to 50% faster processing. Models from the old backend can be reloaded.</description>
+</item>
+<item>
+<title>We at PI believe that highly effective, specialized AI solutions for specific problems are the way to go</title>
+<link>https://probaligence.com/news/specialized-ai-solutions/</link>
+<guid isPermaLink="true">https://probaligence.com/news/specialized-ai-solutions/</guid>
+<pubDate>Wed, 20 Dec 2023 12:00:00 +0000</pubDate>
+<description>Citing MIT Technology Review on the energy cost of generative AI, PI makes the case for specialized, efficient, problem-specific AI models.</description>
+</item>
+<item>
+<title>How ZF Friedrichshafen benchmarked PI-BO against Latin hypercube sampling</title>
+<link>https://probaligence.com/news/zf-benchmark-pi-bo-nafems/</link>
+<guid isPermaLink="true">https://probaligence.com/news/zf-benchmark-pi-bo-nafems/</guid>
+<pubDate>Tue, 24 Oct 2023 12:00:00 +0000</pubDate>
+<description>ZF Friedrichshafen benchmarked PI-BO against Latin hypercube sampling at NAFEMS 2023: R squared 0.82 against 0.49 at 94 parameters, same sample count.</description>
+</item>
+<item>
+<title>Green Tech kick-off event for project Na, Logisch</title>
+<link>https://probaligence.com/news/green-tech-kick-off-na-logisch/</link>
+<guid isPermaLink="true">https://probaligence.com/news/green-tech-kick-off-na-logisch/</guid>
+<pubDate>Mon, 16 Oct 2023 12:00:00 +0000</pubDate>
+<description>Official Berlin kick-off of the BMWK Green Tech Innovation Competition: PI Probaligence partners in Na, Logisch for AI-driven sustainable paint development.</description>
+</item>
+<item>
+<title>Results after four adaptations with partner Adler Lacke</title>
+<link>https://probaligence.com/news/adler-lacke-color-matching/</link>
+<guid isPermaLink="true">https://probaligence.com/news/adler-lacke-color-matching/</guid>
+<pubDate>Mon, 25 Sep 2023 12:00:00 +0000</pubDate>
+<description>PI Probaligence and ADLER-Werk Lackfabrik matched paint colors in four ML adaptations, close to and partly better than commercial color matching software.</description>
+</item>
+</channel>
+</rss>
