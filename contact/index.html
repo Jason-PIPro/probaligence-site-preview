@@ -149,6 +149,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px soli
         <div class="cf-card" style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; background: rgb(12, 12, 14); padding: clamp(26px, 3vw, 38px);">
           
           
+            <p id="cf-request-note" hidden style="margin: 0px 0px 4px; padding: 12px 14px; border: 1px solid rgba(255, 176, 6, 0.4); border-radius: 3px; background: rgba(255, 176, 6, 0.07); color: rgb(244, 243, 239); font-size: 14px; line-height: 1.55;">You are requesting the <strong>STOCHOS DIM-GP benchmark whitepaper (PDF)</strong>. Leave your details and we send it to your work email.</p>
             <form novalidate="" class="cf-form" style="display: flex; flex-direction: column; gap: 18px;">
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 18px;">
                 <div class="field">
@@ -178,6 +179,18 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px soli
               <button type="submit" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 22px; border: 0px; border-radius: 3px; cursor: pointer; min-height: 48px; transition: filter 0.15s;">Request a Demo</button>
               <p style="color: rgb(130, 130, 124); font-size: 12.5px; line-height: 1.5; margin: 0px;">We use what you enter here to answer your request, and for nothing else. See our <a href="/probaligence-site-preview/datenschutz/" style="color: rgb(156, 156, 150); text-decoration: underline;">privacy notice</a>.</p>
             </form>
+            <script>
+            // /contact/?request=benchmark-pdf (from /science/benchmarks/): the whitepaper PDF is not
+            // served, it is sent by email on request. Prefill the message and show the note.
+            (function(){try{
+              var req=new URLSearchParams(location.search).get('request');if(req!=='benchmark-pdf')return;
+              var note=document.getElementById('cf-request-note'),msg=document.getElementById('cf-message'),area=document.getElementById('cf-area');
+              if(note)note.hidden=false;
+              if(msg&&!msg.value)msg.value='Please send me the STOCHOS DIM-GP benchmark whitepaper (PDF).';
+              if(area)area.value='Other';
+              var btn=document.querySelector('.cf-form button[type="submit"]');if(btn)btn.textContent='Request the PDF';
+            }catch(e){}})();
+            </script>
             <div style="margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.09); display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px;">
               <p style="color: rgb(184, 184, 178); font-size: 13.5px; line-height: 1.5; margin: 0px;">Would rather just talk it through?</p>
               <a href="https://bookings.cloud.microsoft/book/PIProbaligenceGmbHBooking@probaligence.de/" target="_blank" rel="noopener" style="color: rgb(255, 176, 6); font: 600 13.5px / 1.5 &quot;IBM Plex Sans&quot;, sans-serif; text-decoration: underline; text-underline-offset: 3px;">Book a call directly</a>
