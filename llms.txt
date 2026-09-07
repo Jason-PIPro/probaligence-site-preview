@@ -27,7 +27,7 @@ Measured examples and verifiable status, each published in full on the page link
 - [Part of the CADFEM Group](https://probaligence.com/news/pi-probaligence-cadfem-group/): CADFEM Group has held a stake since the end of 2023.
 - [First prize, Robert Bosch Foundation Health Award](https://probaligence.com/news/robert-bosch-health-award/): a joint project on AI-supported prevention of diabetic foot syndrome. PI Probaligence built the core AI technology.
 
-Last updated: 2026-08-13. This file is maintained by hand and the date above is stamped by hand, so it can lag the site. Treat the page list as indicative and the sitemap at https://probaligence.com/sitemap.xml as authoritative.
+Last updated: 2026-09-07. This file is maintained by hand and the date above is stamped by hand, so it can lag the site. Treat the page list as indicative and the sitemap at https://probaligence.com/sitemap.xml as authoritative.
 
 ## Products
 
@@ -44,6 +44,7 @@ Last updated: 2026-08-13. This file is maintained by hand and the date above is 
 
 - [Science hub](https://probaligence.com/science/): The methods behind STOCHOS and how they fit together.
 - [How STOCHOS works, DIM-GP](https://probaligence.com/how-stochos-works/): The algorithm itself. Deep learning joined with Gaussian-process uncertainty, built for small and noisy engineering data.
+- [Benchmarks](https://probaligence.com/science/benchmarks/): DIM-GP evaluated on 14 public benchmark tasks and studies (TabArena, TALENT, LagrangeBench, DeepMind Water-3D and DeformingPlate, AhmedML, DrivAerML, six PLAID boards, a Bayesian optimization study), with named comparisons, evaluation conditions and hardware. Trained on one consumer GPU in under a day. Full report with PDF at https://probaligence.com/science/benchmarks/stochos-dimgp-benchmark-whitepaper-2026-09.pdf
 - [Surrogate modeling](https://probaligence.com/surrogate-modeling/): What a surrogate model is, a fast approximation of an expensive simulation or experiment, and when it is the right tool.
 - [Uncertainty quantification](https://probaligence.com/uncertainty-quantification/): Putting a range on a prediction rather than a number. Aleatoric versus epistemic uncertainty, and why a bare point estimate cannot be signed off.
 - [Bayesian optimization](https://probaligence.com/bayesian-optimization/): Finding the best design or recipe in the fewest expensive tries, and how STOCHOS applies it.

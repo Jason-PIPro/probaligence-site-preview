@@ -85,6 +85,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div class="submenu">
           <a href="/probaligence-site-preview/science/"><b>Science overview</b></a>
           <a href="/probaligence-site-preview/how-stochos-works/"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
+          <a href="/probaligence-site-preview/science/benchmarks/"><b>Benchmarks</b><span>DIM-GP on 14 public tasks</span></a>
           <div class="sep"></div>
           <a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a>
           <a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a>
@@ -111,6 +112,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div class="m-label">Science</div>
       <a class="m-sub" href="/probaligence-site-preview/science/">Science overview</a>
       <a class="m-sub" href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a>
+      <a class="m-sub" href="/probaligence-site-preview/science/benchmarks/">Benchmarks</a>
       <a class="m-sub" href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a>
       <a class="m-sub" href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a>
       <a class="m-sub" href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
@@ -246,6 +248,24 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
             <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 8px;">Expand it: explore new geometries beyond fixed variants with GEN-BO.</p>
           </div>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(70px, 9vw, 120px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1200px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">Benchmarks</div>
+      <h2 id="measured-against-the-field" style="font: 700 clamp(28px, 4.2vw, 48px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 16ch;">Measured against the field</h2>
+      <p style="margin-top: 22px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">DIM-GP was evaluated on 14 public benchmark tasks and studies: tabular learning (TabArena, TALENT), particle and mesh simulation (LagrangeBench, DeepMind Water-3D and DeformingPlate), external aerodynamics (AhmedML, DrivAerML), six PLAID competition boards and a Bayesian optimization study. Every comparison names the methods, the evaluation conditions and the hardware. Each reported model trained in under a day on one consumer GPU.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; margin-top: 36px;">
+          <div style="background: rgb(16, 16, 18); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px; padding: 18px 20px;"><span style="display: block; font: 700 34px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">14</span><span style="display: block; margin-top: 8px; color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.45;">evaluated tasks and studies</span></div>
+          <div style="background: rgb(16, 16, 18); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px; padding: 18px 20px;"><span style="display: block; font: 700 34px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">12</span><span style="display: block; margin-top: 8px; color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.45;">top-three placements in public and internal comparisons</span></div>
+          <div style="background: rgb(16, 16, 18); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px; padding: 18px 20px;"><span style="display: block; font: 700 34px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">203</span><span style="display: block; margin-top: 8px; color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.45;">benchmark entries outranked across 12 ranked comparisons</span></div>
+          <div style="background: rgb(16, 16, 18); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 3px; padding: 18px 20px;"><span style="display: block; font: 700 34px / 1.1 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">&lt; 1 day</span><span style="display: block; margin-top: 8px; color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.45;">training per reported DIM-GP model, on at most one consumer GPU</span></div>
+      </div>
+      <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px;">
+        <a href="/probaligence-site-preview/science/benchmarks/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none;">Read the benchmark report</a>
+        <a href="/probaligence-site-preview/science/benchmarks/stochos-dimgp-benchmark-whitepaper-2026-09.pdf" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none;">Download the PDF</a>
       </div>
     </div>
   </section>
@@ -469,7 +489,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       </div>
       <div>
         <div class="f-h">Science</div>
-        <ul><li><a href="/probaligence-site-preview/science/">Science overview</a></li><li><a href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a></li><li><a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/probaligence-site-preview/generative-design/">Generative Design</a></li></ul>
+        <ul><li><a href="/probaligence-site-preview/science/">Science overview</a></li><li><a href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a></li><li><a href="/probaligence-site-preview/science/benchmarks/">Benchmarks</a></li><li><a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/probaligence-site-preview/generative-design/">Generative Design</a></li></ul>
       </div>
       <div>
         <div class="f-h">Company</div>
