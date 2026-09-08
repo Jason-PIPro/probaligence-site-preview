@@ -183,12 +183,15 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px soli
             // /contact/?request=benchmark-pdf (from /science/benchmarks/): the whitepaper PDF is not
             // served, it is sent by email on request. Prefill the message and show the note.
             (function(){try{
-              var req=new URLSearchParams(location.search).get('request');if(req!=='benchmark-pdf')return;
+              var req=new URLSearchParams(location.search).get('request');
+              var R={'benchmark-pdf':{note:'You are requesting the <strong>STOCHOS DIM-GP benchmark whitepaper (PDF)</strong>. Leave your details and we send it to your work email.',msg:'Please send me the STOCHOS DIM-GP benchmark whitepaper (PDF).',btn:'Request the PDF'},
+                     'benchmark-notify':{note:'You are asking to hear when the <strong>DIM-GP benchmark report</strong> is published. Leave your details and we tell you once it is out.',msg:'Please tell me when the DIM-GP benchmark report is published.',btn:'Notify me'}};
+              var r=R[req];if(!r)return;
               var note=document.getElementById('cf-request-note'),msg=document.getElementById('cf-message'),area=document.getElementById('cf-area');
-              if(note)note.hidden=false;
-              if(msg&&!msg.value)msg.value='Please send me the STOCHOS DIM-GP benchmark whitepaper (PDF).';
+              if(note){note.innerHTML=r.note;note.hidden=false;}
+              if(msg&&!msg.value)msg.value=r.msg;
               if(area)area.value='Other';
-              var btn=document.querySelector('.cf-form button[type="submit"]');if(btn)btn.textContent='Request the PDF';
+              var btn=document.querySelector('.cf-form button[type="submit"]');if(btn)btn.textContent=r.btn;
             }catch(e){}})();
             </script>
             <div style="margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.09); display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px;">
