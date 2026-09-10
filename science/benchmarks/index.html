@@ -19,7 +19,9 @@
 @font-face{font-family:'IBM Plex Mono';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* no overflow-x on body: site.css html{overflow-x:clip} does the horizontal clipping, and overflow-x:hidden
+   here would make body the scrollport that nav.toc{position:sticky} measures against, so the TOC never stuck */
+body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased}
 ::selection{background:#FFB006;color:#000}
 h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
@@ -166,6 +168,12 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .bm .chart:empty{display:flex;align-items:center;justify-content:center;color:#82827C;font-size:14px}
 .bm .chart:empty::after{content:"Loading chart…"}
 @media (max-width:600px){.bm .v3d canvas{height:380px}}
+/* back to top: lower right, text label not icon only, shown after one viewport of scroll (NN/g 2017-08-27) */
+.bm-top{position:fixed;right:20px;bottom:20px;z-index:40;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#B8B8B2;background:rgba(16,16,18,.94);border:1px solid rgba(255,255,255,.16);border-radius:2px;padding:12px 15px;text-decoration:none;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s,transform .2s,border-color .15s,color .15s}
+.bm-top.on{opacity:1;transform:none;pointer-events:auto}
+.bm-top:hover,.bm-top:focus-visible{border-color:rgba(255,176,6,.6);color:#F4F3EF}
+@media (pointer:coarse){.bm-top{padding:15px 18px}}
+@media (prefers-reduced-motion:reduce){.bm-top{transition:none}}
 </style>
 <link rel="stylesheet" href="/probaligence-site-preview/site.css">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
@@ -20386,6 +20394,7 @@ z
   </div>
 
 </main>
+<a href="#main" class="bm-top" data-bm-top>&uarr; Back to top</a>
 
 <section class="logo-marquee" aria-label="Partners, customers and research collaborators">
   <div class="label">Partners, customers, and research collaborators</div>

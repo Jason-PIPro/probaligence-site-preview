@@ -160,4 +160,14 @@ boxes.forEach(box=>{
   if(auto&&'IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();btn.disabled=true;boot(box);}},{rootMargin:'600px 0px'});io.observe(box);}
 });
 })();
+// --- Back to top: visible after one viewport of scroll; click scrolls up and returns focus to <main>.
+(function(){
+  const b=document.querySelector('[data-bm-top]');if(!b)return;
+  const y=()=>window.scrollY||document.documentElement.scrollTop||document.body.scrollTop||0;
+  let raf=0;const upd=()=>{raf=0;b.classList.toggle('on',y()>window.innerHeight);};const q=()=>{if(!raf)raf=requestAnimationFrame(upd);};
+  window.addEventListener('scroll',q,{passive:true});document.addEventListener('scroll',q,{passive:true,capture:true});upd();
+  b.addEventListener('click',e=>{e.preventDefault();const instant=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const el=document.scrollingElement||document.documentElement;try{el.scrollTo({top:0,behavior:instant?'instant':'smooth'});}catch(_){el.scrollTop=0;}
+    const m=document.getElementById('main');if(m)m.focus({preventScroll:true});});
+})();
 })();
