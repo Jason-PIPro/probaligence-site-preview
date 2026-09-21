@@ -294,12 +294,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div data-hero="" class="bm-fields" style="opacity: 1; transform: none;">
           <div class="bm-fields-k">Find your field</div>
           <nav class="bm-chips" aria-label="Jump to the benchmarks for your field">
-<a class="bm-chip" href="#s2" data-field="tabular" data-label="Tabular data" aria-label="Tabular data, 2 benchmarks">Tabular data<span aria-hidden="true">2</span></a>
-<a class="bm-chip" href="#s7" data-field="particles" data-label="Particle fluids" aria-label="Particle fluids, 2 benchmarks">Particle fluids<span aria-hidden="true">2</span></a>
-<a class="bm-chip" href="#s9" data-field="solids" data-label="Solid mechanics" aria-label="Solid mechanics, 4 benchmarks">Solid mechanics<span aria-hidden="true">4</span></a>
-<a class="bm-chip" href="#s10" data-field="aero" data-label="External aerodynamics" aria-label="External aerodynamics, 2 benchmarks">External aerodynamics<span aria-hidden="true">2</span></a>
-<a class="bm-chip" href="#s12" data-field="turbo" data-label="Turbomachinery and airfoils" aria-label="Turbomachinery and airfoils, 3 benchmarks">Turbomachinery and airfoils<span aria-hidden="true">3</span></a>
-<a class="bm-chip" href="#s18" data-field="optim" data-label="Bayesian optimization" aria-label="Bayesian optimization, 1 benchmark">Bayesian optimization<span aria-hidden="true">1</span></a>
+<a class="bm-chip" href="#s2" data-field="tabular" data-label="Tabular learning" aria-label="Tabular learning, 2 benchmarks">Tabular learning<span aria-hidden="true">2</span></a>
+<a class="bm-chip" href="#s10" data-field="fluid" data-label="Fluid dynamics" aria-label="Fluid dynamics, 5 benchmarks">Fluid dynamics<span aria-hidden="true">5</span></a>
+<a class="bm-chip" href="#s9" data-field="structural" data-label="Structural mechanics" aria-label="Structural mechanics, 4 benchmarks">Structural mechanics<span aria-hidden="true">4</span></a>
+<a class="bm-chip" href="#s7" data-field="particles" data-label="Particle dynamics" aria-label="Particle dynamics, 2 benchmarks">Particle dynamics<span aria-hidden="true">2</span></a>
+<a class="bm-chip" href="#s18" data-field="optimization" data-label="Bayesian optimization" aria-label="Bayesian optimization, 1 benchmark">Bayesian optimization<span aria-hidden="true">1</span></a>
           </nav>
         </div>
     </div>
@@ -314,7 +313,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <div class="fig"><b>≤ 1</b><span>consumer GPU per run</span></div>
   <div class="fig"><b>&lt; 1 day</b><span>reported DIM-GP model training</span></div>
 </div>
-<div class="wrap"><nav class="toc" aria-label="Contents"><details class="toc-disclosure" open><summary>Contents <span>Jump to a section</span></summary><div class="toc-links"><div class="toc-focus" data-toc-focus hidden><span>Your field: <b data-toc-focus-label></b></span><button type="button" data-toc-clear>Show all</button></div><a href="#overview">Overview</a><a href="#s1">1. STOCHOS in the engineering workflow</a><a href="#s2" data-field="tabular">2. Tabular benchmarks and evaluation protocol</a><a href="#s3" data-field="tabular">3. Tabular model families and competitive context</a><a href="#s4" data-field="tabular">4. TabArena-51</a><a href="#s5" data-field="tabular">5. TALENT-300</a><a href="#s6">6. Beyond tabular data: physics surrogates</a><a href="#s7" data-field="particles">7. LagrangeBench</a><a href="#s8" data-field="particles">8. DeepMind Water-3D</a><a href="#s9" data-field="solids">9. DeepMind DeformingPlate</a><a href="#s10" data-field="aero">10. AhmedML</a><a href="#s11" data-field="aero">11. DrivAerML</a><a href="#s12" data-field="turbo">12. PLAID Rotor37</a><a href="#s13" data-field="turbo">13. PLAID VKI-LS59</a><a href="#s14" data-field="solids">14. PLAID 2D Multiscale Hyperelasticity</a><a href="#s15" data-field="solids">15. PLAID Tensile2d</a><a href="#s16" data-field="solids">16. PLAID 2D ElastoPlastoDynamics</a><a href="#s17" data-field="turbo">17. PLAID 2D_profile</a><a href="#s18" data-field="optim">18. Bayesian optimization</a><a href="#appendix-a-sources-and-authorship">Appendix A. Sources and authorship</a><a href="#references">References</a></div></details></nav><div class="bm-main">
+<div class="wrap"><nav class="toc" aria-label="Contents"><details class="toc-disclosure" open><summary>Contents <span>Jump to a section</span></summary><div class="toc-links"><div class="toc-focus" data-toc-focus hidden><span>Your field: <b data-toc-focus-label></b></span><button type="button" data-toc-clear>Show all</button></div><a href="#overview">Overview</a><a href="#s1">1. STOCHOS in the engineering workflow</a><a href="#s2" data-field="tabular">2. Tabular benchmarks and evaluation protocol</a><a href="#s3" data-field="tabular">3. Tabular model families and competitive context</a><a href="#s4" data-field="tabular">4. TabArena-51</a><a href="#s5" data-field="tabular">5. TALENT-300</a><a href="#s6">6. Beyond tabular data: physics surrogates</a><a href="#s7" data-field="particles">7. LagrangeBench</a><a href="#s8" data-field="particles">8. DeepMind Water-3D</a><a href="#s9" data-field="structural">9. DeepMind DeformingPlate</a><a href="#s10" data-field="fluid">10. AhmedML</a><a href="#s11" data-field="fluid">11. DrivAerML</a><a href="#s12" data-field="fluid">12. PLAID Rotor37</a><a href="#s13" data-field="fluid">13. PLAID VKI-LS59</a><a href="#s14" data-field="structural">14. PLAID 2D Multiscale Hyperelasticity</a><a href="#s15" data-field="structural">15. PLAID Tensile2d</a><a href="#s16" data-field="structural">16. PLAID 2D ElastoPlastoDynamics</a><a href="#s17" data-field="fluid">17. PLAID 2D_profile</a><a href="#s18" data-field="optimization">18. Bayesian optimization</a><a href="#appendix-a-sources-and-authorship">Appendix A. Sources and authorship</a><a href="#references">References</a></div></details></nav><div class="bm-main">
 <h2 id="overview">Overview</h2>
 <p>Engineering work spans material and process data, design parameters, simulation meshes, particle states and physical tests. A useful engineering AI system must work across these representations and connect prediction with the decisions that follow: understanding influential inputs, comparing designs and choosing the next simulation or experiment.</p>
 <p>Physics AI is increasingly demonstrating the value of learned models for accelerating individual simulation tasks. This report examines a broader question: <strong>can one probabilistic model family perform competitively across fundamentally different engineering and physical systems while remaining practical on workstation hardware?</strong> We test that proposition across fourteen benchmark tasks and studies in tabular learning, fluid dynamics, structural mechanics and optimization.</p>
@@ -342,12 +341,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <p>Bold type highlights DIM-GP results and selected summary findings. Error metrics are lower-is-better unless otherwise stated.</p>
 <div class="bm-chips bm-chips-sm" role="group" aria-label="Filter the scorecard by field" data-scorecard-filter>
 <button type="button" class="bm-chip" data-field="" aria-pressed="true">All<span aria-hidden="true">14</span></button>
-<button type="button" class="bm-chip" data-field="tabular" aria-pressed="false" aria-label="Tabular data, 2 benchmarks">Tabular data<span aria-hidden="true">2</span></button>
-<button type="button" class="bm-chip" data-field="particles" aria-pressed="false" aria-label="Particle fluids, 2 benchmarks">Particle fluids<span aria-hidden="true">2</span></button>
-<button type="button" class="bm-chip" data-field="solids" aria-pressed="false" aria-label="Solid mechanics, 4 benchmarks">Solid mechanics<span aria-hidden="true">4</span></button>
-<button type="button" class="bm-chip" data-field="aero" aria-pressed="false" aria-label="External aerodynamics, 2 benchmarks">External aerodynamics<span aria-hidden="true">2</span></button>
-<button type="button" class="bm-chip" data-field="turbo" aria-pressed="false" aria-label="Turbomachinery and airfoils, 3 benchmarks">Turbomachinery and airfoils<span aria-hidden="true">3</span></button>
-<button type="button" class="bm-chip" data-field="optim" aria-pressed="false" aria-label="Bayesian optimization, 1 benchmark">Bayesian optimization<span aria-hidden="true">1</span></button>
+<button type="button" class="bm-chip" data-field="tabular" aria-pressed="false" aria-label="Tabular learning, 2 benchmarks">Tabular learning<span aria-hidden="true">2</span></button>
+<button type="button" class="bm-chip" data-field="fluid" aria-pressed="false" aria-label="Fluid dynamics, 5 benchmarks">Fluid dynamics<span aria-hidden="true">5</span></button>
+<button type="button" class="bm-chip" data-field="structural" aria-pressed="false" aria-label="Structural mechanics, 4 benchmarks">Structural mechanics<span aria-hidden="true">4</span></button>
+<button type="button" class="bm-chip" data-field="particles" aria-pressed="false" aria-label="Particle dynamics, 2 benchmarks">Particle dynamics<span aria-hidden="true">2</span></button>
+<button type="button" class="bm-chip" data-field="optimization" aria-pressed="false" aria-label="Bayesian optimization, 1 benchmark">Bayesian optimization<span aria-hidden="true">1</span></button>
 </div>
 <p class="table-scroll-cue" hidden="" id="table-scroll-cue-1">Swipe or scroll horizontally to view all columns →</p><div aria-describedby="table-scroll-cue-1" aria-label="Benchmark comparison table" class="tbl" role="region" tabindex="0"><table class="sortable scorecard">
 <colgroup>
@@ -365,37 +363,37 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 </tr>
 </thead>
 <tbody>
-<tr class="odd" data-field="turbo">
+<tr class="odd" data-field="fluid">
 <td style="text-align: left;">PLAID VKI-LS59 (§13)</td>
 <td style="text-align: left;"><strong>1st</strong></td>
 <td style="text-align: left;">21 entries</td>
 <td style="text-align: left;">7.9% lower aggregate error than PXTransolver.</td>
 </tr>
-<tr class="even" data-field="solids">
+<tr class="even" data-field="structural">
 <td style="text-align: left;">PLAID Hyperelasticity (§14)</td>
 <td style="text-align: left;"><strong>1st</strong></td>
 <td style="text-align: left;">22 entries</td>
 <td style="text-align: left;">Approximately 6% lower aggregate error than PXTransolver.</td>
 </tr>
-<tr class="odd" data-field="solids">
+<tr class="odd" data-field="structural">
 <td style="text-align: left;">PLAID ElastoPlastoDynamics (§16)</td>
 <td style="text-align: left;"><strong>1st</strong></td>
 <td style="text-align: left;">8 entries</td>
 <td style="text-align: left;">Lowest errors on both displacement channels.</td>
 </tr>
-<tr class="even" data-field="solids">
+<tr class="even" data-field="structural">
 <td style="text-align: left;">PLAID Tensile2d (§15)</td>
 <td style="text-align: left;"><strong>2nd</strong></td>
 <td style="text-align: left;">22 entries</td>
 <td style="text-align: left;">Second overall at an aggregate error of 0.0007.</td>
 </tr>
-<tr class="odd" data-field="turbo">
+<tr class="odd" data-field="fluid">
 <td style="text-align: left;">PLAID Rotor37 (§12)</td>
 <td style="text-align: left;"><strong>3rd</strong></td>
 <td style="text-align: left;">16 entries</td>
 <td style="text-align: left;">Aggregate error approximately 0.00049 versus 0.00043 for the leader: a gap of about 0.00006.</td>
 </tr>
-<tr class="even" data-field="turbo">
+<tr class="even" data-field="fluid">
 <td style="text-align: left;">PLAID 2D_profile (§17)</td>
 <td style="text-align: left;"><strong>3rd</strong></td>
 <td style="text-align: left;">22 entries</td>
@@ -413,13 +411,13 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <td style="text-align: left;">29–32 methods</td>
 <td style="text-align: left;">Lowest average rank in all three published comparison fields.</td>
 </tr>
-<tr class="odd" data-field="aero">
+<tr class="odd" data-field="fluid">
 <td style="text-align: left;">AhmedML (§10)</td>
 <td style="text-align: left;"><strong>1st</strong></td>
 <td style="text-align: left;">10 methods</td>
 <td style="text-align: left;">Lowest error on all five channels; 6.7 h training.</td>
 </tr>
-<tr class="even" data-field="aero">
+<tr class="even" data-field="fluid">
 <td style="text-align: left;">DrivAerML (§11)</td>
 <td style="text-align: left;"><strong>1st</strong></td>
 <td style="text-align: left;">10 methods</td>
@@ -437,13 +435,13 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 <td style="text-align: left;">GNS</td>
 <td style="text-align: left;">Compared with published GNS mean; fewer gradient updates.</td>
 </tr>
-<tr class="odd" data-field="solids">
+<tr class="odd" data-field="structural">
 <td style="text-align: left;"><a href="https://github.com/google-deepmind/deepmind-research/tree/master/meshgraphnets">DeepMind DeformingPlate</a> (§9)</td>
 <td style="text-align: left;"><strong>2nd</strong></td>
 <td style="text-align: left;">3 methods</td>
 <td style="text-align: left;">57% lower RMSE than MeshGraphNets; M4GN reports lower RMSE.</td>
 </tr>
-<tr class="even" data-field="optim">
+<tr class="even" data-field="optimization">
 <td style="text-align: left;">Bayesian optimization (§18)</td>
 <td style="text-align: left;"><strong>1st in success count</strong></td>
 <td style="text-align: left;">6 approaches</td>
