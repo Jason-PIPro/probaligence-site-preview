@@ -170,4 +170,22 @@ boxes.forEach(box=>{
     const el=document.scrollingElement||document.documentElement;try{el.scrollTo({top:0,behavior:instant?'instant':'smooth'});}catch(_){el.scrollTop=0;}
     const m=document.getElementById('main');if(m)m.focus({preventScroll:true});});
 })();
+// --- Field chips (2026-09-21): the hero chips jump to a field's first section (a plain anchor, so
+// they work without JS) and dim the other contents entries; nothing is hidden. #field-<id> in the
+// URL preselects a field, for campaign links. The scorecard chips filter that table's rows only.
+(function(){
+  const toc=document.querySelector('.bm nav.toc'),hero=[...document.querySelectorAll('.bm-fields a[data-field]')];
+  if(toc&&hero.length){
+    const all=[...toc.querySelectorAll('a')],box=toc.querySelector('[data-toc-focus]'),lbl=toc.querySelector('[data-toc-focus-label]'),clear=toc.querySelector('[data-toc-clear]');
+    const set=f=>{all.forEach(a=>a.classList.toggle('dim',!!f&&a.dataset.field!==f));hero.forEach(a=>a.setAttribute('aria-current',a.dataset.field===f?'true':'false'));
+      if(box){box.hidden=!f;if(f&&lbl){const h=hero.find(a=>a.dataset.field===f);lbl.textContent=h?h.dataset.label:f;}}};
+    hero.forEach(a=>a.addEventListener('click',()=>set(a.dataset.field)));
+    if(clear)clear.addEventListener('click',()=>set(''));
+    const m=/^#field-([a-z]+)$/.exec(location.hash),h=m&&hero.find(a=>a.dataset.field===m[1]);
+    if(h){set(h.dataset.field);const t=document.getElementById(h.getAttribute('href').slice(1));if(t)t.scrollIntoView({block:'start'});}
+  }
+  const sc=document.querySelector('[data-scorecard-filter]'),table=document.querySelector('table.scorecard');
+  if(sc&&table){const rows=[...table.querySelectorAll('tbody tr')],chips=[...sc.querySelectorAll('button')];
+    chips.forEach(b=>b.addEventListener('click',()=>{const f=b.dataset.field;chips.forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));rows.forEach(r=>{r.hidden=!!f&&r.dataset.field!==f;});}));}
+})();
 })();

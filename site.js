@@ -472,6 +472,7 @@
         name: val("name"),
         email: val("email"),
         company: val("company"),
+        position: val("position"),
         area: val("area"),
         message: val("message"),
         url: location.href.split("#")[0].slice(0, 200)
