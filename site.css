@@ -22,28 +22,70 @@
 }
 /* Bare landing header (Jason's call, 2026-08-04). On a page that opens with a
    full-bleed hero the nav competes with the footage, so at the top only the brand
-   shows. Everything else fades in on the first scroll, reusing the .scrolled class
-   the sticky header already toggles: no new scroll listener, and the chrome and the
+   shows. The links fade in on the first scroll, reusing the .scrolled class the
+   sticky header already toggles: no new scroll listener, and the chrome and the
    backdrop arrive together instead of in two beats.
    Opt in per page with data-nav-reveal on the header, so pages without a hero keep
    their nav from the first paint.
    The links are transparent, not hidden, so they still take focus: tabbing into the
    nav fires :focus-within and the bar is visible before the focus ring lands. Scoped
-   to .nav rather than the header so the skip link does not drag the nav in with it. */
-.site-header[data-nav-reveal] .nav,
-.site-header[data-nav-reveal] .nav-toggle{
+   to .nav rather than the header so the skip link does not drag the nav in with it.
+   The hamburger is exempt (Jason's call, 2026-09-22): a phone visitor has no other
+   way into the site, so it shows from the first paint. */
+.site-header[data-nav-reveal] .nav{
   opacity:0;pointer-events:none;transform:translateY(-4px);
-  transition:opacity .34s ease,transform .34s ease}
+  transition:opacity .2s ease,transform .2s ease}
 .site-header[data-nav-reveal].scrolled .nav,
-.site-header[data-nav-reveal].scrolled .nav-toggle,
-.site-header[data-nav-reveal] .nav:focus-within,
-.site-header[data-nav-reveal] .nav-toggle:focus,
-.site-header[data-nav-reveal] .nav-toggle[aria-expanded="true"]{
-  opacity:1;pointer-events:auto;transform:none}
+.site-header[data-nav-reveal] .nav:focus-within{
+  opacity:1;pointer-events:auto;transform:none;
+  transition:opacity .34s ease,transform .34s ease}
+/* With a partner badge in the row the nav waits .2s, until the badge has faded and
+   given its width back (see .brand-partner): the row is 2px from full at 1440px, so
+   the two cannot share it, and a crossfade would show the nav sliding in sideways. */
+.site-header[data-nav-reveal]:has(.brand-partner).scrolled .nav,
+.site-header[data-nav-reveal]:has(.brand-partner) .nav:focus-within{transition-delay:.2s}
 @media (prefers-reduced-motion:reduce){
   .site-header[data-nav-reveal] .nav,
-  .site-header[data-nav-reveal] .nav-toggle{transition:none;transform:none}
+  .site-header[data-nav-reveal].scrolled .nav{transition:none;transform:none}
 }
+/* Partner badge beside the brand (Jason's call, 2026-09-22): the Ansys Technology
+   Partner mark sits next to the PI logo at the top of the page and leaves on the
+   first scroll, the mirror image of the nav reveal. Sequence on scroll: the badge
+   fades over .2s, then collapses to zero width (max-width plus a negative margin
+   that eats the row gap) at the moment the still invisible nav starts its fade, so
+   nothing visible moves sideways and the scrolled header is laid out exactly as it
+   was before the badge existed. Scrolling back reverses the order. visibility drops
+   the badge from the accessibility tree once hidden; the footer repeats it. */
+.brand-partner{display:flex;align-items:center;gap:14px;flex:none;margin-right:auto;
+  max-width:200px;overflow:hidden;
+  transition:opacity .2s ease .2s,transform .2s ease .2s,max-width 0s linear .2s,margin-left 0s linear .2s,visibility 0s linear .2s}
+.brand-partner-sep{width:1px;height:26px;background:rgba(255,255,255,.18);flex:none}
+.brand-partner img{height:34px;width:auto;display:block;flex:none}
+.site-header.scrolled .brand-partner{
+  opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-4px);
+  max-width:0;margin-left:-24px;
+  transition:opacity .2s ease,transform .2s ease,max-width 0s linear .2s,margin-left 0s linear .2s,visibility 0s linear .2s}
+/* A keyboard reveal of the nav at scroll 0 gets the same treatment, so the nav and
+   the badge never share the row. Its own rule: a browser without :has() drops the
+   whole rule, and this way it drops only this one. */
+.site-header[data-nav-reveal]:has(.nav:focus-within) .brand-partner{
+  opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-4px);
+  max-width:0;margin-left:-24px;
+  transition:opacity .2s ease,transform .2s ease,max-width 0s linear .2s,margin-left 0s linear .2s,visibility 0s linear .2s}
+@media (prefers-reduced-motion:reduce){
+  .brand-partner,.site-header.scrolled .brand-partner{transition:none;transform:none}
+}
+/* Below 640px the brand (173px), the hamburger (44px), the row padding and two row
+   gaps leave the badge what is left of the width: 30px tall from 412px up, shrinking
+   with the viewport under that (3.934 is the badge's own aspect ratio), and gone
+   under 400px, where it would be under 28px tall and the Ansys wordmark stops reading. */
+@media (max-width:640px){
+  .site-header:has(.brand-partner) .nav-inner{gap:12px}
+  .brand-partner-sep{display:none}
+  .brand-partner img{height:min(30px,(100vw - 289px)/3.934)}
+  .site-header.scrolled .brand-partner{margin-left:-12px}
+}
+@media (max-width:399px){.brand-partner{display:none}}
 /* A keyboard reveal at scroll 0 puts the links straight onto the footage with no
    backdrop behind them, which on a bright frame leaves About and the ghost CTA
    unreadable. Borrow the scrolled treatment for that case. */
