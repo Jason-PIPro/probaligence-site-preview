@@ -87,6 +87,57 @@
     });
   }
 
+  /* ---------- landing burger: opens the nav without scrolling ----------
+     Only on a data-nav-reveal page, from 961px up (Jason's call, 2026-10-06).
+     .nav-open stands in for .scrolled in the reveal CSS. The burger hides once
+     the bar shows, so a keyboard opening moves focus on to the first link rather
+     than losing it. A mouse opening leaves focus alone: a link holding focus
+     keeps the bar shown through :focus-within, so the top would not go bare
+     again after a scroll down and back.
+     The bar closes on Escape, on a click or a Tab out of the header, once the
+     page scrolls (.scrolled takes over from there), and when the window narrows
+     to the phone layout, which has its own hamburger. */
+  (function () {
+    var reveal = header && header.querySelector(".nav-reveal");
+    var nav = header && header.querySelector(".nav");
+    if (!reveal || !nav) return;
+    // shipped hidden, so it only shows where this code runs (see site.css)
+    reveal.hidden = false;
+    function setOpen(open) {
+      header.classList.toggle("nav-open", open);
+      reveal.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    function isOpen() { return header.classList.contains("nav-open"); }
+    reveal.addEventListener("click", function (e) {
+      setOpen(true);
+      if (e.detail !== 0) return;  // 0: Enter or Space, not a pointer
+      var first = nav.querySelector("a[href], button");
+      if (first) first.focus({ preventScroll: true });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape" || e.defaultPrevented || !isOpen()) return;
+      setOpen(false);
+      // the nav stays shown while it holds focus, so blur it before handing
+      // focus back to the burger
+      if (nav.contains(document.activeElement)) document.activeElement.blur();
+      reveal.focus();
+    });
+    document.addEventListener("click", function (e) {
+      if (isOpen() && !header.contains(e.target)) setOpen(false);
+    });
+    // a null relatedTarget is a click on bare page, which the handler above owns
+    header.addEventListener("focusout", function (e) {
+      if (isOpen() && e.relatedTarget && !header.contains(e.relatedTarget)) setOpen(false);
+    });
+    window.addEventListener("scroll", function () {
+      if (isOpen() && window.scrollY > 8) setOpen(false);
+    }, { passive: true });
+    var wide = window.matchMedia("(min-width: 961px)");
+    var onWidth = function () { if (!wide.matches && isOpen()) setOpen(false); };
+    if (wide.addEventListener) wide.addEventListener("change", onWidth);
+    else if (wide.addListener) wide.addListener(onWidth);
+  })();
+
   /* ---------- desktop dropdowns: click to toggle (touch), Escape, outside-click ---------- */
   var groups = Array.prototype.slice.call(document.querySelectorAll(".site-header .has-menu"));
   groups.forEach(function (group) {

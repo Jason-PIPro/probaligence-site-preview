@@ -14,11 +14,12 @@
 .site-header{position:fixed;top:0;left:0;right:0;z-index:40;
   background:transparent;border-bottom:1px solid transparent;
   transition:background .3s, border-color .3s, backdrop-filter .3s}
-.site-header.scrolled{background:rgba(6,6,7,.78);
+.site-header.scrolled,
+.site-header.nav-open{background:rgba(6,6,7,.78);
   border-bottom:1px solid rgba(255,255,255,.08);
   -webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .site-header.scrolled{background:rgba(6,6,7,.97)}
+  .site-header.scrolled,.site-header.nav-open{background:rgba(6,6,7,.97)}
 }
 /* Bare landing header (Jason's call, 2026-08-04). On a page that opens with a
    full-bleed hero the nav competes with the footage, so at the top only the brand
@@ -31,11 +32,14 @@
    nav fires :focus-within and the bar is visible before the focus ring lands. Scoped
    to .nav rather than the header so the skip link does not drag the nav in with it.
    The hamburger is exempt (Jason's call, 2026-09-22): a phone visitor has no other
-   way into the site, so it shows from the first paint. */
+   way into the site, so it shows from the first paint. On wider screens a burger
+   opens the bar without scrolling (Jason's call, 2026-10-06): site.js sets .nav-open,
+   which every reveal rule here treats exactly like .scrolled. See .nav-reveal below. */
 .site-header[data-nav-reveal] .nav{
   opacity:0;pointer-events:none;transform:translateY(-4px);
   transition:opacity .2s ease,transform .2s ease}
 .site-header[data-nav-reveal].scrolled .nav,
+.site-header[data-nav-reveal].nav-open .nav,
 .site-header[data-nav-reveal] .nav:focus-within{
   opacity:1;pointer-events:auto;transform:none;
   transition:opacity .34s ease,transform .34s ease}
@@ -43,10 +47,12 @@
    given its width back (see .brand-partner): the row is 2px from full at 1440px, so
    the two cannot share it, and a crossfade would show the nav sliding in sideways. */
 .site-header[data-nav-reveal]:has(.brand-partner).scrolled .nav,
+.site-header[data-nav-reveal]:has(.brand-partner).nav-open .nav,
 .site-header[data-nav-reveal]:has(.brand-partner) .nav:focus-within{transition-delay:.2s}
 @media (prefers-reduced-motion:reduce){
   .site-header[data-nav-reveal] .nav,
-  .site-header[data-nav-reveal].scrolled .nav{transition:none;transform:none}
+  .site-header[data-nav-reveal].scrolled .nav,
+  .site-header[data-nav-reveal].nav-open .nav{transition:none;transform:none}
 }
 /* Partner badge beside the brand (Jason's call, 2026-09-22): the Ansys Technology
    Partner mark sits next to the PI logo at the top of the page and leaves on the
@@ -61,7 +67,8 @@
   transition:opacity .2s ease .2s,transform .2s ease .2s,max-width 0s linear .2s,margin-left 0s linear .2s,visibility 0s linear .2s}
 .brand-partner-sep{width:1px;height:26px;background:rgba(255,255,255,.18);flex:none}
 .brand-partner img{height:34px;width:auto;display:block;flex:none}
-.site-header.scrolled .brand-partner{
+.site-header.scrolled .brand-partner,
+.site-header.nav-open .brand-partner{
   opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-4px);
   max-width:0;margin-left:-24px;
   transition:opacity .2s ease,transform .2s ease,max-width 0s linear .2s,margin-left 0s linear .2s,visibility 0s linear .2s}
@@ -73,7 +80,7 @@
   max-width:0;margin-left:-24px;
   transition:opacity .2s ease,transform .2s ease,max-width 0s linear .2s,margin-left 0s linear .2s,visibility 0s linear .2s}
 @media (prefers-reduced-motion:reduce){
-  .brand-partner,.site-header.scrolled .brand-partner{transition:none;transform:none}
+  .brand-partner,.site-header.scrolled .brand-partner,.site-header.nav-open .brand-partner{transition:none;transform:none}
 }
 /* Below 640px the brand (173px), the hamburger (44px), the row padding and two row
    gaps leave the badge what is left of the width: 30px tall from 412px up, shrinking
@@ -95,6 +102,45 @@
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .site-header[data-nav-reveal]:focus-within{background:rgba(6,6,7,.97)}
 }
+/* Burger for the bare landing header (Jason's call, 2026-10-06): at the top a desktop
+   visitor had no visible menu until the first scroll. A click sets .nav-open, which
+   opens the same bar the scroll does. The burger sits where the nav ends and leaves as
+   the nav arrives: the open row has 2px of slack at 1440px, so there is no room for a
+   close control, and Escape, a click outside the header or a scroll close it instead.
+   It comes back .2s after the nav goes, like the badge, but its visibility flips at
+   once so Escape can hand it focus. Under 961px the .nav-toggle hamburger already does
+   this job. The page ships it with the hidden attribute and site.js lifts that, so
+   without JS, or with an older site.css still cached (CSS caches for a month, HTML for
+   an hour), the header stays as it was instead of showing a dead or unstyled button. */
+.nav-reveal{display:none}
+@media (min-width:961px){
+  .site-header[data-nav-reveal] .nav-inner{position:relative}
+  /* A plate, not bare lines: the header has no backdrop at the top, and bare white
+     lines measured 2.63:1 against the hero's brightest frame at 1440px (2.41:1 at
+     1024px), under the 3:1 a control needs; a dark halo on the lines only reached
+     2.70:1. The plate is the hero pause control's treatment (8.91:1 at 1024px, the
+     worst width), sized close to the Request a Demo button that takes its place. */
+  .nav-reveal{position:absolute;top:15px;right:24px;z-index:1;display:flex;
+    width:38px;height:38px;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    padding:0;background:rgba(6,6,7,.6);border:1px solid rgba(255,255,255,.2);border-radius:2px;cursor:pointer;
+    transition:opacity .2s ease .2s,transform .2s ease .2s,border-color .15s}
+  .nav-reveal[hidden]{display:none}
+  .nav-reveal span{width:18px;height:1.6px;background:var(--text);display:block;transition:background .15s}
+  .nav-reveal:hover{border-color:rgba(255,176,6,.5)}
+  .nav-reveal:hover span{background:var(--amber)}
+  .site-header.scrolled .nav-reveal,
+  .site-header.nav-open .nav-reveal{
+    opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-4px);
+    transition:opacity .2s ease,transform .2s ease,visibility 0s linear .2s}
+}
+/* A keyboard reveal (focus inside the nav) hides it too. Its own rule, so a browser
+   without :has() drops only this one. */
+@media (min-width:961px){
+  .site-header:has(.nav:focus-within) .nav-reveal{
+    opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-4px);
+    transition:opacity .2s ease,transform .2s ease,visibility 0s linear .2s}
+}
+@media (prefers-reduced-motion:reduce){.nav-reveal{transition:none!important;transform:none!important}}
 .nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:68px;
   display:flex;align-items:center;justify-content:space-between;gap:24px}
 .skip-link{position:absolute;left:16px;top:-60px;background:var(--amber);color:#000;
