@@ -1,0 +1,274 @@
+WEBVTT
+
+00:00:02.450 --> 00:00:05.420
+Imagine you're developing
+a new protective coating.
+
+00:00:05.440 --> 00:00:07.180
+It needs to resist corrosion,
+
+00:00:07.200 --> 00:00:10.450
+have the right surface finish,
+and remain affordable.
+
+00:00:10.470 --> 00:00:13.460
+But with different binders,
+pigments, and additives,
+
+00:00:13.480 --> 00:00:17.440
+the number of possible combinations
+quickly becomes enormous.
+
+00:00:17.460 --> 00:00:22.090
+You also need to choose the mixing
+speed, temperature, and drying time.
+
+00:00:22.510 --> 00:00:25.470
+So which formulation should you test next?
+
+00:00:26.090 --> 00:00:29.510
+A fixed design of experiments
+gives you a structured plan.
+
+00:00:29.530 --> 00:00:33.110
+But that plan is decided before
+the first results arrive.
+
+00:00:33.130 --> 00:00:37.470
+What if every new measurement could help
+you choose a better next experiment?
+
+00:00:37.490 --> 00:00:41.400
+That's the idea behind
+AI-enhanced design of experiments.
+
+00:00:41.420 --> 00:00:44.500
+Instead of following a fixed
+plan, we use machine learning
+
+00:00:44.520 --> 00:00:47.460
+to make each new decision more informed.
+
+00:00:47.480 --> 00:00:49.480
+Here's how it works with STOCHOS.
+
+00:00:49.500 --> 00:00:53.020
+We start with the data you already
+have: previous development results
+
+00:00:53.240 --> 00:00:57.870
+or a small initial set of experiments,
+including ingredient concentrations,
+
+00:00:57.890 --> 00:01:01.100
+process settings,
+and measured coating properties.
+
+00:01:01.120 --> 00:01:04.549
+From these measurements, machine
+learning builds a surrogate model.
+
+00:01:04.569 --> 00:01:07.630
+It learns how the inputs relate
+to the coating's properties,
+
+00:01:07.650 --> 00:01:10.260
+including complex
+interactions between them.
+
+00:01:10.280 --> 00:01:12.280
+The effect of an additive, for example,
+
+00:01:12.300 --> 00:01:15.306
+may depend on the binder
+or processing temperature.
+
+00:01:15.326 --> 00:01:18.540
+The model can then predict how
+untested combinations are likely
+
+00:01:18.560 --> 00:01:22.120
+to perform, without producing
+and measuring every one.
+
+00:01:22.140 --> 00:01:24.321
+But predictions alone aren't enough.
+
+00:01:24.341 --> 00:01:27.300
+It also estimates uncertainty,
+revealing which predictions
+
+00:01:27.320 --> 00:01:30.750
+are well supported and where
+there is still more to learn.
+
+00:01:30.770 --> 00:01:34.520
+Now we define our goals:
+maximize corrosion protection,
+
+00:01:34.540 --> 00:01:38.600
+minimize material cost,
+and achieve a specific gloss level.
+
+00:01:38.620 --> 00:01:40.680
+We also have practical constraints, such
+
+00:01:40.700 --> 00:01:44.120
+as viscosity limits
+and ingredient concentrations.
+
+00:01:44.140 --> 00:01:48.350
+These requirements can conflict,
+so we're looking for the best balance.
+
+00:01:48.370 --> 00:01:51.250
+This is where Bayesian
+optimization comes in.
+
+00:01:51.270 --> 00:01:55.960
+The best predicted formulation isn't
+necessarily the best next experiment.
+
+00:01:56.301 --> 00:01:58.240
+A less certain combination could offer
+
+00:01:58.260 --> 00:02:01.060
+an even greater opportunity
+for improvement.
+
+00:02:01.080 --> 00:02:05.410
+Bayesian optimization uses the model's
+predictions and uncertainty to propose a
+
+00:02:05.430 --> 00:02:10.430
+promising next experiment, considering
+our objectives and constraints together.
+
+00:02:10.450 --> 00:02:13.890
+And because the model has learned
+relationships across the inputs,
+
+00:02:13.910 --> 00:02:17.920
+it can change several ingredients
+and process parameters at once.
+
+00:02:17.940 --> 00:02:22.560
+We mix the suggested formulation,
+test it, and measure the results.
+
+00:02:22.580 --> 00:02:25.330
+And every result teaches
+the model something new,
+
+00:02:25.350 --> 00:02:28.910
+or confirms its predictions
+and lowers its uncertainty.
+
+00:02:29.641 --> 00:02:32.011
+That measurement goes back into our data.
+
+00:02:32.031 --> 00:02:35.171
+The surrogate model updates
+its predictions and uncertainty,
+
+00:02:35.191 --> 00:02:38.061
+and the optimizer selects
+the next experiment.
+
+00:02:38.081 --> 00:02:41.211
+Test, measure, learn, repeat.
+
+00:02:41.831 --> 00:02:45.371
+Each new result influences
+where the search goes next.
+
+00:02:45.391 --> 00:02:49.531
+Instead of following a fixed sequence,
+we can concentrate experimental effort
+
+00:02:49.551 --> 00:02:53.161
+on combinations with the greatest
+potential for improvement.
+
+00:02:53.181 --> 00:02:56.931
+And the knowledge gained is useful
+beyond the optimization itself.
+
+00:02:56.951 --> 00:03:00.191
+Through sensitivity analysis,
+we can explore which ingredients
+
+00:03:00.211 --> 00:03:02.660
+and process settings have
+the greatest influence
+
+00:03:02.680 --> 00:03:05.939
+on the results, helping us
+understand the process better.
+
+00:03:05.959 --> 00:03:09.071
+In suitable applications,
+this approach can reduce the number
+
+00:03:09.091 --> 00:03:12.930
+of physical experiments needed
+to reach promising formulations.
+
+00:03:12.950 --> 00:03:16.150
+Fewer tests mean less
+material consumption,
+
+00:03:16.170 --> 00:03:20.230
+fewer samples to prepare
+and measure, and lower costs.
+
+00:03:20.250 --> 00:03:25.121
+They can also free up laboratory
+capacity and shorten development cycles.
+
+00:03:25.141 --> 00:03:29.971
+With STOCHOS Flow, these steps become
+a configurable, repeatable workflow.
+
+00:03:29.991 --> 00:03:34.331
+You can connect existing tools,
+automate data handling and model updates,
+
+00:03:34.351 --> 00:03:38.361
+and document experiments and optimization
+progress for later review.
+
+00:03:38.381 --> 00:03:42.781
+All of this runs locally on your own
+hardware, using your experimental,
+
+00:03:42.801 --> 00:03:46.061
+process, and, where relevant,
+simulation data.
+
+00:03:46.081 --> 00:03:49.601
+The optimization can run without
+an internet connection, helping keep
+
+00:03:49.621 --> 00:03:53.981
+proprietary formulations and development
+knowledge within your own environment.
+
+00:03:54.001 --> 00:03:56.909
+The goal is to make better-informed
+development decisions
+
+00:03:56.929 --> 00:04:00.941
+with the data you already have
+and the experiments you can afford.
+
+00:04:00.961 --> 00:04:04.921
+That's AI-enhanced design
+of experiments with STOCHOS.
+
+00:04:04.941 --> 00:04:07.731
+Discover what STOCHOS can
+do with your own data.
+
+00:04:07.751 --> 00:04:10.981
+Request a demo at probaligence.com.

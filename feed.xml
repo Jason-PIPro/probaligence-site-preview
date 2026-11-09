@@ -7,7 +7,21 @@
 <description>Company news and evergreen guides on surrogate modeling, coating development, and chemical process scale-up, written to explain the methods plainly.</description>
 <language>en</language>
 <atom:link href="https://probaligence.com/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Wed, 19 Aug 2026 12:00:00 +0000</lastBuildDate>
+<lastBuildDate>Mon, 26 Oct 2026 12:00:00 +0000</lastBuildDate>
+<item>
+<title>CADFEM World Conference 2026: what we take home from Darmstadt</title>
+<link>https://probaligence.com/news/cadfem-world-conference-2026/</link>
+<guid isPermaLink="true">https://probaligence.com/news/cadfem-world-conference-2026/</guid>
+<pubDate>Mon, 26 Oct 2026 12:00:00 +0000</pubDate>
+<description>PI Probaligence at the first CADFEM World Conference: STOCHOS in the opening keynote and in two industry talks, an AI deep dive, and where engineering is heading.</description>
+</item>
+<item>
+<title>STOCHOS Flow 1.3.0: a new agent core and Export as App</title>
+<link>https://probaligence.com/news/stochos-flow-1-3-0-released/</link>
+<guid isPermaLink="true">https://probaligence.com/news/stochos-flow-1-3-0-released/</guid>
+<pubDate>Thu, 15 Oct 2026 12:00:00 +0000</pubDate>
+<description>STOCHOS Flow 1.3.0: AI agents that check and fix their own work, Export as App for standalone apps, a new look and several hundred fixes.</description>
+</item>
 <item>
 <title>Kevin Cremanns co-authors new book on AI in product development</title>
 <link>https://probaligence.com/news/ai-in-product-development-book/</link>

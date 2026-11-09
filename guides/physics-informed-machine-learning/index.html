@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+
+<title>Physics-Informed Machine Learning | PI Probaligence</title><meta name="description" content="Physics-informed machine learning gives a model the physics you already know, so it stays plausible where the data ends. How it works, and where PINNs fit."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/guides/physics-informed-machine-learning/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Physics-Informed Machine Learning | PI Probaligence"><meta property="og:description" content="Physics-informed machine learning gives a model the physics you already know, so it stays plausible where the data ends. How it works, and where PINNs fit."><meta property="og:url" content="https://probaligence.com/guides/physics-informed-machine-learning/"><meta property="og:image" content="https://probaligence.com/assets/guides/physics-informed-machine-learning-og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Put the physics you already know into the model","description":"Physics-informed machine learning gives a model the physics you already know, as data, a baseline it corrects, or conditions on its predictions, so it has less to learn from data and stays plausible where the data ends.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-10-14","dateModified":"2026-10-14","mainEntityOfPage":"https://probaligence.com/guides/physics-informed-machine-learning/","inLanguage":"en","image":["https://probaligence.com/assets/media/physics-informed-drag-example.webp"]}</script><script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"News and Guides","item":"https://probaligence.com/news/"},{"@type":"ListItem","position":3,"name":"Put the physics you already know into the model","item":"https://probaligence.com/guides/physics-informed-machine-learning/"}]}
+</script><style>
+@font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-600.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:#FFB006;color:#000}
+h1,h2,h3,h4,p,ul,ol{margin:0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style><noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript><style>
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
+</style>
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/probaligence-site-preview/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/probaligence-site-preview/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#060607">
+<noscript><style>@media(max-width:960px){.nav-toggle{display:none}.mobile-panel{max-height:none!important;opacity:1!important;overflow:visible!important;border-bottom:1px solid rgba(255,255,255,.08)}}[data-uc-body]{max-height:none!important;opacity:1!important;display:block!important}</style></noscript>
+<style id="fqq-css">
+.fqq-wrap{max-width:760px;margin:0 auto}
+.fqq-title{font:600 clamp(18px,2vw,20px)/1.2 'Space Grotesk',sans-serif;letter-spacing:-.01em;color:#F4F3EF;margin:0 0 14px}
+.fqq .fq{border-top:1px solid rgba(255,255,255,.09);transition:background .2s}
+.fqq .fq:last-of-type{border-bottom:1px solid rgba(255,255,255,.09)}
+.fqq .fq[open]{background:rgba(255,176,6,.03)}
+.fqq .fq summary{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:baseline;padding:15px 6px;cursor:pointer;list-style:none}
+.fqq .fq summary::-webkit-details-marker{display:none}
+.fqq .fq .ix{font:500 11px/1 'IBM Plex Mono',monospace;color:#FFB006;opacity:.85}
+.fqq .fq .q{font:500 15.5px/1.4 'Space Grotesk',sans-serif;letter-spacing:-.008em;color:#E9E8E3}
+.fqq .fq .plus{font:500 16px/1 'IBM Plex Mono',monospace;color:#FFB006;transition:transform .28s cubic-bezier(.22,1,.3,1);align-self:center}
+.fqq .fq[open] .plus{transform:rotate(45deg)}
+.fqq .fq .aw{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s cubic-bezier(.22,1,.3,1)}
+.fqq .fq[open] .aw{grid-template-rows:1fr}
+.fqq .fq .aw>div{overflow:hidden}
+.fqq .fq .ab{padding:0 6px 18px 46px}
+.fqq .fq .ab p{margin:0 0 10px;color:#9C9C96;font-size:14px;line-height:1.7;max-width:62ch}
+.fqq .fq .ab p:last-child{margin-bottom:0}
+@media (max-width:560px){.fqq .fq summary{grid-template-columns:26px 1fr auto}.fqq .fq .ab{padding-left:38px}}
+@media (prefers-reduced-motion:reduce){.fqq .fq .aw,.fqq .fq .plus{transition:none}}
+</style>
+<style id="pim-css">.pim-scroll-cue{display:none}@media (max-width:687px){.pim-scroll-cue{display:block}}</style>
+</head>
+<body>
+<header class="site-header" role="banner">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="nav-inner">
+    <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
+      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+    </a>
+    <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-link" href="/probaligence-site-preview/stochos/">STOCHOS</a>
+      <a class="nav-link" href="/probaligence-site-preview/stochos-flow/">STOCHOS&nbsp;Flow</a>
+      <div class="has-menu">
+        <button type="button" class="nav-link nav-trigger" aria-expanded="false">Solutions <span class="caret" aria-hidden="true">&#9662;</span></button>
+        <div class="submenu">
+          <a href="/probaligence-site-preview/ai-for-engineering/"><b>AI for Engineering</b><span>Accelerate CFD, FEM, and CAE</span></a>
+          <a href="/probaligence-site-preview/paint-coating/"><b>AI for Paint and Coatings</b><span>Target formulation, fewer trials</span></a>
+          <a href="/probaligence-site-preview/ai-for-chemical-process-optimization/"><b>AI for Chemical R&amp;D</b><span>Smarter experiments and scale-up</span></a>
+        </div>
+      </div>
+      <div class="has-menu">
+        <button type="button" class="nav-link nav-trigger" aria-expanded="false">Science <span class="caret" aria-hidden="true">&#9662;</span></button>
+        <div class="submenu">
+          <a href="/probaligence-site-preview/science/"><b>Science overview</b></a>
+          <a href="/probaligence-site-preview/how-stochos-works/"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
+          <a href="/probaligence-site-preview/science/benchmarks/"><b>Benchmarks</b><span>DIM-GP on 14 public tasks</span></a>
+          <div class="sep"></div>
+          <a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a>
+          <a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a>
+          <a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+          <a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a>
+          <a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
+          <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
+        </div>
+      </div>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
+      <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
+      <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
+      <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
+    </nav>
+  </div>
+  <div class="mobile-panel" id="mobile-nav">
+    <nav aria-label="Mobile">
+      <a class="m-item" href="/probaligence-site-preview/stochos/">STOCHOS</a>
+      <a class="m-item" href="/probaligence-site-preview/stochos-flow/">STOCHOS Flow</a>
+      <div class="m-label">Solutions</div>
+      <a class="m-sub" href="/probaligence-site-preview/ai-for-engineering/">AI for Engineering</a>
+      <a class="m-sub" href="/probaligence-site-preview/paint-coating/">AI for Paint and Coatings</a>
+      <a class="m-sub" href="/probaligence-site-preview/ai-for-chemical-process-optimization/">AI for Chemical R&amp;D</a>
+      <div class="m-label">Science</div>
+      <a class="m-sub" href="/probaligence-site-preview/science/">Science overview</a>
+      <a class="m-sub" href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a>
+      <a class="m-sub" href="/probaligence-site-preview/science/benchmarks/">Benchmarks</a>
+      <a class="m-sub" href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a>
+      <a class="m-sub" href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a>
+      <a class="m-sub" href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+      <a class="m-sub" href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a>
+      <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
+      <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
+      <div class="m-sep"></div>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
+      <a class="m-item" href="/probaligence-site-preview/about/">About</a>
+      <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
+      <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
+    </nav>
+  </div>
+</header>
+<main id="main" tabindex="-1" style="display: block;">
+
+  <section data-hero-in style="position: relative; padding: 124px 24px 72px; overflow: hidden;">
+    <div aria-hidden="true" style="position: absolute; top: -18%; left: -8%; width: 720px; height: 560px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.09), transparent 66%); pointer-events: none;"></div>
+    <div style="max-width: 1000px; margin: 0px auto; position: relative; z-index: 1;">
+      <nav aria-label="Breadcrumb" style="font: 400 13px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); margin-bottom: 40px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <a href="/probaligence-site-preview/news/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">News and Guides</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">Put the physics you already know into the model</span></nav>
+      <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Guide</div>
+      <h1 style="font: 700 clamp(36px, 5.4vw, 62px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 17ch;">Put <span style="color: rgb(255, 176, 6);">the physics you already know</span> into the model</h1>
+      <p data-hero="" style="margin-top: 26px; color: rgb(184, 184, 178); font-size: clamp(17px, 1.6vw, 20px); line-height: 1.6; max-width: 62ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Physics-informed machine learning trains a model on data and also gives it the physics you already know, from a governing equation to a limit the result must respect. The data then only has to teach what the physics does not explain, and predictions stay plausible where the data runs out.</p>
+      <p data-hero="" style="margin-top: 16px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">A full equation is optional: a trend that cannot reverse, or a coarse model of the system, is enough to start.</p>
+      <div data-hero="" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">
+        <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
+        <a href="/probaligence-site-preview/surrogate-modeling/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 15px 26px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Surrogate Modeling</a>
+      </div>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1060px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The gap</div>
+      <h2 id="where-the-data-ends-a-data-only-model-has-nothing-to-go-on" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Where the data ends, a data-only model has nothing to go on</h2>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">A model trained only on data knows nothing past the last measured point. Each piece of physics you add tells it something about that region.</p>
+      <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">Illustrative example: six drag measurements up to 24 m/s, and the question is the drag at 35 m/s, where nobody measured.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 18px; margin-top: 44px; align-items: stretch;">
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 28px 24px; background: rgba(255, 255, 255, 0.02);">
+          <div style="display: flex; align-items: baseline; gap: 10px;">
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">01</span>
+          </div>
+          <h3 id="data-only" style="margin-top: 16px; font: 600 20px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Data only</h3>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Between the points the fit is fine. Beyond them, a probabilistic model drifts back toward the average of the data and its uncertainty band widens sharply. Honest, but no use for the question.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 28px 24px; background: rgba(255, 255, 255, 0.02);">
+          <div style="display: flex; align-items: baseline; gap: 10px;">
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">02</span>
+          </div>
+          <h3 id="add-what-you-know-for-sure" style="margin-top: 16px; font: 600 20px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Add what you know for sure</h3>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Drag never decreases with speed and is never negative. Tell the model, and predictions that break either rule are removed: the curve stops falling beyond the data. How fast it rises is still open.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 28px 24px; background: rgba(255, 255, 255, 0.02);">
+          <div style="display: flex; align-items: baseline; gap: 10px;">
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">03</span>
+          </div>
+          <h3 id="add-the-equation-you-know" style="margin-top: 16px; font: 600 20px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Add the equation you know</h3>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Drag grows with the square of speed: F = ½ ρ c<sub>d</sub> A v². Not exact, because the drag coefficient c<sub>d</sub> is not constant, but the shape is right.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 176, 6, 0.35); border-radius: 6px; padding: 28px 24px; background: rgba(255, 176, 6, 0.05);">
+          <div style="display: flex; align-items: baseline; gap: 10px;">
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">04</span>
+          </div>
+          <h3 id="model-plus-equation" style="margin-top: 16px; font: 600 20px / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Model plus equation</h3>
+          <p style="margin-top: 10px; color: rgb(184, 184, 178); font-size: 15px; line-height: 1.65;">The law becomes the model's prior, and the model learns only the deviation from it. Outside the data, the prediction follows the law instead of the average. Inside, the measurements still correct the law.</p>
+        </div>
+      </div>
+      <figure style="margin: 40px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 8px; padding: 14px; background: rgb(0, 0, 0);"><img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/physics-informed-drag-example.webp" width="1280" height="720" alt="Illustrative chart of drag force over speed. Six measurements stop at 24 m/s. Beyond them, a model from the data alone falls back toward the data average, while a model with the physics law as its prior follows the law. Both carry an uncertainty band." style="display: block; width: 100%; height: auto; border-radius: 3px;"><figcaption style="margin: 12px 4px 0px; color: rgb(150, 150, 144); font: 400 13px / 1.55 &quot;IBM Plex Mono&quot;, monospace;">Illustrative example, drawn with standard Gaussian-process math rather than a STOCHOS run. From the data alone, the prediction falls back to the average beyond the last measurement. With the law as prior, it follows the physics.</figcaption></figure>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1060px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The options</div>
+      <h2 id="five-places-physics-can-enter-a-model" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Five places physics can enter a model</h2>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Physics can reach a model through its data, a baseline it corrects, conditions on its predictions, its design, or its training loss. Which one fits depends on what you know.</p>
+      <div tabindex="0" role="region" aria-label="Five places physics can enter a model" style="margin-top: 40px; overflow-x: auto; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px;">
+        <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 15px; line-height: 1.55;">
+          <thead>
+            <tr><th scope="col" style="text-align: left; padding: 14px 18px; font: 500 11.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); border-bottom: 1px solid rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.02);">Where the physics enters</th><th scope="col" style="text-align: left; padding: 14px 18px; font: 500 11.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); border-bottom: 1px solid rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.02);">What you give the model</th><th scope="col" style="text-align: left; padding: 14px 18px; font: 500 11.5px / 1.4 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255, 176, 6); border-bottom: 1px solid rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.02);">Example</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row" style="text-align: left; padding: 14px 18px; vertical-align: top; color: rgb(244, 243, 239); font-weight: 500; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">The data</th><td style="padding: 14px 18px; vertical-align: top; color: rgb(184, 184, 178); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">Simulation results at more than one fidelity, test or sensor data</td><td style="padding: 14px 18px; vertical-align: top; color: rgb(156, 156, 150); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">A coarse and a fine mesh in one model; a full field from a few sensors</td></tr>
+            <tr><th scope="row" style="text-align: left; padding: 14px 18px; vertical-align: top; color: rgb(244, 243, 239); font-weight: 500; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">A baseline the model corrects</th><td style="padding: 14px 18px; vertical-align: top; color: rgb(184, 184, 178); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">A law, a formula, or a coarse model</td><td style="padding: 14px 18px; vertical-align: top; color: rgb(156, 156, 150); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">A Wöhler curve, a drag law, a 1-D thermal network</td></tr>
+            <tr><th scope="row" style="text-align: left; padding: 14px 18px; vertical-align: top; color: rgb(244, 243, 239); font-weight: 500; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">Conditions on the prediction</th><td style="padding: 14px 18px; vertical-align: top; color: rgb(184, 184, 178); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">Bounds, trends, balances, or an equation residual that must be zero</td><td style="padding: 14px 18px; vertical-align: top; color: rgb(156, 156, 150); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">Stiffness that stays positive; mixture fractions that sum to one; a heat balance</td></tr>
+            <tr><th scope="row" style="text-align: left; padding: 14px 18px; vertical-align: top; color: rgb(244, 243, 239); font-weight: 500; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">The model's design</th><td style="padding: 14px 18px; vertical-align: top; color: rgb(184, 184, 178); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">Physical structure built into the architecture</td><td style="padding: 14px 18px; vertical-align: top; color: rgb(156, 156, 150); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">A particle model with conservation built in</td></tr>
+            <tr><th scope="row" style="text-align: left; padding: 14px 18px; vertical-align: top; color: rgb(244, 243, 239); font-weight: 500; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">The training loss</th><td style="padding: 14px 18px; vertical-align: top; color: rgb(184, 184, 178); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">A physics penalty, up to the residual of the governing equation</td><td style="padding: 14px 18px; vertical-align: top; color: rgb(156, 156, 150); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">A physics-informed neural network (PINN); a contact penalty in a particle model</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="pim-scroll-cue" style="margin-top: 10px; color: rgb(156, 156, 150); font: 400 12.5px / 1.5 &quot;IBM Plex Mono&quot;, monospace;">Swipe or scroll horizontally to view all columns →</p>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1060px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">In STOCHOS</div>
+      <h2 id="how-stochos-takes-physics-in" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">How STOCHOS takes physics in</h2>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">STOCHOS is not a physics-informed neural network. Its core algorithm, <a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">DIM-GP</a>, combines neural networks and Gaussian processes, and it differs from a PINN in three places:</p>
+      <ul style="margin-top: 26px; padding: 0px; list-style: none; display: grid; gap: 16px; max-width: 66ch;">
+        <li style="padding-left: 18px; border-left: 2px solid rgba(255, 176, 6, 0.55); color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65;"><strong style="color: rgb(244, 243, 239); font-weight: 600;">Who makes the prediction.</strong> The network learns how your data behaves at each point, and a Gaussian process makes the prediction and returns an <a href="/probaligence-site-preview/uncertainty-quantification/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">uncertainty band</a> with it. In a PINN, the network's output is the prediction.</li>
+        <li style="padding-left: 18px; border-left: 2px solid rgba(255, 176, 6, 0.55); color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65;"><strong style="color: rgb(244, 243, 239); font-weight: 600;">Where the physics goes.</strong> Physics enters as a baseline the model corrects or as conditions applied at prediction time. Adding or tightening a condition needs no retraining.</li>
+        <li style="padding-left: 18px; border-left: 2px solid rgba(255, 176, 6, 0.55); color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65;"><strong style="color: rgb(244, 243, 239); font-weight: 600;">What it needs.</strong> Simulation or test data. STOCHOS speeds up the evaluation of new variants from runs you already have; it does not solve the equation itself.</li>
+      </ul>
+      <h3 id="what-you-can-give-stochos" style="margin-top: 52px; font: 600 clamp(20px, 2.2vw, 24px) / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">What you can give STOCHOS</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 18px; margin-top: 24px; align-items: stretch;">
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 28px 24px; background: rgba(255, 255, 255, 0.02);">
+          <div style="display: flex; align-items: baseline; gap: 10px;">
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">01</span>
+          </div>
+          <h4 style="margin-top: 14px; font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">A baseline it corrects</h4>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Give it a Wöhler curve, a drag or Darcy law, a 1-D thermal network, last year's calibrated model, or a coarse mesh. The model learns only what the baseline gets wrong.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 28px 24px; background: rgba(255, 255, 255, 0.02);">
+          <div style="display: flex; align-items: baseline; gap: 10px;">
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">02</span>
+          </div>
+          <h4 style="margin-top: 14px; font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Bounds and trends</h4>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Damage that never decreases with load, stiffness that stays positive, temperatures above ambient, forces that grow with speed. You set how strictly each one applies.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 28px 24px; background: rgba(255, 255, 255, 0.02);">
+          <div style="display: flex; align-items: baseline; gap: 10px;">
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">03</span>
+          </div>
+          <h4 style="margin-top: 14px; font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Sums that must hold</h4>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Load shares across mounts, mass and energy balances, mixture fractions that sum to one, a known value at a known operating point. The prediction and its uncertainty band are pulled onto the constraint.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 28px 24px; background: rgba(255, 255, 255, 0.02);">
+          <div style="display: flex; align-items: baseline; gap: 10px;">
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">04</span>
+          </div>
+          <h4 style="margin-top: 14px; font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Your equation as a condition</h4>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Any differentiable residual that must be zero: an equation of motion, a heat balance, a relation between output channels. Soft or strict, for scalar, signal, and 3D field models.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 28px 24px; background: rgba(255, 255, 255, 0.02);">
+          <div style="display: flex; align-items: baseline; gap: 10px;">
+            <span style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(255, 176, 6);">05</span>
+          </div>
+          <h4 style="margin-top: 14px; font: 600 18px / 1.25 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Physics in the particle model</h4>
+          <p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65;">Energy conservation against drift over long rollouts, incompressibility, prescribed motion for an impeller or a tool, non-penetration as a hard rule at every step, gravity as a known input.</p>
+        </div>
+      </div>
+      <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">Physics also enters through the data: a <a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">multi-fidelity model</a> combines cheap and expensive simulations or tests in one model.</p>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1060px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Evidence</div>
+      <h2 id="tested-on-a-published-benchmark-and-in-an-industry-project" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">Tested on a published benchmark and in an industry project</h2>
+      <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 24px 32px; align-items: center; border: 1px solid rgba(255, 176, 6, 0.35); border-radius: 6px; padding: 30px 28px; background: rgba(255, 176, 6, 0.05);">
+        <div style="font: 700 clamp(44px, 6vw, 68px) / 1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; color: rgb(255, 176, 6);">19 of 21</div>
+        <p style="color: rgb(184, 184, 178); font-size: 16px; line-height: 1.65;">On LagrangeBench, a published benchmark of particle-based fluid simulations, the DIM-GP particle model in STOCHOS had lower error than the best of three published baselines in 19 of 21 dataset-metric comparisons, scored with the benchmark's own evaluator.</p>
+      </div>
+      <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">The model builds conservation and neighborhood structure into its design rather than learning them from scratch. The <a href="/probaligence-site-preview/science/benchmarks/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">benchmarks page</a> gives the protocol, the two comparisons it did not win, and the training cost.</p>
+      <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">Simulation and measurement in one model: with CADFEM, a <a href="/probaligence-site-preview/news/cadfem-conference-rapperswil-2026/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">VAT project</a> linked real measurement data and CFD simulation results to predict flow more precisely.</p>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(72px, 8vw, 118px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1060px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Limits</div>
+      <h2 id="when-this-is-not-the-right-tool" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">When this is not the right tool</h2>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">If you know the full equation and need its solution, use a solver. STOCHOS does not replace the solver or the validation.</p>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Physics keeps predictions plausible outside the data, and plausible is not validated. Before you rely on a prediction far from your data, check it against a run or a test, and read its uncertainty band.</p>
+    </div>
+  </section>
+
+  <section data-reveal="" id="faq" style="padding: clamp(56px, 7vw, 84px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1)">
+    <div class="fqq-wrap">
+      <h2 id="common-questions" class="fqq-title">Common questions</h2>
+      <div class="fqq" id="fqq" data-single-open="">
+        <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What is physics-informed machine learning?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Machine learning that uses known physics as well as data. The physics can enter through the training data, a baseline the model corrects, conditions on its predictions, the model's design, or its training loss. The model then has less to learn from data and stays plausible where the data ends.</p></div></div></details>
+        <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">What is a physics-informed neural network (PINN)?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>A neural network trained with the residual of the governing equation in its loss function, so training penalizes any output that breaks the equation. It is one way to do physics-informed machine learning, not the only one.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">How does STOCHOS differ from a PINN?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>STOCHOS is not a PINN. In its core algorithm, DIM-GP, a Gaussian process makes the prediction and returns an uncertainty band, while in a PINN the network's output is the prediction itself. Physics enters as a baseline the model corrects or as conditions applied at prediction time, so adding a condition needs no retraining. STOCHOS learns from simulation and test data.</p></div></div></details>
+        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Do I need the governing equation?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. A value that cannot go negative, a trend that cannot reverse, a balance, or a coarse model is already physics a model can use. If you have the equation, STOCHOS can take it as a condition, soft or strict.</p></div></div></details>
+        <details class="fq" id="faq-5"><summary><span class="ix">05</span><span class="q">How much data does a physics-informed model need?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>There is no fixed minimum: the physics covers part of what the data would otherwise have to teach. Above roughly a thousand samples, cheaper methods start to make more sense than a Gaussian process.</p></div></div></details>
+      </div>
+    </div>
+    <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(64px, 8vw, 100px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 1060px; margin: 0px auto;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Related pages</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1px; margin-top: 8px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07);">
+        <a href="/probaligence-site-preview/surrogate-modeling/" class="scp3" style="display: block; background: rgb(10, 9, 8); padding: 26px 24px; text-decoration: none;">
+          <h3 style="font: 600 17px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Surrogate Modeling</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">What a surrogate model does, and when it is worth building one.</p>
+        </a>
+        <a href="/probaligence-site-preview/how-stochos-works/" class="scp3" style="display: block; background: rgb(10, 9, 8); padding: 26px 24px; text-decoration: none;">
+          <h3 style="font: 600 17px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">How STOCHOS works</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">The DIM-GP model behind the fit, and why it suits small, noisy datasets.</p>
+        </a>
+        <a href="/probaligence-site-preview/guides/combine-cheap-and-expensive-data/" class="scp3" style="display: block; background: rgb(10, 9, 8); padding: 26px 24px; text-decoration: none;">
+          <h3 style="font: 600 17px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Combine cheap and expensive data</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">A few costly runs alongside many cheap ones.</p>
+        </a>
+        <a href="/probaligence-site-preview/news/" class="scp3" style="display: block; background: rgb(10, 9, 8); padding: 26px 24px; text-decoration: none;">
+          <h3 style="font: 600 17px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">News and Guides</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Every guide and insight we have published, in one place.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section data-reveal="" style="padding: clamp(90px, 12vw, 160px) 24px; background: rgb(10, 9, 8); border-top: 1px solid rgba(255, 255, 255, 0.07); position: relative; overflow: hidden; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div aria-hidden="true" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(820px, 120vw); height: 520px; background: radial-gradient(closest-side, rgba(255, 176, 6, 0.12), transparent 62%); pointer-events: none;"></div>
+    <div aria-hidden="true" style="position: absolute; inset: 24px; pointer-events: none;">
+      <span style="position: absolute; top: 0px; left: 0px; width: 16px; height: 16px; border-top: 1px solid rgba(255, 176, 6, 0.5); border-left: 1px solid rgba(255, 176, 6, 0.5);"></span>
+      <span style="position: absolute; top: 0px; right: 0px; width: 16px; height: 16px; border-top: 1px solid rgba(255, 176, 6, 0.5); border-right: 1px solid rgba(255, 176, 6, 0.5);"></span>
+      <span style="position: absolute; bottom: 0px; left: 0px; width: 16px; height: 16px; border-bottom: 1px solid rgba(255, 176, 6, 0.5); border-left: 1px solid rgba(255, 176, 6, 0.5);"></span>
+      <span style="position: absolute; bottom: 0px; right: 0px; width: 16px; height: 16px; border-bottom: 1px solid rgba(255, 176, 6, 0.5); border-right: 1px solid rgba(255, 176, 6, 0.5);"></span>
+    </div>
+    <div style="max-width: 720px; margin: 0px auto; text-align: center; position: relative;">
+      <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">Next step</div>
+      <h2 id="bring-a-problem-where-you-know-part-of-the-physics" style="font: 700 clamp(30px, 4.6vw, 52px) / 1.06 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em;">Bring a problem where you know part of the physics</h2>
+      <p style="margin: 20px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; max-width: 52ch;">Send a dataset and the physics you are sure of, from a limit to a full equation. We will show what a model that uses both predicts, and where its uncertainty says to look.</p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
+        <a href="/probaligence-site-preview/contact/" class="scp1" style="background: rgb(255, 176, 6); color: rgb(8, 7, 10); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: filter 0.15s, transform 0.15s;">Request a Demo</a>
+        <a href="/probaligence-site-preview/surrogate-modeling/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">Surrogate Modeling</a>
+      </div>
+      <p style="margin: 26px auto 0px; font: 500 11.5px / 1.7 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Local-first. Your data stays on your infrastructure.</p>
+    </div>
+  </section>
+</main>
+<section class="logo-marquee" aria-label="Partners, customers and research collaborators">
+  <div class="label">Partners, customers, and research collaborators</div>
+  <div class="marquee-mask">
+    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img class="logo-badge" src="/probaligence-site-preview/assets/partners/nafems-member.png" alt="NAFEMS Member" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span><span class="logo-cell"><img class="logo-wide" src="/probaligence-site-preview/assets/partners/itficient.png" alt="ITficient" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img class="logo-badge" src="/probaligence-site-preview/assets/partners/nafems-member.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span><span class="logo-cell"><img class="logo-wide" src="/probaligence-site-preview/assets/partners/itficient.png" alt="" loading="lazy"></span></div></div>
+  </div>
+</section>
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
+        <div class="footer-cred">
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+        </div>
+        <div class="footer-social">
+          <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+          </a>
+          <a class="social-btn" href="https://www.youtube.com/channel/UC9zfHL5cgR0WpY5wdn9RQCQ" target="_blank" rel="noopener" aria-label="PI Probaligence on YouTube" title="YouTube">
+            <svg viewBox="0 0 576 512" aria-hidden="true"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+          </a>
+        </div>
+        <a class="footer-newsletter" href="/probaligence-site-preview/newsletter/" style="display: inline-flex; align-items: center; margin-top: 18px; min-height: 40px; padding: 0 16px; border: 1px solid rgba(255, 176, 6, 0.55); border-radius: 6px; color: rgb(255, 176, 6); font: 600 13.5px / 1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: 0.01em; text-decoration: none;">Subscribe to the newsletter</a>
+      </div>
+      <div>
+        <div class="f-h">Products</div>
+        <ul><li><a href="/probaligence-site-preview/stochos/">STOCHOS</a></li><li><a href="/probaligence-site-preview/stochos-flow/">STOCHOS Flow</a></li></ul>
+      </div>
+      <div>
+        <div class="f-h">Solutions</div>
+        <ul><li><a href="/probaligence-site-preview/ai-for-engineering/">AI for Engineering</a></li><li><a href="/probaligence-site-preview/paint-coating/">AI for Paint and Coatings</a></li><li><a href="/probaligence-site-preview/ai-for-chemical-process-optimization/">AI for Chemical R&amp;D</a></li></ul>
+      </div>
+      <div>
+        <div class="f-h">Science</div>
+        <ul><li><a href="/probaligence-site-preview/science/">Science overview</a></li><li><a href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a></li><li><a href="/probaligence-site-preview/science/benchmarks/">Benchmarks</a></li><li><a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/probaligence-site-preview/generative-design/">Generative Design</a></li></ul>
+      </div>
+      <div>
+        <div class="f-h">Company</div>
+        <ul><li><a href="/probaligence-site-preview/about/">About</a></li><li><a href="/probaligence-site-preview/news/">News and Guides</a></li><li><a href="/probaligence-site-preview/contact/">Contact</a></li><li><a class="amber" href="/probaligence-site-preview/contact/">Request a Demo</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="copy">&copy; <span data-year>2026</span> PI Probaligence GmbH</span>
+      <span class="legal">
+        <a href="/probaligence-site-preview/imprint/">Imprint</a>
+        <a href="/probaligence-site-preview/privacy/">Privacy Policy</a>
+      </span>
+    </div>
+  </div>
+</footer>
+<script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
+<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<a href="../../feedback/?page=Guide%3A%20Physics-informed%20machine%20learning" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
+</body>
+</html>

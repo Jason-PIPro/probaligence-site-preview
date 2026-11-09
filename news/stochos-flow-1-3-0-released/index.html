@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+
+<title>STOCHOS Flow 1.3.0 release: what is new | PI Probaligence</title><meta name="description" content="STOCHOS Flow 1.3.0: AI agents that check and fix their own work, Export as App for standalone apps, a new look and several hundred fixes."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/news/stochos-flow-1-3-0-released/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="STOCHOS Flow 1.3.0 release: what is new | PI Probaligence"><meta property="og:description" content="STOCHOS Flow 1.3.0: AI agents that check and fix their own work, Export as App for standalone apps, a new look and several hundred fixes."><meta property="og:url" content="https://probaligence.com/news/stochos-flow-1-3-0-released/"><meta property="og:image" content="https://probaligence.com/assets/news/stochos-flow-1-3-0-released/stochos-flow-1-3-0-og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta property="article:published_time" content="2026-10-15"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
+{"@context":"https://schema.org","@type":"NewsArticle","headline":"STOCHOS Flow 1.3.0: a new agent core and Export as App","description":"STOCHOS Flow 1.3.0: AI agents that check and fix their own work, Export as App for standalone apps, a new look and several hundred fixes.","datePublished":"2026-10-15","dateModified":"2026-10-15","mainEntityOfPage":{"@type":"WebPage","@id":"https://probaligence.com/news/stochos-flow-1-3-0-released/"},"image":["https://probaligence.com/assets/news/stochos-flow-1-3-0-released/start-screen.webp"],"author":{"@type":"Organization","name":"PI Probaligence GmbH","url":"https://probaligence.com/"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logos/pi-mark-dark.svg"}},"inLanguage":"en"}</script><script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://probaligence.com/"}, {"@type": "ListItem", "position": 2, "name": "News and Guides", "item": "https://probaligence.com/news/"}, {"@type": "ListItem", "position": 3, "name": "STOCHOS Flow 1.3.0: a new agent core and Export as App", "item": "https://probaligence.com/news/stochos-flow-1-3-0-released/"}]}
+</script><style>
+@font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Sans';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-sans-600.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-mono-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('/probaligence-site-preview/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');font-weight:500;font-display:swap}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#060607;color:#F4F3EF;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:#FFB006;color:#000}
+h1,h2,h3,h4,p{margin:0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style><noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript><style>
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
+</style>
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/probaligence-site-preview/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/probaligence-site-preview/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#060607">
+<noscript><style>@media(max-width:960px){.nav-toggle{display:none}.mobile-panel{max-height:none!important;opacity:1!important;overflow:visible!important;border-bottom:1px solid rgba(255,255,255,.08)}}[data-uc-body]{max-height:none!important;opacity:1!important;display:block!important}</style></noscript>
+
+<style>
+/* the film's play button, at the spot Kevin chose on its title card (44 percent from the top); the same construction as the walkthrough page */
+.fv-play{position:absolute;left:50%;top:44%;width:40px;height:40px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;border-radius:50%;background:#FFB006;box-shadow:rgba(0,0,0,.45) 0 8px 26px;transition:transform .2s ease}
+@supports (aspect-ratio:1/1){.fv-play{width:clamp(30px,7.2%,72px);height:auto;aspect-ratio:1/1}}
+.fv-play svg{width:34%;height:auto;margin-left:8%;display:block}
+[data-video-start]:hover .fv-play{transform:translate(-50%,-50%) scale(1.06)}
+@media (prefers-reduced-motion:reduce){.fv-play{transition:none}[data-video-start]:hover .fv-play{transform:translate(-50%,-50%)}}
+</style>
+<noscript><style>[data-video-start]{display:none!important}</style></noscript>
+</head>
+<body>
+<header class="site-header" role="banner">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="nav-inner">
+    <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
+      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+    </a>
+    <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-link" href="/probaligence-site-preview/stochos/">STOCHOS</a>
+      <a class="nav-link" href="/probaligence-site-preview/stochos-flow/">STOCHOS&nbsp;Flow</a>
+      <div class="has-menu">
+        <button type="button" class="nav-link nav-trigger" aria-expanded="false">Solutions <span class="caret" aria-hidden="true">&#9662;</span></button>
+        <div class="submenu">
+          <a href="/probaligence-site-preview/ai-for-engineering/"><b>AI for Engineering</b><span>Accelerate CFD, FEM, and CAE</span></a>
+          <a href="/probaligence-site-preview/paint-coating/"><b>AI for Paint and Coatings</b><span>Target formulation, fewer trials</span></a>
+          <a href="/probaligence-site-preview/ai-for-chemical-process-optimization/"><b>AI for Chemical R&amp;D</b><span>Smarter experiments and scale-up</span></a>
+        </div>
+      </div>
+      <div class="has-menu">
+        <button type="button" class="nav-link nav-trigger" aria-expanded="false">Science <span class="caret" aria-hidden="true">&#9662;</span></button>
+        <div class="submenu">
+          <a href="/probaligence-site-preview/science/"><b>Science overview</b></a>
+          <a href="/probaligence-site-preview/how-stochos-works/"><b>How STOCHOS works</b><span>The DIM-GP model</span></a>
+          <a href="/probaligence-site-preview/science/benchmarks/"><b>Benchmarks</b><span>DIM-GP on 14 public tasks</span></a>
+          <div class="sep"></div>
+          <a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a>
+          <a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a>
+          <a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+          <a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a>
+          <a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
+          <a href="/probaligence-site-preview/generative-design/">Generative Design</a>
+        </div>
+      </div>
+      <a class="nav-link" href="/probaligence-site-preview/news/">News and Guides</a>
+      <a class="nav-link" href="/probaligence-site-preview/about/">About</a>
+      <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
+      <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
+    </nav>
+  </div>
+  <div class="mobile-panel" id="mobile-nav">
+    <nav aria-label="Mobile">
+      <a class="m-item" href="/probaligence-site-preview/stochos/">STOCHOS</a>
+      <a class="m-item" href="/probaligence-site-preview/stochos-flow/">STOCHOS Flow</a>
+      <div class="m-label">Solutions</div>
+      <a class="m-sub" href="/probaligence-site-preview/ai-for-engineering/">AI for Engineering</a>
+      <a class="m-sub" href="/probaligence-site-preview/paint-coating/">AI for Paint and Coatings</a>
+      <a class="m-sub" href="/probaligence-site-preview/ai-for-chemical-process-optimization/">AI for Chemical R&amp;D</a>
+      <div class="m-label">Science</div>
+      <a class="m-sub" href="/probaligence-site-preview/science/">Science overview</a>
+      <a class="m-sub" href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a>
+      <a class="m-sub" href="/probaligence-site-preview/science/benchmarks/">Benchmarks</a>
+      <a class="m-sub" href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a>
+      <a class="m-sub" href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a>
+      <a class="m-sub" href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a>
+      <a class="m-sub" href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a>
+      <a class="m-sub" href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a>
+      <a class="m-sub" href="/probaligence-site-preview/generative-design/">Generative Design</a>
+      <div class="m-sep"></div>
+      <a class="m-item" href="/probaligence-site-preview/news/">News and Guides</a>
+      <a class="m-item" href="/probaligence-site-preview/about/">About</a>
+      <a class="nav-cta-ghost" href="/probaligence-site-preview/challenge/">Try to beat STOCHOS</a>
+      <a class="nav-cta" href="/probaligence-site-preview/contact/">Request a Demo</a>
+    </nav>
+  </div>
+</header>
+<main id="main" tabindex="-1" style="display: block;">
+<article>
+  <section data-hero-in style="position: relative; padding: 124px 24px 64px; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
+    <div aria-hidden="true" style="position: absolute; top: -12%; left: -6%; width: 760px; height: 520px; max-width: 90vw; background: radial-gradient(rgba(255, 176, 6, 0.09), transparent 64%); pointer-events: none;"></div>
+    <div style="max-width: 880px; margin: 0px auto; position: relative;">
+      <nav aria-label="Breadcrumb" style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-bottom: 40px;"><a href="/probaligence-site-preview/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">Home</a> <span style="color: rgb(58, 58, 56);">/</span> <a href="/probaligence-site-preview/news/" class="scp0" style="color: rgb(130, 130, 124); text-decoration: none;">News and guides</a> <span style="color: rgb(58, 58, 56);">/</span> <span style="color: rgb(156, 156, 150);">STOCHOS Flow 1.3.0: a new agent core and Export as App</span></nav>
+      <div data-hero="" style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Release &middot; October 15, 2026</div>
+      <h1 style="font: 700 clamp(30px, 4.4vw, 52px) / 1.1 'Space Grotesk', sans-serif; letter-spacing: -0.025em; max-width: 24ch;">STOCHOS Flow 1.3.0: a new agent core and Export as App</h1>
+      <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18.5px); line-height: 1.65; max-width: 62ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS Flow 1.3.0 is here, with AI agents that work through a task like a colleague: they check their results, fix their own errors and keep you in the loop. Export as App turns a workflow and its agents into a standalone app for everyone. Plus a new look and workflows that notice what changed. It is also the most thorough reliability release we have shipped so far.</p>
+    </div>
+  </section>
+
+
+  <section data-reveal="" style="padding: clamp(50px, 6vw, 80px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 880px; margin: 0px auto;">
+      <figure style="margin: 0px 0 0;">
+        <img decoding="async" loading="eager" fetchpriority="high" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/start-screen.webp" alt="The new STOCHOS Flow start screen: the Agent node at the center of a ring of Data, Model, Predict, Optimize and Sensitivity nodes, beside the new STOCHOS Flow logo." width="1280" height="720" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+        <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">The new start screen: while STOCHOS Flow loads, the AI agent at its center builds a workflow around itself.</figcaption>
+      </figure>
+      <div style="margin-top: 34px; padding: 22px 24px 24px; border: 1px solid rgba(255, 255, 255, 0.1); border-top: 2px solid rgb(255, 176, 6); border-radius: 6px;">
+        <div style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6);">Thank you</div>
+        <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 14px; max-width: 68ch;">When we released <a href="/probaligence-site-preview/news/introducing-stochos-flow/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">STOCHOS Flow 1.0.0</a> early in 2026, it was a first step. Since then, our customers have used it on real engineering problems and told us what works, what was missing and what got in the way.</p>
+        <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">Much of what is in 1.3.0 comes straight from that feedback. <strong style="color: rgb(244, 243, 239);">Thank you to every customer who tried things out, reported a problem or sent us an idea.</strong> Please keep it coming.</p>
+      </div>
+
+      <h2 id="ai-agents-that-work-like-a-colleague" style="font: 700 clamp(22px, 2.6vw, 28px) / 1.25 'Space Grotesk', sans-serif; letter-spacing: -0.015em; margin-top: 56px; color: rgb(244, 243, 239);">AI agents that work like a colleague</h2>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">You asked for assistants that stay with a task until it is done and keep you informed along the way. In 1.3.0 every AI assistant in STOCHOS Flow (the Agent dock, the coding assistants in the nodes, the Custom Agent, the Agent Observer and the new CAD Defeaturing assistant) runs on <strong style="color: rgb(244, 243, 239);">one new agent core</strong>. The agents work through a task step by step, look at the real results, and when something fails they find the cause and try again.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 28px; align-items: start; margin-top: 26px;">
+        <figure style="margin: 0;">
+          <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/agent-fix-chat.webp" alt="The Coding Assistant chat of a Python Solver after a request to fix a failed node: it reproduces the KeyError with the real input, changes how the file is read, tests again with the connected data, reports what it fixed and offers Undo." width="980" height="1290" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+          <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">The Python Solver's assistant after "It failed in the workflow, fix it": it reproduces the error with your data, fixes the cause, tests again and reports what it checked.</figcaption>
+        </figure>
+        <ul style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin: 0; padding-left: 22px;"><li><strong style="color: rgb(244, 243, 239);">Every step visible</strong> as it happens (reading, testing, the exact change as a before/after diff) and a todo list for longer tasks.</li><li style="margin-top: 12px;"><strong style="color: rgb(244, 243, 239);">Honest results:</strong> at the end you see what was done and how it was checked: tested with your data, with a stand-in solver, or only statically.</li><li style="margin-top: 12px;"><strong style="color: rgb(244, 243, 239);">"It failed, fix it" is enough:</strong> an assistant sees why its node failed in the last workflow run.</li><li style="margin-top: 12px;"><strong style="color: rgb(244, 243, 239);">You stay in control:</strong> type while it works, stop it any time, answer its questions, approve its changes, and <strong style="color: rgb(244, 243, 239);">Undo</strong> puts back what the last request changed.</li><li style="margin-top: 12px;"><strong style="color: rgb(244, 243, 239);">Conversations</strong> are saved, searchable and deletable; long ones are compacted automatically, and after a crash the chat offers to continue where it stopped.</li></ul>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 18px; margin-top: 30px;">
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 20px 20px 22px;">
+          <h3 id="talk-to-running-agents" style="font: 600 17px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Talk to running agents</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin-top: 8px;">Right-click a running Custom Agent to watch it live, send it a message or stop it. Agent Observers have their own chat.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 20px 20px 22px;">
+          <h3 id="also-after-export" style="font: 600 17px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Also after export</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin-top: 8px;">Exported workflows come with a chat for the terminal and the browser to talk to their agents, and to watch a Custom Agent while it runs.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 20px 20px 22px;">
+          <h3 id="safe-and-offline" style="font: 600 17px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Safe and offline</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin-top: 8px;">Writes outside the project need your OK, agent code stays on your computer, and an optional sandbox keeps it out of your files. Local models get the tools that suit them.</p>
+        </div>
+      </div>
+      <!-- The film loads only on a click: the source has no src until then (the script copies data-src), so mail scanners that open this page cannot pull it. Without JavaScript the overlay is hidden and a plain link is shown. -->
+      <figure id="agentic-film" style="margin: 34px 0 0; scroll-margin-top: 96px;">
+        <div style="position: relative; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 6px; overflow: hidden; background: rgb(0, 0, 0);">
+          <video id="fv-video" muted playsinline preload="none" controlslist="nodownload noplaybackrate" disablepictureinpicture width="1280" height="720" poster="/probaligence-site-preview/assets/media/stochos-flow-agentic-film-poster.webp" aria-label="Film: one engineer, nine agent roles. A customer's side-mirror spec becomes a qualified design app." style="display: block; width: 100%; height: auto;"><source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/stochos-flow-agentic-film.mp4" type="video/mp4"></video>
+          <button type="button" data-video-start aria-controls="fv-video" aria-label="Play the film, 2 minutes" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; border: 0; padding: 0; background: transparent; cursor: pointer;"><span class="fv-play" aria-hidden="true"><svg viewBox="0 0 22 24" fill="none" aria-hidden="true"><path d="M2 2.2 20 12 2 21.8Z" fill="#08070A"></path></svg></span></button>
+        </div>
+        <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">See it end to end: one engineer, nine agent roles (2 min, no sound). A customer's side-mirror spec becomes a qualified design app: agents write the requirements, the CAD, the CFD setup, the checks, the optimization and the report (the engineer directs and approves), and the workflow is exported as an app that designs the next mirror on request.</figcaption>
+        <noscript><p style="margin-top: 10px; font-size: 15px; line-height: 1.6;"><a href="/probaligence-site-preview/assets/media/stochos-flow-agentic-film.mp4" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Open the film (MP4, 30 MB)</a></p></noscript>
+      </figure>
+      <h2 id="your-workflow-and-its-agents-as-an-app-for" style="font: 700 clamp(22px, 2.6vw, 28px) / 1.25 'Space Grotesk', sans-serif; letter-spacing: -0.015em; margin-top: 56px; color: rgb(244, 243, 239);">Your workflow and its agents as an app for everyone</h2>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">A workflow that an expert has built and validated in STOCHOS Flow can now leave the editor. Select the part that should become the tool, right-click and choose <strong style="color: rgb(244, 243, 239);">Export as App&hellip;</strong>. The <strong style="color: rgb(244, 243, 239);">App Builder</strong> proposes a complete app (the inputs people may change, a board with KPIs, tables, plots and 3D fields, on-demand actions and, when the workflow holds a Custom Agent, a chat assistant) with a live preview of the real app and an assistant that adapts the design to the people who will use it.</p>
+      <figure style="margin: 30px 0 0;">
+        <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/app-builder.webp" alt="The App Builder: five steps on the left, a live preview of the design advisor app in the middle, and the app-design assistant on the right." width="1280" height="697" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+        <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">The App Builder: five steps on the left, the real app as a live preview in the middle, the app-design assistant on the right.</figcaption>
+      </figure>
+      <figure style="margin: 26px 0 0;">
+        <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/exported-app.webp" alt="The exported Bracket Check app in the browser: inputs on the left, KPIs and two compared design variants on the board, and the design advisor chat on the right." width="1280" height="691" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+        <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">The exported app in the browser: the assistant evaluates two thinner variants and puts them on the board side by side.</figcaption>
+      </figure>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 18px; margin-top: 30px;">
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 20px 20px 22px;">
+          <h3 id="runs-without-the-editor" style="font: 600 17px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Runs without the editor</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin-top: 8px;">The app opens in the browser with one start file. Engineers change inputs and ask the assistant. No workflow knowledge needed.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 20px 20px 22px;">
+          <h3 id="approval-before-expensive-runs" style="font: 600 17px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Approval before expensive runs</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin-top: 8px;">Solver runs that need a license or minutes of compute become actions: the assistant asks first, and nothing starts without an OK.</p>
+        </div>
+        <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 20px 20px 22px;">
+          <h3 id="built-once-used-by-many" style="font: 600 17px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);">Built once, used by many</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.6; margin-top: 8px;">A few experts build and validate the workflow; everyone else uses it as a tool. The app remembers the project it came from.</p>
+        </div>
+      </div>
+      <h2 id="a-clearer-canvas-and-a-new-face" style="font: 700 clamp(22px, 2.6vw, 28px) / 1.25 'Space Grotesk', sans-serif; letter-spacing: -0.015em; margin-top: 56px; color: rgb(244, 243, 239);">A clearer canvas and a new face</h2>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">Every node icon was redrawn in one consistent orange line style, and the tag under each motif names the operation and the task (for example <strong style="color: rgb(244, 243, 239); white-space: nowrap;">FIT &middot; REG</strong>). Wires are thinner, the background is plain, and STOCHOS Flow has a new app icon and an animated start screen.</p>
+      <figure style="margin: 30px 0 0;">
+        <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/flow-window.webp" alt="The redesigned STOCHOS Flow window: the node library on the left, a workflow from two Excel readers through Train/Test Split, Fit and Predict to R2 Score on the canvas, the Python console below and the agent chat on the right." width="1280" height="720" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+        <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">The redesigned window: node library, canvas, console and the agent chat.</figcaption>
+      </figure>
+      <h3 id="status-at-a-glance" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 40px; color: rgb(244, 243, 239);">Status at a glance</h3>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">A dot in the top-right corner of every node tells you where it stands.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr)); gap: 16px; margin-top: 22px; max-width: 680px;">
+        <figure style="margin: 0;">
+          <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/status-not-run.webp" alt="The R2 Score node with an empty status dot." width="220" height="224" loading="lazy" style="width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+          <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(156, 156, 150); margin-top: 8px; text-align: center;">not run</figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/status-running.webp" alt="The Fit node with a running status dot." width="220" height="222" loading="lazy" style="width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+          <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(156, 156, 150); margin-top: 8px; text-align: center;">running</figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/status-done.webp" alt="The Train/Test Split node with a green check." width="220" height="224" loading="lazy" style="width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+          <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(156, 156, 150); margin-top: 8px; text-align: center;">done</figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/status-error.webp" alt="The Predict node with a red error mark." width="220" height="224" loading="lazy" style="width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+          <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(156, 156, 150); margin-top: 8px; text-align: center;">error</figcaption>
+        </figure>
+      </div>
+      <h3 id="ports-show-their-data-and-their-connections" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 40px; color: rgb(244, 243, 239);">Ports show their data and their connections</h3>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">A port's color shows the kind of data, its shape whether it carries one value or a list. Click a port to see every connection and disconnect a single wire.</p>
+      <figure style="margin: 26px 0 0;">
+        <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/port-connections.webp" alt="The menu of a port listing every connection, for example X_train (array) to Fit (dimgp_regr) X, with a Disconnect submenu for single wires." width="900" height="344" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+      </figure>
+      <h3 id="dialogs-that-fit" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 40px; color: rgb(244, 243, 239);">Dialogs that fit</h3>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">Every dialog can be resized and maximized, opens large enough to show all its buttons and scrolls instead of cutting off content. A decimal comma, typed or pasted, is understood everywhere.</p>
+
+      <h2 id="workflows-that-know-what-changed" style="font: 700 clamp(22px, 2.6vw, 28px) / 1.25 'Space Grotesk', sans-serif; letter-spacing: -0.015em; margin-top: 56px; color: rgb(244, 243, 239);">Workflows that know what changed</h2>
+      <h3 id="changed-input-files-are-detected" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 26px; color: rgb(244, 243, 239);">Changed input files are detected</h3>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">Reader nodes remember the files they read. When a file changes on disk, the node turns gray and runs again on the next Run, and a file that was only saved again does not re-run the loops behind it.</p>
+      <h3 id="solver-wrappers-take-outside-inputs" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 40px; color: rgb(244, 243, 239);">Solver Wrappers take outside inputs</h3>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">Nodes inside a Solver Wrapper can now use results from the rest of the workflow (for example a model trained outside) as constant inputs for every design the optimizer evaluates.</p>
+      <figure style="margin: 26px 0 0;">
+        <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/solver-wrapper.webp" alt="A Solver Wrapper around two Python nodes, Geometry and Simulation, with a Load case node outside it feeding Geometry. The wrapper and a Bayesian Optimization Init node feed Optimize, which feeds an Optimization History Plot." width="1100" height="520" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+        <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">A simulation chain wrapped as a function for the optimizer, with an input from outside the wrapper.</figcaption>
+      </figure>
+      <h3 id="export-as-python-the-whole-workflow" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 40px; color: rgb(244, 243, 239);">Export as Python: the whole workflow</h3>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">The <a href="/probaligence-site-preview/guides/workflow-to-production-code/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">exported script</a> now runs loops as real iterations, hands Solver Wrappers to the optimizer as an evaluation function and runs Custom Agent and Agent Observer nodes as in the app. API keys stay with you: they come from environment variables, never from the export.</p>
+
+      <h2 id="assistants-that-test-their-own-work" style="font: 700 clamp(22px, 2.6vw, 28px) / 1.25 'Space Grotesk', sans-serif; letter-spacing: -0.015em; margin-top: 56px; color: rgb(244, 243, 239);">Assistants that test their own work</h2>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">Before you see a script, the Coding Assistant checks it against the installed libraries and test-runs it on your connected data. If a problem remains, the answer says so plainly instead of handing you code that only looks right.</p>
+      <figure style="margin: 30px 0 0;">
+        <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/coding-assistant.webp" alt="The Python Solver dialog: input variables, the script editor with a No issues check and the options Test-run script and Auto-test assistant code below it, output variables, and the Coding Assistant panel." width="1100" height="629" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+        <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">The Python Solver with its Coding Assistant.</figcaption>
+      </figure>
+      <ul style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin: 22px 0 0; padding-left: 22px; max-width: 66ch;"><li style="margin-top: 8px;"><strong style="color: rgb(244, 243, 239);"><a href="/probaligence-site-preview/guides/teach-ai-your-documentation/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Knowledge bases</a></strong> use a new, more accurate search model: the right example is found first far more often.</li><li style="margin-top: 8px;"><strong style="color: rgb(244, 243, 239);">PyAnsys:</strong> every library is installed, with one knowledge base per product, and many typical mistakes are caught before a script runs.</li><li style="margin-top: 8px;"><strong style="color: rgb(244, 243, 239);">Your own function library</strong> can be used to compose scripts: your functions are copied unchanged, with every helper they need.</li></ul>
+
+      <h2 id="several-hundred-fixes" style="font: 700 clamp(22px, 2.6vw, 28px) / 1.25 'Space Grotesk', sans-serif; letter-spacing: -0.015em; margin-top: 56px; color: rgb(244, 243, 239);">Several hundred fixes</h2>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">A systematic review of every area (readers, models, plots, optimization, the AI assistants, saving and loading, exports) found and fixed bugs that could crash a node, silently ignore a setting or produce a plausible but wrong result. Saved projects open as before.</p>
+      <h3 id="safer-runs" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 34px; color: rgb(244, 243, 239);">Safer runs</h3>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">Closing during a run asks first, Abort also stops external scripts, and script nodes work on copies of their inputs.</p>
+      <h3 id="models-load-as-trained" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 34px; color: rgb(244, 243, 239);">Models load as trained</h3>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">Load Model keeps the order and names of the Fit, foundation models can be saved, and accuracy is reported per output.</p>
+      <h3 id="campaign-tracker" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 34px; color: rgb(244, 243, 239);">Campaign Tracker</h3>
+      <figure style="margin: 18px 0 0;">
+        <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/campaign-tracker.webp" alt="A Campaign Tracker figure with the status CONTINUE: the hypervolume of the feasible front per batch, the feasible Pareto front after each batch, lab results against the predictions made before the test, and constraints met against expected." width="1100" height="733" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+        <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;"><a href="/probaligence-site-preview/bayesian-optimization/" class="scp0" style="color: rgb(156, 156, 150); text-decoration: underline;">Bayesian optimization</a> campaigns: the Campaign Tracker shows how each batch moves the Pareto front. Bundled with <a href="/probaligence-site-preview/stochos/" class="scp0" style="color: rgb(156, 156, 150); text-decoration: underline;">STOCHOS</a> 7.9.8.</figcaption>
+      </figure>
+      <h3 id="8-new-tutorials" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; margin-top: 40px; color: rgb(244, 243, 239);">8 new tutorials</h3>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">A complete new tutorial series, from installation and your first workflow to the AI agents, optimization, simulation automation and sharing your work. Available as slides and PDF in the download section.</p>
+
+      <h2 id="what-comes-next-the-platform-for-agentic-ai-and" style="font: 700 clamp(22px, 2.6vw, 28px) / 1.25 'Space Grotesk', sans-serif; letter-spacing: -0.015em; margin-top: 56px; color: rgb(244, 243, 239);">What comes next: the platform for agentic AI and physics AI</h2>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">We have big plans. STOCHOS Flow will grow into <strong style="color: rgb(244, 243, 239);">the</strong> platform where AI agents and physics-aware models work together on real engineering tasks, from the first sketch to a validated, deployed workflow. A few highlights from our roadmap:</p>
+      <div style="margin-top: 34px; padding-left: 20px; border-left: 2px solid rgb(255, 176, 6);">
+        <h3 id="roadmap-cad-agent" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);"><span style="display: block; font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 10px;">Roadmap</span> CAD Agent</h3>
+        <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">Parametric CAD from a <strong style="color: rgb(244, 243, 239);">text description or an image</strong>: a real, editable model with its parameters, not just a mesh. And the reverse direction: <strong style="color: rgb(244, 243, 239);">CAD from given STL files</strong>, for example the geometries created by our <a href="/probaligence-site-preview/generative-design/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">generative AI</a>, so that a generated shape becomes a parametric part you can simulate and optimize.</p>
+      </div>
+      <script>(function(){var bs=document.querySelectorAll('[data-video-start]');for(var i=0;i<bs.length;i++)(function(b){var v=document.getElementById(b.getAttribute('aria-controls'));if(!v){b.parentNode.removeChild(b);return;}b.addEventListener('click',function(){var s=v.querySelector('source[data-src]');if(s&&!s.getAttribute('src')){s.setAttribute('src',s.getAttribute('data-src'));v.load();}v.setAttribute('controls','');b.parentNode.removeChild(b);var p=v.play();if(p&&p.catch)p.catch(function(){});v.focus();});})(bs[i]);})();</script>
+      <figure style="margin: 28px 0 0;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px;">
+          <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/cad-agent-turbine-blade.webp" alt="A turbine blade generated from a sentence: cambered airfoil, twist, hub blend and fir-tree root." width="735" height="485" loading="lazy" style="width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+          <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/cad-agent-car-mirror.webp" alt="A car side mirror with housing, glass and mount arm, ready for meshing." width="735" height="485" loading="lazy" style="width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+          <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/cad-agent-plate-from-image.webp" alt="A plate with holes, made as parametric CAD from an image." width="735" height="485" loading="lazy" style="width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+          <img decoding="async" src="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/cad-agent-hole-spacing-morph.webp" alt="Morphing an existing part: the hole spacing changes, the holes move and the plate follows." width="735" height="485" loading="lazy" style="width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+        </div>
+        <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">From our current CAD Agent demo, running on a local model on one GPU: a turbine blade from a sentence, a car mirror with named selections for CFD, a part from a picture, and an existing part made parametric by morphing.</figcaption>
+      </figure>
+      <div style="margin-top: 40px; padding-left: 20px; border-left: 2px solid rgb(255, 176, 6);">
+        <h3 id="roadmap-deploy-trace-and-monitor-agentic" style="font: 600 18px / 1.3 'Space Grotesk', sans-serif; letter-spacing: -0.01em; color: rgb(244, 243, 239);"><span style="display: block; font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 10px;">Roadmap</span> Deploy, trace and monitor agentic workflows</h3>
+        <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 12px; max-width: 68ch;">Taking agentic workflows from the desktop into production: deploying them as services, <strong style="color: rgb(244, 243, 239);">tracing</strong> every agent step (prompts, tool calls, results) and <strong style="color: rgb(244, 243, 239);">monitoring</strong> runs, quality and model drift over time. That way, an agent's answer can always be traced back, checked and reproduced.</p>
+      </div>
+
+      <h2 id="let-s-build-it-together" style="font: 700 clamp(22px, 2.6vw, 28px) / 1.25 'Space Grotesk', sans-serif; letter-spacing: -0.015em; margin-top: 56px; color: rgb(244, 243, 239);">Let's build it together</h2>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">Your feedback shaped 1.3.0, and it will shape what comes next. Tell us which problems you want STOCHOS Flow to solve, and we will keep building the platform around them.</p>
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">Questions, feedback or a live demo: <a href="mailto:info@probaligence.com?subject=STOCHOS%20Flow%201.3.0" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">info@probaligence.com</a>.</p>
+    </div>
+  </section>
+
+  <!-- NEXT-STEP-START -->
+  <section data-reveal="" style="padding: clamp(50px, 6vw, 80px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 880px; margin: 0px auto;">
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 22px;"><span style="font: 500 12px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(255, 176, 6);">Next step</span><span style="flex: 1 1 0%; height: 1px; background: rgba(255, 255, 255, 0.1);"></span></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 18px;">
+        <a href="/probaligence-site-preview/stochos-flow/" class="scp1" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 22px; text-decoration: none; transition: border-color 0.2s;"><div style="font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124);">Product</div><div style="font: 600 17px / 1.3 'Space Grotesk', sans-serif; color: rgb(244, 243, 239); margin-top: 12px;">STOCHOS Flow</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.55; margin-top: 10px;">Build, train, and deploy the workflow visually.</p></a>
+        <a href="/probaligence-site-preview/guides/custom-workflow-steps-python/" class="scp1" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 22px; text-decoration: none; transition: border-color 0.2s;"><div style="font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124);">Guide</div><div style="font: 600 17px / 1.3 'Space Grotesk', sans-serif; color: rgb(244, 243, 239); margin-top: 12px;">Custom workflow steps without writing the code</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.55; margin-top: 10px;">An AI assistant drafts the Python step, you review it.</p></a>
+        <a href="/probaligence-site-preview/contact/" class="scp1" style="display: block; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 22px; text-decoration: none; transition: border-color 0.2s;"><div style="font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(130, 130, 124);">Contact</div><div style="font: 600 17px / 1.3 'Space Grotesk', sans-serif; color: rgb(244, 243, 239); margin-top: 12px;">Request a demo</div><p style="color: rgb(156, 156, 150); font-size: 13.5px; line-height: 1.55; margin-top: 10px;">Bring one use case or dataset.</p></a>
+      </div>
+    </div>
+  </section>
+  <!-- NEXT-STEP-END -->
+  <section data-reveal="" style="padding: clamp(50px, 6vw, 80px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
+    <div style="max-width: 880px; margin: 0px auto;">
+      <div style="display: flex; gap: 28px; flex-wrap: wrap; justify-content: space-between;">
+        <a href="/probaligence-site-preview/news/cadfem-world-conference-2026/" class="scp0" style="flex: 1; text-align: left; text-decoration: none; color: rgb(184, 184, 178); min-width: 200px;"><span style="display: block; font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 10px;">Newer</span><span style="font: 600 15px / 1.4 'Space Grotesk', sans-serif;">CADFEM World Conference 2026: what we take home from...</span></a>
+        <a href="/probaligence-site-preview/news/ai-in-product-development-book/" class="scp0" style="flex: 1; text-align: right; text-decoration: none; color: rgb(184, 184, 178); min-width: 200px;"><span style="display: block; font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 10px;">Older</span><span style="font: 600 15px / 1.4 'Space Grotesk', sans-serif;">Kevin Cremanns co-authors new book on AI in product d...</span></a>
+      </div>
+      <p style="margin-top: 44px; text-align: center;"><a href="/probaligence-site-preview/news/" class="scp0" style="font: 500 13px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.1em; color: rgb(255, 176, 6); text-decoration: none;">&larr; All news and guides</a></p>
+    </div>
+  </section>
+</article></main>
+<section class="logo-marquee" aria-label="Partners, customers and research collaborators">
+  <div class="label">Partners, customers, and research collaborators</div>
+  <div class="marquee-mask">
+    <div class="marquee-track"><div class="row"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="Ansys" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="CADFEM" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="SimuTech Group" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="MESco" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="TSNE" loading="lazy"></span><span class="logo-cell"><img class="logo-badge" src="/probaligence-site-preview/assets/partners/nafems-member.png" alt="NAFEMS Member" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="Bosch" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="ZF" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="GEMU" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="DLR" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="Adler Lacke" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="Mankiewicz" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="Dulux" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="Plixxent" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="Fraunhofer" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="Hochschule Niederrhein" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="FUELL Lab Automation" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="Humotion" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="Universitaet Hamburg" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="Robert Bosch Stiftung" loading="lazy"></span><span class="logo-cell"><img class="logo-wide" src="/probaligence-site-preview/assets/partners/itficient.png" alt="ITficient" loading="lazy"></span></div><div class="row" aria-hidden="true"><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/ansys.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/cadfem.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/simutech-group.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mesco.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/tsne.png" alt="" loading="lazy"></span><span class="logo-cell"><img class="logo-badge" src="/probaligence-site-preview/assets/partners/nafems-member.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/bosch.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/zf.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/gemu.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dlr.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/adler-lacke.jpg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/mankiewicz.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/dulux.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/plixxent.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fraunhofer.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/hochschule-niederrhein.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/fuell.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/humotion.png" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/uni-hamburg.svg" alt="" loading="lazy"></span><span class="logo-cell"><img src="/probaligence-site-preview/assets/partners/robert-bosch-stiftung.svg" alt="" loading="lazy"></span><span class="logo-cell"><img class="logo-wide" src="/probaligence-site-preview/assets/partners/itficient.png" alt="" loading="lazy"></span></div></div>
+  </div>
+</section>
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
+        <div class="footer-cred">
+          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+        </div>
+        <div class="footer-social">
+          <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+          </a>
+          <a class="social-btn" href="https://www.youtube.com/channel/UC9zfHL5cgR0WpY5wdn9RQCQ" target="_blank" rel="noopener" aria-label="PI Probaligence on YouTube" title="YouTube">
+            <svg viewBox="0 0 576 512" aria-hidden="true"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+          </a>
+        </div>
+        <a class="footer-newsletter" href="/probaligence-site-preview/newsletter/" style="display: inline-flex; align-items: center; margin-top: 18px; min-height: 40px; padding: 0 16px; border: 1px solid rgba(255, 176, 6, 0.55); border-radius: 6px; color: rgb(255, 176, 6); font: 600 13.5px / 1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: 0.01em; text-decoration: none;">Subscribe to the newsletter</a>
+      </div>
+      <div>
+        <div class="f-h">Products</div>
+        <ul><li><a href="/probaligence-site-preview/stochos/">STOCHOS</a></li><li><a href="/probaligence-site-preview/stochos-flow/">STOCHOS Flow</a></li></ul>
+      </div>
+      <div>
+        <div class="f-h">Solutions</div>
+        <ul><li><a href="/probaligence-site-preview/ai-for-engineering/">AI for Engineering</a></li><li><a href="/probaligence-site-preview/paint-coating/">AI for Paint and Coatings</a></li><li><a href="/probaligence-site-preview/ai-for-chemical-process-optimization/">AI for Chemical R&amp;D</a></li></ul>
+      </div>
+      <div>
+        <div class="f-h">Science</div>
+        <ul><li><a href="/probaligence-site-preview/science/">Science overview</a></li><li><a href="/probaligence-site-preview/how-stochos-works/">How STOCHOS works</a></li><li><a href="/probaligence-site-preview/science/benchmarks/">Benchmarks</a></li><li><a href="/probaligence-site-preview/surrogate-modeling/">Surrogate Modeling</a></li><li><a href="/probaligence-site-preview/bayesian-optimization/">Bayesian Optimization</a></li><li><a href="/probaligence-site-preview/multi-fidelity-modeling/">Multi-Fidelity Modeling</a></li><li><a href="/probaligence-site-preview/uncertainty-quantification/">Uncertainty Quantification</a></li><li><a href="/probaligence-site-preview/sensitivity-analysis/">Sensitivity Analysis</a></li><li><a href="/probaligence-site-preview/generative-design/">Generative Design</a></li></ul>
+      </div>
+      <div>
+        <div class="f-h">Company</div>
+        <ul><li><a href="/probaligence-site-preview/about/">About</a></li><li><a href="/probaligence-site-preview/news/">News and Guides</a></li><li><a href="/probaligence-site-preview/contact/">Contact</a></li><li><a class="amber" href="/probaligence-site-preview/contact/">Request a Demo</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="copy">&copy; <span data-year>2026</span> PI Probaligence GmbH</span>
+      <span class="legal">
+        <a href="/probaligence-site-preview/imprint/">Imprint</a>
+        <a href="/probaligence-site-preview/privacy/">Privacy Policy</a>
+      </span>
+    </div>
+  </div>
+</footer>
+<script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
+<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+
+<a href="../../feedback/?page=Resources%20/%20News" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
+</body>
+</html>
