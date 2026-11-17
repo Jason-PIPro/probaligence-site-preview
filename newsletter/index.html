@@ -4,6 +4,7 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -29,7 +30,7 @@ h1{-webkit-hyphens:auto;hyphens:auto;overflow-wrap:break-word}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=4d6136f0">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
@@ -43,8 +44,8 @@ h1{-webkit-hyphens:auto;hyphens:auto;overflow-wrap:break-word}
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
     <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
-      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
-      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+      <img width="35" height="34" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img width="128" height="15" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -123,7 +124,7 @@ h1{-webkit-hyphens:auto;hyphens:auto;overflow-wrap:break-word}
         <form data-no-demo-form id="nl-form" novalidate style="display: flex; flex-direction: column; gap: 14px; max-width: 460px; position: relative;">
           <label for="nl-email" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124);">Email address (required)</label>
           <input id="nl-email" name="email" type="email" autocomplete="email" required maxlength="254"
-                 style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.14); border-radius: 6px; color: rgb(240,240,236); font: 400 15.5px/1.4 &quot;Space Grotesk&quot;, sans-serif; padding: 13px 14px; min-height: 44px;">
+                 style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.36); border-radius: 6px; color: rgb(240,240,236); font: 400 15.5px/1.4 &quot;Space Grotesk&quot;, sans-serif; padding: 13px 14px; min-height: 44px;">
           <!-- Honeypot: a person never sees or reaches this field; a form-filling bot does. -->
           <div aria-hidden="true" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
             <label for="nl-website">Leave this field empty</label>
@@ -205,11 +206,11 @@ h1{-webkit-hyphens:auto;hyphens:auto;overflow-wrap:break-word}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <a href="/probaligence-site-preview/" class="brand"><img width="33" height="32" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img width="120" height="14" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
-          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+          <img width="157" height="40" loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img width="135" height="19" loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -248,7 +249,7 @@ h1{-webkit-hyphens:auto;hyphens:auto;overflow-wrap:break-word}
   </div>
 </footer>
 <script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
-<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<script src="/probaligence-site-preview/site.js?v=c67a8e9f" defer></script>
 <a href="../feedback/?page=General%20/%20whole%20site" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 </body>
 </html>

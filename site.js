@@ -18,7 +18,9 @@
   /* ---------- marquee: an explicit pause control (WCAG 2.2.2) ----------
      No hover pause: the banner keeps scrolling under the pointer. The button
      is the only way to pause, which still satisfies WCAG 2.2.2.
-     Covers both variants: the shared .marquee-track and the inline-styled [data-marquee]. */
+     Covers both variants: the shared .marquee-track and the inline-styled [data-marquee].
+     The label alone says the state (Pause or Resume): a pressed state on top of it
+     would have a screen reader announce a "Resume" button that is also pressed. */
   document.querySelectorAll(".marquee-track, [data-marquee]").forEach(function (track) {
     var host = track.closest("section") || track.parentElement;
     if (!host || host.querySelector(".marquee-pause")) return;
@@ -26,13 +28,11 @@
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className = "marquee-pause";
-    btn.setAttribute("aria-pressed", "false");
     btn.setAttribute("aria-label", "Pause the logo animation");
     btn.textContent = "❚❚";
     btn.addEventListener("click", function () {
       track.__pinned = !track.__pinned;
       track.style.animationPlayState = track.__pinned ? "paused" : "";
-      btn.setAttribute("aria-pressed", track.__pinned ? "true" : "false");
       btn.textContent = track.__pinned ? "▶" : "❚❚";
       btn.setAttribute("aria-label", track.__pinned ? "Resume the logo animation" : "Pause the logo animation");
     });
@@ -50,12 +50,44 @@
     btn.addEventListener("click", function () {
       track.__pinned = !track.__pinned;
       track.style.animationPlayState = track.__pinned ? "paused" : "";
-      btn.setAttribute("aria-pressed", track.__pinned ? "true" : "false");
       btn.textContent = track.__pinned ? "▶" : "❚❚";
       btn.setAttribute("aria-label", track.__pinned
         ? "Resume the demonstration notice" : "Pause the demonstration notice");
     });
   });
+
+  /* Keyboard reach (V8, 2026-11-16). Under reduced motion the strip is a scroller
+     with its scrollbar hidden, so a keyboard user needs a tab stop on it to scroll
+     the notice. The view is a named region and a tab stop only while it can scroll:
+     the browser lets a user scroll it (overflow-x auto or scroll, the reduced-motion
+     rule in site.css) and its text is wider than the box. With motion on, the view
+     clips its moving track, so it is never a tab stop then. Checked again on resize,
+     when the motion preference changes, and once the fonts have loaded. */
+  (function () {
+    var views = document.querySelectorAll(".demo-ticker-view");
+    if (!views.length) return;
+    function check() {
+      Array.prototype.forEach.call(views, function (v) {
+        var ox = getComputedStyle(v).overflowX;
+        if ((ox === "auto" || ox === "scroll") && v.scrollWidth > v.clientWidth) {
+          v.setAttribute("tabindex", "0");
+          v.setAttribute("role", "region");
+          v.setAttribute("aria-label", "Demonstration notice");
+        } else {
+          v.removeAttribute("tabindex");
+          v.removeAttribute("role");
+          v.removeAttribute("aria-label");
+        }
+      });
+    }
+    check();
+    var rt;
+    window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(check, 150); });
+    var mq = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq && mq.addEventListener) mq.addEventListener("change", check);
+    else if (mq && mq.addListener) mq.addListener(check);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(check);
+  })();
 
   /* ---------- active link highlight ---------- */
   (function () {
@@ -65,7 +97,10 @@
       var href = a.getAttribute("href");
       if (!href || href.charAt(0) !== "/") return;
       var hp = href.length > 1 && href.charAt(href.length - 1) !== "/" ? href + "/" : href;
-      if (hp === path && hp !== "/") a.classList.add("active");
+      if (hp === path && hp !== "/") {
+        a.classList.add("active");
+        a.setAttribute("aria-current", "page");   // .active is visual only; this tells assistive tech
+      }
     });
   })();
 
@@ -85,6 +120,21 @@
         document.body.style.overflow = "";
       }
     });
+    // Focus must not fall behind the open panel: when it moves to an element
+    // outside the header (a Tab past the last item), the panel closes the way a
+    // link click closes it, and focus stays where it went. The same contract as
+    // the landing burger below; a null relatedTarget is a click on bare page,
+    // which leaves the panel open as before. Only where the panel sits inside
+    // the header, or focus moving into it from the toggle would close it.
+    if (header && header.contains(panel)) {
+      header.addEventListener("focusout", function (e) {
+        if (panel.classList.contains("open") && e.relatedTarget && !header.contains(e.relatedTarget)) {
+          panel.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        }
+      });
+    }
   }
 
   /* ---------- landing burger: opens the nav without scrolling ----------
@@ -138,13 +188,25 @@
     else if (wide.addListener) wide.addListener(onWidth);
   })();
 
-  /* ---------- desktop dropdowns: click to toggle (touch), Escape, outside-click ---------- */
+  /* ---------- desktop dropdowns: click to toggle (touch), Escape, outside-click ----------
+     :hover and :focus-within show a menu whatever aria-expanded says, so Escape
+     also marks the group .is-dismissed, which site.css hides. The mark goes when
+     the trigger is clicked, when focus leaves the group (a click on bare page
+     counts), or when the pointer leaves a group that does not hold focus (with
+     focus inside, :focus-within would show the menu again). */
   var groups = Array.prototype.slice.call(document.querySelectorAll(".site-header .has-menu"));
   groups.forEach(function (group) {
     var trigger = group.querySelector(".nav-trigger");
+    group.addEventListener("focusout", function (e) {
+      if (!e.relatedTarget || !group.contains(e.relatedTarget)) group.classList.remove("is-dismissed");
+    });
+    group.addEventListener("pointerleave", function () {
+      if (!group.contains(document.activeElement)) group.classList.remove("is-dismissed");
+    });
     if (!trigger) return;
     trigger.addEventListener("click", function (e) {
       e.preventDefault();
+      group.classList.remove("is-dismissed");
       var open = trigger.getAttribute("aria-expanded") === "true";
       closeAll();
       trigger.setAttribute("aria-expanded", open ? "false" : "true");
@@ -158,6 +220,14 @@
   }
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
+      groups.forEach(function (g) {
+        var focused = g.contains(document.activeElement);
+        if (!focused && !g.matches(":hover")) return;
+        // a link in the menu is about to be hidden, so focus goes back to its trigger
+        var sub = g.querySelector(".submenu"), t = g.querySelector(".nav-trigger");
+        if (focused && sub && t && sub.contains(document.activeElement)) t.focus();
+        g.classList.add("is-dismissed");
+      });
       closeAll();
       if (panel && panel.classList.contains("open")) {
         panel.classList.remove("open");
@@ -259,6 +329,8 @@
   }
   if (form) {
     form.setAttribute("novalidate", "novalidate");
+    // The two-field test for goThankYou(), taken now, while the fields still exist.
+    var isDemoForm = !!(form.querySelector('[name="company"]') && form.querySelector('[name="message"]'));
     var done = form.querySelector(".form-ok, [data-form-ok]");
     var submitBtn = form.querySelector("button[type=submit]");
     var submitLabel = submitBtn ? submitBtn.textContent : "";
@@ -370,12 +442,18 @@
        navigation that is blocked or fails still leaves a confirmation on screen.
        Only the demo request form navigates: this handler also adopts any other
        form carrying an email field (the newsletter signup), and that must never
-       land on the contact thank-you page, hence the two-field test. The root
-       comes from the brand link, the same trick the search uses for BASE below,
-       because the demo build rebases that href onto its GitHub Pages subpath and
-       does not rewrite arbitrary paths inside this file. */
+       land on the contact thank-you page, hence the two-field test. The test is
+       taken once at setup (isDemoForm, next to novalidate above) and not in
+       here, because finish() runs first and, on a page without a .form-ok
+       block (the contact page has none), replaces form.innerHTML with the
+       message. By the time this ran the fields were gone, the test always
+       failed, and no visitor ever reached the thank-you page (found
+       2026-11-12: no request for it in the server logs since 2026-08-06). The
+       root comes from the brand link, the same trick the search uses for BASE
+       below, because the demo build rebases that href onto its GitHub Pages
+       subpath and does not rewrite arbitrary paths inside this file. */
     function goThankYou() {
-      if (!form.querySelector('[name="company"]') || !form.querySelector('[name="message"]')) return;
+      if (!isDemoForm) return;
       var brand = document.querySelector("header a.brand");
       var root = (brand && brand.getAttribute("href")) || "/";
       if (root.charAt(root.length - 1) !== "/") root += "/";
@@ -670,7 +748,9 @@
     var FOLD = vh * 0.92;
     // Smoothest path: CSS scroll-driven reveals (compositor, scrubbed to scroll) handle
     // sections where supported (see site.css). JS only falls back where it is not.
-    var scrollDriven = !!(window.CSS && CSS.supports && CSS.supports("animation-timeline", "view()"));
+    // The same two-part test as site.css: a browser that knows animation-timeline but
+    // not animation-range would scrub the reveal over the wrong range, so it gets the JS one.
+    var scrollDriven = !!(window.CSS && CSS.supports && CSS.supports("(animation-timeline: view()) and (animation-range: entry)"));
 
     /* ---- count-up: works for [data-count] AND detected stat numbers; keeps exact final text ---- */
     function countUp(el) {
@@ -759,22 +839,55 @@
       });
     }
 
-    if (scrollDriven) {
-      markBlocks(function (el) { el.classList.add("pi-rv"); });    // CSS view() animation handles the rest
-      return;
-    }
-    if (!hasIO) return;
-    // JS fallback (no view() support): hide blocks below the fold, reveal on intersect
+    // JS fallback: hide blocks below the fold, reveal on intersect. Used where view() is
+    // unsupported, and for blocks the view() path cannot serve (see clipped() below).
     function hide(el) {
       el.style.opacity = "0"; el.style.transform = "translateY(40px)";
       el.style.transition = "opacity .7s " + EASE + ", transform .8s " + EASE;
       el.style.willChange = "transform, opacity";
     }
-    var io = new IntersectionObserver(function (entries) {
+    var io = hasIO ? new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.style.opacity = "1"; en.target.style.transform = "none"; io.unobserve(en.target); }
       });
-    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }) : null;
+
+    /* V0, 2026-11-16: view() binds to the nearest scroll container. A block with an
+       ancestor below body whose overflow is hidden, auto, or scroll (a section that
+       uses overflow:hidden to clip) would bind to that box, which never scrolls, and
+       freeze part way, so it takes the fallback and reveals once. Each ancestor's
+       answer is kept on it, so siblings read their shared ancestors only once. */
+    var CLIPS = /^(hidden|auto|scroll)$/;
+    function clipped(el) {
+      for (var a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+        if (a.__piClips === undefined) {
+          var cs = getComputedStyle(a);
+          a.__piClips = CLIPS.test(cs.overflowX) || CLIPS.test(cs.overflowY);
+        }
+        if (a.__piClips) return true;
+      }
+      return false;
+    }
+
+    if (scrollDriven) {
+      // read every block first, then write, so marking one block never forces a style
+      // and layout pass while the next is measured
+      var plan = [];
+      markBlocks(function (el) {
+        var viaIO = !!io && clipped(el);
+        plan.push({ el: el, io: viaIO, top: el.getBoundingClientRect().top });
+      });
+      plan.forEach(function (p) {
+        // Above the fold at load: leave visible on both paths, so the first screen never
+        // opens half faded (now that the reveals track scrolling, a block low in the first
+        // screen would otherwise wait for a scroll). Same rule as the fallback below.
+        if (p.top < FOLD) return;
+        if (!p.io) { p.el.classList.add("pi-rv"); return; }   // CSS view() animation handles the rest
+        hide(p.el); io.observe(p.el);
+      });
+      return;
+    }
+    if (!io) return;
     markBlocks(function (el) {
       if (el.getBoundingClientRect().top < FOLD) return; // above fold: leave visible
       hide(el); io.observe(el);
@@ -798,6 +911,36 @@
     var brandLink = head.querySelector("a.brand");
     var BASE = (brandLink && brandLink.getAttribute("href")) || "/";
     if (BASE.charAt(BASE.length - 1) !== "/") BASE += "/";
+
+    /* Prefetch (E1, 2026-11-16): one speculation rule set, prefetch only, never
+       prerender (a prerendered page would run its hero entrance and count-ups
+       unseen). Eagerness "conservative" starts the fetch on pointer down or touch
+       start, a moment before the click lands, so a page is fetched only when a
+       visitor is already clicking through to it and the server-log page counts
+       stay honest. Same-site links from the site root above; never the thank-you
+       or newsletter pages, a PDF, the assets folder, or a link marked nofollow or
+       download. The patterns are absolute paths because a relative one resolves
+       against the current page's folder. Browsers without speculation rules skip
+       all of this. */
+    if (window.HTMLScriptElement && HTMLScriptElement.supports &&
+        HTMLScriptElement.supports("speculationrules")) {
+      var ROOT = new URL(BASE, location.href).pathname;
+      var rules = document.createElement("script");
+      rules.type = "speculationrules";
+      rules.textContent = JSON.stringify({ prefetch: [{
+        where: { and: [
+          { href_matches: ROOT + "*" },
+          { not: { href_matches: ROOT + "contact/thank-you/*" } },
+          { not: { href_matches: ROOT + "newsletter/*" } },
+          { not: { href_matches: ROOT + "*.pdf" } },
+          { not: { href_matches: ROOT + "assets/*" } },
+          { not: { selector_matches: "[rel~=nofollow]" } },
+          { not: { selector_matches: "[download]" } }
+        ] },
+        eagerness: "conservative"
+      }] });
+      document.head.appendChild(rules);
+    }
 
     var MAX = 12;        // results listed in the overlay; /search/ lists them all
     var SNIP = 150;      // snippet length, characters
@@ -1364,11 +1507,11 @@
       overlay.hidden = true;
       overlay.innerHTML =
         '<div class="pis-panel" role="dialog" aria-modal="true" aria-label="Search this site">' +
-        '<div class="pis-inputrow">' + ICON +
-        '<input class="pis-input" type="search" autocomplete="off" autocorrect="off" ' +
+        '<form class="pis-inputrow pis-form" role="search" method="get">' + ICON +
+        '<input class="pis-input" type="search" name="q" enterkeyhint="search" autocomplete="off" autocorrect="off" ' +
         'spellcheck="false" role="combobox" aria-expanded="false" aria-controls="pis-list" ' +
         'aria-autocomplete="list" aria-label="Search this site" placeholder="Search pages, guides and news…">' +
-        '<span class="pis-esc" aria-hidden="true">esc</span></div>' +
+        '<span class="pis-esc" aria-hidden="true">esc</span></form>' +
         '<div class="pis-list" id="pis-list" role="listbox" aria-label="Search results"></div>' +
         '<div class="pis-foot"><span>↑↓ navigate</span><span>↵ all results</span>' +
         '<span>esc close</span>' +
@@ -1378,11 +1521,28 @@
       list = overlay.querySelector(".pis-list");
       countEl = overlay.querySelector(".pis-count");
 
+      // The input row is itself the form (so site.css lays it out as before), and the
+      // browser submits it on Enter: a keyboard whose Enter onKey leaves alone (keyCode
+      // 229) still reaches the results page. BASE carries the demo's subpath.
+      var searchForm = overlay.querySelector(".pis-form");
+      searchForm.setAttribute("action", BASE + "search/");
+      searchForm.addEventListener("submit", function (e) {
+        var q = input.value.trim();
+        if (!q) { e.preventDefault(); return; }   // nothing typed: stay in the overlay
+        if (input.value !== q) input.value = q;   // the URL carries the trimmed query, as before
+      });
+
       input.addEventListener("input", render);
       overlay.addEventListener("mousedown", function (e) { if (e.target === overlay) close(); });
       overlay.addEventListener("keydown", onKey);
     }
     function onKey(e) {
+      // While an input method composes text (Japanese, Chinese, Korean), its keys
+      // belong to it, or the arrows would move the selection and Escape would close
+      // the overlay mid-word. Safari reports the Enter that confirms the text with
+      // isComposing already false and keyCode 229, so that Enter is left alone too.
+      if (e.isComposing) return;
+      if (e.key === "Enter" && e.keyCode === 229) return;
       if (e.key === "Escape") { e.preventDefault(); close(); }
       else if (e.key === "ArrowDown") { e.preventDefault(); moved = true; setActive(active + 1); }
       else if (e.key === "ArrowUp") { e.preventDefault(); moved = true; setActive(active - 1); }
@@ -1392,11 +1552,9 @@
         // Enter on a typed query goes to the results page, not the top hit: the
         // first row is highlighted by render(), not by the user, so opening it
         // would send people somewhere they never chose. Arrow keys are the way
-        // to pick a row, and only then does Enter open it.
-        e.preventDefault();
-        if (moved && rows[active]) { rows[active].click(); return; }
-        var q = input.value.trim();
-        if (q) window.location.href = BASE + "search/?q=" + encodeURIComponent(q);
+        // to pick a row, and only then does Enter open it. Any other Enter is the
+        // form's: the browser submits it to the results page (see build()).
+        if (moved && rows[active]) { e.preventDefault(); rows[active].click(); }
       } else if (e.key === "Tab") {
         e.preventDefault();   // nothing else in the dialog is focusable: hold focus
         input.focus();
@@ -1475,17 +1633,15 @@
       mnav.insertBefore(mbtn, mnav.firstChild);
       trigger(mbtn);
     }
+    /* Ctrl K and Cmd K only. The bare "/" shortcut is gone (V12, 2026-11-16): a
+       single-character shortcut that cannot be switched off fails WCAG 2.1.4, and
+       speech input can type it by accident. */
     document.addEventListener("keydown", function (e) {
       if ((e.metaKey || e.ctrlKey) && !e.altKey && (e.key === "k" || e.key === "K")) {
         e.preventDefault();
         overlay && !overlay.hidden ? close() : open();
         return;
       }
-      if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
-      var t = e.target, tag = t && t.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
-      e.preventDefault();
-      open();
     });
 
     /* ---- shared with /search/ ----

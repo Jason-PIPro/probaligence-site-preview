@@ -4,6 +4,7 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -40,7 +41,7 @@ h1,h2,h3,h4,p{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=4d6136f0">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
@@ -75,12 +76,12 @@ h1,h2,h3,h4,p{margin:0}
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
     <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
-      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
-      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+      <img width="35" height="34" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img width="128" height="15" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
     </a>
     <div class="brand-partner">
       <span class="brand-partner-sep" aria-hidden="true"></span>
-      <img src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+      <img width="134" height="34" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
     </div>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -176,7 +177,7 @@ h1,h2,h3,h4,p{margin:0}
         min-height:44px;padding:12px 14px}
     }</style>
     <div class="hero-shell" style="position: relative; width: 100%; height: 100vh; height: 100svh; min-height: 480px; overflow: hidden; background: rgb(6, 6, 7);">
-      <video data-hero-video autoplay muted loop playsinline preload="metadata" poster="/probaligence-site-preview/assets/media/hero-poster-2026-08-06.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+      <video data-hero-video aria-hidden="true" autoplay muted loop playsinline preload="metadata" poster="/probaligence-site-preview/assets/media/hero-poster-2026-08-06.webp" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
         <source src="/probaligence-site-preview/assets/media/hero-video-2026-08-06-v2.mp4" type="video/mp4">
       </video>
       <div class="hero-scrim" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(6,6,7,0.5), rgba(6,6,7,0) 24%, rgba(6,6,7,0) 60%, rgba(6,6,7,0.55) 84%, rgba(6,6,7,0.95));"></div>
@@ -429,8 +430,8 @@ h1,h2,h3,h4,p{margin:0}
       <div data-layers style="margin-top: 30px;">
         <div role="tablist" aria-label="Product layers" data-toggle style="position:relative;display:inline-flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px;">
           <span data-pill aria-hidden="true" style="position:absolute;top:5px;bottom:5px;left:0;width:0;background:#FFB006;border-radius:999px;transition:left .55s cubic-bezier(.2,.7,.2,1),width .55s cubic-bezier(.2,.7,.2,1);pointer-events:none;"></span>
-          <button type="button" data-layer-btn="stochos" role="tab" aria-selected="true" style="position:relative;z-index:1;border:0;background:transparent;color:#08070A;font:600 14px/1 'IBM Plex Sans',sans-serif;padding:11px 20px;border-radius:999px;cursor:pointer;transition:color .3s">STOCHOS</button>
-          <button type="button" data-layer-btn="flow" role="tab" aria-selected="false" style="position:relative;z-index:1;border:0;background:transparent;color:#F4F3EF;font:600 14px/1 'IBM Plex Sans',sans-serif;padding:11px 20px;border-radius:999px;cursor:pointer;transition:color .3s">STOCHOS Flow</button>
+          <button type="button" data-layer-btn="stochos" role="tab" id="layer-tab-stochos" aria-controls="layer-panel-stochos" aria-selected="true" style="position:relative;z-index:1;border:0;background:transparent;color:#08070A;font:600 14px/1 'IBM Plex Sans',sans-serif;padding:11px 20px;border-radius:999px;cursor:pointer;transition:color .3s">STOCHOS</button>
+          <button type="button" data-layer-btn="flow" role="tab" id="layer-tab-flow" aria-controls="layer-panel-flow" aria-selected="false" style="position:relative;z-index:1;border:0;background:transparent;color:#F4F3EF;font:600 14px/1 'IBM Plex Sans',sans-serif;padding:11px 20px;border-radius:999px;cursor:pointer;transition:color .3s">STOCHOS Flow</button>
         </div>
         <style>/* Both panels sit in the same single grid cell, so the row is sized by whichever
            is taller. On a phone the hidden Flow panel is the taller one and leaves a large empty
@@ -440,7 +441,7 @@ h1,h2,h3,h4,p{margin:0}
            above 700px. */
         @media (max-width:700px){[data-layer-stage]>[data-panel="flow"]{display:none}[data-layer-stage]>[data-panel="flow"].is-on{display:block}[data-layer-stage]>[data-panel="stochos"].is-off{display:none}}</style>
         <div data-layer-stage style="margin-top:20px;display:grid;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:4px;background:radial-gradient(at 80% 0%, rgba(255,176,6,.06), transparent 55%)">
-          <div data-panel="stochos" style="grid-column:1;grid-row:1;background:#0A0908;padding:clamp(24px,3.4vw,38px);z-index:1">
+          <div data-panel="stochos" id="layer-panel-stochos" role="tabpanel" aria-labelledby="layer-tab-stochos" style="grid-column:1;grid-row:1;background:#0A0908;padding:clamp(24px,3.4vw,38px);z-index:1">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
               <img src="/probaligence-site-preview/assets/logos/stochos-wordmark-dark.svg" width="1260" height="300" alt="STOCHOS" style="height:24px;width:auto;display:block">
               <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#9C9C96">Intelligence layer &middot; DIM-GP</span>
@@ -449,7 +450,7 @@ h1,h2,h3,h4,p{margin:0}
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(275px, 100%), 1fr));gap:10px;margin-top:18px"><a href="/probaligence-site-preview/surrogate-modeling/" class="scp3" style="border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:15px 16px;background:#060607;text-decoration:none;display:block"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div style="font:600 15px/1.25 'Space Grotesk',sans-serif;color:#F4F3EF">Surrogate modeling</div><span aria-hidden="true" style="color:#FFB006;font-size:14px">&rarr;</span></div><div style="margin-top:6px;color:#9C9C96;font:400 13px/1.45 'IBM Plex Sans',sans-serif">Predict new variants in seconds</div></a><a href="/probaligence-site-preview/uncertainty-quantification/" class="scp3" style="border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:15px 16px;background:#060607;text-decoration:none;display:block"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div style="font:600 15px/1.25 'Space Grotesk',sans-serif;color:#F4F3EF">Uncertainty quantification</div><span aria-hidden="true" style="color:#FFB006;font-size:14px">&rarr;</span></div><div style="margin-top:6px;color:#9C9C96;font:400 13px/1.45 'IBM Plex Sans',sans-serif">Know where to trust the model</div></a><a href="/probaligence-site-preview/bayesian-optimization/" class="scp3" style="border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:15px 16px;background:#060607;text-decoration:none;display:block"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div style="font:600 15px/1.25 'Space Grotesk',sans-serif;color:#F4F3EF">Bayesian optimization</div><span aria-hidden="true" style="color:#FFB006;font-size:14px">&rarr;</span></div><div style="margin-top:6px;color:#9C9C96;font:400 13px/1.45 'IBM Plex Sans',sans-serif">Choose the next best run</div></a><a href="/probaligence-site-preview/multi-fidelity-modeling/" class="scp3" style="border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:15px 16px;background:#060607;text-decoration:none;display:block"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div style="font:600 15px/1.25 'Space Grotesk',sans-serif;color:#F4F3EF">Multi-fidelity modeling</div><span aria-hidden="true" style="color:#FFB006;font-size:14px">&rarr;</span></div><div style="margin-top:6px;color:#9C9C96;font:400 13px/1.45 'IBM Plex Sans',sans-serif">Combine cheap and expensive data</div></a><a href="/probaligence-site-preview/sensitivity-analysis/" class="scp3" style="border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:15px 16px;background:#060607;text-decoration:none;display:block"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div style="font:600 15px/1.25 'Space Grotesk',sans-serif;color:#F4F3EF">Sensitivity analysis</div><span aria-hidden="true" style="color:#FFB006;font-size:14px">&rarr;</span></div><div style="margin-top:6px;color:#9C9C96;font:400 13px/1.45 'IBM Plex Sans',sans-serif">See which inputs drive the result</div></a><a href="/probaligence-site-preview/generative-design/" class="scp3" style="border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:15px 16px;background:#060607;text-decoration:none;display:block"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div style="font:600 15px/1.25 'Space Grotesk',sans-serif;color:#F4F3EF">Generative design</div><span aria-hidden="true" style="color:#FFB006;font-size:14px">&rarr;</span></div><div style="margin-top:6px;color:#9C9C96;font:400 13px/1.45 'IBM Plex Sans',sans-serif">Explore new geometries</div></a></div>
             <a href="/probaligence-site-preview/stochos/" style="display:inline-block;margin-top:22px;color:#FFB006;text-decoration:none;font:500 14.5px/1 'IBM Plex Sans',sans-serif">Explore STOCHOS &rarr;</a>
           </div>
-          <div data-panel="flow" style="grid-column:1;grid-row:1;background:#0A0908;padding:clamp(24px,3.4vw,38px);z-index:2;transform:translateX(101%);transition:transform .85s cubic-bezier(.2,.7,.2,1);will-change:transform;box-shadow:-24px 0 40px rgba(0,0,0,.4)">
+          <div data-panel="flow" id="layer-panel-flow" role="tabpanel" aria-labelledby="layer-tab-flow" style="grid-column:1;grid-row:1;background:#0A0908;padding:clamp(24px,3.4vw,38px);z-index:2;transform:translateX(101%);transition:transform .85s cubic-bezier(.2,.7,.2,1);will-change:transform;box-shadow:-24px 0 40px rgba(0,0,0,.4)">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
               <div style="display:flex;align-items:center;gap:11px"><video data-logo-video muted playsinline preload="metadata" width="480" height="318" poster="/probaligence-site-preview/assets/media/stochos-flow-logo-mark-poster.webp" aria-hidden="true" style="height:34px;width:auto;display:block;mix-blend-mode:screen"><source src="/probaligence-site-preview/assets/media/stochos-flow-logo-mark.webm" type="video/webm"><source src="/probaligence-site-preview/assets/media/stochos-flow-logo-mark.mp4" type="video/mp4"></video><h3 id="stochos-flow" style="font:600 22px/1 'Space Grotesk',sans-serif;color:#F4F3EF">STOCHOS Flow</h3></div>
               <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#FFB006">Workflow layer</span>
@@ -459,13 +460,13 @@ h1,h2,h3,h4,p{margin:0}
             <div data-flow-steps style="display:flex;align-items:stretch;flex-wrap:wrap;gap:12px;margin-top:20px">
               <div data-step style="flex:1 1 240px;min-width:0;border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:18px;background:#060607;opacity:0;transform:translateY(12px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)">
                 <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#FFB006">01 &middot; Describe</div>
-                <div style="margin-top:12px;border:1px solid rgba(255,255,255,.13);border-radius:6px;padding:11px 13px;background:#0A0908;color:#C9C9C3;font:400 13.5px/1.5 'IBM Plex Sans',sans-serif;min-height:64px">&ldquo;<span data-flow-type>Train a model on my Excel data and show me how accurate it is.</span><span data-flow-caret aria-hidden="true" style="display:none;width:7px;height:14px;background:#FFB006;vertical-align:-2px;animation:flowCaret 1s steps(1) infinite"></span>&rdquo;</div>
+                <div style="margin-top:12px;border:1px solid rgba(255,255,255,.13);border-radius:6px;padding:11px 13px;background:#0A0908;color:#C9C9C3;font:400 13.5px/1.5 'IBM Plex Sans',sans-serif;min-height:64px">&ldquo;<span data-flow-type aria-hidden="true">Train a model on my Excel data and show me how accurate it is.</span><span class="sr-only">Train a model on my Excel data and show me how accurate it is.</span><span data-flow-caret aria-hidden="true" style="display:none;width:7px;height:14px;background:#FFB006;vertical-align:-2px;animation:flowCaret 1s steps(1) infinite"></span>&rdquo;</div>
                 <p style="margin:10px 0 0;color:#9C9C96;font:400 13px/1.45 'IBM Plex Sans',sans-serif">Plain language, to the Workflow Agent.</p>
               </div>
               <div data-step-arrow aria-hidden="true" style="align-self:center;color:#FFB006;font-size:22px;opacity:0;transition:opacity .5s ease">&rarr;</div>
               <div data-step style="flex:1 1 240px;min-width:0;border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:18px;background:#060607;opacity:0;transform:translateY(12px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)">
                 <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#FFB006">02 &middot; The agent builds</div>
-                <img src="/probaligence-site-preview/assets/media/flow-ui-detail.webp" alt="The node pipeline the Workflow Agent built on the STOCHOS Flow canvas" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;margin-top:12px;border:1px solid rgba(255,255,255,.14);border-radius:5px">
+                <img width="1100" height="516" src="/probaligence-site-preview/assets/media/flow-ui-detail.webp" alt="The node pipeline the Workflow Agent built on the STOCHOS Flow canvas" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;margin-top:12px;border:1px solid rgba(255,255,255,.14);border-radius:5px">
                 <p style="margin:10px 0 0;color:#9C9C96;font:400 13px/1.45 'IBM Plex Sans',sans-serif">Nodes picked, wired, and configured on the canvas.</p>
               </div>
               <div data-step-arrow aria-hidden="true" style="align-self:center;color:#FFB006;font-size:22px;opacity:0;transition:opacity .5s ease">&rarr;</div>
@@ -498,6 +499,7 @@ h1,h2,h3,h4,p{margin:0}
         function set(a){ cur=a; flow.style.transform = a==='flow' ? 'translateX(0)' : 'translateX(101%)'; pillTo(a);
           flow.classList.toggle('is-on', a==='flow');
           if(stoch) stoch.classList.toggle('is-off', a!=='stochos');
+          flow.inert = a!=='flow'; if(stoch) stoch.inert = a!=='stochos';
           btns.forEach(function(b){ var on=b.getAttribute('data-layer-btn')===a; b.setAttribute('aria-selected', on?'true':'false'); b.style.color=on?'#08070A':'#F4F3EF'; });
         }
         btns.forEach(function(b){ b.addEventListener('click', function(){ set(b.getAttribute('data-layer-btn')); }); });
@@ -555,9 +557,9 @@ h1,h2,h3,h4,p{margin:0}
                end of line 1. Same pattern as [data-lf-sep] further down the page. */
             @media (max-width:640px){[data-partner-sep]{display:none}}</style>
             <div style="margin: 32px auto 0; display: flex; gap: 44px; justify-content: center; align-items: center; flex-wrap: wrap;">
-              <img loading="lazy" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner" style="height: 62px; width: auto; display: block;">
+              <img width="244" height="62" loading="lazy" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner" style="height: 62px; width: auto; display: block;">
               <span data-partner-sep aria-hidden="true" style="width: 1px; height: 42px; background: rgba(255,255,255,0.18);"></span>
-              <img loading="lazy" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group" style="height: 34px; width: auto; display: block;">
+              <img width="242" height="34" loading="lazy" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group" style="height: 34px; width: auto; display: block;">
             </div>
           </div>
         </div>
@@ -623,11 +625,11 @@ h1,h2,h3,h4,p{margin:0}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/probaligence-site-preview/" class="brand"><img loading="lazy" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <a href="/probaligence-site-preview/" class="brand"><img width="33" height="32" loading="lazy" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img width="120" height="14" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
-          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+          <img width="157" height="40" loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img width="135" height="19" loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -667,7 +669,7 @@ h1,h2,h3,h4,p{margin:0}
 </footer>
 <script>(function(){var vids=document.querySelectorAll('[data-logo-video]');if(!vids.length)return;var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;if(!(window.__PIFX_FORCE||!reduce))return;if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(v.ended){io.unobserve(v);return;}if(e.isIntersecting){v.play().catch(function(){});}else{v.pause();}});},{threshold:.25});vids.forEach(function(v){v.addEventListener('ended',function(){io.unobserve(v);});io.observe(v);});}else{vids.forEach(function(v){v.play().catch(function(){});});}})();</script>
 <script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
-<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<script src="/probaligence-site-preview/site.js?v=c67a8e9f" defer></script>
 <a href="feedback/?page=Home" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 </body>
 </html>

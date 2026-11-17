@@ -4,6 +4,7 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -43,7 +44,7 @@ h1{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:break-word}
 #cad-agent-mirror-demo-video::-webkit-media-controls-volume-control-hover-background{display:none!important}
 </style>
 <noscript><style>[data-video-start]{display:none!important}</style></noscript>
-<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=4d6136f0">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
@@ -57,8 +58,8 @@ h1{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:break-word}
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
     <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
-      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
-      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+      <img width="35" height="34" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img width="128" height="15" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -131,12 +132,12 @@ h1{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:break-word}
   </section>
 
   <!-- User-initiated only: the source has no src until the click (the script copies data-src), so mail scanners that open the page cannot pull the video. Without JavaScript the overlay is hidden and a plain link to the file is shown. -->
-  <section id="cad-agent-demo" style="padding: 0px 24px 56px; scroll-margin-top: 96px;">
+  <section id="cad-agent-demo" style="padding: 0px 24px 56px; scroll-margin-top: 16px;">
     <div style="max-width: 960px; margin: 0px auto;">
       <h2 style="font: 700 clamp(22px, 2.4vw, 28px) / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em;">The full demo</h2>
       <p style="margin-top: 10px; margin-bottom: 20px; color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.6; max-width: 68ch;">Prompt to CAD, edit in words, image to CAD, auto-parametrize and morph. Runs on a local model on one GPU. No data leaves the machine.</p>
       <div style="position: relative; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; overflow: hidden; background: rgb(0, 0, 0); box-shadow: rgba(0, 0, 0, 0.6) 0px 40px 100px;">
-        <video id="cad-agent-demo-video" muted playsinline preload="none" controlslist="nodownload noplaybackrate" disablepictureinpicture width="1280" height="720" poster="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/cad-agent-demo.webp" aria-label="Video: the CAD Agent demo. Prompt to CAD, edit in words, image to CAD, auto-parametrize and morph, on a local model on one GPU." style="display: block; width: 100%; height: auto;"><source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/stochos-flow-cad-agent-demo.mp4" type="video/mp4"></video>
+        <video id="cad-agent-demo-video" muted playsinline preload="none" loading="lazy" controlslist="nodownload noplaybackrate" disablepictureinpicture width="1280" height="720" poster="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/cad-agent-demo.webp" aria-label="Video: the CAD Agent demo. Prompt to CAD, edit in words, image to CAD, auto-parametrize and morph, on a local model on one GPU." style="display: block; width: 100%; height: auto;"><source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/stochos-flow-cad-agent-demo.mp4" type="video/mp4"></video>
         <button type="button" data-video-start aria-controls="cad-agent-demo-video" aria-label="Play the CAD Agent demo, 3 minutes" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; border: 0; padding: 0; background: transparent; cursor: pointer; transition: background 0.2s ease;"><span class="cv-play" aria-hidden="true"><svg viewBox="0 0 22 24" fill="none" aria-hidden="true"><path d="M2 2.2 20 12 2 21.8Z" fill="#08070A"></path></svg></span></button>
       </div>
       <p style="margin-top: 14px; font: 500 11.5px / 1.6 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(130, 130, 124);">3 minutes &middot; no sound</p>
@@ -144,12 +145,12 @@ h1{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:break-word}
     </div>
   </section>
 
-  <section id="cad-agent-mirror-demo" style="padding: 0px 24px 64px; scroll-margin-top: 96px;">
+  <section id="cad-agent-mirror-demo" style="padding: 0px 24px 64px; scroll-margin-top: 16px;">
     <div style="max-width: 960px; margin: 0px auto;">
       <h2 style="font: 700 clamp(22px, 2.4vw, 28px) / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em;">A car side mirror, from zero to report</h2>
       <p style="margin-top: 10px; margin-bottom: 20px; color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.6; max-width: 68ch;">CAD model, mesh and solver settings, CFD, optimization and report, with nothing but prompts.</p>
       <div style="position: relative; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; overflow: hidden; background: rgb(0, 0, 0); box-shadow: rgba(0, 0, 0, 0.6) 0px 40px 100px;">
-        <video id="cad-agent-mirror-demo-video" muted playsinline preload="none" controlslist="nodownload noplaybackrate" disablepictureinpicture width="1280" height="720" poster="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/cad-agent-mirror-demo.webp" aria-label="Video: a car side mirror from zero to report. CAD model, mesh and solver settings, CFD, optimization and report, with nothing but prompts." style="display: block; width: 100%; height: auto;"><source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/stochos-flow-cad-agent-mirror-demo.mp4" type="video/mp4"></video>
+        <video id="cad-agent-mirror-demo-video" muted playsinline preload="none" loading="lazy" controlslist="nodownload noplaybackrate" disablepictureinpicture width="1280" height="720" poster="/probaligence-site-preview/assets/news/stochos-flow-1-3-0-released/cad-agent-mirror-demo.webp" aria-label="Video: a car side mirror from zero to report. CAD model, mesh and solver settings, CFD, optimization and report, with nothing but prompts." style="display: block; width: 100%; height: auto;"><source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/stochos-flow-cad-agent-mirror-demo.mp4" type="video/mp4"></video>
         <button type="button" data-video-start aria-controls="cad-agent-mirror-demo-video" aria-label="Play the car side mirror demo, 80 seconds" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; border: 0; padding: 0; background: transparent; cursor: pointer; transition: background 0.2s ease;"><span class="cv-play" aria-hidden="true"><svg viewBox="0 0 22 24" fill="none" aria-hidden="true"><path d="M2 2.2 20 12 2 21.8Z" fill="#08070A"></path></svg></span></button>
       </div>
       <p style="margin-top: 14px; font: 500 11.5px / 1.6 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(130, 130, 124);">80 seconds &middot; no sound</p>
@@ -169,11 +170,11 @@ h1{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:break-word}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <a href="/probaligence-site-preview/" class="brand"><img width="33" height="32" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img width="120" height="14" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
-          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+          <img width="157" height="40" loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img width="135" height="19" loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -212,7 +213,7 @@ h1{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:break-word}
   </div>
 </footer>
 <script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
-<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<script src="/probaligence-site-preview/site.js?v=c67a8e9f" defer></script>
 <script>(function(){var bs=document.querySelectorAll('[data-video-start]');for(var i=0;i<bs.length;i++)(function(b){var v=document.getElementById(b.getAttribute('aria-controls'));if(!v){b.parentNode.removeChild(b);return;}b.addEventListener('click',function(){var s=v.querySelector('source[data-src]');if(s&&!s.getAttribute('src')){s.setAttribute('src',s.getAttribute('data-src'));v.load();}v.setAttribute('controls','');b.parentNode.removeChild(b);var p=v.play();if(p&&p.catch)p.catch(function(){});v.focus();});})(bs[i]);})();</script>
 <a href="../../feedback/?page=STOCHOS%20Flow" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 </body>

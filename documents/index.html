@@ -4,6 +4,7 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -24,7 +25,7 @@ h1,h2,h3,p{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=4d6136f0">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
@@ -64,7 +65,7 @@ h1,h2,h3,p{margin:0}
 .st small{font:inherit;text-transform:none;letter-spacing:.03em;color:#8C8C88}
 .is-replaced .reg-date,.is-replaced .reg-doc{color:#B8B8B2}
 .reg-note td{color:#8C8C88;font-size:14px;line-height:1.6}
-.reg-note a{color:#FFB006;text-decoration:none}
+.reg-note a{color:#FFB006;text-decoration:underline;text-underline-offset:3px}
 .reg-note a:hover,.reg-note a:focus-visible{text-decoration:underline}
 .reg-dl{text-align:right}
 .reg-dl a{display:inline-flex;align-items:center;gap:9px;color:#FFB006;text-decoration:none;font:600 13.5px/1 'Space Grotesk',sans-serif;white-space:nowrap}
@@ -72,7 +73,7 @@ h1,h2,h3,p{margin:0}
 .reg-dl .reg-size{font:400 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.03em;color:#8C8C88}
 .reg-dl i{font:500 15px/1 'IBM Plex Mono',monospace;font-style:normal}
 .dt-foot{color:#8C8C88;font-size:14px;line-height:1.7;margin-top:56px}
-.dt-foot a{color:#FFB006;text-decoration:none}
+.dt-foot a{color:#FFB006;text-decoration:underline;text-underline-offset:3px}
 .dt-foot a:hover,.dt-foot a:focus-visible{text-decoration:underline}
 @media (prefers-reduced-motion:reduce){.lang-btn{transition:none}}
 @media (max-width:720px){
@@ -95,8 +96,8 @@ h1,h2,h3,p{margin:0}
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
     <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
-      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
-      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+      <img width="35" height="34" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img width="128" height="15" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -178,7 +179,7 @@ h1,h2,h3,p{margin:0}
       <section class="docs-sec" id="current" aria-labelledby="current-h">
         <h2 class="docs-h" id="current-h">Current documents</h2>
         <p class="docs-dek">Version 1.2 of each document, valid from 01.01.2026.</p>
-        <table class="reg">
+        <table class="reg" aria-labelledby="current-h">
           <thead>
             <tr><th scope="col">Valid from</th><th scope="col">Document</th><th scope="col">Version</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Download</span></th></tr>
           </thead>
@@ -214,7 +215,7 @@ h1,h2,h3,p{margin:0}
       <section class="docs-sec" id="earlier" aria-labelledby="earlier-h">
         <h2 class="docs-h" id="earlier-h">Earlier versions</h2>
         <p class="docs-dek">Replaced versions stay available for contracts that name them. Each line shows the date the version was valid from and the date it was replaced.</p>
-        <table class="reg">
+        <table class="reg" aria-labelledby="earlier-h">
           <thead>
             <tr><th scope="col">Valid from</th><th scope="col">Document</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Download</span></th></tr>
           </thead>
@@ -253,7 +254,7 @@ h1,h2,h3,p{margin:0}
         function apply(l){root.setAttribute('data-show',l);var b=sw.querySelectorAll('.lang-btn');for(var i=0;i<b.length;i++){b[i].setAttribute('aria-pressed',b[i].getAttribute('data-lang')===l?'true':'false');}try{localStorage.setItem('pi-doc-lang',l);}catch(e){}}
         var l='en';try{var q=new URLSearchParams(location.search).get('lang');if(q==='de'||q==='en'){l=q;}else{var s=localStorage.getItem('pi-doc-lang');if(s==='de'||s==='en'){l=s;}}}catch(e){}
         sw.hidden=false;apply(l);
-        root.addEventListener('click',function(e){var t=e.target.closest?e.target.closest('[data-lang].lang-btn,[data-lang].lang-link'):null;if(!t)return;if(t.tagName==='A'){e.preventDefault();}apply(t.getAttribute('data-lang'));});
+        root.addEventListener('click',function(e){var t=e.target.closest?e.target.closest('[data-lang].lang-btn,[data-lang].lang-link'):null;if(!t)return;if(t.tagName==='A'){e.preventDefault();}apply(t.getAttribute('data-lang'));if(t.tagName==='A'){var f=sw.querySelector('.lang-btn[data-lang="'+t.getAttribute('data-lang')+'"]');if(f){f.focus({preventScroll:true});}}});
       })();
       </script>
 
@@ -264,11 +265,11 @@ h1,h2,h3,p{margin:0}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <a href="/probaligence-site-preview/" class="brand"><img width="33" height="32" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img width="120" height="14" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
-          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+          <img width="157" height="40" loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img width="135" height="19" loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -307,7 +308,7 @@ h1,h2,h3,p{margin:0}
   </div>
 </footer>
 <script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
-<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<script src="/probaligence-site-preview/site.js?v=c67a8e9f" defer></script>
 <a href="../feedback/?page=General%20/%20whole%20site" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 </body>
 </html>

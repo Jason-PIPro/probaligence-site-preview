@@ -4,6 +4,7 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -102,6 +103,9 @@ button.fb-tool{cursor:pointer}
 .fb-main{display:grid;grid-template-columns:1fr 300px;height:470px;min-height:0}
 .fb-canvas{position:relative;overflow:hidden;background:radial-gradient(circle at center,rgba(255,255,255,.035) 1px,transparent 1.4px) 0 0/26px 26px,var(--sf-canvas)}
 .fb-stage{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+/* V8, 2026-11-17: the canvas is focusable only while it pans (page script); .fb-wrap clips its overflow, so the
+   site ring is drawn inside the canvas edge, or its left and right sides are cut off (the ticker's rule in site.css) */
+#fbCanvas:focus-visible{outline-offset:-2px}
 .fb-svg{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
 .fb-edge{fill:none;stroke:var(--sf-edge);stroke-width:1.6;opacity:0;transition:opacity .45s,stroke .2s}
 .fb-edge.running{stroke:var(--sf-green);stroke-width:2;stroke-dasharray:5 6;filter:drop-shadow(0 0 5px rgba(57,211,83,.8));animation:fbdash .55s linear infinite}
@@ -293,7 +297,7 @@ button.fb-tool{cursor:pointer}
 }
 /* the 640px block that faded the right edge to signal the pan is gone with the pan itself */
 </style>
-<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=4d6136f0">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
@@ -329,8 +333,8 @@ button.fb-tool{cursor:pointer}
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
     <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
-      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
-      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+      <img width="35" height="34" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img width="128" height="15" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -410,7 +414,7 @@ button.fb-tool{cursor:pointer}
     <div style="max-width: 1280px; margin: 0px auto; position: relative; z-index: 2;">
       <div style="max-width: 880px; margin: 0px auto; text-align: center;">
         <video id="flow-logo" data-logo-video muted playsinline preload="metadata" width="900" height="506" poster="/probaligence-site-preview/assets/media/stochos-flow-logo-dark-poster.webp" aria-label="STOCHOS Flow" data-hero="" style="width: clamp(200px, 24vw, 320px); max-width: 100%; height: auto; display: block; margin: 0px auto 18px; mix-blend-mode: screen; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);"><source src="/probaligence-site-preview/assets/media/stochos-flow-logo-dark.webm" type="video/webm"><source src="/probaligence-site-preview/assets/media/stochos-flow-logo-dark.mp4" type="video/mp4"></video>
-        <div id="flow-eyebrow" data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 12px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">The workflow bench</div>
+        <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 12px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);"><span id="flow-eyebrow" aria-hidden="true">The workflow bench</span><span class="sr-only">The workflow bench</span></div>
         <h1 style="font: 700 clamp(38px, 5.6vw, 72px) / 1.04 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 16ch; margin: 0px auto;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">The</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">visual</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">workbench</span></span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">for</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">modern</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">R&amp;D</span></h1>
         <p data-hero="" style="margin: 24px auto 0px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS Flow is the visual workbench where R&amp;D teams build technical workflows from nodes, with the STOCHOS engine at the core, and ship the finished workflow to the team as a web app.</p>
       </div>
@@ -431,14 +435,14 @@ button.fb-tool{cursor:pointer}
       <div style="font: 500 12px/1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">01 &middot; The platform</div>
       <h2 id="one-canvas-raw-data-to-running-model" style="font: 700 clamp(31px, 4.6vw, 52px)/1.08 'Space Grotesk', sans-serif; letter-spacing: -0.022em; max-width: 20ch;">One canvas, raw data to running model</h2>
       <div class="flow-split-media" style="position: relative; margin-top: clamp(30px,3.6vw,44px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; overflow: hidden; background: rgb(0, 0, 0); box-shadow: rgba(0, 0, 0, 0.6) 0px 40px 100px;">
-        <video id="flow-tour" muted playsinline preload="none" controlslist="nodownload noplaybackrate" disablepictureinpicture width="1600" height="900" poster="/probaligence-site-preview/assets/media/flow-product-video-poster.webp" aria-label="STOCHOS Flow product tour: the node canvas, agent-built pipelines, plots, and exports in motion" style="display: block; width: 100%; height: auto;"><source src="/probaligence-site-preview/assets/media/flow-product-video.mp4" type="video/mp4"></video>
+        <video id="flow-tour" muted playsinline preload="none" loading="lazy" controlslist="nodownload noplaybackrate" disablepictureinpicture width="1600" height="900" poster="/probaligence-site-preview/assets/media/flow-product-video-poster.webp" aria-label="STOCHOS Flow product tour: the node canvas, agent-built pipelines, plots, and exports in motion" style="display: block; width: 100%; height: auto;"><source src="/probaligence-site-preview/assets/media/flow-product-video.mp4" type="video/mp4"></video>
         <button type="button" data-video-start aria-controls="flow-tour" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; width: 100%; border: 0; padding: 0; background: rgba(0, 0, 0, 0.34); cursor: pointer; color: rgb(244, 243, 239); transition: background 0.2s ease;">
           <span aria-hidden="true" style="display: flex; align-items: center; justify-content: center; width: 66px; height: 66px; border-radius: 50%; background: rgb(255, 176, 6); box-shadow: rgba(0, 0, 0, 0.45) 0px 8px 26px;"><svg width="22" height="24" viewBox="0 0 22 24" fill="none" aria-hidden="true"><path d="M2 2.2 20 12 2 21.8Z" fill="#08070A"></path></svg></span>
           <span style="font: 500 11.5px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase;">Play the tour, 43 seconds</span>
         </button>
       </div>
       <div class="s1-below">
-        <p style="color: rgb(198,198,192); font-size: clamp(16px,1.5vw,19px); line-height: 1.7; max-width: 56ch;">STOCHOS Flow is the visual workbench where R&amp;D teams build technical workflows from nodes, with STOCHOS at the core. Standard workflows need no code, and the finished workflow ships to your team as a web app.</p>
+        <p style="color: rgb(198,198,192); font-size: clamp(16px,1.5vw,19px); line-height: 1.7; max-width: 56ch;">STOCHOS Flow is the visual workbench where R&amp;D teams build technical workflows from nodes, with STOCHOS at the core. <a href="/probaligence-site-preview/guides/ml-workflow-without-an-ml-team/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255,176,6,0.4);">Standard workflows need no code</a>, and the finished workflow <a href="/probaligence-site-preview/guides/share-a-model-not-a-manual/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255,176,6,0.4);">ships to your team as a web app</a>.</p>
         <div>
           <div style="font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 4px;">See it for your field</div>
           <a class="flow-field-link" href="/probaligence-site-preview/ai-for-engineering/"><span>AI for Engineering</span><span class="arw" aria-hidden="true">&#8594;</span></a>
@@ -454,7 +458,7 @@ button.fb-tool{cursor:pointer}
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px/1 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px;">02 &middot; Customization</div>
       <h2 id="if-you-can-script-it-it-becomes-a-node" style="font: 700 clamp(28px, 4.2vw, 46px)/1.1 'Space Grotesk', sans-serif; letter-spacing: -0.02em; max-width: 18ch;">If you can script it, it becomes a node.</h2>
-      <p style="margin-top: 20px; color: rgb(198,198,192); font-size: clamp(16px,1.5vw,18.5px); line-height: 1.7; max-width: 50ch;">The Python node is the way out of any box. Anything you can script runs as a step in the workflow, and the whole team can reuse it.</p>
+      <p style="margin-top: 20px; color: rgb(198,198,192); font-size: clamp(16px,1.5vw,18.5px); line-height: 1.7; max-width: 50ch;"><a href="/probaligence-site-preview/guides/custom-workflow-steps-python/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255,176,6,0.4);">The Python node</a> is the way out of any box. Anything you can script runs as a step in the workflow, and the whole team can reuse it.</p>
       <div class="oob-wrap" id="oobWrap">
         <div class="oob-sizer" id="oobSizer">
           <div class="oob" id="oobStage">
@@ -493,10 +497,10 @@ button.fb-tool{cursor:pointer}
           <p class="flow-pin-hint" aria-hidden="true">Keep scrolling &middot; the workflow appears on screen</p>
         </div>
         <div class="flow-pin-stage">
-          <canvas id="laptop-scrub" aria-label="A laptop opens to a basic STOCHOS Flow workflow: load data, split into training and testing, train a model, predict outputs, check the quality"></canvas>
+          <canvas id="laptop-scrub" role="img" aria-label="A laptop opens to a basic STOCHOS Flow workflow: load data, split into training and testing, train a model, predict outputs, check the quality"></canvas>
           <img id="laptop-screen-content" src="/probaligence-site-preview/assets/media/flow-workflow-screen.webp" alt="" aria-hidden="true" decoding="async">
-          <img id="laptop-poster" src="/probaligence-site-preview/assets/media/laptop-workflow-poster.webp" alt="A basic STOCHOS Flow workflow on a laptop screen: load data, split, train, predict, check quality" hidden>
-          <noscript><img src="/probaligence-site-preview/assets/media/laptop-workflow-poster.webp" alt="" style="width:100%;height:auto;"></noscript>
+          <img width="2000" height="1518" id="laptop-poster" src="/probaligence-site-preview/assets/media/laptop-workflow-poster.webp" alt="A basic STOCHOS Flow workflow on a laptop screen: load data, split, train, predict, check quality" hidden>
+          <noscript><img width="2000" height="1518" src="/probaligence-site-preview/assets/media/laptop-workflow-poster.webp" alt="A basic STOCHOS Flow workflow on a laptop screen: load data, split, train, predict, check quality" style="width:100%;height:auto;"></noscript>
         </div>
       </div>
     </div>
@@ -528,8 +532,8 @@ button.fb-tool{cursor:pointer}
         <div class="fb-menubar"><span>File</span><span>Scene</span><span>View</span><span>Tools</span><span>Help</span><span class="fb-menu-agent">Agent</span></div>
         <div class="fb-toolbar">
           <span class="fb-drag" aria-hidden="true">&#8942;</span>
-          <button type="button" class="fb-tool fb-play" id="fbRun" title="Run flow" disabled>&#9654;</button>
-          <button type="button" class="fb-tool fb-stop" id="fbReset" title="Reset">&#9632;</button>
+          <button type="button" class="fb-tool fb-play" id="fbRun" title="Run flow" aria-label="Run flow" disabled>&#9654;</button>
+          <button type="button" class="fb-tool fb-stop" id="fbReset" title="Reset" aria-label="Reset">&#9632;</button>
           <span class="fb-tool fb-save" aria-hidden="true" title="Save">&#128190;</span>
           <span class="fb-tool" aria-hidden="true" title="Export">&#11123;</span>
         </div>
@@ -561,7 +565,7 @@ button.fb-tool{cursor:pointer}
               <div class="demo-ticker-set"><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b></div>
             </div>
           </div>
-          <button type="button" class="demo-ticker-pause" aria-pressed="false" aria-label="Pause the demonstration notice">&#10074;&#10074;</button>
+          <button type="button" class="demo-ticker-pause" aria-label="Pause the demonstration notice">&#10074;&#10074;</button>
         </div>
     </div>
     <p class="fig-hint" id="fbPanHint" style="display:none">Scroll sideways to read the labels.</p>
@@ -584,7 +588,7 @@ button.fb-tool{cursor:pointer}
         </div>
       </div>
 
-      <div class="car-stage" id="carStage" tabindex="0" aria-label="Agents, one card at a time">
+      <div class="car-stage" id="carStage" role="group" tabindex="0" aria-label="Agents, one card at a time">
 
         <article class="car-card" role="group" aria-roledescription="slide" aria-label="1 of 9, Custom Agent">
           <div class="car-head">
@@ -718,10 +722,10 @@ button.fb-tool{cursor:pointer}
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">What is a visual workflow in STOCHOS Flow?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>A visual workflow is a node-based pipeline on a canvas: data input, preprocessing, modeling, validation, sensitivity, design of experiments (DoE) and optimization, solver, and output nodes connected with typed ports. You can see and configure every step before it runs, which keeps the process transparent and reusable across a team.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">What does the Workflow Agent do?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>The Workflow Agent is the AI assistant that helps build, configure, validate, debug, and document workflows from a prompt. It is not the predictive model. The prediction comes from STOCHOS and DIM-GP; the agent helps you assemble and maintain the workflow around them.</p></div></div></details>
         <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">Can STOCHOS Flow use local language models?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS Flow is local-first and can run a local language model through Ollama, with at least a 16k context recommended. Optional cloud models such as OpenAI or Anthropic are available if you choose them. Core features work without any AI agent.</p></div></div></details>
-        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Can workflows be exported and reused?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. Workflows can be saved as projects, exported as a standalone Python script, or published as a Streamlit web app, and custom logic can become a reusable node. This turns a one-off analysis into a repeatable asset the team can run again.</p></div></div></details>
+        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Can workflows be exported and reused?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. Workflows can be saved as projects, <a href="/probaligence-site-preview/guides/workflow-to-production-code/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255,176,6,0.4);">exported as a standalone Python script</a>, or published as a Streamlit web app, and custom logic can become a reusable node. This turns a one-off analysis into a repeatable asset the team can run again.</p></div></div></details>
         <details class="fq" id="faq-5"><summary><span class="ix">05</span><span class="q">Does the Workflow Agent cost tokens?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Not if you run it locally. On your own GPU the agents run a local model through Ollama, with no per-token API fees and no external model costs. Optional cloud models are available if you choose them, never required, and core features work without any AI agent.</p></div></div></details>
         <details class="fq" id="faq-6"><summary><span class="ix">06</span><span class="q">Does STOCHOS Flow replace the tools I already use?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>No. STOCHOS Flow connects to what you already run: your data, your Ansys Workbench parameters, and your Python. It sits at the center of the dataflow instead of replacing your stack, and open customization means almost any connection point can be wired in.</p></div></div></details>
-        <details class="fq" id="faq-7"><summary><span class="ix">07</span><span class="q">Can you build a custom node for my workflow?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS Flow gets new features every week, and we build custom nodes on request. If something is programmable, we can usually turn it into a reusable node in your workflow.</p></div></div></details>
+        <details class="fq" id="faq-7"><summary><span class="ix">07</span><span class="q">Can you build a custom node for my workflow?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS Flow gets <a href="/probaligence-site-preview/news/stochos-flow-1-3-0-released/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255,176,6,0.4);">new features every week</a>, and we build custom nodes on request. If something is programmable, we can usually turn it into a reusable node in your workflow.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -737,11 +741,11 @@ button.fb-tool{cursor:pointer}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <a href="/probaligence-site-preview/" class="brand"><img width="33" height="32" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img width="120" height="14" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
-          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+          <img width="157" height="40" loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img width="135" height="19" loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -987,7 +991,7 @@ function follow(n){if(getComputedStyle(canvas).overflowX!=='auto')return;/* desk
  if(canvas.scrollTo)canvas.scrollTo({left:to,behavior:reduce?'auto':'smooth'});else canvas.scrollLeft=to;}
 /* the caption and the placeholder are positioned against the canvas, so they would scroll off with
    the graph; translating them by the scroll offset keeps them where they were authored */
-canvas.addEventListener('scroll',function(){var t='translateX('+canvas.scrollLeft+'px)';cap.style.transform=t;hint.style.transform=t;},{passive:true});
+canvas.addEventListener('scroll',function(){var t='translateX('+canvas.scrollLeft+'px)';cap.style.transform=t;hint.style.transform=t;canvasA11y();},{passive:true});
 function clearGraph(){for(var id in nodes)nodes[id].el.remove();nodes={};edgeEls.forEach(function(e){e.el.remove();});edgeEls=[];
  stage.style.width=stage.style.height='';/* drop the pan extent with the graph that needed it */}
 function loadTask(t){clearGraph();
@@ -995,7 +999,7 @@ function loadTask(t){clearGraph();
  for(var id in nodes)renderNode(nodes[id]);
  edgeEls=t.edges.map(function(e){var p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('class','fb-edge');svg.appendChild(p);return{from:[e[0],e[1]],to:[e[2],e[3]],el:p};});
  drawEdges();fit();canvas.scrollLeft=0;
- if(panHint)panHint.style.display=canvas.scrollWidth>canvas.clientWidth?'':'none';}
+ if(panHint)panHint.style.display=canvas.scrollWidth>canvas.clientWidth?'':'none';canvasA11y();}
 var currentTask=null,placed={};
 var runBtn=document.getElementById('fbRun'),resetBtn=document.getElementById('fbReset');
 function assemble(t){return new Promise(function(res){placed={};
@@ -1021,15 +1025,17 @@ function runFlow(){if(!currentTask||busy)return;busy=true;runBtn.disabled=true;
   if(reduce||!outs.length){setTimeout(fin,reduce?0:300);}else{Promise.all(outs.map(packet)).then(fin);}
  })(0);}
 function resetFlow(){if(busy)return;clearGraph();currentTask=null;placed={};hint.style.opacity='1';cap.textContent='idle';runBtn.disabled=true;
- canvas.scrollLeft=0;if(panHint)panHint.style.display='none';
+ canvas.scrollLeft=0;if(panHint)panHint.style.display='none';canvasA11y();
  [].forEach.call(chips.children,function(x){x.disabled=false;});}
 var busy=false;
 TASKS.forEach(function(t){var b=document.createElement('button');b.type='button';b.className='fb-chip';b.innerHTML='<span class="k">'+t.k+'</span>'+t.chip;b.onclick=function(){run(t);};chips.appendChild(b);});
 if(runBtn)runBtn.onclick=runFlow;
 if(resetBtn)resetBtn.onclick=resetFlow;
 function bubble(cls,html){var d=document.createElement('div');d.className='fb-msg '+cls;d.innerHTML=html;body.appendChild(d);body.scrollTop=body.scrollHeight;return d;}
-function type(el,html,cb){if(reduce){el.innerHTML=html;cb&&cb();return;}var tmp=document.createElement('div');tmp.innerHTML=html;var text=tmp.textContent,i=0;
- (function s(){i++;el.innerHTML=text.slice(0,i)+'<span class="fb-cur"></span>';body.scrollTop=body.scrollHeight;if(i<text.length)setTimeout(s,15);else{el.innerHTML=html;cb&&cb();}})();}
+/* V11, 2026-11-17: the chat is busy (aria-busy) while a reply types, so assistive technology waits for the
+   final text; the reduced-motion branch writes it at once and clears the attribute there too */
+function type(el,html,cb){if(reduce){el.innerHTML=html;body.removeAttribute('aria-busy');cb&&cb();return;}body.setAttribute('aria-busy','true');var tmp=document.createElement('div');tmp.innerHTML=html;var text=tmp.textContent,i=0;
+ (function s(){i++;el.innerHTML=text.slice(0,i)+'<span class="fb-cur"></span>';body.scrollTop=body.scrollHeight;if(i<text.length)setTimeout(s,15);else{el.innerHTML=html;body.removeAttribute('aria-busy');cb&&cb();}})();}
 function run(t){if(busy)return;busy=true;currentTask=t;hint.style.opacity='0';cap.textContent='assembling...';runBtn.disabled=true;
  [].forEach.call(chips.children,function(x){x.disabled=true;});
  bubble('u',t.user);loadTask(t);
@@ -1038,7 +1044,17 @@ function run(t){if(busy)return;busy=true;currentTask=t;hint.style.opacity='0';ca
   assemble(t).then(function(){cap.innerHTML='<b>ready</b> &middot; '+t.cap;runBtn.disabled=false;
    var a2=bubble('a','');type(a2,'Done. Press Run flow, or open it in the full builder.',function(){busy=false;[].forEach.call(chips.children,function(x){x.disabled=false;});});});
  });},240);}
-window.addEventListener('resize',function(){if(edgeEls.length){drawEdges();fit();}});
+/* V8, 2026-11-17: the canvas pans only below 820px and only once a graph is wider than it, so it is a named,
+   focusable region (keyboard scrolling) only then; checked at start, when a graph loads or clears, on resize,
+   and after a scroll (the caption and placeholder ride the scroll offset, so a cleared canvas only stops
+   overflowing once the scroll back to 0 has landed) */
+var canPan=null;
+function canvasA11y(){var o=getComputedStyle(canvas).overflowX,can=(o==='auto'||o==='scroll')&&canvas.scrollWidth>canvas.clientWidth;
+ if(can===canPan)return;canPan=can;
+ if(can){canvas.setAttribute('tabindex','0');canvas.setAttribute('role','region');canvas.setAttribute('aria-label','Workflow canvas');}
+ else{canvas.removeAttribute('tabindex');canvas.removeAttribute('role');canvas.removeAttribute('aria-label');}}
+canvasA11y();
+window.addEventListener('resize',function(){if(edgeEls.length){drawEdges();fit();}canvasA11y();});
 }catch(e){}})();</script>
 <script>
 (function(){
@@ -1158,7 +1174,7 @@ window.addEventListener('resize',function(){if(edgeEls.length){drawEdges();fit()
 })();
 </script>
 <script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
-<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<script src="/probaligence-site-preview/site.js?v=c67a8e9f" defer></script>
 <a href="../feedback/?page=STOCHOS%20Flow" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 </body>
 </html>

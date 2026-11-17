@@ -4,6 +4,7 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -32,7 +33,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=4d6136f0">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
@@ -68,8 +69,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
     <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
-      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
-      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+      <img width="35" height="34" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img width="128" height="15" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -199,7 +200,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="max-width: 880px;">
         <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Solution / Engineering</div>
         <h1 style="font: 700 clamp(40px, 6vw, 78px) / 1.03 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 15ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Fewer</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">runs.</span> <span style="color: rgb(255, 176, 6); display: block;"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">More</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">answers.</span></span></h1>
-        <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">AI for engineering, as PI builds it, means training a surrogate model on the CFD and FEA runs, test-bench results, and measurements you already have. It predicts new variants in seconds, states how far each prediction can be trusted, and sends the full solver only where the model is unsure.</p>
+        <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">AI for engineering, as PI builds it, is machine learning for CFD and FEA: a surrogate model trained on the solver runs, test-bench results, and measurements you already have. It predicts new variants in seconds, states how far each prediction can be trusted, and sends the full solver only where the model is unsure.</p>
       </div>
     </div>
   </section>
@@ -235,9 +236,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#FFB006">The engineering loop</div>
       <h2 id="train-once-then-ask-what-you-could-not-afford" style="margin:22px 0 0;font:700 clamp(28px,4.2vw,46px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-.02em;max-width:24ch">Engineering AI for simulation: ask what you could not afford to&nbsp;ask</h2>
       <div style="margin-top:40px">
-      <div class="afe-row"><div class="afe-row-n">01</div><div><div class="afe-row-t">Data you already paid for</div><div class="afe-row-today">Every finished project leaves solver runs, test-bench results and measurements behind, and none of it informs the next one.</div></div><div class="afe-row-with"><div class="afe-row-kicker">With STOCHOS</div><div class="afe-row-body">Those runs train a <a href="/probaligence-site-preview/surrogate-modeling/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">surrogate model</a> on your own physics. There is no new simulation campaign to start.</div></div></div>
+      <div class="afe-row"><div class="afe-row-n">01</div><div><div class="afe-row-t">Data you already paid for</div><div class="afe-row-today">Every finished project leaves <a href="/probaligence-site-preview/guides/combine-cheap-and-expensive-data/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">solver runs, test-bench results and measurements</a> behind, and none of it informs the next one.</div></div><div class="afe-row-with"><div class="afe-row-kicker">With STOCHOS</div><div class="afe-row-body">Those runs train a <a href="/probaligence-site-preview/surrogate-modeling/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">surrogate model</a> on your own physics. There is no new simulation campaign to start.</div></div></div>
       <div class="afe-row"><div class="afe-row-n">02</div><div><div class="afe-row-t">The questions you skip</div><div class="afe-row-today"><a href="/probaligence-site-preview/bayesian-optimization/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">Optimization</a> across many parameters, <a href="/probaligence-site-preview/sensitivity-analysis/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">sensitivity</a> and robustness studies never run, because the solve budget goes to single designs.</div></div><div class="afe-row-with"><div class="afe-row-kicker">With STOCHOS</div><div class="afe-row-body">Predictions arrive in seconds, each carrying how far it can be trusted, so those studies become affordable.</div></div></div>
-      <div class="afe-row"><div class="afe-row-n">03</div><div><div class="afe-row-t">Where the solver goes</div><div class="afe-row-today">High-fidelity simulation stays essential, but it is spent on every question equally, including the ones the last project already answered.</div></div><div class="afe-row-with"><div class="afe-row-kicker">With STOCHOS</div><div class="afe-row-body">Run the full solver <a href="/probaligence-site-preview/uncertainty-quantification/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">where the model is unsure</a> or where you need proof. That result feeds back into training, and the loop repeats.</div></div></div>
+      <div class="afe-row"><div class="afe-row-n">03</div><div><div class="afe-row-t">Where the solver goes</div><div class="afe-row-today"><a href="/probaligence-site-preview/multi-fidelity-modeling/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">High-fidelity simulation</a> stays essential, but it is spent on every question equally, including the ones the last project already answered.</div></div><div class="afe-row-with"><div class="afe-row-kicker">With STOCHOS</div><div class="afe-row-body">STOCHOS is <a href="/probaligence-site-preview/stochos/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">physics AI</a>, not a solver: AI simulation here means a model trained on your solver's results. Run the full solver <a href="/probaligence-site-preview/uncertainty-quantification/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">where the model is unsure</a> or where you need proof. That result feeds back into training, and the loop repeats.</div></div></div>
       </div>
     </div>
   </section>
@@ -388,7 +389,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <div class="x3d-media">
             <img src="/probaligence-site-preview/assets/media/car-body-pressure-prediction.jpg" width="362" height="312" loading="lazy" decoding="async" alt="A car body seen from the rear three-quarter, coloured by predicted surface pressure, red over most of the body.">
           </div>
-          <figcaption class="x3d-cap"><b>Predicted pressure field.</b> Pressure across the whole body surface, resolved node by node, not reduced to one coefficient.</figcaption>
+          <figcaption class="x3d-cap"><b><a href="/probaligence-site-preview/guides/predict-a-full-field/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">Predicted pressure field</a>.</b> Pressure across the whole body surface, resolved node by node, not reduced to one coefficient.</figcaption>
           <a class="x3d-method" href="/probaligence-site-preview/surrogate-modeling/">Method: surrogate modeling</a>
         </figure>
         <figure class="x3d-fig">
@@ -435,14 +436,14 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           </div>
         </div>
 
-        <div class="car-stage" id="carStage" tabindex="0" aria-label="Generated geometries, one clip at a time">
+        <div class="car-stage" id="carStage" role="group" tabindex="0" aria-label="Generated geometries, one clip at a time">
 
           <article class="car-card" role="group" aria-roledescription="slide" aria-label="1 of 3, Bracket">
             <div class="car-head">
               <span class="car-idx">01</span>
             </div>
             <div class="car-media">
-              <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1280" height="454" poster="/probaligence-site-preview/assets/media/generative-geometry-bracket-poster.jpg" aria-label="A structural bracket morphing continuously through generated shapes, shown in a main view and a top view, with a latent space plot at the right.">
+              <video data-x3d-video data-lazy-video muted loop playsinline preload="none" loading="lazy" width="1280" height="454" poster="/probaligence-site-preview/assets/media/generative-geometry-bracket-poster.jpg" aria-label="A structural bracket morphing continuously through generated shapes, shown in a main view and a top view, with a latent space plot at the right.">
                 <source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/generative-geometry-bracket.mp4" type="video/mp4">
               </video>
             </div>
@@ -455,7 +456,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
               <span class="car-idx">02</span>
             </div>
             <div class="car-media">
-              <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1280" height="454" poster="/probaligence-site-preview/assets/media/generative-geometry-impeller-poster.jpg" aria-label="An impeller morphing continuously through generated blade shapes, shown in a main view and a top view, with a latent space plot at the right.">
+              <video data-x3d-video data-lazy-video muted loop playsinline preload="none" loading="lazy" width="1280" height="454" poster="/probaligence-site-preview/assets/media/generative-geometry-impeller-poster.jpg" aria-label="An impeller morphing continuously through generated blade shapes, shown in a main view and a top view, with a latent space plot at the right.">
                 <source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/generative-geometry-impeller.mp4" type="video/mp4">
               </video>
             </div>
@@ -468,7 +469,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
               <span class="car-idx">03</span>
             </div>
             <div class="car-media">
-              <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1280" height="454" poster="/probaligence-site-preview/assets/media/generative-geometry-mirror-housing-poster.jpg" aria-label="A vehicle mirror housing morphing continuously through generated shapes, shown in a main view and a top view, with a latent space plot at the right.">
+              <video data-x3d-video data-lazy-video muted loop playsinline preload="none" loading="lazy" width="1280" height="454" poster="/probaligence-site-preview/assets/media/generative-geometry-mirror-housing-poster.jpg" aria-label="A vehicle mirror housing morphing continuously through generated shapes, shown in a main view and a top view, with a latent space plot at the right.">
                 <source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/generative-geometry-mirror-housing.mp4" type="video/mp4">
               </video>
             </div>
@@ -519,7 +520,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <figure class="x3d-fig">
           <div class="x3d-kicker">01 Seal</div>
           <div class="x3d-media">
-            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1170" height="540" poster="/probaligence-site-preview/assets/media/physics-seal-compression-poster.jpg" aria-label="A seal cross section under compression, bulging sideways as the gap closes, the interior drawn as coloured particles.">
+            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" loading="lazy" width="1170" height="540" poster="/probaligence-site-preview/assets/media/physics-seal-compression-poster.jpg" aria-label="A seal cross section under compression, bulging sideways as the gap closes, the interior drawn as coloured particles.">
               <source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/physics-seal-compression.mp4" type="video/mp4">
             </video>
           </div>
@@ -528,7 +529,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <figure class="x3d-fig">
           <div class="x3d-kicker">02 Mixer</div>
           <div class="x3d-media">
-            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1280" height="720" poster="/probaligence-site-preview/assets/media/physics-stirred-vessel-mixing-poster.jpg" aria-label="A stirred vessel of blue and salmon particles, the bed lifted and folded over by vertical impeller blades between baffles.">
+            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" loading="lazy" width="1280" height="720" poster="/probaligence-site-preview/assets/media/physics-stirred-vessel-mixing-poster.jpg" aria-label="A stirred vessel of blue and salmon particles, the bed lifted and folded over by vertical impeller blades between baffles.">
               <source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/physics-stirred-vessel-mixing.mp4" type="video/mp4">
             </video>
           </div>
@@ -537,7 +538,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <figure class="x3d-fig">
           <div class="x3d-kicker">03 Granular bed</div>
           <div class="x3d-media">
-            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1280" height="576" poster="/probaligence-site-preview/assets/media/physics-gears-granular-bed-poster.jpg" aria-label="A pair of meshing gears turning inside a bed of loose granular material, the grains dragged round with the teeth and piling ahead of them.">
+            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" loading="lazy" width="1280" height="576" poster="/probaligence-site-preview/assets/media/physics-gears-granular-bed-poster.jpg" aria-label="A pair of meshing gears turning inside a bed of loose granular material, the grains dragged round with the teeth and piling ahead of them.">
               <source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/physics-gears-granular-bed.mp4" type="video/mp4">
             </video>
           </div>
@@ -546,7 +547,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <figure class="x3d-fig">
           <div class="x3d-kicker">04 Sloshing</div>
           <div class="x3d-media">
-            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" width="1280" height="640" poster="/probaligence-site-preview/assets/media/physics-tank-sloshing-poster.jpg" aria-label="Liquid moving inside a closed rectangular tank, the free surface riding up one wall and breaking back across the tank.">
+            <video data-x3d-video data-lazy-video muted loop playsinline preload="none" loading="lazy" width="1280" height="640" poster="/probaligence-site-preview/assets/media/physics-tank-sloshing-poster.jpg" aria-label="Liquid moving inside a closed rectangular tank, the free surface riding up one wall and breaking back across the tank.">
               <source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/physics-tank-sloshing.mp4" type="video/mp4">
             </video>
           </div>
@@ -766,7 +767,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 1200px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 14px;">Proof</div>
       <h2 id="engineering-teams-on-the-record" style="font: 700 clamp(28px, 4.2vw, 46px) / 1.1 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 22ch;">Engineering teams, on the record</h2>
-      <p style="margin-top: 12px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Named cases and third-party benchmarks, in trade press and at NAFEMS. Each links to the full story.</p>
+      <p style="margin-top: 12px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 66ch;">Named cases and third-party benchmarks, in trade press and at NAFEMS. Each links to the full story. How DIM-GP scores on 14 evaluated tasks and studies is on the <a href="/probaligence-site-preview/science/benchmarks/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">benchmarks page</a>.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px; margin-top: 28px;">
         <a href="/probaligence-site-preview/news/automated-verification-gemu-stochos/" style="display: flex; flex-direction: column; background: rgb(10, 9, 8); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; overflow: hidden; text-decoration: none;">
           <div style="aspect-ratio: 16 / 10; overflow: hidden; background: rgb(0, 0, 0); border-bottom: 1px solid rgba(255, 255, 255, 0.07);">
@@ -1278,8 +1279,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     if (elGo) {
       elGo.href = href(btn);
       if (elGoLabel) elGoLabel.textContent = 'Start a demo request about this';
-      // the link names the term, so it is not a bare "click here" out of context
-      elGo.setAttribute('aria-label', 'Start a demo request about ' + label);
+      // the link names the term, so it is not a bare "click here" out of context.
+      // V15, 2026-11-17: the name starts with the visible words, so a voice control user can
+      // say what is on screen (WCAG 2.5.3, label in name), and then it names the term
+      elGo.setAttribute('aria-label', 'Start a demo request about this: ' + label);
     }
     panel.classList.remove('is-idle');
     panel.classList.remove('ufc-swap');
@@ -1558,7 +1561,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div class="fqq" id="fqq" data-single-open="">
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">How can AI accelerate CFD and FEM simulations?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>STOCHOS learns a surrogate model from existing solver data, then predicts results for new parameters or geometries in seconds. Fast, uncertainty-aware predictions let you explore many more variants than the solver alone could cover, and the full simulation returns only for the designs you shortlist.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Can STOCHOS predict full fields as well as single values?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. STOCHOS handles 2D and 3D fields from CFD and FEM, as well as scalars, signals, meshes, and geometries. It can predict spatially resolved outputs for new parameter combinations, so you see more than a single KPI when comparing designs. Confidence is attached to every prediction, field or scalar.</p></div></div></details>
-        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">How does STOCHOS work with Ansys?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>PI Probaligence is an official Ansys Technology Partner. STOCHOS Flow reads Ansys Workbench parameters and calls the Ansys Solver nodes for selective validation, so fast surrogate prediction connects to the solver workflows engineering teams already use. New solver results feed back into training, and the surrogate improves inside the Workbench setup your team runs today.</p></div></div></details>
+        <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">How does STOCHOS work with Ansys?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>PI Probaligence is an official Ansys Technology Partner. <a href="/probaligence-site-preview/stochos-flow/" style="color:#FFB006;text-decoration:none;border-bottom:1px solid rgba(255,176,6,.38)">STOCHOS Flow</a> reads Ansys Workbench parameters and calls the Ansys Solver nodes for selective validation, so fast surrogate prediction connects to the solver workflows engineering teams already use. New solver results feed back into training, and the surrogate improves inside the Workbench setup your team runs today.</p></div></div></details>
         <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">How much data does STOCHOS need to be useful?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Less than most machine-learning tools, and there is no fixed minimum. DIM-GP is designed for small, expensive datasets, so teams usually start from existing solver runs: tens to low hundreds, not thousands. Above roughly a thousand samples, cheaper methods start to make more sense than a Gaussian process. How many you need depends on the physics, the number of parameters, and the outputs, and quantified uncertainty shows where the model is reliable and where more runs are worth adding.</p></div></div></details>
       </div>
     </div>
@@ -1575,11 +1578,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <a href="/probaligence-site-preview/" class="brand"><img width="33" height="32" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img width="120" height="14" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
-          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+          <img width="157" height="40" loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img width="135" height="19" loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -1618,7 +1621,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   </div>
 </footer>
 <script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
-<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<script src="/probaligence-site-preview/site.js?v=c67a8e9f" defer></script>
 <script>
 /* scroll-progress-rail CORE pattern, ported from 06_website-build/design-toolbox/toolbox/elements/scroll-progress-rail.html */
 (function () {

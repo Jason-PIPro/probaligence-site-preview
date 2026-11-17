@@ -4,11 +4,12 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
 <title>How to Run Engineering AI Without the Cloud | PI Probaligence</title><meta name="description" content="Your simulation data is your IP. A local, probabilistic AI stack trains and predicts on your own infrastructure, air-gapped on an offline license."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/guides/on-premise-ai-for-engineering/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="How to Run Engineering AI Without the Cloud | PI Probaligence"><meta property="og:description" content="A local, probabilistic AI stack that trains and predicts on your own infrastructure, including fully air-gapped operation with an offline license."><meta property="og:url" content="https://probaligence.com/guides/on-premise-ai-for-engineering/"><meta property="og:image" content="https://probaligence.com/assets/guides/on-premise-ai-for-engineering-og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Run engineering AI without the cloud","description":"Your simulation data is your IP. A local, probabilistic AI stack trains and predicts on your own infrastructure, including fully air-gapped operation with an offline license.","inLanguage":"en","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://probaligence.com/guides/on-premise-ai-for-engineering/"},"url":"https://probaligence.com/guides/on-premise-ai-for-engineering/","image":["https://probaligence.com/assets/guides/on-premise-ai-for-engineering.webp"],"datePublished":"2026-07-21","dateModified":"2026-07-30"}</script><script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Run engineering AI without the cloud","description":"Your simulation data is your IP. A local, probabilistic AI stack trains and predicts on your own infrastructure, including fully air-gapped operation with an offline license.","inLanguage":"en","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://probaligence.com/guides/on-premise-ai-for-engineering/"},"url":"https://probaligence.com/guides/on-premise-ai-for-engineering/","image":["https://probaligence.com/assets/guides/on-premise-ai-for-engineering.webp"],"datePublished":"2026-07-21","dateModified":"2026-11-15"}</script><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"News and Guides","item":"https://probaligence.com/news/"},{"@type":"ListItem","position":3,"name":"Run engineering AI without the cloud","item":"https://probaligence.com/guides/on-premise-ai-for-engineering/"}]}
 </script><style>
 @font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
@@ -31,7 +32,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=4d6136f0">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
@@ -67,8 +68,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
     <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
-      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
-      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+      <img width="35" height="34" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img width="128" height="15" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -168,7 +169,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="background: rgb(6, 6, 7); padding: 36px 32px;">
         <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6); margin-bottom: 16px;">02</div>
         <h2 id="what-local-execution-means-concretely" style="font: 600 clamp(20px, 2.4vw, 24px) / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239);">What local execution means concretely</h2>
-        <p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.65;">Training and prediction run on your own hardware, so in local setups the data stays on customer infrastructure rather than being uploaded for processing. Your simulation results, measurements, and geometry files sit where they already sit.</p>
+        <p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.65;">Training and prediction run on your own hardware, so in local setups the data stays on customer infrastructure rather than being uploaded for processing. Your <a href="/probaligence-site-preview/ai-for-engineering/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">simulation results</a>, measurements, and geometry files sit where they already sit.</p>
         <p style="margin-top: 14px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.65;">The model is built against them in place, and the predictions come back from the same machine. No copy of the training set has to be staged somewhere else for the workflow to run. See <a href="/probaligence-site-preview/how-stochos-works/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">how STOCHOS works</a> for what happens inside that step.</p>
       </div>
 
@@ -182,7 +183,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <div style="background: rgb(6, 6, 7); padding: 36px 32px;">
         <div style="font: 500 11.5px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.14em; color: rgb(255, 176, 6); margin-bottom: 16px;">04</div>
         <h2 id="what-this-changes-about-cost" style="font: 600 clamp(20px, 2.4vw, 24px) / 1.2 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.015em; color: rgb(244, 243, 239);">What this changes about cost</h2>
-        <p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.65;">With the agents running locally on your own GPU there is no token limit and no token cost, so the price of a workflow does not scale with how much you use it. That removes the usual reason to ration a tool.</p>
+        <p style="margin-top: 16px; color: rgb(184, 184, 178); font-size: 15.5px; line-height: 1.65;">With <a href="/probaligence-site-preview/guides/ml-workflow-without-an-ml-team/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">the agents running locally on your own GPU</a> there is no token limit and no token cost, so the price of a workflow does not scale with how much you use it. That removes the usual reason to ration a tool.</p>
         <p style="margin-top: 14px; color: rgb(156, 156, 150); font-size: 14.5px; line-height: 1.65;">An engineer can rerun a study, sweep a parameter again, or let a workflow explore a wider range without anyone counting calls. The hardware you already bought is the budget.</p>
       </div>
 
@@ -246,7 +247,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a href="/probaligence-site-preview/stochos/" class="scp3" style="display: block; background: rgb(6, 6, 7); padding: 28px 26px; text-decoration: none; transition: background 0.2s;"><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">STOCHOS</h3><p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55;">The predictive engine: fast predictions with quantified uncertainty.</p></a>
       <a href="/probaligence-site-preview/stochos-flow/" class="scp3" style="display: block; background: rgb(6, 6, 7); padding: 28px 26px; text-decoration: none; transition: background 0.2s;"><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">STOCHOS Flow</h3><p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55;">Build the workflow as a node graph, run it where your data already is.</p></a>
       <a href="/probaligence-site-preview/how-stochos-works/" class="scp3" style="display: block; background: rgb(6, 6, 7); padding: 28px 26px; text-decoration: none; transition: background 0.2s;"><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">How STOCHOS works</h3><p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55;">DIM-GP in plain language, and why it suits small, expensive datasets.</p></a>
-      <a href="/probaligence-site-preview/news/" class="scp3" style="display: block; background: rgb(6, 6, 7); padding: 28px 26px; text-decoration: none; transition: background 0.2s;"><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">News and Guides</h3><p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55;">Project write-ups, releases, and the rest of the guide series.</p></a>
+      <a href="/probaligence-site-preview/guides/teach-ai-your-documentation/" class="scp3" style="display: block; background: rgb(6, 6, 7); padding: 28px 26px; text-decoration: none; transition: background 0.2s;"><h3 style="font: 600 17px / 1.25 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Teach the AI your own documentation</h3><p style="margin-top: 10px; color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55;">Give the AI nodes your own docs and code as context.</p></a>
     </div>
   </div>
 </section>
@@ -268,6 +269,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <a href="/probaligence-site-preview/how-stochos-works/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">How STOCHOS works</a>
     </div>
     <p style="margin: 26px auto 0px; font: 500 11.5px / 1.7 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Local-first. Your data stays on your infrastructure.</p>
+    <p style="margin: 8px auto 0px; font: 500 11.5px / 1.7 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Releases and selected news by email: <a href="/probaligence-site-preview/newsletter/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">subscribe to the newsletter</a>.</p>
   </div>
 </section>
 
@@ -282,11 +284,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <a href="/probaligence-site-preview/" class="brand"><img width="33" height="32" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img width="120" height="14" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
-          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+          <img width="157" height="40" loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img width="135" height="19" loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -326,7 +328,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 </footer>
 <script>(function(){var vids=document.querySelectorAll('[data-logo-video]');if(!vids.length)return;var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;if(!(window.__PIFX_FORCE||!reduce))return;if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(v.ended){io.unobserve(v);return;}if(e.isIntersecting){v.play().catch(function(){});}else{v.pause();}});},{threshold:.25});vids.forEach(function(v){v.addEventListener('ended',function(){io.unobserve(v);});io.observe(v);});}else{vids.forEach(function(v){v.play().catch(function(){});});}})();</script>
 <script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
-<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<script src="/probaligence-site-preview/site.js?v=c67a8e9f" defer></script>
 <a href="../../feedback/?page=Guide%3A%20On-premise%20AI%20for%20engineering" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 </body>
 </html>

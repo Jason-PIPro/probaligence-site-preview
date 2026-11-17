@@ -4,6 +4,7 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -28,7 +29,7 @@ h1,h2,h3,h4,p{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=4d6136f0">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
@@ -43,8 +44,8 @@ h1,h2,h3,h4,p{margin:0}
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
     <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
-      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
-      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+      <img width="35" height="34" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img width="128" height="15" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -122,7 +123,7 @@ h1,h2,h3,h4,p{margin:0}
   <section data-reveal="" style="padding: clamp(50px, 6vw, 80px) 24px; opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 880px; margin: 0px auto;">
       <figure style="margin: 0px 0 0;">
-        <img src="/probaligence-site-preview/assets/news/na-logisch-project-meeting-fraunhofer/20240208-projekttreffen-na-logisch.webp" alt="Fourteen members of the Na, Logisch project consortium standing in front of the Fraunhofer institute building in Bremen." width="600" height="450" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
+        <img src="/probaligence-site-preview/assets/news/na-logisch-project-meeting-fraunhofer/20240208-projekttreffen-na-logisch.webp" alt="Fourteen members of the Na, Logisch project consortium standing in front of the Fraunhofer institute building in Bremen." width="600" height="450" fetchpriority="high" style="max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); display: block;">
         <figcaption style="font: 400 13px / 1.5 'IBM Plex Mono', monospace; color: rgb(130, 130, 124); margin-top: 10px;">The Na, Logisch project partners at the Fraunhofer Institute in Bremen.</figcaption>
       </figure>
       <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; margin-top: 18px; max-width: 68ch;">Raw material manufacturers, paint manufacturers, and paint processing companies all collect material and process data continuously. None of it is shared or correlated, and it is not yet clear whether what is collected today even supports valid predictive models. The breadth of the Na, Logisch consortium is what can close that gap.</p>
@@ -182,6 +183,7 @@ h1,h2,h3,h4,p{margin:0}
   <!-- NEXT-STEP-END -->
   <section data-reveal="" style="padding: clamp(50px, 6vw, 80px) 24px; border-top: 1px solid rgba(255, 255, 255, 0.07); opacity: 1; transform: none; filter: none; transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);">
     <div style="max-width: 880px; margin: 0px auto;">
+      <p style="color: rgb(184, 184, 178); font-size: 16.5px; line-height: 1.7; max-width: 68ch; margin: 0px 0px 40px;">See what <a href="/probaligence-site-preview/stochos/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">STOCHOS</a> can do with your data: <a href="/probaligence-site-preview/contact/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">request a demo</a>. Releases and selected news by email: <a href="/probaligence-site-preview/newsletter/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">subscribe to the newsletter</a>.</p>
       <div style="display: flex; gap: 28px; flex-wrap: wrap; justify-content: space-between;">
         <a href="/probaligence-site-preview/news/high-performance-engineering-2024-brasov/" class="scp0" style="flex: 1; text-align: left; text-decoration: none; color: rgb(184, 184, 178); min-width: 200px;"><span style="display: block; font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 10px;">Newer</span><span style="font: 600 15px / 1.4 'Space Grotesk', sans-serif;">PI Probaligence to present at the High Performance En...</span></a>
         <a href="/probaligence-site-preview/news/pi-probaligence-cadfem-group/" class="scp0" style="flex: 1; text-align: right; text-decoration: none; color: rgb(184, 184, 178); min-width: 200px;"><span style="display: block; font: 500 11px / 1 'IBM Plex Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(130, 130, 124); margin-bottom: 10px;">Older</span><span style="font: 600 15px / 1.4 'Space Grotesk', sans-serif;">PI Probaligence becomes part of the CADFEM Group</span></a>
@@ -200,11 +202,11 @@ h1,h2,h3,h4,p{margin:0}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <a href="/probaligence-site-preview/" class="brand"><img width="33" height="32" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img width="120" height="14" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
-          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+          <img width="157" height="40" loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img width="135" height="19" loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -243,7 +245,7 @@ h1,h2,h3,h4,p{margin:0}
   </div>
 </footer>
 <script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
-<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<script src="/probaligence-site-preview/site.js?v=c67a8e9f" defer></script>
 
 <a href="../../feedback/?page=Resources%20/%20News" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 </body>

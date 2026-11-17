@@ -9,6 +9,10 @@
   --faint:#82827C; --amber:#FFB006; --amber-lt:#FFCA4D;
   --ease-out:cubic-bezier(.16,.84,.32,1);
 }
+/* dark browser parts (V2, 2026-11-16): the page scrollbar and any part of a form control
+   the CSS leaves unstyled are drawn for a dark page; each page head carries the matching
+   <meta name="color-scheme" content="dark"> so the first paint agrees */
+:root{color-scheme:dark}
 
 /* ---------- header ---------- */
 .site-header{position:fixed;top:0;left:0;right:0;z-index:40;
@@ -156,7 +160,8 @@ main:focus{outline:none}
 .nav-link{font:500 14.5px/1 'IBM Plex Sans',sans-serif;color:var(--muted);
   text-decoration:none;padding:9px 13px;border-radius:2px;white-space:nowrap;transition:color .15s;background:none;border:0;cursor:pointer}
 .nav-link:hover{color:var(--text)}
-.nav-link.active{color:var(--amber)}
+/* V13, 2026-11-17: the current page's link is underlined as well, so it is not marked by colour alone */
+.nav-link.active{color:var(--amber);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px}
 .has-menu{position:relative}
 .nav-trigger{display:flex;align-items:center;gap:5px;color:var(--muted)}
 .nav-trigger:hover,.nav-trigger[aria-expanded="true"]{color:var(--text)}
@@ -170,12 +175,28 @@ main:focus{outline:none}
   transition:opacity .18s, transform .18s, visibility .18s;z-index:50}
 .has-menu:hover .submenu,.has-menu:focus-within .submenu,
 .nav-trigger[aria-expanded="true"] + .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+/* Escape dismissed this menu (site.js sets the class): hidden although hover or focus
+   is still in the group. Same specificity as the show rule above and the caret's hover
+   rule, so being later is what wins. */
+.has-menu.is-dismissed .submenu{opacity:0;visibility:hidden;transform:translateY(-6px)}
+.has-menu.is-dismissed .nav-trigger .caret{transform:none}
 .submenu a{display:block;padding:10px 13px;border-radius:2px;text-decoration:none;
   font:400 14px/1.3 'IBM Plex Sans',sans-serif;color:var(--muted);transition:background .15s}
 .submenu a:hover{background:rgba(255,176,6,.08)}
 .submenu a b{display:block;color:var(--text);font-weight:600}
 .submenu a span{display:block;color:var(--faint);font-size:12.5px;margin-top:2px}
 .submenu .sep{height:1px;background:rgba(255,255,255,.07);margin:6px 12px}
+/* 2026-11-17 (Jason, "sure if you recommend"): the pages inside the two dropdown menus are marked like the four
+   top-level pages. The menu that holds the current page marks its trigger (a button, so the look only; the link
+   keeps aria-current from site.js), the current entry inside the open menu marks its title, and the phone menu
+   marks the current page. Separate rules on purpose: a browser without :has() drops only the rules that use it. */
+.has-menu:has(.submenu a.active) > .nav-trigger{color:var(--amber);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px}
+/* the underline reaches the caret too (a flex item), drawn below its box and, once the caret turns, above it as a
+   stray dash; clipping the caret to its own box hides that piece and leaves the glyph whole */
+.has-menu:has(.submenu a.active) > .nav-trigger .caret{overflow:clip}
+.submenu a.active b{color:var(--amber);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.submenu a.active:not(:has(b)){color:var(--amber);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.mobile-panel .m-item.active,.mobile-panel .m-sub.active{color:var(--amber);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px}
 .nav-cta{margin-left:12px;background:var(--amber);color:#08070A;
   font:600 14.5px/1 'IBM Plex Sans',sans-serif;padding:11px 18px;border-radius:2px;
   text-decoration:none;white-space:nowrap;transition:filter .15s, transform .15s}
@@ -224,6 +245,46 @@ main:focus{outline:none}
 @media (max-width:960px){
   .nav{display:none}
   .nav-toggle{display:flex}
+}
+/* Request a Demo in the phone header (approved 2026-11-12). Where the nav collapses
+   to the burger, the bar keeps one item of it: the Request a Demo link, as a compact
+   button left of the burger. Every other nav item, Try to beat STOCHOS included, stays
+   in the burger menu, which keeps its own Request a Demo. CSS only: it is the same link
+   on every page, so the generated pages (news articles, benchmarks) need no change.
+   This overrides .nav{display:none} just above. The burger comes before the nav in the
+   markup, so order:1 moves it to the end of the row; the tab order stays brand, burger,
+   button. 12px on 8px padding is the widest one-line label that fits beside the full
+   logo at 390px (4.6px to spare). Under 390px the label stacks on two lines, and under
+   345px the wordmark goes, because logo, button and burger no longer share the row.
+   On the landing page the button shows from the first paint, like the burger, and the
+   partner badge makes room for it: it shows only from 520px, where all four fit at the
+   badge's 28px reading floor (402px is the rest of the row, see the badge rules above).
+   The row gap drops to 8px; the badge's own margin keeps it 24px (12px under 641px)
+   from the brand, and the burger's negative margin sets it 4px from the button. */
+@media (max-width:960px){
+  .nav{display:flex;margin-left:auto}
+  .nav > :not(.nav-cta){display:none}
+  .nav .nav-cta{display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+    margin-left:0;padding:0 8px;font-size:12px;line-height:1.15;text-align:center;
+    white-space:normal;text-wrap:balance}
+  .nav-toggle{order:1;margin-left:-4px}
+  .nav-inner{gap:8px}
+  .site-header:has(.brand-partner) .nav-inner{gap:8px}
+  .brand-partner{margin-left:16px}
+  .site-header[data-nav-reveal] .nav{opacity:1;pointer-events:auto;transform:none;transition:none}
+}
+@media (max-width:640px){
+  .brand-partner{margin-left:4px}
+  .brand-partner img{height:min(30px,(100vw - 402px)/3.934)}
+}
+@media (max-width:519px){.brand-partner{display:none}}
+@media (max-width:389px){.nav .nav-cta{width:min-content}}
+@media (max-width:344px){
+  .site-header .brand .brand-word{display:none}
+  /* A header without the button (the partner pages in live-only/license/) keeps its
+     wordmark. A browser without :has() drops this line and hides it there too. */
+  .site-header:not(:has(.nav-cta)) .brand .brand-word{display:block}
+  .nav .nav-cta{width:auto}
 }
 
 /* ---------- logo marquee ---------- */
@@ -334,9 +395,11 @@ html.anim [data-hero-in].in .pi-hero-item{animation:pi-hero-in .85s var(--ease-o
    Where supported (Chromium 115+), sections reveal by scrubbing this animation to their
    scroll position on the compositor thread, which is what makes it buttery. Only transform
    and opacity animate (no blur, no layout). The JS in site.js covers other browsers. Gated
-   by html.anim, so reduced-motion (no .anim class) leaves content static and visible. */
+   by html.anim, so reduced-motion (no .anim class) leaves content static and visible.
+   The test names both properties, as site.js does: a browser that knows animation-timeline
+   but not animation-range would scrub the reveal over the wrong range, so it gets the JS one. */
 @keyframes pi-reveal{from{opacity:0;transform:translateY(54px)}to{opacity:1;transform:none}}
-@supports (animation-timeline:view()){
+@supports (animation-timeline:view()) and (animation-range:entry){
   /* applied by site.js to content BLOCKS inside sections (small elements reveal as each
      scrolls in; a whole tall section would finish revealing before it is in view). */
   html.anim .pi-rv{
@@ -357,6 +420,25 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 /* belt and braces against sub-pixel horizontal pan on very narrow viewports (WCAG 1.4.10);
    clip does not create a scroll container, so sticky and scroll-driven timelines are unaffected */
 html{overflow-x:clip}
+/* reveals that finish (V0, 2026-11-16): every page's first inline <style> sets
+   body{overflow-x:hidden}, which makes body a scroll container that never scrolls, so the
+   view() reveals above bind to it and freeze part way. clip hides the same overflow without
+   creating a scroll container. That inline block sits before the link to this file and no
+   page marks its body rule !important, so this equal-specificity rule wins. site.js gives
+   blocks inside an overflow:hidden section the IntersectionObserver reveal instead. */
+body{overflow-x:clip}
+
+/* balanced headings (E3, 2026-11-16): fewer one-word last lines in h1 to h3 */
+h1,h2,h3{text-wrap:balance}
+
+/* page cross-fade (E2, 2026-11-16): same-site page changes cross-fade where the browser
+   supports it; nothing changes for a visitor who asks for reduced motion */
+@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}
+
+/* visually hidden but read by screen readers (V11, 2026-11-16: the final text of the
+   typing effects on the home page and /stochos-flow/) */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;border:0}
 
 /* reduced motion: the frozen marquee strip would show only its first logos, so wrap
    the first row into a centered grid instead and hide the aria-hidden duplicate row.
@@ -535,7 +617,9 @@ html.anim .demo-ticker .pi-rv{animation:none;opacity:1;transform:none}
 .demo-ticker-set b{padding:0 18px;white-space:nowrap;
   font:500 9.5px/18px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;
   color:var(--muted)}
-.demo-ticker-set b::before{content:'\25C6';margin-right:18px;opacity:.5}
+/* the second content gives the glyph empty alt text, so assistive tech skips it; a
+   browser without that syntax drops it and keeps the first (same on .field-msg below) */
+.demo-ticker-set b::before{content:'\25C6';content:'\25C6' / '';margin-right:18px;opacity:.5}
 @keyframes demoTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){
   .demo-ticker-view{margin-right:0;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:none;mask-image:none}
@@ -545,6 +629,9 @@ html.anim .demo-ticker .pi-rv{animation:none;opacity:1;transform:none}
   .demo-ticker-set b:nth-child(n+4){display:none}   /* one pass of the message, not the looped copies */
   .demo-ticker-pause{display:none}
 }
+/* site.js makes the view a tab stop only while it can scroll (V8, 2026-11-16); the strip
+   clips its overflow, so the focus ring is drawn inside the box instead of outside it */
+.demo-ticker-view:focus-visible{outline-offset:-2px}
 @media (max-width:560px){
   .demo-ticker-set b{padding:0 12px;font-size:9px;letter-spacing:.1em}
   .demo-ticker-set b::before{margin-right:12px}
@@ -570,13 +657,19 @@ html.anim .demo-ticker .pi-rv{animation:none;opacity:1;transform:none}
   .pis-overlay{-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 }
 .pis-overlay[hidden]{display:none}
+/* the panel frame (V7, 2026-11-17): amber .32 measured 2.03:1 against the panel fill. At .65 it measures at
+   least 4.42:1 inside (fill and highlighted row) and 3.32:1 against the dimmed page on the home page, the
+   brightest of 5 pages at 6 sizes; .5 fell to 2.22:1 there and .62 cleared 3:1 by only .05. The phone
+   layout below drops the frame and the input row line is the edge there */
 .pis-panel{width:min(640px,100%);max-height:80vh;display:flex;flex-direction:column;
-  background:var(--bg-warm);border:1px solid rgba(255,176,6,.32);border-radius:4px;overflow:hidden;
+  background:var(--bg-warm);border:1px solid rgba(255,176,6,.65);border-radius:4px;overflow:hidden;
   box-shadow:0 24px 70px rgba(0,0,0,.6);opacity:0;transform:translateY(8px) scale(.985)}
 .pis-anim .pis-panel{transition:opacity .18s ease, transform .18s cubic-bezier(.2,.9,.3,1)}
 .pis-overlay.pis-in .pis-panel{opacity:1;transform:none}
+/* the input row's own edge: the hairline (.09) measured 1.21:1 against the panel fill, .36 measures
+   3.26:1 (WCAG 1.4.11, V7, 2026-11-17); on a phone the panel drops its border, so this line is the field's edge */
 .pis-inputrow{display:flex;align-items:center;gap:12px;padding:15px 16px;flex:none;
-  border-bottom:1px solid var(--hairline)}
+  border-bottom:1px solid rgba(255,255,255,.36)}
 .pis-inputrow svg{width:17px;height:17px;flex:none;stroke:var(--amber);fill:none;stroke-width:1.8}
 .pis-input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--text);
   font:400 15px/1.2 'IBM Plex Sans',sans-serif}
@@ -651,8 +744,11 @@ html.anim .demo-ticker .pi-rv{animation:none;opacity:1;transform:none}
    Same result rows as the overlay, given the room a full page has: the snippet
    wraps to two lines instead of being cut at one, and every result is listed
    rather than the first twelve. */
+/* resting border at .5: .32 measured 2.03:1 against the fill, .5 measures 3.35:1 (WCAG 1.4.11, V7, 2026-11-17) */
 .sp-field{display:flex;align-items:center;gap:12px;padding:14px 16px;
-  background:var(--bg-warm);border:1px solid rgba(255,176,6,.32);border-radius:4px}
+  background:var(--bg-warm);border:1px solid rgba(255,176,6,.5);border-radius:4px}
+/* the input inside drops its own outline, so the field draws the global focus ring (V5, 2026-11-16) */
+.sp-field:focus-within{outline:2px solid var(--amber-lt);outline-offset:2px}
 .sp-field svg{width:18px;height:18px;flex:none;stroke:var(--amber);fill:none;stroke-width:1.8}
 .sp-field input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--text);
   font:400 16px/1.2 'IBM Plex Sans',sans-serif}
@@ -668,8 +764,18 @@ html.anim .demo-ticker .pi-rv{animation:none;opacity:1;transform:none}
 .sp-results .pis-empty{padding:22px 0}
 
 /* A deep link from search targets a heading, and the header is sticky, so
-   without this the heading lands underneath it. Covers in-page anchors too. */
-:target,main h2[id],main h3[id]{scroll-margin-top:96px}
+   without this the heading lands underneath it. Covers in-page anchors too.
+   Jump links below the header (V6, 2026-11-17): the root keeps 80px clear under the
+   69px fixed header for every scroll into view (anchor jumps, focus, scrollIntoView),
+   and every scroll-margin-top on the site drops by the same 80px, so anchors still
+   land where they did: 80 + 16 = 96 here, 80 + 30 = 110 on the form fields below. */
+html{scroll-padding-top:80px}
+:target,main h2[id],main h3[id]{scroll-margin-top:16px}
+/* The generated /science/benchmarks/ page gives its anchors 92px in its own style
+   block (copied from the source report and scoped by tools/build-benchmarks.py), which
+   loads before this file. Same selector, so this wins and keeps its jumps at 92px
+   (80 + 12). Drop it once that page carries 12px itself. */
+.bm .bm-main [id]{scroll-margin-top:12px}
 
 /* ---------- form validation ----------
    The demo request form runs on novalidate, so the browser shows nothing and
@@ -683,7 +789,7 @@ html.anim .demo-ticker .pi-rv{animation:none;opacity:1;transform:none}
 .field-msg{margin:7px 0 0;font:400 12.5px/1.45 'IBM Plex Sans',sans-serif;color:#FF6E5C;
   display:flex;gap:6px;align-items:flex-start}
 .field-msg:empty{display:none}
-.field-msg::before{content:'!';flex:none;width:14px;height:14px;margin-top:1px;
+.field-msg::before{content:'!';content:'!' / '';flex:none;width:14px;height:14px;margin-top:1px;
   border:1px solid currentColor;border-radius:50%;
   font:600 10px/12px 'IBM Plex Sans',sans-serif;text-align:center}
 .cf-form [aria-invalid="true"],form [aria-invalid="true"]{
@@ -711,8 +817,9 @@ form [aria-invalid="true"]:focus-visible{outline-color:#FF6E5C}
   .cf-grid>.cf-card{order:-1}
 }
 
-/* Scroll a flagged field clear of the sticky header when site.js reveals it. */
-.cf-form input,.cf-form select,.cf-form textarea{scroll-margin-top:110px;scroll-margin-bottom:40px}
+/* Scroll a flagged field clear of the sticky header when site.js reveals it.
+   30px plus the root's 80px scroll-padding (V6) is the 110px it had before. */
+.cf-form input,.cf-form select,.cf-form textarea{scroll-margin-top:30px;scroll-margin-bottom:40px}
 
 /* ---------- .no-phone: content a phone must not be offered ----------
    Added 2026-07-29 for the Flow builder. The builder at /challenge-app/#/studio is

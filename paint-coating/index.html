@@ -4,6 +4,7 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -27,7 +28,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=4d6136f0">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
@@ -63,8 +64,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
     <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
-      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
-      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+      <img width="35" height="34" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img width="128" height="15" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -201,7 +202,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 .pcm li{border-bottom:1px solid rgba(255,255,255,.1)}
 .pcm a{display:flex;align-items:baseline;gap:16px;padding:19px 4px;text-decoration:none;color:#d6d6d0;font-size:17px;line-height:1.4;transition:color .2s ease,transform .2s ease}
 .pcm a:hover{color:#f4f3ef;transform:translateX(8px)}
-.pcm .kind{flex:0 0 auto;font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#FFB006;min-width:58px}
+.pcm .kind{flex:0 0 auto;font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#FFB006;min-width:66px}
 .pcm a .arw{margin-left:auto;color:#82827C;transition:color .2s ease}
 .pcm a:hover .arw{color:#FFB006}
 @media (prefers-reduced-motion:reduce){.pcm a,.pcm a .arw{transition:none}}
@@ -218,6 +219,13 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @media (max-width:560px){
   [data-sc-name="ParetoFrontExplorer"] canvas+div{font-size:11.5px;line-height:1.35}
 }
+/* V10, 2026-11-17: the chart's keyboard path. The Resample button does what a click on the canvas
+   does. It stays hidden until the chart script runs, because without the script nothing can be
+   resampled. The focus ring for buttons comes from site.css. */
+.pf-act{margin-top:12px;text-align:right}
+.pf-resample{font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.04em;color:#C9C9C3;background:none;
+  border:1px solid #82827C;border-radius:4px;padding:8px 12px;cursor:pointer;transition:border-color .15s,color .15s}
+.pf-resample:hover{border-color:var(--amber);color:var(--text)}
   </style>
   <noscript><style>[data-video-start]{display:none!important}</style></noscript>
   <!-- Hero height: 82svh, between the earlier content-height hero (605px, 67 percent of a 900px
@@ -237,7 +245,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <div style="max-width: 880px;">
           <div data-hero="" style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 22px; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">Solution / Paint and Coatings</div>
           <h1 style="font: 700 clamp(36px, 5.2vw, 62px) / 1.05 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.025em; max-width: 22ch;"><span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">Reach</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">the</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">target</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">formulation</span> <span style="display: inline-block; opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">with</span> <span style="color: rgb(255, 176, 6);"><span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">fewer</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">lab</span> <span style="display: inline-block; color: rgb(255, 176, 6); opacity: 1; transform: none; filter: none; transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s;">trials.</span></span></h1>
-          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">STOCHOS learns from the formulation and measurement data you already have, then tells you which trial to run next.</p>
+          <p data-hero="" style="margin-top: 24px; color: rgb(184, 184, 178); font-size: clamp(16px, 1.5vw, 18px); line-height: 1.65; max-width: 56ch; opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.07s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);">AI for paint formulation, as PI builds it: STOCHOS learns from the formulation and measurement data you already have, then tells you which trial to run next.</p>
         </div>
       </div>
     </div>
@@ -262,10 +270,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <!-- The DoE film (2026-11-02), the player of /stochos/ai-enhanced-doe-film/ with the film's YouTube thumbnail as its poster: the source has no src until the click (the script at the foot of the page copies data-src), so the 30 MB file loads only when a visitor starts it. Without JavaScript the overlay is hidden and a plain link to the file is shown. -->
       <figure class="pcl">
         <div class="scroller" style="position: relative; padding: 0; overflow: hidden;">
-          <video id="doe-film-video" playsinline preload="none" controlslist="nodownload noplaybackrate" disablepictureinpicture width="1920" height="1080" poster="/probaligence-site-preview/assets/media/doe-film-2026-10-30-thumbnail.webp" aria-label="Film: AI-enhanced design of experiments with STOCHOS" style="display: block; width: 100%; height: auto;"><source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/doe-film-2026-10-30.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="/probaligence-site-preview/assets/media/doe-film-2026-10-30.vtt"></video>
+          <video id="doe-film-video" playsinline preload="none" loading="lazy" controlslist="nodownload noplaybackrate" disablepictureinpicture width="1920" height="1080" poster="/probaligence-site-preview/assets/media/doe-film-2026-10-30-thumbnail.webp" aria-label="Film: AI-enhanced design of experiments with STOCHOS" style="display: block; width: 100%; height: auto;"><source data-src="/probaligence-site-preview/probaligence-site-preview/assets/media/doe-film-2026-10-30.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="/probaligence-site-preview/assets/media/doe-film-2026-10-30.vtt"></video>
           <button type="button" data-video-start aria-controls="doe-film-video" aria-label="Play the film" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; border: 0; padding: 0; background: transparent; cursor: pointer; transition: background 0.2s ease;"><span class="film-play" aria-hidden="true"><svg viewBox="0 0 22 24" fill="none" aria-hidden="true"><path d="M2 2.2 20 12 2 21.8Z" fill="#08070A"></path></svg></span></button>
         </div>
-        <figcaption>Classical design of experiments fixes the whole plan upfront. STOCHOS updates it after every result, so each measurement changes which trial is worth running next.</figcaption>
+        <figcaption>Classical design of experiments fixes the whole plan upfront. <a href="/probaligence-site-preview/stochos/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255,176,6,0.4);">STOCHOS</a> updates it after every result, so each measurement changes which trial is worth running next.</figcaption>
       </figure>
       <noscript><p style="margin-top: 10px; font-size: 15px; line-height: 1.6;"><a href="/probaligence-site-preview/assets/media/doe-film-2026-10-30.mp4" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255,176,6,0.4);">Open the video file (MP4)</a></p></noscript>
     </div>
@@ -288,6 +296,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <canvas id="pf-cv" aria-hidden="true" style="position: absolute; inset: 0px; width: 100%; height: 100%; cursor: crosshair;"></canvas>
           <div style="position: absolute; right: 0px; bottom: 0px; font: 400 10.5px / 1 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124); pointer-events: none;">hover to inspect &middot; click to resample</div>
         </div>
+        <div class="pf-act" id="pf-act" hidden><button type="button" class="pf-resample" id="pf-resample">Resample</button></div>
+        <p id="pf-sum" role="status" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0"></p>
         <div class="demo-ticker" style="margin-top: 18px" role="note" aria-label="Demonstration only. This is not the real STOCHOS software or algorithm. Everything shown runs on synthetic data for demonstration purposes.">
           <div class="demo-ticker-view">
             <div class="demo-ticker-track" aria-hidden="true">
@@ -295,7 +305,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
               <div class="demo-ticker-set"><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b><b>Demonstration only</b><b>not the real STOCHOS software or algorithm</b><b>synthetic data, illustrative results</b></div>
             </div>
           </div>
-          <button type="button" class="demo-ticker-pause" aria-pressed="false" aria-label="Pause the demonstration notice">&#10074;&#10074;</button>
+          <button type="button" class="demo-ticker-pause" aria-label="Pause the demonstration notice">&#10074;&#10074;</button>
         </div>
         <noscript>
         <svg viewBox="0 0 520 320" width="100%" xmlns="http://www.w3.org/2000/svg" style="display: block; height: auto;">
@@ -356,7 +366,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   .ucs-row:hover .ucs-still{opacity:1}
 
   .ucs-meta{display:flex;align-items:baseline;gap:11px}
-  .ucs-idx{font:500 11px/1 'IBM Plex Mono',monospace;color:#5c5c56;letter-spacing:.08em;transition:color .3s ease}
+  .ucs-idx{font:500 11px/1 'IBM Plex Mono',monospace;color:#82827C;letter-spacing:.08em;transition:color .3s ease}
   .ucs-row:hover .ucs-idx{color:#FFB006}
   .ucs-tag{font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#FFB006}
   .ucs-h3{margin:9px 0 0;font:600 clamp(19px,2vw,25px)/1.18 'Space Grotesk',sans-serif;letter-spacing:-.018em;color:#f4f3ef;text-wrap:pretty}
@@ -410,7 +420,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <div class="ucs-in">
     <div class="ucs-eyebrow" data-ucs-rv>Where it fits</div>
     <h2 id="the-work-this-actually-gets-used-for" class="ucs-h2" data-ucs-rv style="--d:60ms">The work this actually gets used for</h2>
-    <p class="ucs-lead" data-ucs-rv style="--d:120ms">Problems in coatings development and production that share one shape: panels that take weeks, ingredients that have to sum to a fixed total, and targets that pull against each other.</p>
+    <p class="ucs-lead" data-ucs-rv style="--d:120ms">Problems in coatings development and production that share one shape: panels that take weeks, ingredients that have to sum to a fixed total, and targets that pull against each other. STOCHOS does not replace the paint formulation software or coating formulation software that manages your recipes: it learns from the data those systems already hold.</p>
 
     <div class="ucs-list">
 
@@ -585,8 +595,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   var more = sec.querySelector('.ucs-more'), btn = sec.querySelector('.ucs-toggle');
   if (!more || !btn) return;
   var lbl = btn.querySelector('.ucs-toggle-label'), open = false, t = null;
+  more.inert = true;
   btn.addEventListener('click', function () {
     open = !open;
+    more.inert = !open;
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     lbl.textContent = open ? btn.getAttribute('data-less') : btn.getAttribute('data-more');
     clearTimeout(t);
@@ -691,6 +703,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
       <li><a href="/probaligence-site-preview/guides/lab-to-production-scale-up/"><span class="kind">Guide</span><span>How to cut lab to production scale-up risk</span><span class="arw" aria-hidden="true">&rarr;</span></a></li>
       <li><a href="/probaligence-site-preview/news/ai-coatings-ecs-2025/"><span class="kind">News</span><span>AI in coatings development, insights from ECS 2025</span><span class="arw" aria-hidden="true">&rarr;</span></a></li>
       <li><a href="/probaligence-site-preview/news/lacktagung-2025-aachen/"><span class="kind">News</span><span>PI Probaligence at Lacktagung 2025 in Aachen</span><span class="arw" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="/probaligence-site-preview/ai-for-chemical-process-optimization/"><span class="kind">Solution</span><span>AI for Chemical R&amp;D</span><span class="arw" aria-hidden="true">&rarr;</span></a></li>
     </ul>
   </div>
 </section>
@@ -728,7 +741,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <details class="fq" id="faq-1"><summary><span class="ix">01</span><span class="q">How can AI reduce lab trials in formulation development?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>STOCHOS learns from your existing trials, then recommends which formulation to test next to reach the target with fewer experiments. Each new measurement updates the model, so the search adapts as results arrive. A reference example developed a coating with 17 parameters automatically within five adaptation cycles.</p></div></div></details>
         <details class="fq" id="faq-2"><summary><span class="ix">02</span><span class="q">Can AI optimize color, gloss, viscosity, and cost together?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Yes. Formulation is a multi-objective problem, and STOCHOS uses multi-objective Bayesian optimization to balance competing targets rather than fixing one at a time, mapping a Pareto front of best compromises. Sensitivity analysis shows which ingredients and interactions matter most, so you can see the trade-off instead of guessing.</p></div></div></details>
         <details class="fq" id="faq-3"><summary><span class="ix">03</span><span class="q">How does Bayesian optimization support formulation development?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>It treats each lab trial as expensive. Starting from an initial design of experiments, the model improves with every result and proposes the next formulation with the highest expected information gain. The search adapts until the target properties are met within the formulation rules you set.</p></div></div></details>
-        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Does our recipe data leave our infrastructure?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Not in a local setup. STOCHOS and STOCHOS Flow are local-first: training, prediction, and optimization run on your own infrastructure, with cloud services optional rather than required. For strict environments, STOCHOS supports air-gapped deployment via an offline license, and in that mode it makes no outbound network connections. Recipes, measurements, and models stay where your IT can see them.</p></div></div></details>
+        <details class="fq" id="faq-4"><summary><span class="ix">04</span><span class="q">Does our recipe data leave our infrastructure?</span><span class="plus" aria-hidden="true">+</span></summary><div class="aw"><div class="ab"><p>Not in a local setup. STOCHOS and <a href="/probaligence-site-preview/stochos-flow/" style="color: rgb(255, 176, 6); text-decoration: none; border-bottom: 1px solid rgba(255,176,6,0.4);">STOCHOS Flow</a> are local-first: training, prediction, and optimization run on your own infrastructure, with cloud services optional rather than required. For strict environments, STOCHOS supports air-gapped deployment via an offline license, and in that mode it makes no outbound network connections. Recipes, measurements, and models stay where your IT can see them.</p></div></div></details>
       </div>
     </div>
     <script>(function(){var w=document.getElementById('fqq');if(!w)return;w.addEventListener('toggle',function(e){var d=e.target;if(d.tagName==='DETAILS'&&d.open&&w.hasAttribute('data-single-open')){var os=w.querySelectorAll('details[open]');for(var i=0;i<os.length;i++){if(os[i]!==d)os[i].open=false;}}},true);if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS'&&w.contains(t)){t.open=true;}}})();</script>
@@ -744,11 +757,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <a href="/probaligence-site-preview/" class="brand"><img width="33" height="32" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img width="120" height="14" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
-          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+          <img width="157" height="40" loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img width="135" height="19" loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -787,7 +800,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   </div>
 </footer>
 <script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
-<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<script src="/probaligence-site-preview/site.js?v=c67a8e9f" defer></script>
 <script>(function(){var bs=document.querySelectorAll('[data-video-start]');for(var i=0;i<bs.length;i++)(function(b){var v=document.getElementById(b.getAttribute('aria-controls'));if(!v){b.parentNode.removeChild(b);return;}b.addEventListener('click',function(){var s=v.querySelector('source[data-src]');if(s&&!s.getAttribute('src')){s.setAttribute('src',s.getAttribute('data-src'));v.load();}v.setAttribute('controls','');b.parentNode.removeChild(b);var p=v.play();if(p&&p.catch)p.catch(function(){});v.focus();});})(bs[i]);})();</script>
 <script>
 /* pareto-front-explorer (ported CORE) */
@@ -813,6 +826,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         if (p.e < best) { best = p.e; p.front = true; front.push(p); }
       });
       hover = null;
+      if (o.onSample) o.onSample(front.length, pts.length);
     }
     function resize() {
       var dpr = Math.min(devicePixelRatio || 1, 2);
@@ -926,10 +940,24 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     });
     canvas.addEventListener('pointerleave', function () { hover = null; if (reduce || !running) draw(); });
     canvas.addEventListener('click', function () { resample(); if (reduce || !running) draw(); });
+    if (o.button) o.button.addEventListener('click', function () { resample(); if (reduce || !running) draw(); });
     return { resample: resample, destroy: function () { stop(); } };
   }
+  /* V10, 2026-11-17: the Resample button is the chart's keyboard path, and the hidden status line
+     carries the frontier count the canvas paints (the canvas stays aria-hidden), so a screen reader
+     hears the count after each sample. The line is filled at load too, without an announcement. */
   var pfCanvas = document.getElementById('pf-cv');
-  if (pfCanvas) paretoExplorer(pfCanvas, { n: 90 });
+  if (pfCanvas) {
+    var pfSum = document.getElementById('pf-sum'), pfAct = document.getElementById('pf-act');
+    var pf = paretoExplorer(pfCanvas, {
+      n: 90,
+      button: document.getElementById('pf-resample'),
+      onSample: function (f, n) {
+        if (pfSum) pfSum.textContent = f + ' of ' + n + ' synthetic designs are on the frontier, where no cheaper design has a lower prediction error.';
+      }
+    });
+    if (pf && pfAct) pfAct.hidden = false;
+  }
 })();
 </script>
 <script>

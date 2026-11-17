@@ -4,11 +4,12 @@
 <script>try{var q=location.search;if(/[?&]motion=1/.test(q)){try{localStorage.setItem("pi-motion","on")}catch(e){}}if(/[?&]motion=0/.test(q)){try{localStorage.removeItem("pi-motion")}catch(e){}}var f=false;try{f=localStorage.getItem("pi-motion")==="on"}catch(e){}if(f)window.__PIFX_FORCE=true;if(f||!matchMedia("(prefers-reduced-motion:reduce)").matches){var d=document.documentElement;d.className+=" anim";setTimeout(function(){d.className+=" anim-done"},900);}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/probaligence-site-preview/assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 
 <title>Clean Lab Data for Machine Learning | PI Probaligence</title><meta name="description" content="The Smart Preprocessor in STOCHOS Flow profiles lab data and turns plain-language cleaning instructions into a reviewable sklearn and pandas pipeline."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://probaligence.com/guides/clean-lab-data-for-ml/"><meta property="og:type" content="article"><meta property="og:site_name" content="PI Probaligence"><meta property="og:title" content="Clean Lab Data for Machine Learning | PI Probaligence"><meta property="og:description" content="Plain-language cleaning instructions become a reviewable sklearn and pandas pipeline in STOCHOS Flow."><meta property="og:url" content="https://probaligence.com/guides/clean-lab-data-for-ml/"><meta property="og:image" content="https://probaligence.com/assets/media/insights/ep3-messy-data-og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Clean lab data for machine learning","description":"The Smart Preprocessor in STOCHOS Flow profiles a lab dataset, takes plain-language cleaning instructions, and generates a reviewable sklearn and pandas pipeline, so the cleaning recipe becomes explicit and rerunnable instead of living in someone's head.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-07-22","dateModified":"2026-07-30","mainEntityOfPage":"https://probaligence.com/guides/clean-lab-data-for-ml/","inLanguage":"en","image":["https://probaligence.com/assets/media/insights/ep3-messy-data.webp"]}</script><script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Clean lab data for machine learning","description":"The Smart Preprocessor in STOCHOS Flow profiles a lab dataset, takes plain-language cleaning instructions, and generates a reviewable sklearn and pandas pipeline, so the cleaning recipe becomes explicit and rerunnable instead of living in someone's head.","author":{"@type":"Organization","name":"PI Probaligence GmbH"},"publisher":{"@type":"Organization","name":"PI Probaligence GmbH","logo":{"@type":"ImageObject","url":"https://probaligence.com/assets/logo.png"}},"datePublished":"2026-07-22","dateModified":"2026-11-15","mainEntityOfPage":"https://probaligence.com/guides/clean-lab-data-for-ml/","inLanguage":"en","image":["https://probaligence.com/assets/media/insights/ep3-messy-data.webp"]}</script><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://probaligence.com/"},{"@type":"ListItem","position":2,"name":"News and Guides","item":"https://probaligence.com/news/"},{"@type":"ListItem","position":3,"name":"Clean lab data for machine learning","item":"https://probaligence.com/guides/clean-lab-data-for-ml/"}]}
 </script><style>
 @font-face{font-family:'Space Grotesk';src:url('/probaligence-site-preview/assets/fonts/space-grotesk-700.woff2') format('woff2');font-weight:700;font-display:swap}
@@ -28,7 +29,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){[data-marquee]{animation:none!important}}
 </style>
-<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=a39939ec">
+<link rel="stylesheet" href="/probaligence-site-preview/site.css?v=4d6136f0">
 <link rel="icon" href="/probaligence-site-preview/assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/probaligence-site-preview/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/probaligence-site-preview/assets/favicon-96.png">
@@ -64,8 +65,8 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav-inner">
     <a href="/probaligence-site-preview/" class="brand" aria-label="PI Probaligence home">
-      <img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
-      <img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
+      <img width="35" height="34" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true">
+      <img width="128" height="15" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence">
     </a>
     <button type="button" class="nav-toggle" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -149,7 +150,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
     <div style="max-width: 980px; margin: 0px auto;">
       <div style="font: 500 12px / 1 &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(255, 176, 6); margin-bottom: 20px;">The cleaning problem</div>
       <h2 id="the-cleaning-steps-live-in-someone-s-head" style="font: 700 clamp(26px, 3.6vw, 40px) / 1.12 &quot;Space Grotesk&quot;, sans-serif; letter-spacing: -0.02em; max-width: 20ch;">The cleaning steps live in someone's head</h2>
-      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;">Lab datasets rarely arrive ready for modeling. Units differ between instruments, values are missing, a pressure column holds negative readings that are physically impossible, and two sensors report nearly the same signal in separate columns. Cleaning all of that eats days, and the sequence of fixes usually exists nowhere except in the memory of whoever did it last.</p>
+      <p style="margin-top: 20px; color: rgb(184, 184, 178); font-size: 17px; line-height: 1.65; max-width: 62ch;"><a href="/probaligence-site-preview/ai-for-chemical-process-optimization/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">Lab datasets</a> rarely arrive ready for modeling. Units differ between instruments, values are missing, a pressure column holds negative readings that are physically impossible, and two sensors report nearly the same signal in separate columns. Cleaning all of that eats days, and the sequence of fixes usually exists nowhere except in the memory of whoever did it last.</p>
       <p style="margin-top: 18px; color: rgb(156, 156, 150); font-size: 15px; line-height: 1.65; max-width: 62ch;">That has two costs. The work repeats every time new data lands, and nobody can verify what was done: which rows were dropped, which gaps were filled, which columns were rescaled before the model ever saw them.</p>
     <figure style="margin: 40px 0px 0px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 8px; padding: 14px; background: rgb(0, 0, 0);"><img loading="lazy" decoding="async" src="/probaligence-site-preview/assets/media/insights/ep3-messy-data.webp" width="720" height="606" alt="A raw laboratory data table with mixed units, blank cells, and one value boxed in red, standing in for the inconsistencies that make a fresh export unready for modelling." style="display: block; width: 100%; height: auto; border-radius: 3px;"><figcaption style="margin: 12px 4px 0px; color: rgb(150, 150, 144); font: 400 13px / 1.55 &quot;IBM Plex Mono&quot;, monospace;">A raw lab export: mixed units, missing values, and inconsistent scales, none of it ready for a model.</figcaption></figure>
       </div>
@@ -202,9 +203,9 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
           <h3 style="font: 600 17px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Keep up with a high-throughput lab</h3>
           <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">When automation moves the bottleneck from the bench to planning, a model proposes the next plate.</p>
         </a>
-        <a href="/probaligence-site-preview/news/" class="scp3" style="display: block; background: rgb(10, 9, 8); padding: 26px 24px; text-decoration: none;">
-          <h3 style="font: 600 17px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">News and Guides</h3>
-          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Every guide and insight we have published, in one place.</p>
+        <a href="/probaligence-site-preview/guides/merge-messy-engineering-data/" class="scp3" style="display: block; background: rgb(10, 9, 8); padding: 26px 24px; text-decoration: none;">
+          <h3 style="font: 600 17px / 1.3 &quot;Space Grotesk&quot;, sans-serif; color: rgb(244, 243, 239);">Merge messy engineering data without scripting</h3>
+          <p style="color: rgb(156, 156, 150); font-size: 14px; line-height: 1.55; margin-top: 10px;">Describe the merge, read the pandas script before it runs.</p>
         </a>
       </div>
     </div>
@@ -227,6 +228,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
         <a href="/probaligence-site-preview/stochos-flow/" class="scp2" style="border: 1px solid rgba(255, 255, 255, 0.2); color: rgb(244, 243, 239); font: 600 15.5px / 1 &quot;IBM Plex Sans&quot;, sans-serif; padding: 16px 28px; border-radius: 2px; text-decoration: none; transition: border-color 0.15s, background 0.15s;">STOCHOS Flow</a>
       </div>
       <p style="margin: 26px auto 0px; font: 500 11.5px / 1.7 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Local-first. Your data stays on your infrastructure.</p>
+      <p style="margin: 8px auto 0px; font: 500 11.5px / 1.7 &quot;IBM Plex Mono&quot;, monospace; color: rgb(130, 130, 124);">Releases and selected news by email: <a href="/probaligence-site-preview/newsletter/" class="scp0" style="color: rgb(255, 176, 6); text-decoration: underline;">subscribe to the newsletter</a>.</p>
     </div>
   </section>
 </main>
@@ -240,11 +242,11 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/probaligence-site-preview/" class="brand"><img src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
+        <a href="/probaligence-site-preview/" class="brand"><img width="33" height="32" src="/probaligence-site-preview/assets/logos/pi-mark-dark.svg" alt="" aria-hidden="true"><img width="120" height="14" class="brand-word" src="/probaligence-site-preview/assets/logos/pi-wordmark-dark.svg" alt="Probaligence"></a>
         <p>Local, probabilistic AI for engineering and R&amp;D. Fast predictions with quantified uncertainty, run on your own infrastructure.</p>
         <div class="footer-cred">
-          <img loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
-          <img loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
+          <img width="157" height="40" loading="lazy" class="cred-ansys" src="/probaligence-site-preview/assets/logos/ansys-technology-partner.svg" alt="Official Ansys Technology Partner">
+          <img width="135" height="19" loading="lazy" class="cred-cadfem" src="/probaligence-site-preview/assets/logos/cadfem-part-of.svg" alt="Part of the CADFEM Group">
         </div>
         <div class="footer-social">
           <a class="social-btn" href="https://www.linkedin.com/company/pi-probaligence-gmbh/" target="_blank" rel="noopener" aria-label="PI Probaligence on LinkedIn" title="LinkedIn">
@@ -283,7 +285,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}
   </div>
 </footer>
 <script src="/probaligence-site-preview/scrollfx.js?v=0b09259c" defer></script>
-<script src="/probaligence-site-preview/site.js?v=2e15ed43" defer></script>
+<script src="/probaligence-site-preview/site.js?v=c67a8e9f" defer></script>
 <a href="../../feedback/?page=Insight%3A%20Clean%20lab%20data%20for%20machine%20learning" data-demo-feedback aria-label="Send feedback on this page" style="position:fixed;right:22px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#FFB006;color:#08070A;font:600 16px/1 'IBM Plex Sans',sans-serif;padding:16px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.5)"><span style="width:9px;height:9px;border-radius:50%;background:#08070A"></span>Feedback</a>
 </body>
 </html>
