@@ -7,7 +7,14 @@
 <description>Company news and evergreen guides on surrogate modeling, coating development, and chemical process scale-up, written to explain the methods plainly.</description>
 <language>en</language>
 <atom:link href="https://probaligence.com/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Thu, 12 Nov 2026 12:00:00 +0000</lastBuildDate>
+<lastBuildDate>Thu, 19 Nov 2026 12:00:00 +0000</lastBuildDate>
+<item>
+<title>Our interview in Digital Engineering Magazin: probabilistic AI and AI agents</title>
+<link>https://probaligence.com/news/digital-engineering-magazin-interview/</link>
+<guid isPermaLink="true">https://probaligence.com/news/digital-engineering-magazin-interview/</guid>
+<pubDate>Thu, 19 Nov 2026 12:00:00 +0000</pubDate>
+<description>Digital Engineering Magazin interviewed Dr. Kevin Cremanns and Jason Easaw on probabilistic AI for small data and AI agents for engineering workflows.</description>
+</item>
 <item>
 <title>We're presenting at the European Coatings Show Conference 2027</title>
 <link>https://probaligence.com/news/european-coatings-show-conference-2027/</link>
